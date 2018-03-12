@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import { Form, Button, Container, Tab, Segment, Image, Label, Icon, Divider, Grid, Menu } from 'semantic-ui-react'
-import ACSSLogo from '../assets/logo.png';
 
 class App extends Component{
   constructor(props){
@@ -37,13 +36,6 @@ class App extends Component{
               </div>
             </div>
             <div class="field">
-              <label>Username</label>
-              <div class="ui input">
-                <input type="text" placeholder="Username" />
-              </div>
-            </div>
-
-            <div class="field">
               <label>Employee Id</label>
               <div class="ui input">
                 <input type="text" placeholder="Employee Id" />
@@ -61,24 +53,22 @@ class App extends Component{
                 <input type="text" placeholder="Department" />
               </div>
             </div>
-
-
+            <div class="field">
+              <label>Username</label>
+              <div class="ui input">
+                <input type="text" placeholder="Username" />
+              </div>
+            </div>
             <div class="field">
               <label>Password</label>
               <div class="ui input">
                 <input type="password" />
               </div>
             </div>
-            <div class="inline field">
-              <div class="ui checkbox">
-                <input type="checkbox" class="hidden" readonly="" tabindex="0" />
-                <label>I agree to the terms and conditions</label>
-              </div>
-            </div>
             <button class="ui blue button" role="button">Submit</button>
           </form>
           <div class="ui warning bottom attached message">
-            <i aria-hidden="true" class="help icon"></i>Already signed up? <a href="#">Login here</a> instead.
+            <i aria-hidden="true" class="help icon"></i>Already have an account? <a href="#">Click here to Login</a> instead.
           </div>
         </div>
       </Container>
