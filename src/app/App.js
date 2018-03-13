@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+//import './App.css';
 import 'semantic-ui-css/semantic.min.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-import Login from '../features/auth/Login.js';
+import Login from './../features/auth/Login';
+import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
 
-export default class App extends Component {
-  constructor() {
-    super();
-
-    // this.state() = {
-    /*states here*/
-    // };
-    /*binds here*/
-  }
-  /*handlers here*/
+class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Login />
-          {/*page contents here*/}
-        </div>
-      </Router>
-    );
+      <div id="main">
+        <Router>
+          <div id="content-container">
+            <Route exact={true} path="/" component={Login}/>
+            <Route exact={true} path="/teachingload/add" component={AddTeachingLoad}/>
+          </div>
+        </Router>
+      </div>
+    )
   }
 }
+
+export default App;
