@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Divider} from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import {Divider} from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import * as Api from '../../api';
 
 export default class AddStudyLoad extends Component {
 	constructor(props) {
@@ -111,7 +112,7 @@ export default class AddStudyLoad extends Component {
 				<a class="item" href="/consultation/view">
 					Consultation Hours
 				</a>
-				<a class="item">
+				<a class="item" href="../..">
 					Logout
 				</a>
 			</div>
