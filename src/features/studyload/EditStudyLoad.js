@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Divider} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-export default class AddStudyLoad extends Component {
+export default class EditStudyLoad extends Component {
 	constructor(props) {
 		super(props);
 
@@ -31,7 +31,8 @@ export default class AddStudyLoad extends Component {
 		this.handleChangeTime=this.handleChangeTime.bind(this);
 		this.handleChangeSchool=this.handleChangeSchool.bind(this);
 		this.handleChangeSlcred=this.handleChangeSlcred.bind(this);
-		this.startAdd=this.startAdd.bind(this);
+		
+		this.startEdit=this.startEdit.bind(this);
 	}
 
 	handleChangeDegree(e) {
@@ -74,7 +75,7 @@ export default class AddStudyLoad extends Component {
 		this.setState({slcred: e.target.value});
 	}
 
-	startAdd(e) {
+	startEdit(e) {
 		fetch('http://localhost:3000/teachingload/add/subj='+this.state.subj+'&seccode='+this.state.seccode+'&room='+this.state.room+'&days='+this.state.days+'&time='+this.state.time+'&hours='+this.state.hours+'&studnum='+this.state.studnum+'&creditwo='+this.state.creditwo+'&studcred='+this.state.studcred+'&credw='+this.state.credw)
 		.then((response)=>{return response.json()})
 		.catch((e)=>{console.log(e)})
@@ -118,7 +119,7 @@ export default class AddStudyLoad extends Component {
 			 <Divider hidden='true'/>
 			<div class="ui piled very padded text left aligned container segment" color='teal'>
 			  <div>
-				  <h2 class="ui blue header">Add New Study Load
+				  <h2 class="ui blue header">Edit Study Load
 				  <button class="ui right floated blue button">Generate FSR</button>
 				  <button class="ui right floated blue button">Send to Admin</button>
 				  </h2>
@@ -127,13 +128,13 @@ export default class AddStudyLoad extends Component {
 			  	  <p>
 					  <a class="ui small header">Degree Enrolled In   </a>
 					  <div class="ui input mini focus">
-					  		<input type="text" style={{width: "455px"}} onChange={this.handleChangeDegree}/>
+					  		<input type="text" style={{width: "455px"}} value={this.state.degree} onChange={this.handleChangeDegree}/>
 					  </div> 
 				  </p>
 			  	  <p>
 					  <a class="ui small header"> University Enrolled In   </a>
 					  <div class="ui input mini focus">
-					  		<input type="text" style={{width: "432px"}} onChange={this.handleChangeUni}/>
+					  		<input type="text" style={{width: "432px"}} value={this.state.uni} onChange={this.handleChangeUni}/>
 					  </div>
 				  </p>
 				  <p>
@@ -177,41 +178,41 @@ export default class AddStudyLoad extends Component {
 				  <p>
 					  <a class="ui small header">Course Number </a>
 					  <div class="ui input mini focus">
-					  		<input type="text" style={{width: "475px"}} onChange={this.handleChangeCourseno}/>
+					  		<input type="text" style={{width: "475px"}} value={this.state.courseno} onChange={this.handleChangeCourseno}/>
 					  </div>
 				  </p>
 				  <p>
 					  <a class="ui small header">Course Credit </a>
 					  <div class="ui input mini focus">
-					  		<input type="text"  style={{width: "490px"}} onChange={this.handleChangeCcred}/>
+					  		<input type="text"  style={{width: "490px"}} value={this.state.ccred} onChange={this.handleChangeCcred}/>
 					  </div>
 				  </p>
 				  <p>
 					  <a class="ui small header">Days </a>
 					  <div class="ui input mini focus">
-					  		<input type="text"  style={{width: "560px"}} onChange={this.handleChangeDay}/>
+					  		<input type="text"  style={{width: "560px"}} value={this.state.day} onChange={this.handleChangeDay}/>
 					  </div>
 				  </p>
 				  <p>
 					  <a class="ui small header">Time </a>
 					  <div class="ui input mini focus">
-					  		<input type="text"  style={{width: "560px"}} onChange={this.handleChangeTime}/>
+					  		<input type="text"  style={{width: "560px"}} value={this.state.time} onChange={this.handleChangeTime}/>
 					  </div>
 				  </p>
 				  <p>
 					  <a class="ui small header">School </a>
 					  <div class="ui input mini focus">
-					  		<input type="text"  style={{width: "545px"}} onChange={this.handleChangeSchool}/>
+					  		<input type="text"  style={{width: "545px"}} value={this.state.school} onChange={this.handleChangeSchool}/>
 					  </div>
 				  </p>
 				  <p>
 					  <a class="ui small header">Study Load Credits </a>
 					  <div class="ui input mini focus">
-					  		<input type="text"  style={{width: "450px"}} onChange={this.handleChangeSlcred}/>
+					  		<input type="text"  style={{width: "450px"}} value={this.state.slcred} onChange={this.handleChangeSlcred}/>
 					  </div>
 				  </p>
 				  <div class="ui center aligned container">
-				  	<button class="ui center aligned blue button" onClick={this.startAdd}>Add Study Load</button>
+				  	<button class="ui center aligned blue button" onClick={this.startEdit}>Save changes</button>
 				  </div>
 			</div>
 			 <Divider hidden='true'/>
@@ -221,6 +222,6 @@ export default class AddStudyLoad extends Component {
 }
 //=========================
 ReactDOM.render(
-	<AddStudyLoad/>,
+	<EditStudyLoad/>,
 	document.getElementById('root')
 );

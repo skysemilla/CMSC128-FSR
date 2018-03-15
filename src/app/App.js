@@ -7,6 +7,7 @@ import Login from './../features/auth/Login';
 import Signup from './../features/auth/Signup';
 import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
 import AddStudyLoad from './../features/studyload/AddStudyLoad';
+import EditStudyLoad from './../features/studyload/EditStudyLoad';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route exact={true} path="/signup" component={Signup}/>
             <Route exact={true} path="/teachingload/add" component={AddTeachingLoad}/>
             <Route exact={true} path="/studyload/add" component={AddStudyLoad}/>
+            <Route exact={true} path="/studyload/edit" component={EditStudyLoad}/>
           </div>
         </Router>
       </div>
