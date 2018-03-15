@@ -55,9 +55,21 @@ class Signup extends Component{
   }
 
   startSignup(e) {
-    fetch('http://localhost:3000/login/username='+this.state.username+'&password='+this.state.password+'&fname='+this.state.fname+'&lname='+this.state.lname+'&empid='+this.state.empid+'&college='+this.state.college+'&dept='+this.state.dept)
-    .then((response)=>{return response.json()})
-    .catch((e)=>{console.log(e)})
+    // e.preventDefault();
+    // Api.signup({
+    //   username: this.state.username,
+    //   password: this.state.password,
+    //   fname: this.state.fname,
+    //   lname: this.state.lname,
+    //   empid: this.state.empid,
+    //   college: this.state.college,
+    //   dept: this.state.dept,
+    // })
+    //   .then(result => {
+    //     this.props.history.push('./teachingload/add');  //change to profile later!!
+    //     alert('Signup successful! Welcome to your profile.');
+    //   })
+    //   .catch(e => alert('Error with signup!'));
   }
 
   render(){

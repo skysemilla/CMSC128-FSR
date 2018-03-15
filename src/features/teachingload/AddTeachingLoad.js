@@ -75,34 +75,24 @@ export default class AddTeachingLoad extends Component {
   }
 
   startAdd(e) {
-    fetch(
-      'http://localhost:3000/teachingload/add/subj=' +
-        this.state.subj +
-        '&seccode=' +
-        this.state.seccode +
-        '&room=' +
-        this.state.room +
-        '&days=' +
-        this.state.days +
-        '&time=' +
-        this.state.time +
-        '&hours=' +
-        this.state.hours +
-        '&studnum=' +
-        this.state.studnum +
-        '&creditwo=' +
-        this.state.creditwo +
-        '&studcred=' +
-        this.state.studcred +
-        '&credw=' +
-        this.state.credw
-    )
-      .then(response => {
-        return response.json();
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // e.preventDefault();
+    // Api.addteachingload({
+    //   subj: this.state.subj,
+    //   seccode: this.state.seccode,
+    //   room: this.state.room,
+    //   days: this.state.days,
+    //   time: this.state.time,
+    //   hours: this.state.hours,
+    //   studnum: this.state.studnum,
+    //   creditwo: this.state.creditwo,
+    //   studcred: this.state.studcred,
+    //   creditw: this.state.creditw
+    // })
+    //   .then(result => {
+    //     this.props.history.push('./teachingload/view');  //change to profile later!!
+    //     alert('Teaching load successfully added!');
+    //   })
+    //   .catch(e => alert('Error adding new Teaching Load!'));
   }
 
   render() {
