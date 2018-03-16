@@ -24,8 +24,10 @@ export default class AddStudyLoad extends Component {
 
 		this.handleChangeDegree=this.handleChangeDegree.bind(this);
 		this.handleChangeUni=this.handleChangeUni.bind(this);
-		this.handleChangeStudyLeave=this.handleChangeStudyLeave.bind(this);
-		this.handleChangeFellowship=this.handleChangeFellowship.bind(this);
+		this.yesStudyLeave=this.yesStudyLeave.bind(this);
+		this.noStudyLeave=this.noStudyLeave.bind(this);
+		this.yesFellowship=this.yesFellowship.bind(this);
+		this.noFellowship=this.noFellowship.bind(this);
 		this.handleChangeCourseno=this.handleChangeCourseno.bind(this);
 		this.handleChangeCcred=this.handleChangeCcred.bind(this);
 		this.handleChangeDay=this.handleChangeDay.bind(this);
@@ -43,12 +45,20 @@ export default class AddStudyLoad extends Component {
 		this.setState({uni: e.target.value});
 	}
 
-	handleChangeStudyLeave(e) {
-		this.setState({studyleave: e.target.value});
+	yesStudyLeave(e) {
+		this.setState({studyleave: 'YES'});
 	}
 
-	handleChangeFellowship(e) {
-		this.setState({fellowship: e.target.value});
+	noStudyLeave(e) {
+		this.setState({studyleave: 'NO'});
+	}
+
+	yesFellowship(e) {
+		this.setState({fellowship: 'YES'});
+	}
+
+	noFellowship(e) {
+		this.setState({fellowship: 'NO'});
 	}
 
 	handleChangeCourseno(e) {
@@ -153,18 +163,18 @@ export default class AddStudyLoad extends Component {
 					  </div>
 				  </p>
 				  <p>
-					 <div class="ui form" onChange={this.handleChangeStudyLeave}>
+					 <div class="ui form">
 					    <div class="inline fields">
 					        <label>On Full Study Leave w/ Pay?</label>
 					        <div class="field">
 					            <div class="ui radio checkbox">
-					                <input type="radio" name="studyleave"/>
+					                <input type="radio" name="studyleave"  onClick={this.yesStudyLeave}/>
 					                <label>Yes</label>
 					              </div>
 					            </div>
 					            <div class="field">
 					              <div class="ui radio checkbox">
-					                <input type="radio" name="studyleave"/>
+					                <input type="radio" name="studyleave"   onClick={this.noStudyLeave}/>
 					                <label>No</label>
 					            </div>
 					        </div>
@@ -177,13 +187,13 @@ export default class AddStudyLoad extends Component {
 					        <label>Recepient of Faculty Fellowship?</label>
 					        <div class="field">
 					            <div class="ui radio checkbox">
-					                <input type="radio" name="fellowship"/>
+					                <input type="radio" name="fellowship"  onClick={this.yesFellowship}/>
 					                <label>Yes</label>
 					              </div>
 					            </div>
 					            <div class="field">
 					              <div class="ui radio checkbox">
-					                <input type="radio" name="fellowship"/>
+					                <input type="radio" name="fellowship"  onClick={this.noFellowship}/>
 					                <label>No</label>
 					            </div>
 					        </div>
