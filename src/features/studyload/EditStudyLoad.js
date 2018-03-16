@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Divider} from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import {Divider} from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import * as Api from '../../api';
 
 export default class EditStudyLoad extends Component {
 	constructor(props) {
@@ -76,9 +77,24 @@ export default class EditStudyLoad extends Component {
 	}
 
 	startEdit(e) {
-		fetch('http://localhost:3000/teachingload/add/subj='+this.state.subj+'&seccode='+this.state.seccode+'&room='+this.state.room+'&days='+this.state.days+'&time='+this.state.time+'&hours='+this.state.hours+'&studnum='+this.state.studnum+'&creditwo='+this.state.creditwo+'&studcred='+this.state.studcred+'&credw='+this.state.credw)
-		.then((response)=>{return response.json()})
-		.catch((e)=>{console.log(e)})
+  //   e.preventDefault();
+  //   Api.addstudyload({
+		// degree: this.state.degree,
+		// uni: this.state.uni,
+		// studyleave: this.state.studyleave,
+		// fellowship: this.state.fellowship,
+		// courseno: this.state.courseno,
+		// ccred: this.state.ccred,
+		// day: this.state.day,
+		// time: this.state.time,
+		// school: this.state.school,
+		// slcred: this.state.slcred
+  //   })
+  //     .then(result => {
+  //       this.props.history.push('./studyload/view');  //change to profile later!!
+  //       alert('Study load successfully added!');
+  //     })
+  //     .catch(e => alert('Error adding new Study Load!'));
 	}
 
 	render() {
