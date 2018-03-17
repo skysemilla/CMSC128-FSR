@@ -19,12 +19,26 @@ export default class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      type: ''
     };
 
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.startLogin = this.startLogin.bind(this);
+  }
+
+  componentDidMount() {
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        this.setState({ type: result.data.data.type });
+        if (this.state.type === 'ADMIN') {
+          this.props.history.push('./teachingload/add');
+        } else if (this.state.type === 'USER') {
+          this.props.history.push('./studyload/add');
+        }
+      }
+    });
   }
 
   handleChangeUsername(e) {
