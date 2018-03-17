@@ -99,10 +99,10 @@ export default class AddTeachingLoad extends Component {
     return (
       <div className="App-header">
         <div class="ui blue inverted fluid ten item menu">
-          <a class="item active" href="/profile/view">
+          <a class="item " href="/profile/view">
             Profile
           </a>
-          <a class="item" href="/teachingload/view">
+          <a class="item active" href="/teachingload/view">
             Teaching Load
           </a>
           <a class="item" href="/publications/view">

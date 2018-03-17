@@ -27,13 +27,13 @@ export default class ViewPublications extends Component {
 		return(
 		<div className="App-header">
 			<div class="ui blue inverted fluid ten item menu">
-				<a class="item active" href="/profile/view">
+				<a class="item" href="/profile/view">
 					Profile
 				</a>
 				<a class="item" href="/teachingload/view">
 					Teaching Load
 				</a>
-				<a class="item" href="/publications/view">
+				<a class="item active" href="/publications/view">
 					Publications
 				</a>
 				<a class="item" href="/adminwork/view">
