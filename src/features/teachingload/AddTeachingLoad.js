@@ -31,8 +31,8 @@ export default class AddTeachingLoad extends Component {
     this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
     this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
     this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
-    this.handleLogout = this.startAdd = this.startAdd.bind(this);
-    this.handleLogout.bind(this);
+    this.startAdd = this.startAdd.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleChangeSubj(e) {
@@ -75,7 +75,8 @@ export default class AddTeachingLoad extends Component {
     this.setState({ creditw: e.target.value });
   }
 
-  handleLogout() {
+  handleLogout(e) {
+    e.preventDefault();
     Api.logout();
     this.props.history.push('../..');
   }

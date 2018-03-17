@@ -75,7 +75,8 @@ export default class AddStudyLoad extends Component {
     this.setState({ slcred: e.target.value });
   }
 
-  handleLogout() {
+  handleLogout(e) {
+    e.preventDefault();
     Api.logout();
     this.props.history.push('../..');
   }

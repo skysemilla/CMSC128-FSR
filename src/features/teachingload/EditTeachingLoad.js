@@ -75,7 +75,8 @@ export default class EditTeachingLoad extends Component {
     this.setState({ creditw: e.target.value });
   }
 
-  handleLogout() {
+  handleLogout(e) {
+    e.preventDefault();
     Api.logout();
     this.props.history.push('../..');
   }
