@@ -128,7 +128,7 @@ export default class EditStudyLoad extends Component {
 				<a class="item" href="/consultation/view">
 					Consultation Hours
 				</a>
-				<a class="item">
+				<a class="item"  href="../..">
 					Logout
 				</a>
 			</div>

@@ -9,6 +9,7 @@ import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
 import EditTeachingLoad from './../features/teachingload/EditTeachingLoad';
 import AddStudyLoad from './../features/studyload/AddStudyLoad';
 import EditStudyLoad from './../features/studyload/EditStudyLoad';
+import ViewPublications from './../features/publications/ViewPublications';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route exact={true} path="/teachingload/edit" component={EditTeachingLoad}/>
             <Route exact={true} path="/studyload/add" component={AddStudyLoad}/>
             <Route exact={true} path="/studyload/edit" component={EditStudyLoad}/>
+            <Route exact={true} path="/publications/view" component={ViewPublications}/>
           </div>
         </Router>
       </div>
