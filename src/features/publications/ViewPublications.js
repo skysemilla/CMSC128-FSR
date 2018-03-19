@@ -4,6 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 
+import DeleteModal from './ViewPublications/DeleteModal'
+
 export default class ViewPublications extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ export default class ViewPublications extends Component {
 
     this.handleLogout = this.handleLogout.bind(this);
   }
+
 
   componentDidMount = () => {
     //   e.preventDefault();
@@ -94,6 +97,7 @@ export default class ViewPublications extends Component {
                   <th>Total Workload Units</th>
                   <th>Edit</th>
                   <th>Attachments</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tr class="center aligned">
@@ -115,6 +119,11 @@ export default class ViewPublications extends Component {
                   <button class="ui button">
                     <i class="eye icon" />
                   </button>
+                </td>
+                <td>
+                  <div>
+                    <DeleteModal />
+                  </div>
                 </td>
               </tr>
               {this.state.publications.map(item => {

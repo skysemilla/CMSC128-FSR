@@ -51,7 +51,7 @@ export default class AddTeachingLoad extends Component {
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
   }
-
+  
   // componentDidMount(){
   //   e.preventDefault();
   //   Api.ViewTeachingLoad({
