@@ -4,6 +4,7 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
+import DeleteModal from './ViewTeachingload/DeleteModal';
 
 //Dummy data
 const dummySample = {

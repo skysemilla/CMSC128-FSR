@@ -8,6 +8,7 @@ import Signup from './../features/auth/Signup';
 import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
 import EditTeachingLoad from './../features/teachingload/EditTeachingLoad';
 import AddStudyLoad from './../features/studyload/AddStudyLoad';
+import AddPublication from './../features/publications/AddPublication';
 import EditStudyLoad from './../features/studyload/EditStudyLoad';
 import ViewPublications from './../features/publications/ViewPublications';
 import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
@@ -26,6 +27,7 @@ class App extends Component {
             <Route exact={true} path="/studyload/add" component={AddStudyLoad}/>
             <Route exact={true} path="/studyload/edit" component={EditStudyLoad}/>
             <Route exact={true} path="/publications/view" component={ViewPublications}/>
+             <Route exact={true} path="/publications/add" component={AddPublication}/>
             <Route exact={true} path="/teachingload/view" component={ViewTeachingLoad}/>
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
           </div>
