@@ -18,10 +18,16 @@ export default class DeleteModal extends Component {
 
     return (
       <div>
-        <Button onClick={this.show('mini')}><i class="trash alternate icon" /></Button>
+        <button class="ui left attached compact icon button" onClick={this.startEdit}>
+          <i class="edit icon"> </i>
+        </button>
+          
+        <button class = "ui right attached compact icon button" onClick={this.show('mini')}>
+        <i class="trash alternate icon" />
+        </button>
         <Modal size={size} open={open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
           <Modal.Header>
-            Delete Publication
+            Delete Teaching Load
           </Modal.Header>
           <Modal.Content>
             <p>Are you sure you want to delete this publication?</p>

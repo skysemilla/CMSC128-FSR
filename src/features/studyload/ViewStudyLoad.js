@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ViewTeachingLoadRow from './ViewStudyLoadRow'
+import ViewStudyLoadRow from './ViewStudyLoadRow'
+import DeleteModal from './ViewStudyload/DeleteModal';
 
 //Dummy data
 const dummySample = {degree : 'MSCS', uni : 'UPLB', studyleave : 'No',
@@ -90,7 +91,7 @@ export default class ViewStudyLoad extends Component {
             <tbody>
               {this.state.data.map((item) =>{
                 return(
-                    <ViewTeachingLoadRow degree = {item.degree} uni = {item.uni} studyleave = {item.studyleave} fellowship = {item.fellowship} courseno = {item.courseno} ccred = {item.ccred} day = {item.day} time = {item.time} school = {item.school} slcred = {item.slcred} />
+                    <ViewStudyLoadRow degree = {item.degree} uni = {item.uni} studyleave = {item.studyleave} fellowship = {item.fellowship} courseno = {item.courseno} ccred = {item.ccred} day = {item.day} time = {item.time} school = {item.school} slcred = {item.slcred} />
                   )
                 })
               }
