@@ -15,6 +15,7 @@ export default class ViewPublications extends Component {
     };
 
     this.handleLogout = this.handleLogout.bind(this);
+    this.startAdd = this.startAdd.bind(this);
   }
 
 
@@ -31,6 +32,10 @@ export default class ViewPublications extends Component {
   handleLogout() {
     Api.logout();
     this.props.history.push('../..');
+  }
+
+ startAdd() {
+    this.props.history.push('./add');
   }
 
   render() {
@@ -122,7 +127,7 @@ export default class ViewPublications extends Component {
                 </td>
                 <td>
                   <div>
-                    <DeleteModal />
+                    <DeleteModal/>
                   </div>
                 </td>
               </tr>
@@ -146,7 +151,7 @@ export default class ViewPublications extends Component {
                 );
               })}
             </table>
-            <button class="ui right floated blue button">
+            <button class="ui right floated blue button" onClick={this.startAdd}>
               Add Publications
             </button>
           </div>

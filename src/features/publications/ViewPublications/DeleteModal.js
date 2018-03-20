@@ -19,7 +19,7 @@ export default class DeleteModal extends Component {
     return (
       <div>
         <Button onClick={this.show('mini')}><i class="trash alternate icon" /></Button>
-        <Modal size={size} open={open} onClose={this.close} style={{marginTop: 100, marginLeft: 100}} >
+        <Modal size={size} open={open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
           <Modal.Header>
             Delete Publication
           </Modal.Header>
@@ -27,7 +27,7 @@ export default class DeleteModal extends Component {
             <p>Are you sure you want to delete this publication?</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button negative>
+            <Button negative onClick={this.close}>
               No
             </Button>
             <Button positive icon='checkmark' labelPosition='right' content='Yes' />
