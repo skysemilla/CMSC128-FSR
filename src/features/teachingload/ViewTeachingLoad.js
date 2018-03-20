@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
 import DeleteModal from './ViewTeachingload/DeleteModal';
+import NavBar from './../NavBar'
 
 //Dummy data
 const dummySample = {
@@ -66,38 +67,7 @@ export default class AddTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <div class="ui blue inverted fluid ten item menu">
-          <a class="item" href="/profile/view">
-            Profile
-          </a>
-          <a class="item active" href="/teachingload/view">
-            Teaching Load
-          </a>
-          <a class="item" href="/publications/view">
-            Publications
-          </a>
-          <a class="item" href="/adminwork/view">
-            Administrative Work
-          </a>
-          <a class="item" href="/ecservice/view">
-            Extension and Community Service
-          </a>
-          <a class="item" href="/studyload/view">
-            Study Load
-          </a>
-          <a class="item" href="/lpp/view">
-            Limited Practice of Profession
-          </a>
-          <a class="item" href="/Professorialchair/view">
-            Professorial Chair
-          </a>
-          <a class="item" href="/consultation/view">
-            Consultation Hours
-          </a>
-          <a class="item" href="../..">
-            Logout
-          </a>
-        </div>
+        <NavBar/>
 
         <div class="ui piled very padded container segment" color="teal">
           <div>

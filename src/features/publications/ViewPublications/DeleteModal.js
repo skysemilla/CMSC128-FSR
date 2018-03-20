@@ -7,11 +7,21 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 
 export default class DeleteModal extends Component {
+    constructor(props) {
+    super(props);
+    this.state = {};
+    this.startEdit = this.startEdit.bind(this);
+  }
 
   state = { open: false }
 
   show = size => () => this.setState({ size, open: true })
   close = () => this.setState({ open: false })
+
+  startEdit(e) {
+    e.preventDefault();
+    this.props.history.push('../');
+  }
 
   render() {
     const { open, size } = this.state

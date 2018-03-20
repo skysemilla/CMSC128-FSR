@@ -13,7 +13,7 @@ export default class NavBar extends Component {
   render() {
 
     return (
-      <div className="App-header">
+      <div>
         <div class="ui blue inverted fluid ten item menu">
           <a class="item " href="/profile/view">
             Profile
@@ -21,7 +21,7 @@ export default class NavBar extends Component {
           <a class="item" href="/teachingload/view">
             Teaching Load
           </a>
-          <a class="item active" href="/publications/view">
+          <a class="item" href="/publications/view">
             Publications
           </a>
           <a class="item" href="/adminwork/view">

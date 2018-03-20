@@ -53,39 +53,7 @@ export default class ViewPublications extends Component {
   render() {
     return (
       <div className="App-header">
-        <div class="ui blue inverted fluid ten item menu">
-          <a class="item" href="/profile/view">
-            Profile
-          </a>
-          <a class="item" href="/teachingload/view">
-            Teaching Load
-          </a>
-          <a class="item active" href="/publications/view">
-            Publications
-          </a>
-          <a class="item" href="/adminwork/view">
-            Administrative Work
-          </a>
-          <a class="item" href="/ecservice/view">
-            Extension and Community Service
-          </a>
-          <a class="item" href="/studyload/view">
-            Study Load
-          </a>
-          <a class="item" href="/lpp/view">
-            Limited Practice of Profession
-          </a>
-          <a class="item" href="/Professorialchair/view">
-            Professorial Chair
-          </a>
-          <a class="item" href="/consultation/view">
-            Consultation Hours
-          </a>
-          <a class="item" onClick={this.handleLogout}>
-            Logout
-          </a>
-        </div>
-        <Divider hidden="true" />
+        <NavBar/>
         <div
           class="ui compact piled very padded text left aligned container segment"
           color="teal">
