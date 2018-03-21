@@ -6,6 +6,8 @@ import * as Api from '../../api';
 import ResearchDropDown from './ResearchDropDown'
 import ResearchSubTypeDropdown from './ResearchSubTypeDropdown'
 import NavBar from './../NavBar'
+import GenerateFSR from './ViewPublications/GenerateFSR'
+import SendtoAdmin from './ViewPublications/SendtoAdmin'
 
 const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]}, 
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
@@ -114,11 +116,8 @@ export default class AddPublication extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Add New Publication
-            <button class="ui right floated blue button">Generate FSR</button>
-            <button class="ui right floated blue button">
-              Send to Admin
-            </button>
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h2>
           </div>
           <Divider hidden="true" />

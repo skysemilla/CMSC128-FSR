@@ -4,6 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import DeleteModal from './ViewPublications/DeleteModal'
+import GenerateFSR from './ViewPublications/GenerateFSR'
+import SendtoAdmin from './ViewPublications/SendtoAdmin'
 import ViewPublicationsRow from './ViewPublicationsRow'
 import NavBar from './../NavBar'
 
@@ -28,6 +30,7 @@ export default class ViewPublications extends Component {
 
     this.handleLogout = this.handleLogout.bind(this);
     this.startAdd = this.startAdd.bind(this);
+    this.generate = this.generate.bind(this);
   }
 
 
@@ -50,6 +53,9 @@ export default class ViewPublications extends Component {
     this.props.history.push('./add');
   }
 
+  generate() {
+  }
+
   render() {
     return (
       <div className="App-header">
@@ -60,12 +66,12 @@ export default class ViewPublications extends Component {
           <div>
             <h2 class="ui blue header">
               View Publications
-              <button class="ui right floated blue button">Generate FSR</button>
-              <button class="ui right floated blue button">
-                Send to Admin
-              </button>
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h2>
           </div>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <Divider hidden="true" />
           <div>
 
@@ -88,7 +94,7 @@ export default class ViewPublications extends Component {
             <tbody>
               {this.state.data.map((item) =>{
                 return(
-                    <ViewPublicationsRow
+                    <ViewPublicationsRow {...this.props}
                           completeTitle= {item.completeTitle}
                           researchSubtype ={item.researchSubtype}
                           Role= {item.Role}
@@ -104,7 +110,7 @@ export default class ViewPublications extends Component {
             </tbody>
           </table>
             <button class="ui right floated blue button" onClick={this.startAdd}>
-              Add Publications
+              Add new Publications
             </button>
           </div>
         </div>

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import NavBar from './../NavBar'
+import NavBar from './../NavBar';
+import GenerateFSR from './ViewTeachingload/GenerateFSR';
+import SendtoAdmin from './ViewTeachingload/SendtoAdmin';
 
 export default class EditTeachingLoad extends Component {
   constructor(props) {
@@ -113,12 +115,13 @@ export default class EditTeachingLoad extends Component {
           <div>
             <h2 class="ui blue header">
               Edit Teaching Load
-              <button class="ui right floated blue button">Generate FSR</button>
-              <button class="ui right floated blue button">
+              <GenerateFSR/>
+              <SendtoAdmin/>
                 Send to Admin
-              </button>
             </h2>
           </div>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <Divider hidden="true" />
           <p>
             <a class="ui small header"> Subject </a>
@@ -234,7 +237,7 @@ export default class EditTeachingLoad extends Component {
             <button
               class="ui center aligned blue button"
               onClick={this.startEdit}>
-              Save Teaching Load
+              Save changes
             </button>
           </div>
         </div>

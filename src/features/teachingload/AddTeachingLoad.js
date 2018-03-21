@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import NavBar from './../NavBar'
+import NavBar from './../NavBar';
+import GenerateFSR from './ViewTeachingload/GenerateFSR';
+import SendtoAdmin from './ViewTeachingload/SendtoAdmin';
 
 export default class AddTeachingLoad extends Component {
   constructor(props) {
@@ -112,11 +114,8 @@ export default class AddTeachingLoad extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Add New Teaching Load
-              <button class="ui right floated blue button">Generate FSR</button>
-              <button class="ui right floated blue button">
-                Send to Admin
-              </button>
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h2>
           </div>
           <Divider hidden="true" />

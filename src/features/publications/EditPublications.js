@@ -6,6 +6,8 @@ import * as Api from '../../api';
 import ResearchDropDown from './ResearchDropDown'
 import ResearchSubTypeDropdown from './ResearchSubTypeDropdown'
 import NavBar from './../NavBar'
+import GenerateFSR from './ViewPublications/GenerateFSR'
+import SendtoAdmin from './ViewPublications/SendtoAdmin'
 
 const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]}, 
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
@@ -16,7 +18,7 @@ export default class EditPublication extends Component {
     super(props);
 
     this.state = {
-      researchType : '',
+      researchType: '',
       researchSubtype : '',
       completeTitle: '',
       Role: '',
@@ -113,11 +115,8 @@ export default class EditPublication extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Edit Publication
-            <button class="ui right floated blue button">Generate FSR</button>
-            <button class="ui right floated blue button">
-              Send to Admin
-            </button>
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h2>
           </div>
           <Divider hidden="true" />
@@ -141,6 +140,7 @@ export default class EditPublication extends Component {
                 type="text"
                 style={{ width: '432px' }}
                 onChange={this.handleChangeTitle}
+                placeHolder={this.state.completeTitle}
               />
             </div>
           </p>
@@ -284,7 +284,7 @@ export default class EditPublication extends Component {
             <button
               class="ui blue button"
               onClick={this.startAdd}>
-              Add Publication
+              Save changes
             </button>
           </div>
         </div>

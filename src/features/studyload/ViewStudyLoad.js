@@ -5,6 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewStudyLoadRow from './ViewStudyLoadRow'
 import DeleteModal from './ViewStudyload/DeleteModal';
+import GenerateFSR from './ViewStudyload/GenerateFSR'
+import SendtoAdmin from './ViewStudyload/SendtoAdmin'
 import NavBar from './../NavBar'
 
 //Dummy data
@@ -35,10 +37,12 @@ export default class ViewStudyLoad extends Component {
           <div>
             <h1 class = "ui blue header">
               STUDY LOAD
-              <button class="ui right floated blue button">Generate FSR</button>
-              <button class="ui right floated blue button"> Send to Admin </button>
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h1>
           </div>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <Divider hidden="true" />
 
           <style> {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`} </style>
@@ -61,7 +65,7 @@ export default class ViewStudyLoad extends Component {
             <tbody>
               {this.state.data.map((item) =>{
                 return(
-                    <ViewStudyLoadRow degree = {item.degree} uni = {item.uni} studyleave = {item.studyleave} fellowship = {item.fellowship} courseno = {item.courseno} ccred = {item.ccred} day = {item.day} time = {item.time} school = {item.school} slcred = {item.slcred} />
+                    <ViewStudyLoadRow {...this.props} degree = {item.degree} uni = {item.uni} studyleave = {item.studyleave} fellowship = {item.fellowship} courseno = {item.courseno} ccred = {item.ccred} day = {item.day} time = {item.time} school = {item.school} slcred = {item.slcred} />
                   )
                 })
               }

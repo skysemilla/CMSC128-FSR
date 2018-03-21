@@ -20,7 +20,7 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.studcred} </td>
         <td class="center aligned"> {this.props.creditw} </td>
         <td class="center aligned">
-        <DeleteModal />
+        <DeleteModal {...this.props}/>
         </td>
       </tr>
     );

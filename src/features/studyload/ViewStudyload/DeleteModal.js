@@ -20,7 +20,7 @@ export default class DeleteModal extends Component {
 
   startEdit(e) {
     e.preventDefault();
-    this.props.history.push('../');
+    this.props.history.push('../studyload/edit');
   }
 
   render() {

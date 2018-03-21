@@ -17,7 +17,16 @@ export default class ViewPublicationsRow extends Component{
                   <td class = "center aligned">{this.props.ApprovedCreditUnits}</td>
                   <td class = "center aligned">{this.props.TotalWorkLoadUnits}</td>
                   <td class="center aligned">
-                  <DeleteModal />
+                  <DeleteModal {...this.props}
+                          completeTitle= {this.props.completeTitle}
+                          researchSubtype ={this.props.researchSubtype}
+                          Role= {this.props.Role}
+                          Coworkers={this.props.Coworkers}
+                          Funding={this.props.Funding}
+                          StartDate={this.props.StartDate}
+                          EndDate= {this.props.EndDate}
+                          ApprovedCreditUnits= {this.props.ApprovedCreditUnits}
+                          TotalWorkLoadUnits= {this.props.TotalWorkLoadUnits}/>
                   </td>
 			</tr>
 		)

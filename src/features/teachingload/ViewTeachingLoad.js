@@ -4,6 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
+import GenerateFSR from './ViewTeachingload/GenerateFSR';
+import SendtoAdmin from './ViewTeachingload/SendtoAdmin';
 import DeleteModal from './ViewTeachingload/DeleteModal';
 import NavBar from './../NavBar'
 
@@ -73,13 +75,12 @@ export default class AddTeachingLoad extends Component {
           <div>
             <h1 class="ui blue header">
               TEACHING LOAD
-              <button class="ui right floated blue button">Generate FSR</button>
-              <button class="ui right floated blue button">
-                {' '}
-                Send to Admin{' '}
-              </button>
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h1>
           </div>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <Divider hidden="true" />
 
           <style>
@@ -107,7 +108,7 @@ export default class AddTeachingLoad extends Component {
             <tbody>
               {this.state.data.map(item => {
                 return (
-                  <ViewTeachingLoadRow
+                  <ViewTeachingLoadRow {...this.props}
                     subj={item.subj}
                     seccode={item.seccode}
                     room={item.room}
