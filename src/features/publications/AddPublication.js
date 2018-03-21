@@ -3,22 +3,38 @@ import ReactDOM from 'react-dom';
 import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ResearchDropDown from './ResearchDropDown'
-import ResearchSubTypeDropdown from './ResearchSubTypeDropdown'
-import NavBar from './../NavBar'
+import ResearchDropDown from './ResearchDropDown';
+import ResearchSubTypeDropdown from './ResearchSubTypeDropdown';
+import NavBar from '../ui/NavBar';
 
-const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]}, 
-                      {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
-                      ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
-
+const optionsMain = [
+  {
+    id: 0,
+    text: 'Research',
+    Subtype: ['Research Proposal', 'Research Implementation']
+  },
+  {
+    id: 1,
+    text: 'Creative Work',
+    Subtype: [
+      'Oral/Poster Papers',
+      'Papers for Conferences',
+      'Monographs',
+      'Articles in referred journals',
+      'Chapters in a book',
+      'Books',
+      'Others'
+    ]
+  }
+];
 
 export default class AddPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      researchType : '',
-      researchSubtype : '',
+      researchType: '',
+      researchSubtype: '',
       completeTitle: '',
       Role: '',
       Coworkers: '',
@@ -37,8 +53,12 @@ export default class AddPublication extends Component {
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
-    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
+    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(
+      this
+    );
+    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(
+      this
+    );
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -105,36 +125,37 @@ export default class AddPublication extends Component {
   }
 
   render() {
-
     return (
       <div className="App-header">
-        <NavBar/>
+        <NavBar {...this.props} />
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
             <h2 class="ui blue header">
               Add New Publication
-            <button class="ui right floated blue button">Generate FSR</button>
-            <button class="ui right floated blue button">
-              Send to Admin
-            </button>
+              <button class="ui right floated blue button">Generate FSR</button>
+              <button class="ui right floated blue button">
+                Send to Admin
+              </button>
             </h2>
           </div>
           <Divider hidden="true" />
           <div>
-            <ResearchDropDown 
-              value = {this.state.researchType}
-              handler = {this.handleChangeType}
-              options = {optionsMain}/>
+            <ResearchDropDown
+              value={this.state.researchType}
+              handler={this.handleChangeType}
+              options={optionsMain}
+            />
           </div>
           <div>
             <ResearchSubTypeDropdown
-              value = {this.state.researchSubtype}
-              handler = {this.handleChangeSubtype}
-              options = {optionsMain}
-              research = {this.state.researchType} />
-          </div>  
+              value={this.state.researchSubtype}
+              handler={this.handleChangeSubtype}
+              options={optionsMain}
+              research={this.state.researchType}
+            />
+          </div>
           <p>
             <a class="ui small header"> Complete Title </a>
             <div class="ui input mini focus">
@@ -145,31 +166,30 @@ export default class AddPublication extends Component {
               />
             </div>
           </p>
-          {
-            this.state.researchType !== 'Research' ?
-              <p>
-                <a class="ui small header"> Role </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="text"
-                    style={{ width: '432px' }}
-                    onChange={this.handleChangeRole}
-                  />
-                </div>
-              </p>
-               : 
-              <p>
-                <a class="ui small header"> Role </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="text"
-                      style={{ width: '432px' }}
-                      onChange={this.handleChangeRole}
-                    />
-                </div>
-              </p>
-          }
+          {this.state.researchType !== 'Research' ? (
+            <p>
+              <a class="ui small header"> Role </a>
+              <div class="ui input mini focus">
+                <input
+                  disabled
+                  type="text"
+                  style={{ width: '432px' }}
+                  onChange={this.handleChangeRole}
+                />
+              </div>
+            </p>
+          ) : (
+            <p>
+              <a class="ui small header"> Role </a>
+              <div class="ui input mini focus">
+                <input
+                  type="text"
+                  style={{ width: '432px' }}
+                  onChange={this.handleChangeRole}
+                />
+              </div>
+            </p>
+          )}
           <p>
             <a class="ui small header"> Co-workers / Co-authors </a>
             <div class="ui input mini focus">
@@ -180,83 +200,80 @@ export default class AddPublication extends Component {
               />
             </div>
           </p>
-          {
-            this.state.researchSubtype !== 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> Funding </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="text"
-                    style={{ width: '432px' }}
-                    onChange={this.handleChangeFunding}
-                  />
-                </div>
-              </p>
-               : 
-              <p>
-                <a class="ui small header"> Funding </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="number"
-                      style={{ width: '432px' }}
-                      onChange={this.handleChangeFunding}
-                    />
-                </div>
-              </p>
-          }
+          {this.state.researchSubtype !== 'Research Proposal' ? (
+            <p>
+              <a class="ui small header"> Funding </a>
+              <div class="ui input mini focus">
+                <input
+                  disabled
+                  type="text"
+                  style={{ width: '432px' }}
+                  onChange={this.handleChangeFunding}
+                />
+              </div>
+            </p>
+          ) : (
+            <p>
+              <a class="ui small header"> Funding </a>
+              <div class="ui input mini focus">
+                <input
+                  type="number"
+                  style={{ width: '432px' }}
+                  onChange={this.handleChangeFunding}
+                />
+              </div>
+            </p>
+          )}
 
-          {
-            this.state.researchSubtype === 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> Start Date </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="date"
-                    style={{ width: '150px' }}
-                    onChange={this.handleChangeStartDate}
-                  />
-                </div>
-              </p>
-               : 
-              <p>
-                <a class="ui small header"> Start Date </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="date"
-                      style={{ width: '150px' }}
-                      onChange={this.handleChangeStartDate}
-                    />
-                </div>
-              </p>
-          }
+          {this.state.researchSubtype === 'Research Proposal' ? (
+            <p>
+              <a class="ui small header"> Start Date </a>
+              <div class="ui input mini focus">
+                <input
+                  disabled
+                  type="date"
+                  style={{ width: '150px' }}
+                  onChange={this.handleChangeStartDate}
+                />
+              </div>
+            </p>
+          ) : (
+            <p>
+              <a class="ui small header"> Start Date </a>
+              <div class="ui input mini focus">
+                <input
+                  type="date"
+                  style={{ width: '150px' }}
+                  onChange={this.handleChangeStartDate}
+                />
+              </div>
+            </p>
+          )}
 
-          {
-            this.state.researchSubtype === 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> End Date </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="date"
-                    style={{ width: '150px' }}
-                    onChange={this.handleChangeEndDate}
-                  />
-                </div>
-              </p>
-               : 
-              <p>
-                <a class="ui small header"> End Date </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="date"
-                      style={{ width: '150px' }}
-                      onChange={this.handleChangeEndDate}
-                    />
-                </div>
-              </p>
-          }
+          {this.state.researchSubtype === 'Research Proposal' ? (
+            <p>
+              <a class="ui small header"> End Date </a>
+              <div class="ui input mini focus">
+                <input
+                  disabled
+                  type="date"
+                  style={{ width: '150px' }}
+                  onChange={this.handleChangeEndDate}
+                />
+              </div>
+            </p>
+          ) : (
+            <p>
+              <a class="ui small header"> End Date </a>
+              <div class="ui input mini focus">
+                <input
+                  type="date"
+                  style={{ width: '150px' }}
+                  onChange={this.handleChangeEndDate}
+                />
+              </div>
+            </p>
+          )}
 
           <p>
             <a class="ui small header"> Approved Credit Units </a>
@@ -282,9 +299,7 @@ export default class AddPublication extends Component {
 
           <div class="ui center aligned container">
             <button class="ui blue button">Upload Attachments</button>
-            <button
-              class="ui blue button"
-              onClick={this.startAdd}>
+            <button class="ui blue button" onClick={this.startAdd}>
               Add Publication
             </button>
           </div>

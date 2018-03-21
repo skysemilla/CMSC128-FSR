@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
 import DeleteModal from './ViewTeachingload/DeleteModal';
-import NavBar from './../NavBar'
+import NavBar from '../ui/NavBar';
 
 //Dummy data
 const dummySample = {
@@ -53,7 +53,7 @@ export default class AddTeachingLoad extends Component {
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
   }
-  
+
   // componentDidMount(){
   //   e.preventDefault();
   //   Api.ViewTeachingLoad({
@@ -67,7 +67,7 @@ export default class AddTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar/>
+        <NavBar {...this.props} />
 
         <div class="ui piled very padded container segment" color="teal">
           <div>
