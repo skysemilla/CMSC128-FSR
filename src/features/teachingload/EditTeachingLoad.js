@@ -117,7 +117,6 @@ export default class EditTeachingLoad extends Component {
               Edit Teaching Load
               <GenerateFSR/>
               <SendtoAdmin/>
-                Send to Admin
             </h2>
           </div>
           <Divider hidden="true" />

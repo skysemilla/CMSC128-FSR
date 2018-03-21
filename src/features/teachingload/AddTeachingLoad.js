@@ -119,8 +119,10 @@ export default class AddTeachingLoad extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject </a>
+            <a class="ui small header"> Subject</a>
             <div class="ui input mini focus">
               <input
                 type="text"

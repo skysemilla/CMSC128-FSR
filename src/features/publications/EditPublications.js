@@ -115,6 +115,7 @@ export default class EditPublication extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
+              View Publications
               <GenerateFSR/>
               <SendtoAdmin/>
             </h2>
