@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import * as Api from '../../api';
 
 export default class NavBar extends Component {
   constructor(props) {
     super(props);
 
-    //this.handleChangeType = this.handleChangeType.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+    Api.logout();
+    this.props.history.push('../..');
   }
 
   render() {
-
     return (
       <div>
         <div class="ui blue inverted fluid ten item menu">
@@ -42,7 +48,7 @@ export default class NavBar extends Component {
           <a class="item" href="/consultation/view">
             Consultation Hours
           </a>
-          <a class="item" href="../..">
+          <a class="item" onClick={this.handleLogout}>
             Logout
           </a>
         </div>

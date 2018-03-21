@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import NavBar from './../NavBar';
+import NavBar from './../ui/NavBar';
 import GenerateFSR from './ViewStudyload/GenerateFSR';
 import SendtoAdmin from './ViewStudyload/SendtoAdmin';
 
@@ -108,7 +108,7 @@ export default class AddStudyLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar/>
+        <NavBar {...this.props}/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

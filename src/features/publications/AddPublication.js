@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ResearchDropDown from './ResearchDropDown'
 import ResearchSubTypeDropdown from './ResearchSubTypeDropdown'
-import NavBar from './../NavBar'
+import NavBar from './../ui/NavBar'
 import GenerateFSR from './ViewPublications/GenerateFSR'
 import SendtoAdmin from './ViewPublications/SendtoAdmin'
 
@@ -110,7 +110,7 @@ export default class AddPublication extends Component {
 
     return (
       <div className="App-header">
-        <NavBar/>
+        <NavBar {...this.props}/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

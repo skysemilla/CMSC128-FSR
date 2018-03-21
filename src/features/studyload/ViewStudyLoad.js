@@ -7,7 +7,7 @@ import ViewStudyLoadRow from './ViewStudyLoadRow'
 import DeleteModal from './ViewStudyload/DeleteModal';
 import GenerateFSR from './ViewStudyload/GenerateFSR'
 import SendtoAdmin from './ViewStudyload/SendtoAdmin'
-import NavBar from './../NavBar'
+import NavBar from './../ui/NavBar'
 
 //Dummy data
 const dummySample = {degree : 'MSCS', uni : 'UPLB', studyleave : 'No',
@@ -31,7 +31,7 @@ export default class ViewStudyLoad extends Component {
 
     return (
       <div className="App-header">
-        <NavBar/>
+        <NavBar {...this.props}/>
 
         <div class = "ui piled very padded container segment" color = "teal">
           <div>

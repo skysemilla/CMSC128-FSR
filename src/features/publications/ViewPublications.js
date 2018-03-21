@@ -7,7 +7,7 @@ import DeleteModal from './ViewPublications/DeleteModal'
 import GenerateFSR from './ViewPublications/GenerateFSR'
 import SendtoAdmin from './ViewPublications/SendtoAdmin'
 import ViewPublicationsRow from './ViewPublicationsRow'
-import NavBar from './../NavBar'
+import NavBar from './../ui/NavBar'
 
 const dummySample = {researchType : 'Research', 
                       researchSubtype : 'Research Proposal',
@@ -59,7 +59,7 @@ export default class ViewPublications extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar/>
+        <NavBar {...this.props}/>
         <div
           class="ui compact piled very padded text left aligned container segment"
           color="teal">
