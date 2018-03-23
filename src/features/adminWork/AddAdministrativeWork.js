@@ -4,8 +4,8 @@ import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar'
-import GenerateFSR from './../publications/ViewPublications/GenerateFSR'
-import SendtoAdmin from './../publications/ViewPublications/SendtoAdmin'
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 
 export default class AddAdministrativeWork extends Component {
   constructor(props) {

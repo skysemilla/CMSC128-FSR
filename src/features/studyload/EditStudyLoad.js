@@ -4,8 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './ViewStudyload/GenerateFSR';
-import SendtoAdmin from './ViewStudyload/SendtoAdmin';
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 
 export default class EditStudyLoad extends Component {
   constructor(props) {

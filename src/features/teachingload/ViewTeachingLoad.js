@@ -4,8 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
-import GenerateFSR from './ViewTeachingload/GenerateFSR';
-import SendtoAdmin from './ViewTeachingload/SendtoAdmin';
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 import DeleteModal from './ViewTeachingload/DeleteModal';
 import NavBar from './../ui/NavBar'
 
@@ -55,7 +55,7 @@ export default class AddTeachingLoad extends Component {
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
   }
-  
+
   // componentDidMount(){
   //   e.preventDefault();
   //   Api.ViewTeachingLoad({
