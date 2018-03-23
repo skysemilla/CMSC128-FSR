@@ -7,7 +7,7 @@ import NavBar from './../ui/NavBar'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
 
-export default class AddAdministrativeWork extends Component {
+export default class EditAdministrativeWork extends Component {
   constructor(props) {
     super(props);
 
@@ -73,7 +73,7 @@ export default class AddAdministrativeWork extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Administrative Work
+              Edit Administrative Work
               <GenerateFSR/>
               <SendtoAdmin/>
             </h2>
@@ -127,7 +127,7 @@ export default class AddAdministrativeWork extends Component {
             <button
               class="ui blue button"
               onClick={this.startAdd}>
-              Add Publication
+              Edit Administrative Work
             </button>
           </div>
         </div>
@@ -138,4 +138,4 @@ export default class AddAdministrativeWork extends Component {
 }
 
 //=========================
-ReactDOM.render(<AddAdministrativeWork />, document.getElementById('root'));
+ReactDOM.render(<EditAdministrativeWork />, document.getElementById('root'));
