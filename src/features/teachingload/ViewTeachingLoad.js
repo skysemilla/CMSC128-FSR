@@ -6,7 +6,6 @@ import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
-import DeleteModal from './ViewTeachingload/DeleteModal';
 import NavBar from './../ui/NavBar'
 
 //Dummy data
@@ -84,7 +83,6 @@ export default class AddTeachingLoad extends Component {
           <Divider hidden="true" />
 
           <style>
-            {' '}
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
           <table class="ui celled table">
@@ -119,21 +117,14 @@ export default class AddTeachingLoad extends Component {
                     creditwo={item.creditwo}
                     studcred={item.studcred}
                     creditw={item.creditw}
+                    editURL = "../teachingload/edit"
+                    label = "Teaching Load"
+                    subLabel = "teaching load"
                   />
                 );
               })}
             </tbody>
           </table>
-          <div>
-            <h1 class="ui white header">
-              <button class="ui right floated button">
-                <a color="white" href="./add">
-                  {' '}
-                  Add to Teaching Load{' '}
-                </a>
-              </button>
-            </h1>
-          </div>
           <Divider hidden="true" />
         </div>
       </div>

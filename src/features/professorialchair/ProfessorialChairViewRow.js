@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Modal } from 'semantic-ui-react';
+import GenericDelete from './../GenericDelete';
 
 export default class ViewTeachingLoadRow extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.startdate} </td>
         <td class="center aligned"> {this.props.enddate} </td>
         <td class="center aligned">
+        <GenericDelete {...this.props}/>
         </td>
       </tr>
     );
