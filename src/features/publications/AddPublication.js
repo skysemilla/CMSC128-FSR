@@ -6,10 +6,10 @@ import * as Api from '../../api';
 import GenericDropdown from './../GenericDropdown'
 import PublicationSubTypeDropdown from './PublicationSubTypeDropdown'
 import NavBar from './../ui/NavBar'
-import GenerateFSR from './ViewPublications/GenerateFSR'
-import SendtoAdmin from './ViewPublications/SendtoAdmin'
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 
-const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]}, 
+const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]},
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
@@ -136,7 +136,7 @@ export default class AddPublication extends Component {
               handler = {this.handleChangeSubtype}
               options = {optionsMain}
               research = {this.state.researchType} />
-          </div>  
+          </div>
           <p>
             <a class="ui small header"> Complete Title </a>
             <div class="ui input mini focus">
@@ -160,7 +160,7 @@ export default class AddPublication extends Component {
                   />
                 </div>
               </p>
-               : 
+               :
               <p>
                 <a class="ui small header"> Role </a>
                   <div class="ui input mini focus">
@@ -195,7 +195,7 @@ export default class AddPublication extends Component {
                   />
                 </div>
               </p>
-               : 
+               :
               <p>
                 <a class="ui small header"> Funding </a>
                   <div class="ui input mini focus">
@@ -221,7 +221,7 @@ export default class AddPublication extends Component {
                   />
                 </div>
               </p>
-               : 
+               :
               <p>
                 <a class="ui small header"> Start Date </a>
                   <div class="ui input mini focus">
@@ -247,7 +247,7 @@ export default class AddPublication extends Component {
                   />
                 </div>
               </p>
-               : 
+               :
               <p>
                 <a class="ui small header"> End Date </a>
                   <div class="ui input mini focus">

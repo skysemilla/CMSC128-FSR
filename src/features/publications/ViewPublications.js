@@ -4,12 +4,12 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import DeleteModal from './ViewPublications/DeleteModal'
-import GenerateFSR from './ViewPublications/GenerateFSR'
-import SendtoAdmin from './ViewPublications/SendtoAdmin'
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 import ViewPublicationsRow from './ViewPublicationsRow'
 import NavBar from './../ui/NavBar'
 
-const dummySample = {researchType : 'Research', 
+const dummySample = {researchType : 'Research',
                       researchSubtype : 'Research Proposal',
                       completeTitle: 'Sample',
                       Role: 'ABC',

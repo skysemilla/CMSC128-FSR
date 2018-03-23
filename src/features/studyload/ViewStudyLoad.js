@@ -5,8 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewStudyLoadRow from './ViewStudyLoadRow'
 import DeleteModal from './ViewStudyload/DeleteModal';
-import GenerateFSR from './ViewStudyload/GenerateFSR'
-import SendtoAdmin from './ViewStudyload/SendtoAdmin'
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 import NavBar from './../ui/NavBar'
 
 //Dummy data

@@ -14,8 +14,7 @@ import ViewPublications from './../features/publications/ViewPublications';
 import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
-import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork'
-import AddConsultationHours from './../features/consultationHours/AddConsultationHours'
+import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
 
 class App extends Component {
   render() {
@@ -34,8 +33,7 @@ class App extends Component {
             <Route exact={true} path="/teachingload/view" component={ViewTeachingLoad}/>
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
-            <Route exact={true} path="/adminwork/add" component={AddAdministrativeWork}/>
-            <Route exact={true} path="/consultation/add" component={AddConsultationHours}/>
+            <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
           </div>
         </Router>
       </div>
