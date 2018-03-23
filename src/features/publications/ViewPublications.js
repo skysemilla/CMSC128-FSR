@@ -6,7 +6,7 @@ import * as Api from '../../api';
 import DeleteModal from './ViewPublications/DeleteModal'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
-import ViewPublicationsRow from './ViewPublicationsRow'
+import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBar'
 
 const dummySample = {researchType : 'Research',
@@ -103,7 +103,10 @@ export default class ViewPublications extends Component {
                           StartDate={item.StartDate}
                           EndDate= {item.EndDate}
                           ApprovedCreditUnits= {item.ApprovedCreditUnits}
-                          TotalWorkLoadUnits= {item.TotalWorkLoadUnits}/>
+                          TotalWorkLoadUnits= {item.TotalWorkLoadUnits}
+                          editURL = "../publications/edit"
+                          label = "Publication"
+                          subLabel = "publication"/>
                   )
                 })
               }

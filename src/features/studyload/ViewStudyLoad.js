@@ -65,7 +65,20 @@ export default class ViewStudyLoad extends Component {
             <tbody>
               {this.state.data.map((item) =>{
                 return(
-                    <ViewStudyLoadRow {...this.props} degree = {item.degree} uni = {item.uni} studyleave = {item.studyleave} fellowship = {item.fellowship} courseno = {item.courseno} ccred = {item.ccred} day = {item.day} time = {item.time} school = {item.school} slcred = {item.slcred} />
+                    <ViewStudyLoadRow {...this.props} 
+                      degree = {item.degree} 
+                      uni = {item.uni} 
+                      studyleave = {item.studyleave} 
+                      fellowship = {item.fellowship} 
+                      courseno = {item.courseno} 
+                      ccred = {item.ccred} 
+                      day = {item.day} 
+                      time = {item.time} 
+                      school = {item.school} 
+                      slcred = {item.slcred} 
+                      editURL = "../studyload/edit"
+                      label = "Study Load"
+                      subLabel = "Study load"/>
                   )
                 })
               }

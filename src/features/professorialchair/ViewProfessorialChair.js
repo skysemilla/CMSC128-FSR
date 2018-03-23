@@ -60,7 +60,6 @@ export default class ViewProfessorialChair extends Component {
           <Divider hidden="true" />
 
           <style>
-            {' '}
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
           <table class="ui celled table">
@@ -83,21 +82,14 @@ export default class ViewProfessorialChair extends Component {
                     granttitle={item.granttitle}
                     startdate={item.startdate}
                     enddate={item.enddate}
+                    editURL="../Professorialchair/edit"
+                    label="Professorial Chair"
+                    subLabel="Professorial chair"
                   />
                 );
               })}
             </tbody>
           </table>
-          <div>
-            <h1 class="ui white header">
-              <button class="ui right floated button">
-                <a color="white" href="./add">
-                  {' '}
-                  Edit Professorial Chair{' '}
-                </a>
-              </button>
-            </h1>
-          </div>
           <Divider hidden="true" />
         </div>
       </div>
