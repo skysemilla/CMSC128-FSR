@@ -8,6 +8,7 @@ import PublicationSubTypeDropdown from './PublicationSubTypeDropdown'
 import NavBar from './../ui/NavBar'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
+import GenericDisabledInput from './../GenericDisabledInput'
 
 const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]},
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
@@ -147,31 +148,14 @@ export default class EditPublication extends Component {
               />
             </div>
           </p>
-          {
-            this.state.researchType !== 'Research' ?
-              <p>
-                <a class="ui small header"> Role </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="text"
-                    style={{ width: '432px' }}
-                    onChange={this.handleChangeRole}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> Role </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="text"
-                      style={{ width: '432px' }}
-                      onChange={this.handleChangeRole}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchType}
+            compareString = "Research"
+            operation = "!=="
+            label = "Role"
+            type = "text"
+            length = "432 px"
+            handler = {this.handleChangeRole} />
           <p>
             <a class="ui small header"> Co-workers / Co-authors </a>
             <div class="ui input mini focus">
@@ -182,83 +166,32 @@ export default class EditPublication extends Component {
               />
             </div>
           </p>
-          {
-            this.state.researchSubtype !== 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> Funding </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="text"
-                    style={{ width: '432px' }}
-                    onChange={this.handleChangeFunding}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> Funding </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="number"
-                      style={{ width: '432px' }}
-                      onChange={this.handleChangeFunding}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchSubtype}
+            compareString = "Research Proposal"
+            operation = "!=="
+            label = "Funding"
+            type = "text"
+            length = "432 px"
+            handler = {this.handleChangeFunding} />
 
-          {
-            this.state.researchSubtype === 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> Start Date </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="date"
-                    style={{ width: '150px' }}
-                    onChange={this.handleChangeStartDate}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> Start Date </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="date"
-                      style={{ width: '150px' }}
-                      onChange={this.handleChangeStartDate}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchSubtype}
+            compareString = "Research Proposal"
+            operation = "==="
+            label = "Start Date"
+            type = "date"
+            length = "150 px"
+            handler = {this.handleChangeStartDate} />
 
-          {
-            this.state.researchSubtype === 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> End Date </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="date"
-                    style={{ width: '150px' }}
-                    onChange={this.handleChangeEndDate}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> End Date </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="date"
-                      style={{ width: '150px' }}
-                      onChange={this.handleChangeEndDate}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchSubtype}
+            compareString = "Research Proposal"
+            operation = "==="
+            label = "End Date"
+            type = "date"
+            length = "150 px"
+            handler = {this.handleChangeEndDate} />
 
           <p>
             <a class="ui small header"> Approved Credit Units </a>
