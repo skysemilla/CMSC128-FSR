@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
-import './SignUpForm.css'
+import './../SignUpForm.css'
 
-export default class ResearchSubtypeDropDown extends Component{
+export default class PublicationSubTypeDropdown extends Component{
 	
 	render(){
 		return(
