@@ -3,50 +3,36 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ViewTeachingLoadRow from './TeachingLoadViewRow';
+import AdministrativeWorkRow from './ViewAdministrativeWork/AdministrativeWorkRow';
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
-import DeleteModal from './ViewTeachingload/DeleteModal';
+import DeleteModal from './ViewAdministrativeWork/AdministrativeWorkRow';
 import NavBar from './../ui/NavBar'
+
 
 //Dummy data
 const dummySample = {
-  seccode: 'CMSC 128',
-  room: 'CAS B04',
-  days: 'T-Th',
-  time: '4pm-7pm',
-  hours: '3',
-  studnum: '49',
-  creditwo: '3',
-  studcred: '3',
-  creditw: ' 3'
+  workPosition: 'Instructor 1',
+  officeUnit: 'C-112',
+  approvedCreditUnits: '6',
+  totalAdministrativeLoadCredits: '0'
 };
 
 const dummySample2 = {
-  seccode: 'CMSC 127',
-  room: 'CAS B04',
-  days: 'T-Th',
-  time: '4pm-7pm',
-  hours: '3',
-  studnum: '49',
-  creditwo: '3',
-  studcred: '3',
-  creditw: ' 3'
+  workPosition: 'Assistant Professor 1',
+  officeUnit: 'C-114',
+  approvedCreditUnits: '6',
+  totalAdministrativeLoadCredits: '1'
 };
 
 const dummySample3 = {
-  seccode: 'CMSC 129',
-  room: 'CAS B04',
-  days: 'T-Th',
-  time: '4pm-7pm',
-  hours: '3',
-  studnum: '49',
-  creditwo: '3',
-  studcred: '3',
-  creditw: ' 3'
+  workPosition: 'Instructor 2',
+  officeUnit: 'C-112',
+  approvedCreditUnits: '3',
+  totalAdministrativeLoadCredits: '3'
 };
 
-export default class ViewTeachingLoad extends Component {
+export default class ViewAdministrativeWork extends Component {
   constructor(props) {
     super(props);
 
@@ -74,7 +60,7 @@ export default class ViewTeachingLoad extends Component {
         <div class="ui piled very padded container segment" color="teal">
           <div>
             <h1 class="ui blue header">
-              TEACHING LOAD
+              ADMINISTRATIVE WORK
               <GenerateFSR/>
               <SendtoAdmin/>
             </h1>
@@ -90,35 +76,21 @@ export default class ViewTeachingLoad extends Component {
           <table class="ui celled table">
             <thead>
               <tr>
-                <th class="center aligned"> Section Code </th>
-                <th class="center aligned"> Room </th>
-                <th class="center aligned"> Days </th>
-                <th class="center aligned"> Time </th>
-                <th class="center aligned"> Hours Per Week </th>
-                <th class="center aligned"> No. Of Students </th>
-                <th class="center aligned"> Course Credit </th>
-                <th class="center aligned"> Student Credit Units </th>
-                <th class="center aligned">
-                  {' '}
-                  Teaching load credits with Multiplier{' '}
-                </th>
+                <th class="center aligned"> Position/Nature of Administrative Work </th>
+                <th class="center aligned"> Office Unit </th>
+                <th class="center aligned"> Approved Credit Units </th>
+                <th class="center aligned"> Total Administrative Load Credits </th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map(item => {
                 return (
-                  <ViewTeachingLoadRow {...this.props}
-                    subj={item.subj}
-                    seccode={item.seccode}
-                    room={item.room}
-                    days={item.days}
-                    time={item.time}
-                    hours={item.hours}
-                    studnum={item.studnum}
-                    creditwo={item.creditwo}
-                    studcred={item.studcred}
-                    creditw={item.creditw}
+                  <AdministrativeWorkRow
+                    workPosition={item.workPosition}
+                    officeUnit={item.officeUnit}
+                    approvedCreditUnits={item.approvedCreditUnits}
+                    totalAdministrativeLoadCredits={item.totalAdministrativeLoadCredits}
                   />
                 );
               })}
@@ -129,7 +101,7 @@ export default class ViewTeachingLoad extends Component {
               <button class="ui right floated button">
                 <a color="white" href="./add">
                   {' '}
-                  Add to Teaching Load{' '}
+                  Add Admin Work{' '}
                 </a>
               </button>
             </h1>
@@ -141,4 +113,4 @@ export default class ViewTeachingLoad extends Component {
   }
 }
 //=========================
-ReactDOM.render(<ViewTeachingLoad />, document.getElementById('root'));
+ReactDOM.render(<ViewAdministrativeWork />, document.getElementById('root'));
