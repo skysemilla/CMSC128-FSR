@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ResearchDropDown from './ResearchDropDown'
-import ResearchSubTypeDropdown from './ResearchSubTypeDropdown'
+import GenericDropdown from './../GenericDropdown'
+import PublicationSubTypeDropdown from './PublicationSubTypeDropdown'
 import NavBar from './../ui/NavBar'
 import GenerateFSR from './ViewPublications/GenerateFSR'
 import SendtoAdmin from './ViewPublications/SendtoAdmin'
@@ -47,6 +47,7 @@ export default class AddPublication extends Component {
 
   handleChangeType(e) {
     this.setState({ researchType: e.target.value });
+    console.log(e.target.value);
   }
 
   handleChangeSubtype(e) {
@@ -122,13 +123,15 @@ export default class AddPublication extends Component {
           </div>
           <Divider hidden="true" />
           <div>
-            <ResearchDropDown 
+            <GenericDropdown
+              labelHeader = "Publication Type"
+              labelProper = "Choose Publication Type"
               value = {this.state.researchType}
               handler = {this.handleChangeType}
               options = {optionsMain}/>
           </div>
           <div>
-            <ResearchSubTypeDropdown
+            <PublicationSubTypeDropdown
               value = {this.state.researchSubtype}
               handler = {this.handleChangeSubtype}
               options = {optionsMain}
