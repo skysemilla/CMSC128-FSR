@@ -15,9 +15,10 @@ import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
-import AddAdministrativeWork from './../features/adminwork/AddAdministrativeWork';
-import EditAdministrativeWork from './../features/adminwork/EditAdministrativeWork';
+import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
+import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import EditConsultationHours from './../features/consultationhours/EditConsultationHours';
+import AddExtension from './../features/extension/AddExtension';
 
 class App extends Component {
   render() {
@@ -37,9 +38,10 @@ class App extends Component {
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
-            <Route exact={true} path="/adminwork/add" component={AddAdministrativeWork}/>
-            <Route exact={true} path="/adminork/edit" component={EditAdministrativeWork}/>
+            <Route exact={true} path="/adminWork/add" component={AddAdministrativeWork}/>
+            <Route exact={true} path="/adminWork/edit" component={EditAdministrativeWork}/>
             <Route exact={true} path="/consultationhours/edit" component={EditConsultationHours}/>
+            <Route exact={true} path="/extension/add" component={AddExtension}/>
           </div>
         </Router>
       </div>

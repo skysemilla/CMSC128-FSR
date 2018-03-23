@@ -4,7 +4,7 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewStudyLoadRow from './ViewStudyLoadRow'
-import DeleteModal from './ViewStudyload/DeleteModal';
+import DeleteModal from '../GenericDelete';
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
 import NavBar from './../ui/NavBar'
@@ -65,17 +65,17 @@ export default class ViewStudyLoad extends Component {
             <tbody>
               {this.state.data.map((item) =>{
                 return(
-                    <ViewStudyLoadRow {...this.props} 
-                      degree = {item.degree} 
-                      uni = {item.uni} 
-                      studyleave = {item.studyleave} 
-                      fellowship = {item.fellowship} 
-                      courseno = {item.courseno} 
-                      ccred = {item.ccred} 
-                      day = {item.day} 
-                      time = {item.time} 
-                      school = {item.school} 
-                      slcred = {item.slcred} 
+                    <ViewStudyLoadRow {...this.props}
+                      degree = {item.degree}
+                      uni = {item.uni}
+                      studyleave = {item.studyleave}
+                      fellowship = {item.fellowship}
+                      courseno = {item.courseno}
+                      ccred = {item.ccred}
+                      day = {item.day}
+                      time = {item.time}
+                      school = {item.school}
+                      slcred = {item.slcred}
                       editURL = "../studyload/edit"
                       label = "Study Load"
                       subLabel = "Study load"/>
