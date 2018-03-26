@@ -13,24 +13,24 @@ const dummySample = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 const dummySample2 = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 const dummySample3 = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 export default class ViewProfessorialChair extends Component {
@@ -51,12 +51,8 @@ export default class ViewProfessorialChair extends Component {
           <div>
             <h1 class="ui blue header">
               PROFESSORIAL CHAIR
-              <GenerateFSR/>
-              <SendtoAdmin/>
             </h1>
           </div>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <Divider hidden="true" />
 
           <style>

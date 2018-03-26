@@ -25,6 +25,13 @@ export default class ViewStudyLoad extends Component {
     this.state = {
       data : [dummySample,dummySample2,dummySample3]  //dummmy data
     };
+
+    this.startAdd = this.startAdd.bind(this);
+  }
+
+  startAdd(e) {
+    e.preventDefault();
+    this.props.history.push('../studyload/add');
   }
 
   render() {
@@ -80,13 +87,7 @@ export default class ViewStudyLoad extends Component {
               }
             </tbody>
           </table>
-          <div>
-            <h1 class = "ui white header">
-            <button class="ui right floated button">
-               <a color = "white" href = "./add"> Add Study Load </a>
-            </button>
-            </h1>
-          </div>
+          <button class="ui blue right floated button" onClick={this.startAdd}>Add Study Load</button>
           <Divider hidden="true" />
         </div>
       </div>

@@ -56,6 +56,8 @@ export default class AddTeachingLoad extends Component {
       // data : []
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
+
+    this.startAdd = this.startAdd.bind(this);
   }
 
   // componentDidMount(){
@@ -67,6 +69,11 @@ export default class AddTeachingLoad extends Component {
   //     })
   //     .catch(e => alert('Error loading Publications!!'));
   // }
+
+  startAdd(e) {
+    e.preventDefault();
+    this.props.history.push('../teachingload/add');
+  }
 
   render() {
     return (
@@ -126,6 +133,7 @@ export default class AddTeachingLoad extends Component {
               })}
             </tbody>
           </table>
+          <button class="ui blue right floated button" onClick={this.startAdd}>Add Teaching Load</button>
           <Divider hidden="true" />
         </div>
       </div>

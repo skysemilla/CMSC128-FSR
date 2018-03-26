@@ -80,48 +80,45 @@ export default class AddProfessorialChair extends Component {
           <Divider hidden="true" />
           <p>
             <a class="ui small header">Professorial Chair </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '28vw' }}
                 onChange={this.handleChangeProfChair}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Grant </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '33.6vw' }}
                 onChange={this.handleChangeGrant}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Grant Title </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '31.2vw' }}
                 onChange={this.handleChangeGrantTitle}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Start Date </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="date"
-                style={{ width: '13.5vw' }}
                 onChange={this.handleChangeStartdate}
               />
             </div>
+          </p>
+          <p>
             <a class="ui small header">End Date </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="date"
-                style={{ width: '13.5vw' }}
                 onChange={this.handleChangeEndDate}
               />
             </div>

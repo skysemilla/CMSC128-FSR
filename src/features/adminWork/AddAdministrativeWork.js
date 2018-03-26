@@ -73,18 +73,15 @@ export default class AddAdministrativeWork extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Administrative Work
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              ADMINISTRATIVE WORK
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
             <a class="ui small header"> Position/Nature of Adminstrative Work </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handlePositionOfWork}
               />
             </div>
@@ -92,10 +89,9 @@ export default class AddAdministrativeWork extends Component {
 
           <p>
             <a class="ui small header"> Office Unit </a> {/* Can change to dropdown? */}
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleOfficeUnit}
               />
             </div>
@@ -103,10 +99,9 @@ export default class AddAdministrativeWork extends Component {
 
            <p>
             <a class="ui small header"> Approved Credit Units </a> {/* Can change to number? */}
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleApprovedCreditUnits}
               />
             </div>
@@ -114,10 +109,9 @@ export default class AddAdministrativeWork extends Component {
 
            <p>
             <a class="ui small header"> Total Administrative Load Credits </a> {/* Can change to dropdown? */}
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleTotalAdminCredits}
               />
             </div>
@@ -127,7 +121,7 @@ export default class AddAdministrativeWork extends Component {
             <button
               class="ui blue button"
               onClick={this.startAdd}>
-              Add Publication
+              Add Administrative Work
             </button>
           </div>
         </div>

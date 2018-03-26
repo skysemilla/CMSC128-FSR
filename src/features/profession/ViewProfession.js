@@ -71,7 +71,8 @@ export default class ViewProfession extends Component {
                           permission= {item.permission}
                           date ={item.date}
                           label = "Profession"
-                          subLabel = "profession"/>
+                          subLabel = "profession"
+                          editURL = "../profession/edit"/>
                   )
                 })
               }
