@@ -114,8 +114,7 @@ export default class AddStudyLoad extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <GenerateFSR/>
-              <SendtoAdmin/>
+            ADD STUDY LOAD
             </h2>
           </div>
           <Divider hidden="true" />

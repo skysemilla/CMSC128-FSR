@@ -117,8 +117,7 @@ export default class AddPublication extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              ADD PUBLICATION
             </h2>
           </div>
           <Divider hidden="true" />

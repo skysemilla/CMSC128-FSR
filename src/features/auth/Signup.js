@@ -10,19 +10,25 @@ class Signup extends Component{
       username: '',
       password: '',
       fname: '',
+      mname: '',
       lname: '',
       empid: '',
       college: '',
-      dept: ''
+      dept: '',
+      emptype: '',
+      email: ''
     }
 
     this.handleChangeUsername=this.handleChangeUsername.bind(this);
     this.handleChangePassword=this.handleChangePassword.bind(this);
     this.handleChangeFname=this.handleChangeFname.bind(this);
+    this.handleChangeMname=this.handleChangeMname.bind(this);
     this.handleChangeLname=this.handleChangeLname.bind(this);
     this.handleChangeEmpid=this.handleChangeEmpid.bind(this);
     this.handleChangeCollege=this.handleChangeCollege.bind(this);
     this.handleChangeDept=this.handleChangeDept.bind(this);
+    this.handleChangeEmptype=this.handleChangeEmptype.bind(this);
+    this.handleChangeEmail=this.handleChangeEmail.bind(this);
     this.startSignup=this.startSignup.bind(this);
   }
 
@@ -36,6 +42,10 @@ class Signup extends Component{
 
   handleChangeFname(e) {
     this.setState({fname: e.target.value});
+  }
+
+  handleChangeMname(e) {
+    this.setState({mname: e.target.value});
   }
 
   handleChangeLname(e) {
@@ -54,22 +64,33 @@ class Signup extends Component{
     this.setState({dept: e.target.value});
   }
 
+  handleChangeEmptype(e) {
+    this.setState({emptype: e.target.value});
+  }
+
+  handleChangeEmail(e) {
+    this.setState({email: e.target.value});
+  }
+
   startSignup(e) {
-    // e.preventDefault();
-    // Api.signup({
-    //   username: this.state.username,
-    //   password: this.state.password,
-    //   fname: this.state.fname,
-    //   lname: this.state.lname,
-    //   empid: this.state.empid,
-    //   college: this.state.college,
-    //   dept: this.state.dept,
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./teachingload/add');  //change to profile later!!
-    //     alert('Signup successful! Welcome to your profile.');
-    //   })
-    //   .catch(e => alert('Error with signup!'));
+  //   e.preventDefault();
+  //   Api.signup({
+  //     username: this.state.username,
+  //     password: this.state.password,
+  //     fname: this.state.fname,
+  //     mname: this.state.mname,
+  //     lname: this.state.lname,
+  //     empid: this.state.empid,
+  //     college: this.state.college,
+  //     dept: this.state.dept,
+  //     emptype: this.state.emptype,
+  //     email: this.state.email,
+  //   })
+  //     .then(result => {
+  //       this.props.history.push('./profile');
+  //       alert('Signup successful! Welcome to your profile.');
+  //     })
+  //     .catch(e => alert('Error with signup!'));
   }
 
   render(){
@@ -100,6 +121,12 @@ class Signup extends Component{
                 </div>
               </div>
               <div class="field">
+                <label>Middle Name</label>
+                <div class="ui fluid input">
+                  <input type="text" placeholder="Middle Name" onChange={this.handleChangeMname}/>
+                </div>
+              </div>
+              <div class="field">
                 <label>Last Name</label>
                 <div class="ui fluid input">
                   <input type="text" placeholder="Last Name" onChange={this.handleChangeLname}/>
@@ -122,6 +149,18 @@ class Signup extends Component{
               <label>Department</label>
               <div class="ui input">
                 <input type="text" placeholder="Department"  onChange={this.handleChangeDept}/>
+              </div>
+            </div>
+            <div class="field">
+              <label>Employee Type</label>
+              <div class="ui input">
+                <input type="text" placeholder="Employee Type"  onChange={this.handleChangeEmptype}/>
+              </div>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <div class="ui input">
+                <input type="text" placeholder="Email Address"  onChange={this.handleChangeEmail}/>
               </div>
             </div>
             <div class="field">

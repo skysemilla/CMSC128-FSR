@@ -7,6 +7,19 @@ import NavBar from './../ui/NavBar';
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
 
+const dummySample = {
+      username: '',
+      password: '',
+      fname: '',
+      mname: '',
+      lname: '',
+      empid: '',
+      college: '',
+      dept: '',
+      emptype: '',
+      email: ''
+};
+
 export default class AddTeachingLoad extends Component {
   constructor(props) {
     super(props);
@@ -114,109 +127,96 @@ export default class AddTeachingLoad extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              ADD TEACHING LOAD
             </h2>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <p>
             <a class="ui small header"> Subject</a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '540px' }}
                 onChange={this.handleChangeSubj}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> Section Code </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '497px' }}
                 onChange={this.handleChangeSeccode}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Room </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '552px' }}
                 onChange={this.handleChangeRoom}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Days </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '560px' }}
                 onChange={this.handleChangeDays}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Time </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '560px' }}
                 onChange={this.handleChangeTime}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Hours per Week </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '473px' }}
                 onChange={this.handleChangeHours}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">No. of Students </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '480px' }}
                 onChange={this.handleChangeStudnum}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Course Credit w/o Multiplier </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '378px' }}
                 onChange={this.handleChangeCreditwo}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Student Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '440px' }}
                 onChange={this.handleChangeStudcred}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '325px' }}
                 onChange={this.handleChangeCreditwith}
               />
             </div>

@@ -19,16 +19,16 @@ export default class EditPublication extends Component {
     super(props);
 
     this.state = {
-      researchType: '',
-      researchSubtype : '',
-      completeTitle: '',
-      Role: '',
-      Coworkers: '',
+      researchType : 'Research',
+      researchSubtype : 'Research Proposal',
+      completeTitle: 'Sample',
+      Role: 'ABC',
+      Coworkers: 'ABC',
       Funding: 'N/A',
-      StartDate: '',
-      EndDate: '',
-      ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      StartDate: '03/03/03',
+      EndDate: '04/04/04',
+      ApprovedCreditUnits: '3',
+      TotalWorkLoadUnits: '3'
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -116,9 +116,7 @@ export default class EditPublication extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              View Publications
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              EDIT PUBLICATION
             </h2>
           </div>
           <Divider hidden="true" />
@@ -163,6 +161,7 @@ export default class EditPublication extends Component {
                 type="text"
                 style={{ width: '300px' }}
                 onChange={this.handleChangeCoworkers}
+                placeHolder={this.state.Coworkers}
               />
             </div>
           </p>
@@ -173,7 +172,7 @@ export default class EditPublication extends Component {
             label = "Funding"
             type = "text"
             length = "432 px"
-            handler = {this.handleChangeFunding} />
+            handler = {this.handleChangeFunding}placeHolder={this.state.Funding} />
 
           <GenericDisabledInput
             compareState = {this.state.researchSubtype}
@@ -182,7 +181,7 @@ export default class EditPublication extends Component {
             label = "Start Date"
             type = "date"
             length = "150 px"
-            handler = {this.handleChangeStartDate} />
+            handler = {this.handleChangeStartDate}placeHolder={this.state.StartDate} />
 
           <GenericDisabledInput
             compareState = {this.state.researchSubtype}
@@ -191,7 +190,7 @@ export default class EditPublication extends Component {
             label = "End Date"
             type = "date"
             length = "150 px"
-            handler = {this.handleChangeEndDate} />
+            handler = {this.handleChangeEndDate} placeHolder={this.state.EndDate}/>
 
           <p>
             <a class="ui small header"> Approved Credit Units </a>
@@ -200,6 +199,7 @@ export default class EditPublication extends Component {
                 type="number"
                 style={{ width: '100px' }}
                 onChange={this.handleChangeApprovedCreditUnits}
+                placeHolder={this.state.ApprovedCreditUnits}
               />
             </div>
           </p>
@@ -211,6 +211,7 @@ export default class EditPublication extends Component {
                 type="number"
                 style={{ width: '100px' }}
                 onChange={this.handleChangeTotalWorkLoadUnits}
+                placeHolder={this.state.TotalWorkLoadUnits}
               />
             </div>
           </p>

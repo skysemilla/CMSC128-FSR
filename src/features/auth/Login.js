@@ -60,7 +60,7 @@ export default class Login extends Component {
         if (this.state.type === 'ADMIN') {
           this.props.history.push('./teachingload/add');
         } else if (this.state.type === 'USER') {
-          this.props.history.push('./studyload/add');
+          this.props.history.push('./profile');
         }
       })
       .catch(e => alert('Wrong Credentials!'));

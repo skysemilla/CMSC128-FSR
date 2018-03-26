@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 //import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {css} from './../index.css'
+
 
 import Login from './../features/auth/Login';
 import Signup from './../features/auth/Signup';
@@ -15,10 +17,12 @@ import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
+import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
 import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import EditConsultationHours from './../features/consultationhours/EditConsultationHours';
 import AddExtension from './../features/extension/AddExtension';
+import Profile from './../features/profile/Profile';
 
 class App extends Component {
   render() {
@@ -28,6 +32,7 @@ class App extends Component {
           <div id="content-container">
             <Route exact={true} path="/" component={Login}/>
             <Route exact={true} path="/signup" component={Signup}/>
+            <Route exact={true} path="/profile" component={Profile}/>
             <Route exact={true} path="/teachingload/add" component={AddTeachingLoad}/>
             <Route exact={true} path="/teachingload/edit" component={EditTeachingLoad}/>
             <Route exact={true} path="/studyload/add" component={AddStudyLoad}/>
@@ -38,6 +43,7 @@ class App extends Component {
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
+            <Route exact={true} path="/professorialchair/add" component={AddProfessorialChair}/>
             <Route exact={true} path="/adminWork/add" component={AddAdministrativeWork}/>
             <Route exact={true} path="/adminWork/edit" component={EditAdministrativeWork}/>
             <Route exact={true} path="/consultationhours/edit" component={EditConsultationHours}/>

@@ -13,7 +13,8 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.seccode} </td>
         <td class="center aligned"> {this.props.room} </td>
         <td class="center aligned"> {this.props.days} </td>
-        <td class="center aligned"> {this.props.time} </td>
+        <td class="center aligned"> {this.props.starttime} </td>
+        <td class="center aligned"> {this.props.endtime} </td>
         <td class="center aligned"> {this.props.hours} </td>
         <td class="center aligned"> {this.props.studnum} </td>
         <td class="center aligned"> {this.props.creditwo} </td>

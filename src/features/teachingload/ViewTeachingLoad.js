@@ -13,7 +13,8 @@ const dummySample = {
   seccode: 'CMSC 128',
   room: 'CAS B04',
   days: 'T-Th',
-  time: '4pm-7pm',
+  starttime: '4pm',
+  endtime: '7pm',
   hours: '3',
   studnum: '49',
   creditwo: '3',
@@ -25,7 +26,8 @@ const dummySample2 = {
   seccode: 'CMSC 127',
   room: 'CAS B04',
   days: 'T-Th',
-  time: '4pm-7pm',
+  starttime: '4pm',
+  endtime: '7pm',
   hours: '3',
   studnum: '49',
   creditwo: '3',
@@ -37,7 +39,8 @@ const dummySample3 = {
   seccode: 'CMSC 129',
   room: 'CAS B04',
   days: 'T-Th',
-  time: '4pm-7pm',
+  starttime: '4pm',
+  endtime: '7pm',
   hours: '3',
   studnum: '49',
   creditwo: '3',
@@ -74,12 +77,8 @@ export default class AddTeachingLoad extends Component {
           <div>
             <h1 class="ui blue header">
               TEACHING LOAD
-              <GenerateFSR/>
-              <SendtoAdmin/>
             </h1>
           </div>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <Divider hidden="true" />
 
           <style>
@@ -91,7 +90,8 @@ export default class AddTeachingLoad extends Component {
                 <th class="center aligned"> Section Code </th>
                 <th class="center aligned"> Room </th>
                 <th class="center aligned"> Days </th>
-                <th class="center aligned"> Time </th>
+                <th class="center aligned"> Start Time </th>
+                <th class="center aligned"> End Time </th>
                 <th class="center aligned"> Hours Per Week </th>
                 <th class="center aligned"> No. Of Students </th>
                 <th class="center aligned"> Course Credit </th>
@@ -111,7 +111,8 @@ export default class AddTeachingLoad extends Component {
                     seccode={item.seccode}
                     room={item.room}
                     days={item.days}
-                    time={item.time}
+                    starttime={item.starttime}
+                    endtime={item.endtime}
                     hours={item.hours}
                     studnum={item.studnum}
                     creditwo={item.creditwo}
