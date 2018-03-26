@@ -17,21 +17,19 @@ export default class GenericDisabledInput extends Component{
           state === string ?
           <p>
             <a class="ui small header"> {this.props.label} </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
             <input
               disabled
               type={this.props.type}
-              style={{width : length}}
               onChange={this.props.handler}/>
             </div>
           </p>
           :
           <p>
             <a class="ui small header"> {this.props.label} </a>
-              <div class="ui input mini focus">
+              <div class="ui input fluid mini focus">
               <input
                 type={this.props.type}
-                style={{width : length}}
                 onChange={this.props.handler}/>
               </div>
           </p>
@@ -39,21 +37,19 @@ export default class GenericDisabledInput extends Component{
           state !== string ?
           <p>
             <a class="ui small header"> {this.props.label} </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
             <input
               disabled
               type={this.props.type}
-              style={{width : length}}
               onChange={this.props.handler}/>
             </div>
           </p>
           :
           <p>
             <a class="ui small header"> {this.props.label} </a>
-              <div class="ui input mini focus">
+              <div class="ui input fluid mini focus">
               <input
                 type={this.props.type}
-                style={{width : length}}
                 onChange={this.props.handler}/>
               </div>
           </p>

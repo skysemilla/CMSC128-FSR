@@ -152,7 +152,7 @@ export default class EditExtension extends Component {
             <div class="ui input fluid mini focus">
               <input
                 disabled
-                type="text"
+                type="number"
                 onChange={this.handleChangeNoOfHours}
                 placeholder={this.state.noOfHours}
               />
@@ -162,7 +162,7 @@ export default class EditExtension extends Component {
             <a class="ui small header"> No. of Participants </a>
               <div class="ui input fluid mini focus">
                 <input
-                  type="text"
+                  type="number"
                   onChange={this.handleChangeNoOfParticipants}
                   placeholder={this.state.noOfParticipants}
                 />
@@ -202,7 +202,7 @@ export default class EditExtension extends Component {
             <a class="ui small header"> Approved Credit Units </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 onChange={this.handleChangeApprovedCreditUnits}
                 placeholder={this.state.approvedCreditUnits}
               />
@@ -212,7 +212,7 @@ export default class EditExtension extends Component {
             <a class="ui small header"> Total Extension and Community Units </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 onChange={this.handleChangeTotalExtandCommUnits}
                 placeholder={this.state.totalExtandCommUnits}
               />

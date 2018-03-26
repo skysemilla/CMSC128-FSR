@@ -138,10 +138,9 @@ export default class AddPublication extends Component {
           </div>
           <p>
             <a class="ui small header"> Complete Title </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeTitle}
               />
             </div>
@@ -150,11 +149,10 @@ export default class AddPublication extends Component {
             this.state.researchType !== 'Research' ?
               <p>
                 <a class="ui small header"> Role </a>
-                <div class="ui input mini focus">
+                <div class="ui input fluid mini focus">
                   <input
                     disabled
                     type="text"
-                    style={{ width: '432px' }}
                     onChange={this.handleChangeRole}
                   />
                 </div>
@@ -162,10 +160,9 @@ export default class AddPublication extends Component {
                :
               <p>
                 <a class="ui small header"> Role </a>
-                  <div class="ui input mini focus">
+                  <div class="ui input fluid mini focus">
                     <input
                       type="text"
-                      style={{ width: '432px' }}
                       onChange={this.handleChangeRole}
                     />
                 </div>
@@ -173,10 +170,9 @@ export default class AddPublication extends Component {
           }
           <p>
             <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '300px' }}
                 onChange={this.handleChangeCoworkers}
               />
             </div>
@@ -185,11 +181,10 @@ export default class AddPublication extends Component {
             this.state.researchSubtype !== 'Research Proposal' ?
               <p>
                 <a class="ui small header"> Funding </a>
-                <div class="ui input mini focus">
+                <div class="ui input fluid mini focus">
                   <input
                     disabled
                     type="text"
-                    style={{ width: '432px' }}
                     onChange={this.handleChangeFunding}
                   />
                 </div>
@@ -197,10 +192,9 @@ export default class AddPublication extends Component {
                :
               <p>
                 <a class="ui small header"> Funding </a>
-                  <div class="ui input mini focus">
+                  <div class="ui input fluid mini focus">
                     <input
                       type="number"
-                      style={{ width: '432px' }}
                       onChange={this.handleChangeFunding}
                     />
                 </div>
@@ -211,11 +205,10 @@ export default class AddPublication extends Component {
             this.state.researchSubtype === 'Research Proposal' ?
               <p>
                 <a class="ui small header"> Start Date </a>
-                <div class="ui input mini focus">
+                <div class="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
-                    style={{ width: '150px' }}
                     onChange={this.handleChangeStartDate}
                   />
                 </div>
@@ -223,10 +216,9 @@ export default class AddPublication extends Component {
                :
               <p>
                 <a class="ui small header"> Start Date </a>
-                  <div class="ui input mini focus">
+                  <div class="ui input fluid mini focus">
                     <input
                       type="date"
-                      style={{ width: '150px' }}
                       onChange={this.handleChangeStartDate}
                     />
                 </div>
@@ -237,11 +229,10 @@ export default class AddPublication extends Component {
             this.state.researchSubtype === 'Research Proposal' ?
               <p>
                 <a class="ui small header"> End Date </a>
-                <div class="ui input mini focus">
+                <div class="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
-                    style={{ width: '150px' }}
                     onChange={this.handleChangeEndDate}
                   />
                 </div>
@@ -249,10 +240,9 @@ export default class AddPublication extends Component {
                :
               <p>
                 <a class="ui small header"> End Date </a>
-                  <div class="ui input mini focus">
+                  <div class="ui input fluid mini focus">
                     <input
                       type="date"
-                      style={{ width: '150px' }}
                       onChange={this.handleChangeEndDate}
                     />
                 </div>
@@ -261,10 +251,9 @@ export default class AddPublication extends Component {
 
           <p>
             <a class="ui small header"> Approved Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleChangeApprovedCreditUnits}
               />
             </div>
@@ -272,10 +261,9 @@ export default class AddPublication extends Component {
 
           <p>
             <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleChangeTotalWorkLoadUnits}
               />
             </div>

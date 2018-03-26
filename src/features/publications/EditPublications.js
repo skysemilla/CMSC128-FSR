@@ -151,7 +151,6 @@ export default class EditPublication extends Component {
             operation = "!=="
             label = "Role"
             type = "text"
-            length = "432 px"
             handler = {this.handleChangeRole} />
           <p>
             <a class="ui small header"> Co-workers / Co-authors </a>
@@ -169,7 +168,6 @@ export default class EditPublication extends Component {
             operation = "!=="
             label = "Funding"
             type = "text"
-            length = "432 px"
             handler = {this.handleChangeFunding}placeHolder={this.state.Funding} />
 
           <GenericDisabledInput
@@ -178,7 +176,6 @@ export default class EditPublication extends Component {
             operation = "==="
             label = "Start Date"
             type = "date"
-            length = "150 px"
             handler = {this.handleChangeStartDate}placeHolder={this.state.StartDate} />
 
           <GenericDisabledInput
@@ -187,7 +184,6 @@ export default class EditPublication extends Component {
             operation = "==="
             label = "End Date"
             type = "date"
-            length = "150 px"
             handler = {this.handleChangeEndDate} placeHolder={this.state.EndDate}/>
 
           <p>

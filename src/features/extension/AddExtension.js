@@ -139,7 +139,7 @@ export default class AddExtension extends Component {
             <div class="ui input fluid mini focus">
               <input
                 disabled
-                type="text"
+                type="number"
                 onChange={this.handleChangeNoOfHours}
               />
             </div>
@@ -148,7 +148,7 @@ export default class AddExtension extends Component {
             <a class="ui small header"> No. of Participants </a>
               <div class="ui input fluid mini focus">
                 <input
-                  type="text"
+                  type="number"
                   onChange={this.handleChangeNoOfParticipants}
                 />
             </div>
@@ -184,7 +184,7 @@ export default class AddExtension extends Component {
             <a class="ui small header"> Approved Credit Units </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 onChange={this.handleChangeApprovedCreditUnits}
               />
             </div>
@@ -193,7 +193,7 @@ export default class AddExtension extends Component {
             <a class="ui small header"> Total Extension and Community Units </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 onChange={this.handleChangeTotalExtandCommUnits}
               />
             </div>

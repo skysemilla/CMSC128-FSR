@@ -185,7 +185,7 @@ export default class EditTeachingLoad extends Component {
             <a class="ui small header">Hours per Week </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 placeholder={this.state.hours}
                 onChange={this.handleChangeHours}
               />
@@ -195,7 +195,7 @@ export default class EditTeachingLoad extends Component {
             <a class="ui small header">No. of Students </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 placeholder={this.state.studnum}
                 onChange={this.handleChangeStudnum}
               />
@@ -205,7 +205,7 @@ export default class EditTeachingLoad extends Component {
             <a class="ui small header">Course Credit w/o Multiplier </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 placeholder={this.state.creditwo}
                 onChange={this.handleChangeCreditwo}
               />
@@ -215,7 +215,7 @@ export default class EditTeachingLoad extends Component {
             <a class="ui small header">Student Credit Units </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 placeholder={this.state.studcred}
                 onChange={this.handleChangeStudcred}
               />
@@ -225,7 +225,7 @@ export default class EditTeachingLoad extends Component {
             <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 placeholder={this.state.creditw}
                 onChange={this.handleChangeCreditwith}
               />

@@ -120,20 +120,18 @@ export default class AddStudyLoad extends Component {
           <Divider hidden="true" />
           <p>
             <a class="ui small header">Degree Enrolled In </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '455px' }}
                 onChange={this.handleChangeDegree}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> University Enrolled In </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeUni}
               />
             </div>
@@ -197,60 +195,54 @@ export default class AddStudyLoad extends Component {
           </p>
           <p>
             <a class="ui small header">Course Number </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '475px' }}
                 onChange={this.handleChangeCourseno}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Course Credit </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '490px' }}
+                type="number"
                 onChange={this.handleChangeCcred}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Days </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '560px' }}
                 onChange={this.handleChangeDay}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Time </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '560px' }}
+                type="time"
                 onChange={this.handleChangeTime}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">School </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '545px' }}
                 onChange={this.handleChangeSchool}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Study Load Credits </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '450px' }}
+                type="number"
                 onChange={this.handleChangeSlcred}
               />
             </div>

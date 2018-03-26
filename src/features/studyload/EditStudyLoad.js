@@ -123,7 +123,6 @@ export default class EditStudyLoad extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '455px' }}
                 value={this.state.degree}
                 placeholder={this.state.degree}
                 onChange={this.handleChangeDegree}
@@ -135,7 +134,6 @@ export default class EditStudyLoad extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 value={this.state.uni}
                 placeholder={this.state.uni}
                 onChange={this.handleChangeUni}
@@ -195,7 +193,7 @@ export default class EditStudyLoad extends Component {
             <a class="ui small header">Course Credit </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 value={this.state.ccred}
                 placeholder={this.state.ccred}
                 onChange={this.handleChangeCcred}
@@ -217,7 +215,7 @@ export default class EditStudyLoad extends Component {
             <a class="ui small header">Time </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="time"
                 value={this.state.time}
                 placeholder={this.state.time}
                 onChange={this.handleChangeTime}
@@ -239,7 +237,7 @@ export default class EditStudyLoad extends Component {
             <a class="ui small header">Study Load Credits </a>
             <div class="ui input fluid mini focus">
               <input
-                type="text"
+                type="number"
                 value={this.state.slcred}
                 placeholder={this.state.slcred}
                 onChange={this.handleChangeSlcred}
