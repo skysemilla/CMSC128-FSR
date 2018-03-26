@@ -31,7 +31,7 @@ export default class ViewStudyLoad extends Component {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="studyload"/>
 
         <div class = "ui piled very padded container segment" color = "teal">
           <div>

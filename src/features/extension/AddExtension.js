@@ -106,7 +106,7 @@ export default class AddExtension extends Component {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="extension"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

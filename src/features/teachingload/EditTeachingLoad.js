@@ -115,7 +115,7 @@ export default class EditTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

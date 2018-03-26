@@ -110,7 +110,7 @@ export default class EditPublication extends Component {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
@@ -137,10 +137,9 @@ export default class EditPublication extends Component {
           </div>
           <p>
             <a class="ui small header"> Complete Title </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeTitle}
                 placeHolder={this.state.completeTitle}
               />
@@ -156,10 +155,9 @@ export default class EditPublication extends Component {
             handler = {this.handleChangeRole} />
           <p>
             <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '300px' }}
                 onChange={this.handleChangeCoworkers}
                 placeHolder={this.state.Coworkers}
               />
@@ -194,10 +192,9 @@ export default class EditPublication extends Component {
 
           <p>
             <a class="ui small header"> Approved Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleChangeApprovedCreditUnits}
                 placeHolder={this.state.ApprovedCreditUnits}
               />
@@ -206,10 +203,9 @@ export default class EditPublication extends Component {
 
           <p>
             <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleChangeTotalWorkLoadUnits}
                 placeHolder={this.state.TotalWorkLoadUnits}
               />

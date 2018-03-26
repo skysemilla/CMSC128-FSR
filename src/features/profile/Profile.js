@@ -35,7 +35,7 @@ export default class Profile extends Component {
   render() {
     return (
        <div classname="App-header">
-            <NavBar {...this.props}/>
+            <NavBar {...this.props} Label="profile" subLabel=""/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

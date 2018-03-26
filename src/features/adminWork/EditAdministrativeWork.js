@@ -67,7 +67,7 @@ export default class EditAdministrativeWork extends Component {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="adminwork"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

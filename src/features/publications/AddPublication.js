@@ -111,7 +111,7 @@ export default class AddPublication extends Component {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

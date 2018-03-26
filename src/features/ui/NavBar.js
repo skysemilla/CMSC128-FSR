@@ -9,8 +9,8 @@ export default class NavBar extends Component {
     super(props);
 
     this.state = {
-      activeMenu: 'FSR',
-      subMenu: ''
+      activeMenu: this.props.Label,
+      subMenu: this.props.subLabel
     };
 
     this.handleLogout = this.handleLogout.bind(this);

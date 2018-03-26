@@ -23,6 +23,9 @@ import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWo
 import EditConsultationHours from './../features/consultationhours/EditConsultationHours';
 import AddExtension from './../features/extension/AddExtension';
 import Profile from './../features/profile/Profile';
+import AddProfession from './../features/profession/AddProfession';
+import EditProfession from './../features/profession/EditProfession';
+import ViewProfession from './../features/profession/ViewProfession';
 
 class App extends Component {
   render() {
@@ -48,6 +51,9 @@ class App extends Component {
             <Route exact={true} path="/adminWork/edit" component={EditAdministrativeWork}/>
             <Route exact={true} path="/consultationhours/edit" component={EditConsultationHours}/>
             <Route exact={true} path="/extension/add" component={AddExtension}/>
+            <Route exact={true} path="/profession/add" component={AddProfession}/>
+            <Route exact={true} path="/profession/edit" component={EditProfession}/>
+            <Route exact={true} path="/profession/view" component={ViewProfession}/>
           </div>
         </Router>
       </div>

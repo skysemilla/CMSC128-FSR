@@ -71,7 +71,7 @@ export default class AddTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
 
         <div class="ui piled very padded container segment" color="teal">
           <div>

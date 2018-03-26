@@ -66,7 +66,7 @@ export default class AddProfessorialChair extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="profchair"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">

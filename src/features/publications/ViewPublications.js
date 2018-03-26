@@ -59,7 +59,7 @@ export default class ViewPublications extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
           class="ui compact piled very padded text left aligned container segment"
           color="teal">
