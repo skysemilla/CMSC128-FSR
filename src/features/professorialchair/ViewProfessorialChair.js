@@ -40,6 +40,13 @@ export default class ViewProfessorialChair extends Component {
     this.state = {
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
+
+    this.startAdd = this.startAdd.bind(this);
+  }
+
+  startAdd(e) {
+    e.preventDefault();
+    this.props.history.push('../professorialchair/add');
   }
 
   render() {
@@ -86,6 +93,7 @@ export default class ViewProfessorialChair extends Component {
               })}
             </tbody>
           </table>
+          <button class="ui blue right floated button" onClick={this.startAdd}>Add Professorial Chair</button>
           <Divider hidden="true" />
         </div>
       </div>

@@ -73,7 +73,7 @@ export default class AddAdministrativeWork extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              ADMINISTRATIVE WORK
+              ADD ADMINISTRATIVE WORK
             </h2>
           </div>
           <Divider hidden="true" />

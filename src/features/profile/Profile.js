@@ -41,6 +41,7 @@ export default class Profile extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
+              <button class="ui blue right floated button" onClick={this.handleEdit}>Edit Profile</button>
               PROFILE
             </h2>
           </div>

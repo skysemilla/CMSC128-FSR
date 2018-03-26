@@ -83,23 +83,22 @@ export default class AddExtension extends Component {
 
   startAdd(e) {
     // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
+    // Api.addextension({
+    //   type: this.state.type,
+    //   title: this.state.title,
+    //   noOfHours: this.state.noOfHours,
+    //   noOfParticipants: this.state.noOfParticipants,
+    //   startDate: this.state.startDate,
+    //   endDate: this.state.endDate,
+    //   role: this.state.role,
+    //   approvedCreditUnits: this.state.approvedCreditUnits,
+    //   totalExtandCommUnits: this.state.totalExtandCommUnits
     // })
     //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
+    //     this.props.history.push('./extension/view');
+    //     alert('Extension successfully added!');
     //   })
-    //   .catch(e => alert('Error adding new Publication!'));
+    //   .catch(e => alert('Error adding new Extension!'));
   }
 
   render() {
@@ -112,100 +111,100 @@ export default class AddExtension extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              ADD EXTENSION
             </h2>
           </div>
           <Divider hidden="true" />
+          <p>
           <div>
             <GenericDropdown
-              labelHeader = "Extension Type"
+              labelHeader = "Extension Type "
               labelProper = "Choose Extension Type"
               value = {this.state.type}
               handler = {this.handleChangeType}
               options = {optionsMain}/>
           </div>
+          </p>
           <p>
             <a class="ui small header"> Title </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeTitle}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> No. of Hours </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 disabled
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeNoOfHours}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> No. of Participants </a>
-              <div class="ui input mini focus">
+              <div class="ui input fluid mini focus">
                 <input
                   type="text"
-                  style={{ width: '432px' }}
                   onChange={this.handleChangeNoOfParticipants}
                 />
             </div>
           </p>
           <p>
             <a class="ui small header"> Start Date </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '432px' }}
+                type="date"
                 onChange={this.handleChangeStartDate}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> End Date </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '432px' }}
+                type="date"
                 onChange={this.handleChangeEndDate}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> Role </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeRole}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> Approved Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeApprovedCreditUnits}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> Total Extension and Community Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeTotalExtandCommUnits}
               />
             </div>
           </p>
+          <div class="ui center aligned container">
+          <button
+              class="ui center aligned blue button"
+              onClick={this.startAdd}>
+              Add Extension
+            </button>
+          </div>
         </div>
         <Divider hidden="true" />
       </div>

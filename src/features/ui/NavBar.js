@@ -29,7 +29,9 @@ export default class NavBar extends Component {
     this.setState({ activeMenu: e.target.id});
     if(this.state.activeMenu==='profile'){
         this.props.history.push('../../profile');
-        this.forceUpdate();
+    }
+    else{
+        this.props.history.push('../../teachingload/view');
     }
   }
 

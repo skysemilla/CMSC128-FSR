@@ -76,8 +76,6 @@ export default class AddProfessorialChair extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <p>
             <a class="ui small header">Professorial Chair </a>
             <div class="ui input fluid mini focus">

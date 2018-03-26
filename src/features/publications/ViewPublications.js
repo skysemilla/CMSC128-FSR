@@ -109,7 +109,7 @@ export default class ViewPublications extends Component {
             </tbody>
           </table>
             <button class="ui right floated blue button" onClick={this.startAdd}>
-              Add new Publications
+              Add Publication
             </button>
           </div>
         </div>
