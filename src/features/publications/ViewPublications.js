@@ -61,7 +61,7 @@ export default class ViewPublications extends Component {
       <div className="App-header">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
-          class="ui compact piled very padded text left aligned container segment"
+          class="ui compact piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
             <h2 class="ui blue header">

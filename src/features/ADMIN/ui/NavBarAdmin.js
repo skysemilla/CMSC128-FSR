@@ -25,11 +25,11 @@ export default class NavBarAdmin extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({ activeMenu: e.currentTarget.id});
-    if(this.state.activeMenu==='all'){
+    if(e.currentTarget.id==='all'){
         this.props.history.push('../../admin/viewAllFSR');
-    }else if(this.state.activeMenu==='pending'){
+    }else if(e.currentTarget.id==='pending'){
         this.props.history.push('../../admin/viewPendingFSR');
-    }else if(this.state.activeMenu==='approved'){
+    }else if(e.currentTarget.id==='approved'){
         this.props.history.push('../../admin/viewApprovedFSR');
     }else{
         this.props.history.push('../../admin/viewAllFaculty');
@@ -40,7 +40,7 @@ export default class NavBarAdmin extends Component {
         return(
          <div>
          {this.state.activeMenu==='all'?
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="active item" id="all" onClick={this.handleChange}>
                 All FSR
               </a>
@@ -60,7 +60,7 @@ export default class NavBarAdmin extends Component {
             </div>
           </div>
         :this.state.activeMenu==='pending'?
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="all" onClick={this.handleChange}>
                 All FSR
               </a>
@@ -80,7 +80,7 @@ export default class NavBarAdmin extends Component {
             </div>
           </div>
         :this.state.activeMenu==='approved'?
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="all" onClick={this.handleChange}>
                 All FSR
               </a>
@@ -100,7 +100,7 @@ export default class NavBarAdmin extends Component {
             </div>
           </div>
         :
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="all" onClick={this.handleChange}>
                 All FSR
               </a>

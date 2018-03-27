@@ -61,7 +61,7 @@ export default class GenericPending extends Component {
           </button>
         </div>
         {this.state.activeButton === 'del' ?
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
             <Modal.Header>
               DELETE FSR
             </Modal.Header>
@@ -76,7 +76,7 @@ export default class GenericPending extends Component {
             </Modal.Actions>
           </Modal>
         :this.state.activeButton === 'approve' ?
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
             <Modal.Header>
               APPROVE FSR
             </Modal.Header>
@@ -91,7 +91,7 @@ export default class GenericPending extends Component {
             </Modal.Actions>
           </Modal> 
           :
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
             <Modal.Header>
               REJECT FSR
             </Modal.Header>

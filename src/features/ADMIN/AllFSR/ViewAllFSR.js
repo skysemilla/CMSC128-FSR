@@ -52,11 +52,18 @@ export default class ViewAllFSR extends Component {
       <div className="App-header">
         <NavBar {...this.props} Label="all"/>
 
-        <div class="ui piled very padded container segment" color="teal">
-          <div>
+        <div class="ui compact piled very padded container segment" color="teal">
+          <div class="ui two column grid">
             <h1 class="ui blue header">
               VIEW ALL FSR
             </h1>
+            <div class="ui right floated search">
+              <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search Name or EmpID..."/>
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
           </div>
           <Divider hidden="true" />
 

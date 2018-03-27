@@ -112,7 +112,7 @@ export default class EditPublication extends Component {
       <div className="App-header">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
-          class="ui piled very padded text left aligned container segment"
+          class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
             <h2 class="ui blue header">
