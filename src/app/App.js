@@ -4,7 +4,6 @@ import 'semantic-ui-css/semantic.min.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {css} from './../index.css'
 
-
 import Login from './../features/auth/Login';
 import Signup from './../features/auth/Signup';
 import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
