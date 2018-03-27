@@ -93,7 +93,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item active" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -137,7 +137,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -181,7 +181,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -225,7 +225,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -269,7 +269,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -313,7 +313,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -357,7 +357,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -401,7 +401,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container">
+          <div class="ui large inverted blue vertical menu flex-container large">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
