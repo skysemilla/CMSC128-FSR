@@ -4,6 +4,7 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
+import SendToAdmin from './../SendtoAdmin';
 
 const dummySample = {
     fname: 'Jasper',
@@ -94,7 +95,7 @@ export default class Profile extends Component {
                 <tr>
                   <td>2017-2018</td>
                   <td>2nd</td>
-                  <td><button class="ui blue button">Edit</button></td>
+                  <td><SendToAdmin {...this.props}/></td>
                 </tr>
               </tbody>
             </table>
