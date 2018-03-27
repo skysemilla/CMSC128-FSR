@@ -32,6 +32,11 @@ import AddProfession from './../features/profession/AddProfession';
 import EditProfession from './../features/profession/EditProfession';
 import ViewProfession from './../features/profession/ViewProfession';
 
+import ViewAllFSR from './../features/ADMIN/AllFSR/ViewAllFSR';
+import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
+import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
+import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';
+
 class App extends Component {
   render() {
     return (
@@ -64,6 +69,11 @@ class App extends Component {
             <Route exact={true} path="/profession/add" component={AddProfession}/>
             <Route exact={true} path="/profession/edit" component={EditProfession}/>
             <Route exact={true} path="/profession/view" component={ViewProfession}/>
+
+            <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
+            <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
+            <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>
+            <Route exact={true} path="/admin/ViewAllFaculty" component={ViewAllFaculty}/>
           </div>
         </Router>
       </div>
