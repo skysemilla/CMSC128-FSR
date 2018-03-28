@@ -6,7 +6,6 @@ import * as Api from '../../api';
 import ViewTeachingLoadRow from './TeachingLoadViewRow';
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
-import DeleteModal from './ViewTeachingload/DeleteModal';
 import NavBar from './../ui/NavBar'
 
 //Dummy data
@@ -14,7 +13,8 @@ const dummySample = {
   seccode: 'CMSC 128',
   room: 'CAS B04',
   days: 'T-Th',
-  time: '4pm-7pm',
+  starttime: '4pm',
+  endtime: '7pm',
   hours: '3',
   studnum: '49',
   creditwo: '3',
@@ -26,7 +26,8 @@ const dummySample2 = {
   seccode: 'CMSC 127',
   room: 'CAS B04',
   days: 'T-Th',
-  time: '4pm-7pm',
+  starttime: '4pm',
+  endtime: '7pm',
   hours: '3',
   studnum: '49',
   creditwo: '3',
@@ -38,7 +39,8 @@ const dummySample3 = {
   seccode: 'CMSC 129',
   room: 'CAS B04',
   days: 'T-Th',
-  time: '4pm-7pm',
+  starttime: '4pm',
+  endtime: '7pm',
   hours: '3',
   studnum: '49',
   creditwo: '3',
@@ -54,6 +56,8 @@ export default class ViewTeachingLoad extends Component {
       // data : []
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
+
+    this.startAdd = this.startAdd.bind(this);
   }
 
   // componentDidMount(){
@@ -66,25 +70,25 @@ export default class ViewTeachingLoad extends Component {
   //     .catch(e => alert('Error loading Publications!!'));
   // }
 
+  startAdd(e) {
+    e.preventDefault();
+    this.props.history.push('../teachingload/add');
+  }
+
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
 
-        <div class="ui piled very padded container segment" color="teal">
+        <div class="ui compact piled very padded text left aligned container segment mainDiv" color="teal">
           <div>
             <h1 class="ui blue header">
               TEACHING LOAD
-              <GenerateFSR/>
-              <SendtoAdmin/>
             </h1>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
 
           <style>
-            {' '}
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
           <table class="ui celled table">
@@ -93,7 +97,8 @@ export default class ViewTeachingLoad extends Component {
                 <th class="center aligned"> Section Code </th>
                 <th class="center aligned"> Room </th>
                 <th class="center aligned"> Days </th>
-                <th class="center aligned"> Time </th>
+                <th class="center aligned"> Start Time </th>
+                <th class="center aligned"> End Time </th>
                 <th class="center aligned"> Hours Per Week </th>
                 <th class="center aligned"> No. Of Students </th>
                 <th class="center aligned"> Course Credit </th>
@@ -113,27 +118,22 @@ export default class ViewTeachingLoad extends Component {
                     seccode={item.seccode}
                     room={item.room}
                     days={item.days}
-                    time={item.time}
+                    starttime={item.starttime}
+                    endtime={item.endtime}
                     hours={item.hours}
                     studnum={item.studnum}
                     creditwo={item.creditwo}
                     studcred={item.studcred}
                     creditw={item.creditw}
+                    editURL = "../teachingload/edit"
+                    label = "Teaching Load"
+                    subLabel = "teaching load"
                   />
                 );
               })}
             </tbody>
           </table>
-          <div>
-            <h1 class="ui white header">
-              <button class="ui right floated button">
-                <a color="white" href="./add">
-                  {' '}
-                  Add to Teaching Load{' '}
-                </a>
-              </button>
-            </h1>
-          </div>
+          <button class="ui blue right floated button" onClick={this.startAdd}>Add Teaching Load</button>
           <Divider hidden="true" />
         </div>
       </div>

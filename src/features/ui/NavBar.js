@@ -8,7 +8,14 @@ export default class NavBar extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      activeMenu: this.props.Label,
+      subMenu: this.props.subLabel
+    };
+
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmenus = this.handleSubmenus.bind(this);
   }
 
   handleLogout(e) {
@@ -17,44 +24,412 @@ export default class NavBar extends Component {
     this.props.history.push('../..');
   }
 
+  handleChange(e) {
+    this.setState({ activeMenu: e.currentTarget.id});
+    if(e.currentTarget.id==='profile'){
+        this.props.history.push('../../profile');
+    }
+    else{
+        this.props.history.push('../../teachingload/view');
+    }
+  }
+
+  handleSubmenus(e) {
+    e.preventDefault();
+    this.setState({ activeMenu: 'FSR'});
+    this.setState({ subMenu: e.currentTarget.id });
+    if(e.currentTarget.id==='teachingload'){
+        this.props.history.push('../../teachingload/view');
+    }else if(e.currentTarget.id==='publications'){
+        this.props.history.push('../../publications/view');
+    }else if(e.currentTarget.id==='adminwork'){
+        this.props.history.push('../../adminwork/view');
+    }else if(e.currentTarget.id==='extension'){
+        this.props.history.push('../../extension/view');
+    }else if(e.currentTarget.id==='studyload'){
+        this.props.history.push('../../studyload/view');
+    }else if(e.currentTarget.id==='profession'){
+        this.props.history.push('../../profession/view');
+    }else if(e.currentTarget.id==='profchair'){
+        this.props.history.push('../../professorialchair/view');
+    }else if(e.currentTarget.id==='consultation'){
+        this.props.history.push('../../consultation/view');
+    }
+    this.forceUpdate();
+  }
+
   render() {
-    return (
-      <div>
-        <div class="ui blue inverted fluid ten item menu">
-          <a class="item " href="/profile/view">
-            Profile
-          </a>
-          <a class="item" href="/teachingload/view">
-            Teaching Load
-          </a>
-          <a class="item" href="/publications/view">
-            Publications
-          </a>
-          <a class="item" href="/adminwork/view">
-            Administrative Work
-          </a>
-          <a class="item" href="/ecservice/view">
-            Extension and Community Service
-          </a>
-          <a class="item" href="/studyload/view">
-            Study Load
-          </a>
-          <a class="item" href="/lpp/view">
-            Limited Practice of Profession
-          </a>
-          <a class="item" href="/Professorialchair/view">
-            Professorial Chair
-          </a>
-          <a class="item" href="/consultation/view">
-            Consultation Hours
-          </a>
-          <a class="item" onClick={this.handleLogout}>
-            Logout
-          </a>
+      if(this.state.activeMenu==='profile'){
+        return(
+         <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="active item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
         </div>
-        <Divider hidden="true" />
-      </div>
-    );
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='teachingload'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item active" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='publications'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item active" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='adminwork'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item active" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='extension'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item active" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='studyload'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item active" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='profession'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item active" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='profchair'){
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item active" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }else{
+        return(
+        <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <a class="ui item" onClick={this.handleLogout}>
+                Logout
+              </a>
+            </div>
+          </div>
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+              Teaching Load
+            </a>
+            <a id="publications" class="item" onClick={this.handleSubmenus}>
+              Publications
+            </a>
+            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+              Administrative Work
+            </a>
+            <a id="extension" class="item" onClick={this.handleSubmenus}>
+              Extension and Community Service
+            </a>
+            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+              Study Load
+            </a>
+            <a id="profession" class="item" onClick={this.handleSubmenus}>
+              Limited Practice of Profession
+            </a>
+            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+              Professorial Chair
+            </a>
+            <a id="consultation" class="item active" onClick={this.handleSubmenus}>
+              Consultation Hours
+            </a>
+          </div>
+        </div>
+        )
+      }
   }
 }
 //=========================

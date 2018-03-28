@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import DeleteModal from './ViewPublications/DeleteModal'
+import DeleteModal from '../GenericDelete'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
-import ViewPublicationsRow from './ViewPublicationsRow'
+import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBar'
 
 const dummySample = {researchType : 'Research',
@@ -59,19 +59,15 @@ export default class ViewPublications extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
-          class="ui compact piled very padded text left aligned container segment"
+          class="ui compact piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              View Publications
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              PUBLICATIONS
             </h2>
           </div>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <Divider hidden="true" />
           <div>
 
@@ -103,14 +99,17 @@ export default class ViewPublications extends Component {
                           StartDate={item.StartDate}
                           EndDate= {item.EndDate}
                           ApprovedCreditUnits= {item.ApprovedCreditUnits}
-                          TotalWorkLoadUnits= {item.TotalWorkLoadUnits}/>
+                          TotalWorkLoadUnits= {item.TotalWorkLoadUnits}
+                          editURL = "../publications/edit"
+                          label = "Publication"
+                          subLabel = "publication"/>
                   )
                 })
               }
             </tbody>
           </table>
             <button class="ui right floated blue button" onClick={this.startAdd}>
-              Add new Publications
+              Add Publication
             </button>
           </div>
         </div>

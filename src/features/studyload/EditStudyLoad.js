@@ -12,16 +12,16 @@ export default class EditStudyLoad extends Component {
     super(props);
 
     this.state = {
-      degree: '',
-      uni: '',
-      studyleave: '',
-      fellowship: '',
-      courseno: '',
-      ccred: '',
-      day: '',
-      time: '',
-      school: '',
-      slcred: ''
+      degree : 'MSCS', 
+      uni : 'UPLB', 
+      studyleave : 'No',
+      fellowship : 'Yes', 
+      courseno:  '3',
+      ccred : '201', 
+      day : 'TTh', 
+      time : '3', 
+      school : ' ', 
+      slcred : ' 3'
     };
 
     this.handleChangeDegree = this.handleChangeDegree.bind(this);
@@ -108,35 +108,34 @@ export default class EditStudyLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="studyload"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              EDIT STUDY LOAD
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
             <a class="ui small header">Degree Enrolled In </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '455px' }}
                 value={this.state.degree}
+                placeholder={this.state.degree}
                 onChange={this.handleChangeDegree}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> University Enrolled In </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 value={this.state.uni}
+                placeholder={this.state.uni}
                 onChange={this.handleChangeUni}
               />
             </div>
@@ -181,66 +180,66 @@ export default class EditStudyLoad extends Component {
           </p>
           <p>
             <a class="ui small header">Course Number </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '475px' }}
                 value={this.state.courseno}
+                placeholder={this.state.courseno}
                 onChange={this.handleChangeCourseno}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Course Credit </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '490px' }}
+                type="number"
                 value={this.state.ccred}
+                placeholder={this.state.ccred}
                 onChange={this.handleChangeCcred}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Days </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '560px' }}
                 value={this.state.day}
+                placeholder={this.state.day}
                 onChange={this.handleChangeDay}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Time </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '560px' }}
+                type="time"
                 value={this.state.time}
+                placeholder={this.state.time}
                 onChange={this.handleChangeTime}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">School </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '545px' }}
                 value={this.state.school}
+                placeholder={this.state.school}
                 onChange={this.handleChangeSchool}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Study Load Credits </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '450px' }}
+                type="number"
                 value={this.state.slcred}
+                placeholder={this.state.slcred}
                 onChange={this.handleChangeSlcred}
               />
             </div>

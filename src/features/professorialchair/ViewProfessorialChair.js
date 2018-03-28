@@ -13,24 +13,24 @@ const dummySample = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 const dummySample2 = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 const dummySample3 = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 export default class ViewProfessorialChair extends Component {
@@ -40,27 +40,29 @@ export default class ViewProfessorialChair extends Component {
     this.state = {
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
+
+    this.startAdd = this.startAdd.bind(this);
+  }
+
+  startAdd(e) {
+    e.preventDefault();
+    this.props.history.push('../professorialchair/add');
   }
 
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="profchair"/>
 
-        <div class="ui piled very padded container segment" color="teal">
+        <div class="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
             <h1 class="ui blue header">
               PROFESSORIAL CHAIR
-              <GenerateFSR/>
-              <SendtoAdmin/>
             </h1>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
 
           <style>
-            {' '}
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
           <table class="ui celled table">
@@ -83,21 +85,15 @@ export default class ViewProfessorialChair extends Component {
                     granttitle={item.granttitle}
                     startdate={item.startdate}
                     enddate={item.enddate}
+                    editURL="../Professorialchair/edit"
+                    label="Professorial Chair"
+                    subLabel="Professorial chair"
                   />
                 );
               })}
             </tbody>
           </table>
-          <div>
-            <h1 class="ui white header">
-              <button class="ui right floated button">
-                <a color="white" href="./add">
-                  {' '}
-                  Edit Professorial Chair{' '}
-                </a>
-              </button>
-            </h1>
-          </div>
+          <button class="ui blue right floated button" onClick={this.startAdd}>Add Professorial Chair</button>
           <Divider hidden="true" />
         </div>
       </div>

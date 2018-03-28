@@ -4,7 +4,7 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewStudyLoadRow from './ViewStudyLoadRow'
-import DeleteModal from './ViewStudyload/DeleteModal';
+import DeleteModal from '../GenericDelete';
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
 import NavBar from './../ui/NavBar'
@@ -25,24 +25,27 @@ export default class ViewStudyLoad extends Component {
     this.state = {
       data : [dummySample,dummySample2,dummySample3]  //dummmy data
     };
+
+    this.startAdd = this.startAdd.bind(this);
+  }
+
+  startAdd(e) {
+    e.preventDefault();
+    this.props.history.push('../studyload/add');
   }
 
   render() {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="studyload"/>
 
-        <div class = "ui piled very padded container segment" color = "teal">
+        <div class = "ui compact piled very padded text left aligned container segment" color = "teal">
           <div>
             <h1 class = "ui blue header">
               STUDY LOAD
-              <GenerateFSR/>
-              <SendtoAdmin/>
             </h1>
           </div>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <Divider hidden="true" />
 
           <style> {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`} </style>
@@ -65,19 +68,26 @@ export default class ViewStudyLoad extends Component {
             <tbody>
               {this.state.data.map((item) =>{
                 return(
-                    <ViewStudyLoadRow {...this.props} degree = {item.degree} uni = {item.uni} studyleave = {item.studyleave} fellowship = {item.fellowship} courseno = {item.courseno} ccred = {item.ccred} day = {item.day} time = {item.time} school = {item.school} slcred = {item.slcred} />
+                    <ViewStudyLoadRow {...this.props}
+                      degree = {item.degree}
+                      uni = {item.uni}
+                      studyleave = {item.studyleave}
+                      fellowship = {item.fellowship}
+                      courseno = {item.courseno}
+                      ccred = {item.ccred}
+                      day = {item.day}
+                      time = {item.time}
+                      school = {item.school}
+                      slcred = {item.slcred}
+                      editURL = "../studyload/edit"
+                      label = "Study Load"
+                      subLabel = "Study load"/>
                   )
                 })
               }
             </tbody>
           </table>
-          <div>
-            <h1 class = "ui white header">
-            <button class="ui right floated button">
-               <a color = "white" href = "./add"> Add Study Load </a>
-            </button>
-            </h1>
-          </div>
+          <button class="ui blue right floated button" onClick={this.startAdd}>Add Study Load</button>
           <Divider hidden="true" />
         </div>
       </div>
