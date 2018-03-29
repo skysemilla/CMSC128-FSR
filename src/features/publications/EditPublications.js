@@ -8,6 +8,7 @@ import PublicationSubTypeDropdown from './PublicationSubTypeDropdown'
 import NavBar from './../ui/NavBar'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
+import GenericDisabledInput from './../GenericDisabledInput'
 
 const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal", "Research Implementation"]},
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
@@ -18,16 +19,16 @@ export default class EditPublication extends Component {
     super(props);
 
     this.state = {
-      researchType: '',
-      researchSubtype : '',
-      completeTitle: '',
-      Role: '',
-      Coworkers: '',
+      researchType : 'Research',
+      researchSubtype : 'Research Proposal',
+      completeTitle: 'Sample',
+      Role: 'ABC',
+      Coworkers: 'ABC',
       Funding: 'N/A',
-      StartDate: '',
-      EndDate: '',
-      ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      StartDate: '03/03/03',
+      EndDate: '04/04/04',
+      ApprovedCreditUnits: '3',
+      TotalWorkLoadUnits: '3'
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -109,15 +110,13 @@ export default class EditPublication extends Component {
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
-          class="ui piled very padded text left aligned container segment"
+          class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              View Publications
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              EDIT PUBLICATION
             </h2>
           </div>
           <Divider hidden="true" />
@@ -138,146 +137,73 @@ export default class EditPublication extends Component {
           </div>
           <p>
             <a class="ui small header"> Complete Title </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '432px' }}
                 onChange={this.handleChangeTitle}
                 placeHolder={this.state.completeTitle}
               />
             </div>
           </p>
-          {
-            this.state.researchType !== 'Research' ?
-              <p>
-                <a class="ui small header"> Role </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="text"
-                    style={{ width: '432px' }}
-                    onChange={this.handleChangeRole}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> Role </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="text"
-                      style={{ width: '432px' }}
-                      onChange={this.handleChangeRole}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchType}
+            compareString = "Research"
+            operation = "!=="
+            label = "Role"
+            type = "text"
+            handler = {this.handleChangeRole} />
           <p>
             <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '300px' }}
                 onChange={this.handleChangeCoworkers}
+                placeHolder={this.state.Coworkers}
               />
             </div>
           </p>
-          {
-            this.state.researchSubtype !== 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> Funding </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="text"
-                    style={{ width: '432px' }}
-                    onChange={this.handleChangeFunding}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> Funding </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="number"
-                      style={{ width: '432px' }}
-                      onChange={this.handleChangeFunding}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchSubtype}
+            compareString = "Research Proposal"
+            operation = "!=="
+            label = "Funding"
+            type = "text"
+            handler = {this.handleChangeFunding}placeHolder={this.state.Funding} />
 
-          {
-            this.state.researchSubtype === 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> Start Date </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="date"
-                    style={{ width: '150px' }}
-                    onChange={this.handleChangeStartDate}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> Start Date </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="date"
-                      style={{ width: '150px' }}
-                      onChange={this.handleChangeStartDate}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchSubtype}
+            compareString = "Research Proposal"
+            operation = "==="
+            label = "Start Date"
+            type = "date"
+            handler = {this.handleChangeStartDate}placeHolder={this.state.StartDate} />
 
-          {
-            this.state.researchSubtype === 'Research Proposal' ?
-              <p>
-                <a class="ui small header"> End Date </a>
-                <div class="ui input mini focus">
-                  <input
-                    disabled
-                    type="date"
-                    style={{ width: '150px' }}
-                    onChange={this.handleChangeEndDate}
-                  />
-                </div>
-              </p>
-               :
-              <p>
-                <a class="ui small header"> End Date </a>
-                  <div class="ui input mini focus">
-                    <input
-                      type="date"
-                      style={{ width: '150px' }}
-                      onChange={this.handleChangeEndDate}
-                    />
-                </div>
-              </p>
-          }
+          <GenericDisabledInput
+            compareState = {this.state.researchSubtype}
+            compareString = "Research Proposal"
+            operation = "==="
+            label = "End Date"
+            type = "date"
+            handler = {this.handleChangeEndDate} placeHolder={this.state.EndDate}/>
 
           <p>
             <a class="ui small header"> Approved Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleChangeApprovedCreditUnits}
+                placeHolder={this.state.ApprovedCreditUnits}
               />
             </div>
           </p>
 
           <p>
             <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="number"
-                style={{ width: '100px' }}
                 onChange={this.handleChangeTotalWorkLoadUnits}
+                placeHolder={this.state.TotalWorkLoadUnits}
               />
             </div>
           </p>

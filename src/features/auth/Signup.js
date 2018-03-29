@@ -10,19 +10,27 @@ class Signup extends Component{
       username: '',
       password: '',
       fname: '',
+      mname: '',
       lname: '',
       empid: '',
       college: '',
-      dept: ''
+      dept: '',
+      emptype: '',
+      email: '',
+      fulltime: ''
     }
 
     this.handleChangeUsername=this.handleChangeUsername.bind(this);
     this.handleChangePassword=this.handleChangePassword.bind(this);
     this.handleChangeFname=this.handleChangeFname.bind(this);
+    this.handleChangeMname=this.handleChangeMname.bind(this);
     this.handleChangeLname=this.handleChangeLname.bind(this);
     this.handleChangeEmpid=this.handleChangeEmpid.bind(this);
     this.handleChangeCollege=this.handleChangeCollege.bind(this);
     this.handleChangeDept=this.handleChangeDept.bind(this);
+    this.handleChangeEmptype=this.handleChangeEmptype.bind(this);
+    this.handleChangeEmail=this.handleChangeEmail.bind(this);
+    this.handleChangeFulltime=this.handleChangeFulltime.bind(this);
     this.startSignup=this.startSignup.bind(this);
   }
 
@@ -36,6 +44,10 @@ class Signup extends Component{
 
   handleChangeFname(e) {
     this.setState({fname: e.target.value});
+  }
+
+  handleChangeMname(e) {
+    this.setState({mname: e.target.value});
   }
 
   handleChangeLname(e) {
@@ -54,22 +66,38 @@ class Signup extends Component{
     this.setState({dept: e.target.value});
   }
 
+  handleChangeEmptype(e) {
+    this.setState({emptype: e.target.value});
+  }
+
+  handleChangeEmail(e) {
+    this.setState({email: e.target.value});
+  }
+
+  handleChangeFulltime(e) {
+    this.setState({fulltime: e.target.value});
+  }
+
+
   startSignup(e) {
-    // e.preventDefault();
-    // Api.signup({
-    //   username: this.state.username,
-    //   password: this.state.password,
-    //   fname: this.state.fname,
-    //   lname: this.state.lname,
-    //   empid: this.state.empid,
-    //   college: this.state.college,
-    //   dept: this.state.dept,
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./teachingload/add');  //change to profile later!!
-    //     alert('Signup successful! Welcome to your profile.');
-    //   })
-    //   .catch(e => alert('Error with signup!'));
+  //   e.preventDefault();
+  //   Api.signup({
+  //     username: this.state.username,
+  //     password: this.state.password,
+  //     fname: this.state.fname,
+  //     mname: this.state.mname,
+  //     lname: this.state.lname,
+  //     empid: this.state.empid,
+  //     college: this.state.college,
+  //     dept: this.state.dept,
+  //     emptype: this.state.emptype,
+  //     email: this.state.email,
+  //   })
+  //     .then(result => {
+  //       this.props.history.push('./profile');
+  //       alert('Signup successful! Welcome to your profile.');
+  //     })
+  //     .catch(e => alert('Error with signup!'));
   }
 
   render(){
@@ -100,18 +128,66 @@ class Signup extends Component{
                 </div>
               </div>
               <div class="field">
+                <label>Middle Name</label>
+                <div class="ui fluid input">
+                  <input type="text" placeholder="Middle Name" onChange={this.handleChangeMname}/>
+                </div>
+              </div>
+              <div class="field">
                 <label>Last Name</label>
                 <div class="ui fluid input">
                   <input type="text" placeholder="Last Name" onChange={this.handleChangeLname}/>
                 </div>
               </div>
             </div>
+
+            <div class="equal width fields">
             <div class="field">
               <label>Employee Id</label>
               <div class="ui input">
                 <input type="text" placeholder="Employee Id" onChange={this.handleChangeEmpid}/>
               </div>
             </div>
+            <div class="field">
+              <label>Employee Type</label>
+              <div class="ui input">
+                <input type="text" placeholder="Employee Type"  onChange={this.handleChangeEmptype}/>
+              </div>
+            </div>
+            <div class="div1">
+            <div class="ui form">
+              <div class="grouped fields">
+                <div class="field">
+                <label>Full Time Employee?</label>
+                </div>
+                <div class="inline fields">
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="fulltime"
+                      value="YES"
+                      onClick={this.handleChangeFulltime}
+                    />
+                    <label>Yes</label>
+                  </div>
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="fulltime"
+                      value="NO"
+                      onClick={this.handleChangeFulltime}
+                    />
+                    <label>No</label>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            </div>
+            </div>
+
+            <div class="equal width fields">
             <div class="field">
               <label>College</label>
               <div class="ui input">
@@ -122,6 +198,13 @@ class Signup extends Component{
               <label>Department</label>
               <div class="ui input">
                 <input type="text" placeholder="Department"  onChange={this.handleChangeDept}/>
+              </div>
+            </div>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <div class="ui input">
+                <input type="text" placeholder="Email Address"  onChange={this.handleChangeEmail}/>
               </div>
             </div>
             <div class="field">
@@ -136,12 +219,20 @@ class Signup extends Component{
                 <input type="password" placeholder="Password"  onChange={this.handleChangePassword}/>
               </div>
             </div>
+            <div class="field">
+              <label>Repeat Password</label>
+              <div class="ui input">
+                <input type="password" placeholder="Password"  onChange={this.handleChangePassword}/>
+              </div>
+            </div>
             <button class="ui blue button" role="button" onClick={this.startSignup}>Create an Account</button>
           </form>
           <div class="ui warning bottom attached message">
             <i aria-hidden="true" class="help icon"></i>Already have an account? <a href="/">Click here to Login</a> instead.
           </div>
         </div>
+        <Divider hidden="true" />
+        <Divider hidden="true" />
       </Container>
       </div>
     );

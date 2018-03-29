@@ -16,7 +16,8 @@ export default class AddTeachingLoad extends Component {
       seccode: '',
       room: '',
       days: '',
-      time: '',
+      starttime: '',
+      endtime: '',
       hours: '',
       studnum: '',
       creditwo: '',
@@ -28,7 +29,8 @@ export default class AddTeachingLoad extends Component {
     this.handleChangeSeccode = this.handleChangeSeccode.bind(this);
     this.handleChangeRoom = this.handleChangeRoom.bind(this);
     this.handleChangeDays = this.handleChangeDays.bind(this);
-    this.handleChangeTime = this.handleChangeTime.bind(this);
+    this.handleChangeStartTime = this.handleChangeStartTime.bind(this);
+    this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
     this.handleChangeHours = this.handleChangeHours.bind(this);
     this.handleChangeStudnum = this.handleChangeStudnum.bind(this);
     this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
@@ -54,8 +56,12 @@ export default class AddTeachingLoad extends Component {
     this.setState({ days: e.target.value });
   }
 
-  handleChangeTime(e) {
-    this.setState({ time: e.target.value });
+  handleChangeStartTime(e) {
+    this.setState({ starttime: e.target.value });
+  }
+
+  handleChangeEndTime(e) {
+    this.setState({ endtime: e.target.value });
   }
 
   handleChangeHours(e) {
@@ -108,115 +114,109 @@ export default class AddTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
         <div
-          class="ui piled very padded text left aligned container segment"
+          class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              ADD TEACHING LOAD
             </h2>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <p>
             <a class="ui small header"> Subject</a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '540px' }}
                 onChange={this.handleChangeSubj}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> Section Code </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '497px' }}
                 onChange={this.handleChangeSeccode}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Room </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '552px' }}
                 onChange={this.handleChangeRoom}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Days </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '560px' }}
                 onChange={this.handleChangeDays}
               />
             </div>
           </p>
           <p>
-            <a class="ui small header">Time </a>
-            <div class="ui input mini focus">
+            <a class="ui small header">Start Time </a>
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '560px' }}
-                onChange={this.handleChangeTime}
+                type="time"
+                onChange={this.handleChangeStartTime}
+              />
+            </div>
+            <a class="ui small header">End Time </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="time"
+                onChange={this.handleChangeEndTime}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Hours per Week </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '473px' }}
+                type="number"
                 onChange={this.handleChangeHours}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">No. of Students </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '480px' }}
+                type="number"
                 onChange={this.handleChangeStudnum}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Course Credit w/o Multiplier </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '378px' }}
+                type="number"
                 onChange={this.handleChangeCreditwo}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Student Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '440px' }}
+                type="number"
                 onChange={this.handleChangeStudcred}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '325px' }}
+                type="number"
                 onChange={this.handleChangeCreditwith}
               />
             </div>

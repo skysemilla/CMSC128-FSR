@@ -4,33 +4,16 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ProfessorialChairViewRow from './ProfessorialChairViewRow';
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
-import NavBar from './../ui/NavBar'
+import GenerateFSR from './../GenerateFSR';
+import SendtoAdmin from './../SendtoAdmin';
+import NavBar from './../ui/NavBar';
 
-//Dummy data
 const dummySample = {
   profchair: 'CMSC 128',
   grant: 'CAS B04',
   granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
-};
-
-const dummySample2 = {
-  profchair: 'CMSC 128',
-  grant: 'CAS B04',
-  granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
-};
-
-const dummySample3 = {
-  profchair: 'CMSC 128',
-  grant: 'CAS B04',
-  granttitle: 'T-Th',
-  startdate: '4pm-7pm',
-  enddate: '3',
+  startdate: '03/26/18',
+  enddate: '03/27/18'
 };
 
 export default class EditProfessorialChair extends Component {
@@ -38,92 +21,67 @@ export default class EditProfessorialChair extends Component {
     super(props);
 
     this.state = {
-      data: [dummySample, dummySample2, dummySample3],
-      subj: '',
-      seccode: '',
-      room: '',
-      days: '',
-      time: '',
-      hours: '',
-      studnum: '',
-      creditwo: '',
-      studcred: '',
-      creditw: ''
+      profchair: dummySample.profchair,
+      grant: dummySample.grant,
+      granttitle: dummySample.granttitle,
+      startdate: dummySample.startdate,
+      enddate: dummySample.enddate
     };
 
-    this.handleChangeSubj = this.handleChangeSubj.bind(this);
-    this.handleChangeSeccode = this.handleChangeSeccode.bind(this);
-    this.handleChangeRoom = this.handleChangeRoom.bind(this);
-    this.handleChangeDays = this.handleChangeDays.bind(this);
-    this.handleChangeTime = this.handleChangeTime.bind(this);
-    this.handleChangeHours = this.handleChangeHours.bind(this);
-    this.handleChangeStudnum = this.handleChangeStudnum.bind(this);
-    this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
-    this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
-    this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.startEdit = this.startEdit.bind(this);
+    this.handleChangeProfChair = this.handleChangeProfChair.bind(this);
+    this.handleChangeGrant = this.handleChangeGrant.bind(this);
+    this.handleChangeGrantTitle = this.handleChangeGrantTitle.bind(this);
+    this.handleChangeStartdate = this.handleChangeStartdate.bind(this);
+    this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
+    this.startAdd = this.startAdd.bind(this);
   }
 
-  handleChangeSubj(e) {
-    this.setState({ subj: e.target.value });
+  handleChangeProfChair(e) {
+    this.setState({ profchair: e.target.value });
   }
 
-  handleChangeSeccode(e) {
-    this.setState({ seccode: e.target.value });
+  handleChangeGrant(e) {
+    this.setState({ grant: e.target.value });
   }
 
-  handleChangeRoom(e) {
-    this.setState({ room: e.target.value });
+  handleChangeGrantTitle(e) {
+    this.setState({ granttitle: e.target.value });
   }
 
-  handleChangeDays(e) {
-    this.setState({ days: e.target.value });
+  handleChangeStartdate(e) {
+    this.setState({ startdate: e.target.value });
   }
 
-  handleChangeTime(e) {
-    this.setState({ time: e.target.value });
+  handleChangeEndDate(e) {
+    this.setState({ enddate: e.target.value });
   }
 
-  handleChangeHours(e) {
-    this.setState({ hours: e.target.value });
-  }
-
-  handleChangeStudnum(e) {
-    this.setState({ studnum: e.target.value });
-  }
-
-  handleChangeCreditwo(e) {
-    this.setState({ creditwo: e.target.value });
-  }
-
-  handleChangeStudcred(e) {
-    this.setState({ studcred: e.target.value });
-  }
-
-  handleChangeCreditwith(e) {
-    this.setState({ creditw: e.target.value });
-  }
-
-  handleLogout(e) {
-    e.preventDefault();
-    Api.logout();
-    this.props.history.push('../..');
-  }
-
-  startEdit(e) {
+  startAdd(e) {
+    // e.preventDefault();
+    // Api.editprofchair({
+        // profchair: this.state.profchair,
+        // grant: this.state.grant,
+        // granttitle: this.state.granttitle,
+        // startdate: this.state.startdate,
+        // enddate: this.state.enddate
+    // })
+    //   .then(result => {
+    //     this.props.history.push('./professorialchair/view');
+    //     alert('Professorial Chair successfully edited!');
+    //   })
+    //   .catch(e => alert('Error editing Professorial Chair!'));
   }
 
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props} Label="FSR" subLabel="profchair"/>
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Edit Professorial Chair
+              EDIT PROFESSORIAL CHAIR
               <GenerateFSR/>
               <SendtoAdmin/>
             </h2>
@@ -132,46 +90,29 @@ export default class EditProfessorialChair extends Component {
           <Divider hidden="true" />
           <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Professorial Chair </a>
-            <div class="ui input mini focus">
+            <a class="ui small header">Professorial Chair </a>
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '460px' }}
-                value={this.state.subj}
-                onChange={this.handleChangeSubj}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Section Code </a>
-            <div class="ui input mini focus">
-              <input
-                type="text"
-                style={{ width: '497px' }}
-                value={this.state.seccode}
-                onChange={this.handleChangeSeccode}
+                onChange={this.handleChangeProfChair}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Grant </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '552px' }}
-                value={this.state.room}
-                onChange={this.handleChangeRoom}
+                onChange={this.handleChangeGrant}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Grant Title </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '512px' }}
-                value={this.state.days}
-                onChange={this.handleChangeDays}
+                onChange={this.handleChangeGrantTitle}
               />
             </div>
           </p>

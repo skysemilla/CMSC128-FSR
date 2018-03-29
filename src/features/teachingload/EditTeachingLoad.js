@@ -12,23 +12,25 @@ export default class EditTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      subj: '',
-      seccode: '',
-      room: '',
-      days: '',
-      time: '',
-      hours: '',
-      studnum: '',
-      creditwo: '',
-      studcred: '',
-      creditw: ''
+      subj: 'CMSC 128',
+      seccode: 'CMSC 128',
+      room: 'CAS B04',
+      days: 'T-Th',
+      starttime: '4pm',
+      endtime: '7pm',
+      hours: '3',
+      studnum: '49',
+      creditwo: '3',
+      studcred: '3',
+      creditw: '3'
     };
 
     this.handleChangeSubj = this.handleChangeSubj.bind(this);
     this.handleChangeSeccode = this.handleChangeSeccode.bind(this);
     this.handleChangeRoom = this.handleChangeRoom.bind(this);
     this.handleChangeDays = this.handleChangeDays.bind(this);
-    this.handleChangeTime = this.handleChangeTime.bind(this);
+    this.handleChangeStartTime = this.handleChangeStartTime.bind(this);
+    this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
     this.handleChangeHours = this.handleChangeHours.bind(this);
     this.handleChangeStudnum = this.handleChangeStudnum.bind(this);
     this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
@@ -54,8 +56,12 @@ export default class EditTeachingLoad extends Component {
     this.setState({ days: e.target.value });
   }
 
-  handleChangeTime(e) {
-    this.setState({ time: e.target.value });
+  handleChangeStartTime(e) {
+    this.setState({ starttime: e.target.value });
+  }
+
+  handleChangeEndTime(e) {
+    this.setState({ endtime: e.target.value });
   }
 
   handleChangeHours(e) {
@@ -91,7 +97,8 @@ export default class EditTeachingLoad extends Component {
     //   seccode: this.state.seccode,
     //   room: this.state.room,
     //   days: this.state.days,
-    //   time: this.state.time,
+    //   starttime: this.state.starttime,
+    //   endtime: this.state.endtime,
     //   hours: this.state.hours,
     //   studnum: this.state.studnum,
     //   creditwo: this.state.creditwo,
@@ -108,126 +115,118 @@ export default class EditTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props}/>
+        <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
         <div
-          class="ui piled very padded text left aligned container segment"
+          class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Edit Teaching Load
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              EDIT TEACHING LOAD
             </h2>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject </a>
-            <div class="ui input mini focus">
+            <a class="ui small header"> Subject</a>
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '540px' }}
-                value={this.state.subj}
+                placeholder={this.state.subj}
                 onChange={this.handleChangeSubj}
               />
             </div>
           </p>
           <p>
             <a class="ui small header"> Section Code </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '497px' }}
-                value={this.state.seccode}
+                placeholder={this.state.seccode}
                 onChange={this.handleChangeSeccode}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Room </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '552px' }}
-                value={this.state.room}
+                placeholder={this.state.room}
                 onChange={this.handleChangeRoom}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Days </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
                 type="text"
-                style={{ width: '560px' }}
-                value={this.state.days}
+                placeholder={this.state.days}
                 onChange={this.handleChangeDays}
               />
             </div>
           </p>
           <p>
-            <a class="ui small header">Time </a>
-            <div class="ui input mini focus">
+            <a class="ui small header">Start Time </a>
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '560px' }}
-                value={this.state.time}
-                onChange={this.handleChangeTime}
+                type="time"
+                onChange={this.handleChangeStartTime}
+              />
+            </div>
+            <a class="ui small header">End Time </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="time"
+                onChange={this.handleChangeEndTime}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Hours per Week </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '473px' }}
-                value={this.state.hours}
+                type="number"
+                placeholder={this.state.hours}
                 onChange={this.handleChangeHours}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">No. of Students </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '480px' }}
-                value={this.state.studnum}
+                type="number"
+                placeholder={this.state.studnum}
                 onChange={this.handleChangeStudnum}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Course Credit w/o Multiplier </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '378px' }}
-                value={this.state.creditwo}
+                type="number"
+                placeholder={this.state.creditwo}
                 onChange={this.handleChangeCreditwo}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Student Credit Units </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '440px' }}
-                value={this.state.studcred}
+                type="number"
+                placeholder={this.state.studcred}
                 onChange={this.handleChangeStudcred}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
-            <div class="ui input mini focus">
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '325px' }}
-                value={this.state.creditw}
+                type="number"
+                placeholder={this.state.creditw}
                 onChange={this.handleChangeCreditwith}
               />
             </div>
@@ -236,7 +235,7 @@ export default class EditTeachingLoad extends Component {
             <button
               class="ui center aligned blue button"
               onClick={this.startEdit}>
-              Save changes
+              Edit Teaching Load
             </button>
           </div>
         </div>
