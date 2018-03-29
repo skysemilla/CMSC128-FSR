@@ -15,8 +15,8 @@ import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
+import EditProfessorialChair from './../features/professorialchair/EditProfessorialChair';
 import ViewAdministrativeWork from './../features/adminWork/ViewAdministrativeWork';
-
 import ViewLimitedPracticeOfProfession from './../features/limitedPracticeOfProfession/ViewLimitedPracticeOfProfession';
 
 class App extends Component {
@@ -37,6 +37,7 @@ class App extends Component {
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
+            <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
             <Route exact={true} path="/adminwork/view" component={ViewAdministrativeWork}/>
             <Route exact={true} path="/lpp/view" component={ViewLimitedPracticeOfProfession}/>
           </div>
