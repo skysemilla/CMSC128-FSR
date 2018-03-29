@@ -68,18 +68,6 @@ export default class ViewLimitedPracticeOfProfession extends Component {
     console.log('param: ' + param);
     console.log('checked: ' + checked);
 
-    // if(id=='yes' && checked==true) {
-    //   console.log('enabled');
-    // } else if(id=='yes' && checked==false) {
-    //   console.log('disabled');
-    // } else if(id=='no' && checked==true) {
-    //   console.log('disabled');
-    // } else if(id=='no' && checked==false) {
-    //   console.log('enabled');
-    // } else {
-    //   console.log('undefined');
-    // }
-
     if (param=='yes') {
       console.log('action: enable');
       this.handleEnable();
@@ -96,27 +84,6 @@ export default class ViewLimitedPracticeOfProfession extends Component {
   handleDisable() {
     this.setState({ dateFormClass: disabled });
   }
-
-
-
-   // <script>
-   //          function check() {
-   //              document.getElementById("yes").checked = true;
-   //          }
-   //          function uncheck() {
-   //              document.getElementById("yes").checked = false;
-   //          }
-   //        </script>
-
-  // componentDidMount(){
-  //   e.preventDefault();
-  //   Api.ViewTeachingLoad({
-  //   })
-  //     .then(result => {
-  //       this.setState({ data: result});
-  //     })
-  //     .catch(e => alert('Error loading Publications!!'));
-  // }
 
   render() {
     return (
