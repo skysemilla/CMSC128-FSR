@@ -136,7 +136,7 @@ export default class ViewLimitedPracticeOfProfession extends Component {
             <div class={this.state.dateFormClass.labelClass}>
                 <label>When did you apply for the permission for limited practice of profession?    </label>
                 <div class={this.state.dateFormClass.inputClass}>
-                  <input style={{ width: '160px' }} class="two Wide" type="date" />
+                  <input style={{ width: '165px' }} type="date" />
                 </div>
             </div>
           </div>
