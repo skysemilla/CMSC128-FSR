@@ -60,8 +60,6 @@ class App extends Component {
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
             <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
             <Route exact={true} path="/lpp/view" component={ViewLimitedPracticeOfProfession}/>
-            <Route exact={true} path="/professorialchair/add" component={AddProfessorialChair}/>
-            <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
             <Route exact={true} path="/adminWork/add" component={AddAdministrativeWork}/>
             <Route exact={true} path="/adminWork/view" component={ViewAdminWork}/>
             <Route exact={true} path="/adminWork/edit" component={EditAdministrativeWork}/>
