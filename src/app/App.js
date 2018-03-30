@@ -16,7 +16,6 @@ import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
-import ViewAdministrativeWork from './../features/adminWork/ViewAdministrativeWork';
 import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import EditProfessorialChair from './../features/professorialchair/EditProfessorialChair';
 import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
@@ -36,7 +35,6 @@ import ViewAllFSR from './../features/ADMIN/AllFSR/ViewAllFSR';
 import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
 import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
 import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';
-
 
 class App extends Component {
   render() {
@@ -58,7 +56,6 @@ class App extends Component {
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
-            <Route exact={true} path="/adminwork/view" component={ViewAdministrativeWork}/>
             <Route exact={true} path="/professorialchair/add" component={AddProfessorialChair}/>
             <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
             <Route exact={true} path="/adminWork/add" component={AddAdministrativeWork}/>
@@ -71,6 +68,7 @@ class App extends Component {
             <Route exact={true} path="/profession/add" component={AddProfession}/>
             <Route exact={true} path="/profession/edit" component={EditProfession}/>
             <Route exact={true} path="/profession/view" component={ViewProfession}/>
+
             <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
             <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>
