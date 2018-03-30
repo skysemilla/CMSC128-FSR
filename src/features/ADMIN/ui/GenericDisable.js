@@ -37,10 +37,10 @@ export default class GenericPending extends Component {
       <div>
         {this.state.disabled==='YES'?
         <div>
-        <button class="ui large red button" onClick={this.handleShow}>
+        <button class="ui large green button" onClick={this.handleShow}>
           Enable
         </button>
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}} >
             <Modal.Header>
               Enable Faculty?
             </Modal.Header>
@@ -57,10 +57,10 @@ export default class GenericPending extends Component {
         </div>
         :
         <div>
-        <button class="ui large green button" onClick={this.handleShow}>
+        <button class="ui large red button" onClick={this.handleShow}>
           Disable
         </button>
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}} >
             <Modal.Header>
               Disable Faculty?
             </Modal.Header>

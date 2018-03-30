@@ -34,7 +34,7 @@ export default class GenericDelete extends Component {
         <button class = "ui right attached compact icon button" onClick={this.show('mini')}>
         <i class="trash alternate icon" />
         </button>
-        <Modal size={size} open={open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+        <Modal size={size} open={open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
           <Modal.Header>
             {this.props.label}
           </Modal.Header>

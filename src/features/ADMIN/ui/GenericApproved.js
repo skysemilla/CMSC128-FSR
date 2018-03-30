@@ -36,7 +36,7 @@ export default class GenericApproved extends Component {
         <button class = "ui large compact icon button" onClick={this.show('mini')}>
         <i class="trash alternate icon" />
         </button>
-        <Modal size={size} open={open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
+        <Modal size={size} open={open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}} >
           <Modal.Header>
             DELETE FSR
           </Modal.Header>

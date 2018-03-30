@@ -25,9 +25,8 @@ export default class NavBar extends Component {
   }
 
   handleChange(e) {
-    e.preventDefault();
-    this.setState({ activeMenu: e.target.id});
-    if(this.state.activeMenu==='profile'){
+    this.setState({ activeMenu: e.currentTarget.id});
+    if(e.currentTarget.id==='profile'){
         this.props.history.push('../../profile');
     }
     else{
@@ -37,23 +36,24 @@ export default class NavBar extends Component {
 
   handleSubmenus(e) {
     e.preventDefault();
-    this.setState({ subMenu: e.target.id });
-    if(this.state.subMenu==='teachingload'){
+    this.setState({ activeMenu: 'FSR'});
+    this.setState({ subMenu: e.currentTarget.id });
+    if(e.currentTarget.id==='teachingload'){
         this.props.history.push('../../teachingload/view');
-    }else if(this.state.subMenu==='publications'){
+    }else if(e.currentTarget.id==='publications'){
         this.props.history.push('../../publications/view');
-    }else if(this.state.subMenu==='adminwork'){
+    }else if(e.currentTarget.id==='adminwork'){
         this.props.history.push('../../adminwork/view');
-    }else if(this.state.subMenu==='extension'){
+    }else if(e.currentTarget.id==='extension'){
         this.props.history.push('../../extension/view');
-    }else if(this.state.subMenu==='studyload'){
+    }else if(e.currentTarget.id==='studyload'){
         this.props.history.push('../../studyload/view');
-    }else if(this.state.subMenu==='profession'){
+    }else if(e.currentTarget.id==='profession'){
         this.props.history.push('../../profession/view');
-    }else if(this.state.subMenu==='profchair'){
+    }else if(e.currentTarget.id==='profchair'){
         this.props.history.push('../../professorialchair/view');
-    }else if(this.state.subMenu==='consultation'){
-        this.props.history.push('../../consultation/view');
+    }else if(e.currentTarget.id==='consultation'){
+        this.props.history.push('../../consultationhours/view');
     }
     this.forceUpdate();
   }
@@ -62,7 +62,7 @@ export default class NavBar extends Component {
       if(this.state.activeMenu==='profile'){
         return(
          <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="active item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -80,7 +80,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='teachingload'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -93,7 +93,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item active" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -124,7 +124,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='publications'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -137,7 +137,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -168,7 +168,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='adminwork'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -181,7 +181,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -212,7 +212,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='extension'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -225,7 +225,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -256,7 +256,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='studyload'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -269,7 +269,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -300,7 +300,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='profession'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -313,7 +313,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -344,7 +344,7 @@ export default class NavBar extends Component {
       }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='profchair'){
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -357,7 +357,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
@@ -388,7 +388,7 @@ export default class NavBar extends Component {
       }else{
         return(
         <div>
-          <div class="ui huge tabular menu">
+          <div class="ui blue inverted huge menu div1">
               <a class="item" id="profile" onClick={this.handleChange}>
                 Profile
               </a>
@@ -401,7 +401,7 @@ export default class NavBar extends Component {
               </a>
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large">
+          <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>

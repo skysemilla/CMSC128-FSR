@@ -22,6 +22,8 @@ import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork
 import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import ViewAdminWork from './../features/adminWork/ViewAdminWork';
 import EditConsultationHours from './../features/consultationhours/EditConsultationHours';
+import AddConsultationHours from './../features/consultationhours/AddConsultationHours';
+import ViewConsultationHours from './../features/consultationhours/ViewConsultationHours';
 import AddExtension from './../features/extension/AddExtension';
 import EditExtension from './../features/extension/EditExtension';
 import ViewExtension from './../features/extension/ViewExtension';
@@ -62,6 +64,8 @@ class App extends Component {
             <Route exact={true} path="/adminWork/view" component={ViewAdminWork}/>
             <Route exact={true} path="/adminWork/edit" component={EditAdministrativeWork}/>
             <Route exact={true} path="/consultationhours/edit" component={EditConsultationHours}/>
+            <Route exact={true} path="/consultationhours/add" component={AddConsultationHours}/>
+            <Route exact={true} path="/consultationhours/view" component={ViewConsultationHours}/>
             <Route exact={true} path="/extension/view" component={ViewExtension}/>
             <Route exact={true} path="/extension/add" component={AddExtension}/>
             <Route exact={true} path="/extension/edit" component={EditExtension}/>

@@ -16,7 +16,8 @@ class Signup extends Component{
       college: '',
       dept: '',
       emptype: '',
-      email: ''
+      email: '',
+      fulltime: ''
     }
 
     this.handleChangeUsername=this.handleChangeUsername.bind(this);
@@ -29,6 +30,7 @@ class Signup extends Component{
     this.handleChangeDept=this.handleChangeDept.bind(this);
     this.handleChangeEmptype=this.handleChangeEmptype.bind(this);
     this.handleChangeEmail=this.handleChangeEmail.bind(this);
+    this.handleChangeFulltime=this.handleChangeFulltime.bind(this);
     this.startSignup=this.startSignup.bind(this);
   }
 
@@ -71,6 +73,11 @@ class Signup extends Component{
   handleChangeEmail(e) {
     this.setState({email: e.target.value});
   }
+
+  handleChangeFulltime(e) {
+    this.setState({fulltime: e.target.value});
+  }
+
 
   startSignup(e) {
   //   e.preventDefault();
@@ -133,12 +140,54 @@ class Signup extends Component{
                 </div>
               </div>
             </div>
+
+            <div class="equal width fields">
             <div class="field">
               <label>Employee Id</label>
               <div class="ui input">
                 <input type="text" placeholder="Employee Id" onChange={this.handleChangeEmpid}/>
               </div>
             </div>
+            <div class="field">
+              <label>Employee Type</label>
+              <div class="ui input">
+                <input type="text" placeholder="Employee Type"  onChange={this.handleChangeEmptype}/>
+              </div>
+            </div>
+            <div class="div1">
+            <div class="ui form">
+              <div class="grouped fields">
+                <div class="field">
+                <label>Full Time Employee?</label>
+                </div>
+                <div class="inline fields">
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="fulltime"
+                      value="YES"
+                      onClick={this.handleChangeFulltime}
+                    />
+                    <label>Yes</label>
+                  </div>
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="fulltime"
+                      value="NO"
+                      onClick={this.handleChangeFulltime}
+                    />
+                    <label>No</label>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            </div>
+            </div>
+
+            <div class="equal width fields">
             <div class="field">
               <label>College</label>
               <div class="ui input">
@@ -151,11 +200,6 @@ class Signup extends Component{
                 <input type="text" placeholder="Department"  onChange={this.handleChangeDept}/>
               </div>
             </div>
-            <div class="field">
-              <label>Employee Type</label>
-              <div class="ui input">
-                <input type="text" placeholder="Employee Type"  onChange={this.handleChangeEmptype}/>
-              </div>
             </div>
             <div class="field">
               <label>Email Address</label>
@@ -175,12 +219,20 @@ class Signup extends Component{
                 <input type="password" placeholder="Password"  onChange={this.handleChangePassword}/>
               </div>
             </div>
+            <div class="field">
+              <label>Repeat Password</label>
+              <div class="ui input">
+                <input type="password" placeholder="Password"  onChange={this.handleChangePassword}/>
+              </div>
+            </div>
             <button class="ui blue button" role="button" onClick={this.startSignup}>Create an Account</button>
           </form>
           <div class="ui warning bottom attached message">
             <i aria-hidden="true" class="help icon"></i>Already have an account? <a href="/">Click here to Login</a> instead.
           </div>
         </div>
+        <Divider hidden="true" />
+        <Divider hidden="true" />
       </Container>
       </div>
     );
