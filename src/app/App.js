@@ -16,8 +16,8 @@ import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
-import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import EditProfessorialChair from './../features/professorialchair/EditProfessorialChair';
+import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
 import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import ViewAdminWork from './../features/adminWork/ViewAdminWork';
@@ -35,6 +35,7 @@ import ViewAllFSR from './../features/ADMIN/AllFSR/ViewAllFSR';
 import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
 import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
 import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';
+import AdminEditFSR from './../features/ADMIN/AdminEditFSR/AdminEditFSR';
 
 class App extends Component {
   render() {
@@ -56,6 +57,7 @@ class App extends Component {
             <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
+            <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
             <Route exact={true} path="/professorialchair/add" component={AddProfessorialChair}/>
             <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
             <Route exact={true} path="/adminWork/add" component={AddAdministrativeWork}/>
@@ -68,11 +70,11 @@ class App extends Component {
             <Route exact={true} path="/profession/add" component={AddProfession}/>
             <Route exact={true} path="/profession/edit" component={EditProfession}/>
             <Route exact={true} path="/profession/view" component={ViewProfession}/>
-
             <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
             <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>
             <Route exact={true} path="/admin/ViewAllFaculty" component={ViewAllFaculty}/>
+            <Route exact={true} path="/admin/editFSR" component={AdminEditFSR}/>
           </div>
         </Router>
       </div>
