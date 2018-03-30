@@ -37,6 +37,7 @@ import ViewAllFSR from './../features/ADMIN/AllFSR/ViewAllFSR';
 import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
 import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
 import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';
+import AdminEditFSR from './../features/ADMIN/AdminEditFSR/AdminEditFSR';
 
 class App extends Component {
   render() {
@@ -77,6 +78,7 @@ class App extends Component {
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
             <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>
             <Route exact={true} path="/admin/ViewAllFaculty" component={ViewAllFaculty}/>
+            <Route exact={true} path="/admin/editFSR" component={AdminEditFSR}/>
           </div>
         </Router>
       </div>
