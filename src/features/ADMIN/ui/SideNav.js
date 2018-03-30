@@ -120,7 +120,7 @@ export default class SideNav extends Component {
   render() {
     return(
       <div>
-        <Divider />
+        <Divider hidden="true" />
         <div class="ui large inverted blue vertical menu flex-container large navDiv">
           <a id="teachingload" class={this.state.teachingLoadClass} onClick={this.activateTeachingLoad.bind(this)} >
             Teaching Load
