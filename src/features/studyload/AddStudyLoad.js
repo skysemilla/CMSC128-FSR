@@ -12,10 +12,6 @@ export default class AddStudyLoad extends Component {
     super(props);
 
     this.state = {
-      degree: '',
-      uni: '',
-      studyleave: '',
-      fellowship: '',
       courseno: '',
       ccred: '',
       day: '',
@@ -24,10 +20,6 @@ export default class AddStudyLoad extends Component {
       slcred: ''
     };
 
-    this.handleChangeDegree = this.handleChangeDegree.bind(this);
-    this.handleChangeUni = this.handleChangeUni.bind(this);
-    this.handleChangeStudyLeave = this.handleChangeStudyLeave.bind(this);
-    this.handleChangeFellowship = this.handleChangeFellowship.bind(this);
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
     this.handleChangeCcred = this.handleChangeCcred.bind(this);
     this.handleChangeDay = this.handleChangeDay.bind(this);
@@ -36,22 +28,6 @@ export default class AddStudyLoad extends Component {
     this.handleChangeSlcred = this.handleChangeSlcred.bind(this);
     this.startAdd = this.startAdd.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  handleChangeDegree(e) {
-    this.setState({ degree: e.target.value });
-  }
-
-  handleChangeUni(e) {
-    this.setState({ uni: e.target.value });
-  }
-
-  handleChangeStudyLeave(e) {
-    this.setState({ studyleave: e.target.value });
-  }
-
-  handleChangeFellowship(e) {
-    this.setState({ fellowship: e.target.value });
   }
 
   handleChangeCourseno(e) {
@@ -87,10 +63,6 @@ export default class AddStudyLoad extends Component {
   startAdd(e) {
     //   e.preventDefault();
     //   Api.addstudyload({
-    // degree: this.state.degree,
-    // uni: this.state.uni,
-    // studyleave: this.state.studyleave,
-    // fellowship: this.state.fellowship,
     // courseno: this.state.courseno,
     // ccred: this.state.ccred,
     // day: this.state.day,
@@ -118,81 +90,6 @@ export default class AddStudyLoad extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
-          <p>
-            <a class="ui small header">Degree Enrolled In </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeDegree}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> University Enrolled In </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeUni}
-              />
-            </div>
-          </p>
-          <p>
-            <div class="ui form">
-              <div class="inline fields">
-                <label>On Full Study Leave w/ Pay?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input
-                      type="radio"
-                      name="studyleave"
-                      value="YES"
-                      onClick={this.handleChangeStudyLeave}
-                    />
-                    <label>Yes</label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input
-                      type="radio"
-                      name="studyleave"
-                      value="NO"
-                      onClick={this.handleChangeStudyLeave}
-                    />
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p>
-          <p>
-            <div class="ui form">
-              <div class="inline fields">
-                <label>Recepient of Faculty Fellowship?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input
-                      type="radio"
-                      name="fellowship"
-                      value="YES"
-                      onClick={this.handleChangeFellowship}
-                    />
-                    <label>Yes</label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input
-                      type="radio"
-                      name="fellowship"
-                      onClick={this.handleChangeFellowship}
-                    />
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p>
           <p>
             <a class="ui small header">Course Number </a>
             <div class="ui input fluid mini focus">
