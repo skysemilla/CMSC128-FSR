@@ -85,15 +85,16 @@ export default class ViewAllFSR extends Component {
                 {this.state.data.map(item => {
                 return (
                   <ViewFSRRow {...this.props}
-                      id= {item.id}
-                      fname= {item.fname}
-                      mname= {item.mname}
-                      lname= {item.lname}
-                      college= {item.college}
-                      dept= {item.dept}
-                      approved= {item.approved}
-                      editURL = "../admin/editFSR"
-                      label="all"/>
+                    id= {item.id}
+                    fname= {item.fname}
+                    mname= {item.mname}
+                    lname= {item.lname}
+                    college= {item.college}
+                    dept= {item.dept}
+                    approved= {item.approved}
+                    editURL = "../admin/editFSR"
+                    label="all"
+                  />
                 );
                 })}
             </tbody>
