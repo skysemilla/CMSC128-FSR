@@ -3,66 +3,45 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
-import NavBar from './../ui/NavBarAdmin'
+import NavBar from './../ui/NavBarAdmin';
 import ViewFacultyRow from './../ui/FacultyViewRow';
-
-//Dummy data
-const dummySample = {
-  id: '1',
-  fname: 'Jasper',
-  mname: '123',
-  lname: 'Arquilita',
-  college: 'CAS',
-  dept: 'ICS',
-  disabled: 'YES'
-};
-
-const dummySample2 = {
-  id: '2',
-  fname: 'Sky',
-  mname: 'ABC',
-  lname: 'Semilla',
-  college: 'CAS',
-  dept: 'ICS',
-  disabled: 'NO'
-};
 
 export default class ViewApprovedFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // data : []
-      data: [dummySample, dummySample2] //dummmy data
+      data: []
     };
   }
 
-  // componentDidMount(){
-  //   e.preventDefault();
-  //   Api.ViewAllFaculty({
-  //   })
-  //     .then(result => {
-  //       this.setState({ data: result});
-  //     })
-  //     .catch(e => alert('Error loading All Faculty!!'));
-  // }
+  componentDidMount() {
+    Api.ViewAllFaculty().then(result => {
+      console.log(result.data.data);
+      this.setState({ data: result.data.data[0] });
+    });
+  }
 
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="faculty"/>
+        <NavBar {...this.props} Label="faculty" />
 
-        <div class="ui compact piled very padded container segment" color="teal">
+        <div
+          class="ui compact piled very padded container segment"
+          color="teal">
           <div class="ui two column grid">
-            <h1 class="ui blue header">
-              VIEW ALL FACULTY
-            </h1>
+            <h1 class="ui blue header">VIEW ALL FACULTY</h1>
             <div class="ui right floated search">
               <div class="ui icon input">
-                <input class="prompt" type="text" placeholder="Search Name or EmpID..."/>
-                <i class="search icon"></i>
+                <input
+                  class="prompt"
+                  type="text"
+                  placeholder="Search Name or EmpID..."
+                />
+                <i class="search icon" />
               </div>
-              <div class="results"></div>
+              <div class="results" />
             </div>
           </div>
           <Divider hidden="true" />
@@ -81,20 +60,21 @@ export default class ViewApprovedFSR extends Component {
               </tr>
             </thead>
             <tbody>
-                {this.state.data.map(item => {
+              {this.state.data.map(item => {
                 return (
-                  <ViewFacultyRow {...this.props}
-                      id= {item.id}
-                      fname= {item.fname}
-                      mname= {item.mname}
-                      lname= {item.lname}
-                      college= {item.college}
-                      dept= {item.dept}
-                      disabled= {item.disabled}
-                      editURL = "../admin/editFSR"
+                  <ViewFacultyRow
+                    {...this.props}
+                    id={item.emp_id}
+                    fname={item.f_name}
+                    mname={item.m_name}
+                    lname={item.l_name}
+                    college={item.college}
+                    dept={item.department}
+                    disabled={item.disabled}
+                    editURL="../admin/editFSR"
                   />
                 );
-                })}
+              })}
             </tbody>
           </table>
           <Divider hidden="true" />
@@ -104,4 +84,4 @@ export default class ViewApprovedFSR extends Component {
   }
 }
 //=========================
-ReactDOM.render(<ViewApprovedFSR/>, document.getElementById('root'));
+ReactDOM.render(<ViewApprovedFSR />, document.getElementById('root'));
