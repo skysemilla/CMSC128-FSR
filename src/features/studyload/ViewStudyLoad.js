@@ -20,11 +20,11 @@ export default class ViewStudyLoad extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      degree: 'MSCS',
-      uni: 'UPLB',
-      studyleave: 'Yes',
+      degree: 'NaN',
+      uni: 'NaN',
+      studyleave: 'No',
       fellowship: 'No',
-      data : [dummySample,dummySample2,dummySample3]  //dummmy data
+      data : []  //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
@@ -40,7 +40,14 @@ export default class ViewStudyLoad extends Component {
     e.preventDefault();
     this.props.history.push('../studyload/editInfo');
   }
-
+  componentDidMount(){
+    Api.viewStudyLoad().then((response)=>{
+      if(response.data.data[0]!== undefined){
+        this.setState({uni:response.data.data[0].university, degree:response.data.data[0].degree,data:response.data.data}
+        )}
+        console.log(response.data.data)
+    })
+  }
   render() {
 
     return (
@@ -83,7 +90,7 @@ export default class ViewStudyLoad extends Component {
               <tr>
                 <th class = "center aligned"> Course Number </th>
                 <th class = "center aligned"> Course Credit </th>
-                <th class = "center aligned"> Days </th>
+                <th class = "center aligned"> Section Code </th>
                 <th class = "center aligned"> Time </th>
                 <th class = "center aligned"> School </th>
                 <th class = "center aligned"> Study load credits </th>
@@ -94,12 +101,12 @@ export default class ViewStudyLoad extends Component {
               {this.state.data.map((item) =>{
                 return(
                     <ViewStudyLoadRow {...this.props}
-                      courseno = {item.courseno}
-                      ccred = {item.ccred}
-                      day = {item.day}
-                      time = {item.time}
-                      school = {item.school}
-                      slcred = {item.slcred}
+                      courseno = {item.subject_code}
+                      ccred = {item.units}
+                      day = {item.section_code}
+                      time = {item.start_time}
+                      school = {item.university}
+                      slcred = {item.credits}
                       editURL = "../studyload/edit"
                       label = "Study Load"
                       subLabel = "Study load"/>
