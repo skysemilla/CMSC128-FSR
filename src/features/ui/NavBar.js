@@ -53,7 +53,7 @@ export default class NavBar extends Component {
     }else if(e.currentTarget.id==='profchair'){
         this.props.history.push('../../professorialchair/view');
     }else if(e.currentTarget.id==='consultation'){
-        this.props.history.push('../../consultation/view');
+        this.props.history.push('../../consultationhours/view');
     }
     this.forceUpdate();
   }

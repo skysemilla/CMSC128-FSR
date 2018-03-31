@@ -9,6 +9,7 @@ import Signup from './../features/auth/Signup';
 import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
 import EditTeachingLoad from './../features/teachingload/EditTeachingLoad';
 import AddStudyLoad from './../features/studyload/AddStudyLoad';
+import EditInfo from './../features/studyload/EditInfo';
 import AddPublication from './../features/publications/AddPublication';
 import EditStudyLoad from './../features/studyload/EditStudyLoad';
 import ViewPublications from './../features/publications/ViewPublications';
@@ -16,12 +17,15 @@ import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
 import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
+import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import EditProfessorialChair from './../features/professorialchair/EditProfessorialChair';
 import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
 import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import ViewAdminWork from './../features/adminWork/ViewAdminWork';
 import EditConsultationHours from './../features/consultationhours/EditConsultationHours';
+import AddConsultationHours from './../features/consultationhours/AddConsultationHours';
+import ViewConsultationHours from './../features/consultationhours/ViewConsultationHours';
 import AddExtension from './../features/extension/AddExtension';
 import EditExtension from './../features/extension/EditExtension';
 import ViewExtension from './../features/extension/ViewExtension';
@@ -78,30 +82,43 @@ class App extends Component {
           <div id="content-container">
             <Route exact={true} path="/" component={Login}/>
             <Route exact={true} path="/signup" component={Signup}/>
+
             <Route exact={true} path="/profile" component={Profile}/>
             <Route exact={true} path="/profile/edit" component={EditProfile}/>
+
             <Route exact={true} path="/teachingload/add" component={AddTeachingLoad}/>
             <Route exact={true} path="/teachingload/edit" component={EditTeachingLoad}/>
+            <Route exact={true} path="/teachingload/view" component={ViewTeachingLoad}/>
+
             <Route exact={true} path="/studyload/add" component={AddStudyLoad}/>
             <Route exact={true} path="/studyload/edit" component={EditStudyLoad}/>
+            <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
+            <Route exact={true} path="/studyload/editInfo" component={EditInfo}/>
+
             <Route exact={true} path="/publications/view" component={ViewPublications}/>
              <Route exact={true} path="/publications/add" component={AddPublication}/>
-            <Route exact={true} path="/teachingload/view" component={ViewTeachingLoad}/>
-            <Route exact={true} path="/studyload/view" component={ViewStudyLoad}/>
             <Route exact={true} path="/publications/edit" component={EditPublications}/>
+
             <Route exact={true} path="/professorialchair/view" component={ViewProfessorialChair}/>
+            <Route exact={true} path="/professorialchair/add" component={AddProfessorialChair}/>
             <Route exact={true} path="/professorialchair/edit" component={EditProfessorialChair}/>
+
             <Route exact={true} path="/adminWork/add" component={AddAdministrativeWork}/>
             <Route exact={true} path="/adminWork/view" component={ViewAdminWork}/>
             <Route exact={true} path="/adminWork/edit" component={EditAdministrativeWork}/>
+
             <Route exact={true} path="/consultationhours/edit" component={EditConsultationHours}/>
+            <Route exact={true} path="/consultationhours/add" component={AddConsultationHours}/>
+            <Route exact={true} path="/consultationhours/view" component={ViewConsultationHours}/>
+
             <Route exact={true} path="/extension/view" component={ViewExtension}/>
             <Route exact={true} path="/extension/add" component={AddExtension}/>
             <Route exact={true} path="/extension/edit" component={EditExtension}/>
+            
             <Route exact={true} path="/profession/add" component={AddProfession}/>
             <Route exact={true} path="/profession/edit" component={EditProfession}/>
             <Route exact={true} path="/profession/view" component={ViewProfession}/>
-            
+      
             <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
             <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>

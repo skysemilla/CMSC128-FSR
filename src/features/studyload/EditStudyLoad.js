@@ -12,10 +12,6 @@ export default class EditStudyLoad extends Component {
     super(props);
 
     this.state = {
-      degree : 'MSCS', 
-      uni : 'UPLB', 
-      studyleave : 'No',
-      fellowship : 'Yes', 
       courseno:  '3',
       ccred : '201', 
       day : 'TTh', 
@@ -24,10 +20,6 @@ export default class EditStudyLoad extends Component {
       slcred : ' 3'
     };
 
-    this.handleChangeDegree = this.handleChangeDegree.bind(this);
-    this.handleChangeUni = this.handleChangeUni.bind(this);
-    this.handleChangeStudyLeave = this.handleChangeStudyLeave.bind(this);
-    this.handleChangeFellowship = this.handleChangeFellowship.bind(this);
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
     this.handleChangeCcred = this.handleChangeCcred.bind(this);
     this.handleChangeDay = this.handleChangeDay.bind(this);
@@ -36,22 +28,6 @@ export default class EditStudyLoad extends Component {
     this.handleChangeSlcred = this.handleChangeSlcred.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
-  }
-
-  handleChangeDegree(e) {
-    this.setState({ degree: e.target.value });
-  }
-
-  handleChangeUni(e) {
-    this.setState({ uni: e.target.value });
-  }
-
-  handleChangeStudyLeave(e) {
-    this.setState({ studyleave: e.target.value });
-  }
-
-  handleChangeFellowship(e) {
-    this.setState({ fellowship: e.target.value });
   }
 
   handleChangeCourseno(e) {
@@ -87,10 +63,6 @@ export default class EditStudyLoad extends Component {
   startEdit(e) {
     //   e.preventDefault();
     //   Api.addstudyload({
-    // degree: this.state.degree,
-    // uni: this.state.uni,
-    // studyleave: this.state.studyleave,
-    // fellowship: this.state.fellowship,
     // courseno: this.state.courseno,
     // ccred: this.state.ccred,
     // day: this.state.day,
@@ -118,66 +90,6 @@ export default class EditStudyLoad extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
-          <p>
-            <a class="ui small header">Degree Enrolled In </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.degree}
-                placeholder={this.state.degree}
-                onChange={this.handleChangeDegree}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> University Enrolled In </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.uni}
-                placeholder={this.state.uni}
-                onChange={this.handleChangeUni}
-              />
-            </div>
-          </p>
-          <p>
-            <div class="ui form" onChange={this.handleChangeStudyLeave}>
-              <div class="inline fields">
-                <label>On Full Study Leave w/ Pay?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="studyleave" />
-                    <label>Yes</label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="studyleave" />
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p>
-          <p>
-            <div class="ui form" onChange={this.handleChangeFellowship}>
-              <div class="inline fields">
-                <label>Recepient of Faculty Fellowship?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="fellowship" />
-                    <label>Yes</label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="fellowship" />
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p>
           <p>
             <a class="ui small header">Course Number </a>
             <div class="ui input fluid mini focus">
