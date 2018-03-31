@@ -7,10 +7,6 @@ export default class ViewStudyLoadRow extends Component{
 	render(){
 		return(
 			<tr>
-				<td class = "center aligned"> {this.props.degree} </td>
-				<td class = "center aligned"> {this.props.uni} </td>
-				<td class = "center aligned"> {this.props.studyleave} </td>
-				<td class = "center aligned"> {this.props.fellowship} </td>
 				<td class = "center aligned"> {this.props.courseno} </td>
 				<td class = "center aligned"> {this.props.ccred} </td>
 				<td class = "center aligned"> {this.props.day} </td>
