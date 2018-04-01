@@ -125,13 +125,13 @@ export default class NavBar extends Component {
         return(
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
               <a class="ui item" onClick={this.handleLogout}>
                 Logout
               </a>

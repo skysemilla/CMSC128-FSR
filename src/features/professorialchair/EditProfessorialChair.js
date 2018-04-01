@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
+import ProfessorialChairViewRow from './ProfessorialChairViewRow';
+import GenerateFSR from './../GenerateFSR';
+import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
 
 const dummySample = {
   profchair: 'CMSC 128',
@@ -15,7 +16,7 @@ const dummySample = {
   enddate: '03/27/18'
 };
 
-export default class AddProfessorialChair extends Component {
+export default class EditProfessorialChair extends Component {
   constructor(props) {
     super(props);
 
@@ -81,6 +82,8 @@ export default class AddProfessorialChair extends Component {
           <div>
             <h2 class="ui blue header">
               EDIT PROFESSORIAL CHAIR
+              <GenerateFSR/>
+              <SendtoAdmin/>
             </h2>
           </div>
           <Divider hidden="true" />
@@ -114,28 +117,33 @@ export default class AddProfessorialChair extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Start Date </a>
-            <div class="ui input fluid mini focus">
+            <a class="ui small header">Approve Start Date </a>
+            <div class="ui input mini focus">
               <input
                 type="date"
-                onChange={this.handleChangeStartdate}
+                style={{ width: '155px' }}
+                value={this.state.time}
+                onChange={this.handleChangeTime}
               />
             </div>
           </p>
           <p>
             <a class="ui small header">End Date </a>
-            <div class="ui input fluid mini focus">
+            <div class="ui input mini focus">
               <input
                 type="date"
-                onChange={this.handleChangeEndDate}
+                style={{ width: '155px' }}
+                value={this.state.time}
+                onChange={this.handleChangeTime}
               />
             </div>
           </p>
+          
           <div class="ui center aligned container">
             <button
               class="ui center aligned blue button"
-              onClick={this.startAdd}>
-              Edit Professorial Chair
+              onClick={this.startEdit}>
+              Save changes
             </button>
           </div>
         </div>
@@ -145,4 +153,4 @@ export default class AddProfessorialChair extends Component {
   }
 }
 //=========================
-ReactDOM.render(<AddProfessorialChair />, document.getElementById('root'));
+ReactDOM.render(<EditProfessorialChair />, document.getElementById('root'));

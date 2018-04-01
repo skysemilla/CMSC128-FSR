@@ -19,6 +19,7 @@ import EditPublications from './../features/publications/EditPublications';
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
 import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import EditProfessorialChair from './../features/professorialchair/EditProfessorialChair';
+import AddProfessorialChair from './../features/professorialchair/AddProfessorialChair';
 import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
 import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import ViewAdminWork from './../features/adminWork/ViewAdminWork';
@@ -34,10 +35,44 @@ import AddProfession from './../features/profession/AddProfession';
 import EditProfession from './../features/profession/EditProfession';
 import ViewProfession from './../features/profession/ViewProfession';
 
+import RedirectToTeachingLoad from './../features/ADMIN/teachingload/RedirectToTeachingLoad';
+
 import ViewAllFSR from './../features/ADMIN/AllFSR/ViewAllFSR';
 import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
 import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
 import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';
+
+import AdminAddTeachingLoad from './../features/ADMIN/teachingload/AddTeachingLoad';
+import AdminEditTeachingLoad from './../features/ADMIN/teachingload/EditTeachingLoad';
+import AdminViewTeachingLoad from './../features/ADMIN/teachingload/ViewTeachingLoad';
+
+import AdminAddPublications from './../features/ADMIN/publications/AddPublication';
+import AdminEditPublications from './../features/ADMIN/publications/EditPublications';
+import AdminViewPublications from './../features/ADMIN/publications/ViewPublications';
+
+import AdminAddStudyLoad from './../features/ADMIN/studyload/AddStudyLoad';
+import AdminEditStudyLoad from './../features/ADMIN/studyload/EditStudyLoad';
+import AdminViewStudyLoad from './../features/ADMIN/studyload/ViewStudyLoad';
+
+import AdminAddExtension from './../features/ADMIN/extension/AddExtension';
+import AdminEditExtension from './../features/ADMIN/extension/EditExtension';
+import AdminViewExtension from './../features/ADMIN/extension/ViewExtension';
+
+import AdminAddConsultationHours from './../features/ADMIN/consultationhours/AddConsultationHours';
+import AdminEditConsultationHours from './../features/ADMIN/consultationhours/EditConsultationHours';
+// import AdminView from './../features/ADMIN/consultationhours/View';
+
+import AdminAddProfession from './../features/ADMIN/profession/AddProfession';
+import AdminEditProfession from './../features/ADMIN/profession/EditProfession';
+import AdminViewProfession from './../features/ADMIN/profession/ViewProfession';
+
+import AdminAddProfessorialChair from './../features/ADMIN/professorialchair/AddProfessorialChair';
+import AdminEditProfessorialChair from './../features/ADMIN/professorialchair/EditProfessorialChair';
+import AdminViewProfessorialChair from './../features/ADMIN/professorialchair/ViewProfessorialChair';
+
+import AdminAddAdministrativeWork from './../features/ADMIN/adminWork/AddAdministrativeWork';
+import AdminEditAdministrativeWork from './../features/ADMIN/adminWork/EditAdministrativeWork';
+import AdminViewAdministrativeWork from './../features/ADMIN/adminWork/ViewAdministrativeWork';
 
 class App extends Component {
   render() {
@@ -83,11 +118,43 @@ class App extends Component {
             <Route exact={true} path="/profession/add" component={AddProfession}/>
             <Route exact={true} path="/profession/edit" component={EditProfession}/>
             <Route exact={true} path="/profession/view" component={ViewProfession}/>
-
+      
             <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
             <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>
             <Route exact={true} path="/admin/ViewAllFaculty" component={ViewAllFaculty}/>
+            
+            <Route exact={true} path="/admin/editFSR/teachingload/view" component={AdminViewTeachingLoad}/>
+            <Route exact={true} path="/admin/editFSR/teachingload/add" component={AdminAddTeachingLoad}/>
+            <Route exact={true} path="/admin/editFSR/teachingload/edit" component={AdminEditTeachingLoad}/>
+
+            <Route exact={true} path="/admin/editFSR/publications/add" component={AdminAddPublications}/>
+            <Route exact={true} path="/admin/editFSR/publications/edit" component={AdminEditPublications}/>
+            <Route exact={true} path="/admin/editFSR/publications/view" component={AdminViewPublications}/>
+
+            <Route exact={true} path="/admin/editFSR/studyload/add" component={AdminAddStudyLoad}/>
+            <Route exact={true} path="/admin/editFSR/studyload/edit" component={AdminEditStudyLoad}/>
+            <Route exact={true} path="/admin/editFSR/studyload/view" component={AdminViewStudyLoad}/>
+
+            <Route exact={true} path="/admin/editFSR/extension/add" component={AdminAddExtension}/>
+            <Route exact={true} path="/admin/editFSR/extension/edit" component={AdminEditExtension}/>
+            <Route exact={true} path="/admin/editFSR/extension/view" component={AdminViewExtension}/>
+
+            <Route exact={true} path="/admin/editFSR/consultation/add" component={AdminAddConsultationHours}/>
+            <Route exact={true} path="/admin/editFSR/consultation/edit" component={AdminEditConsultationHours}/>
+            
+            <Route exact={true} path="/admin/editFSR/profession/add" component={AdminAddProfession}/>
+            <Route exact={true} path="/admin/editFSR/profession/edit" component={AdminEditProfession}/>
+            <Route exact={true} path="/admin/editFSR/profession/view" component={AdminViewProfession}/>
+
+            <Route exact={true} path="/admin/editFSR/profchair/add" component={AdminAddProfessorialChair}/>
+            <Route exact={true} path="/admin/editFSR/profchair/edit" component={AdminEditProfessorialChair}/>
+            <Route exact={true} path="/admin/editFSR/profchair/view" component={AdminViewProfessorialChair}/>
+
+            <Route exact={true} path="/admin/editFSR/adminWork/add" component={AdminAddAdministrativeWork}/>
+            <Route exact={true} path="/admin/editFSR/adminWork/edit" component={AdminEditAdministrativeWork}/>
+            <Route exact={true} path="/admin/editFSR/adminWork/view" component={AdminViewAdministrativeWork}/>
+
           </div>
         </Router>
       </div>
