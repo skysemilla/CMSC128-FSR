@@ -12,10 +12,10 @@ export const editStudyLoad = studyLoadInfo => {
 	return axios.post('/api/studyload/edit', studyLoadInfo)
 };
 
-export const viewStudyLoad = studyLoadInfo => {
-	return axios.post('/api/studyload/view', studyLoadInfo)
+export const viewStudyLoad = () => {
+	return axios.post('/api/studyload/view')
 };
 
 export const viewAllStudyLoad = () => {
-	return axios.post('/api/studyload/viewAll');
+	return axios.get('/api/studyload/viewAll');
 };
