@@ -91,25 +91,25 @@ export default class EditTeachingLoad extends Component {
   }
 
   startEdit(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   starttime: this.state.starttime,
-    //   endtime: this.state.endtime,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./teachingload/view');  //change to profile later!!
-    //     alert('Teaching load successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Teaching Load!'));
+    e.preventDefault();
+    Api.editTeachLoad({
+      emp_id: 11, //Temporary emp_id value
+      subject_code: this.state.subj,
+      section_code: this.state.seccode,
+      room: this.state.room,
+      days: this.state.days,
+      start_time: this.state.starttime,
+      end_time: this.state.endtime,
+      hours: this.state.hours,
+      no_of_students: this.state.studnum,
+      creditw: this.state.creditw
+    })
+      .then(result =>{
+        this.props.history.push('./teachingload/view'); //change to profile later!!
+        alert('Teachingload successfully edited!');
+      })
+      // .catch(e => alert(e));
+      .catch(e => alert('Error editing Teaching Load!'));
   }
 
   render() {
