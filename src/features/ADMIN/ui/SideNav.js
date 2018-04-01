@@ -34,6 +34,8 @@ export default class SideNav extends Component {
     this.activateProfession = this.activateProfession.bind(this);
     this.activateProfChair = this.activateProfChair.bind(this);
     this.activateAdminWork = this.activateAdminWork.bind(this);
+
+    this.handleSubmenus = this.handleSubmenus.bind(this);
   }
 
   activateTeachingLoad(e) {
@@ -117,6 +119,30 @@ export default class SideNav extends Component {
     this.setState({ adminWorkClass: activated.value });
   }
 
+  handleSubmenus(e) {
+    e.preventDefault();
+    this.setState({ activeMenu: 'FSR'});
+    this.setState({ subMenu: e.currentTarget.id });
+    if(e.currentTarget.id==='teachingload'){
+        this.props.history.push('../../teachingload/view');
+    }else if(e.currentTarget.id==='publications'){
+        this.props.history.push('../../publications/view');
+    }else if(e.currentTarget.id==='adminwork'){
+        this.props.history.push('../../adminwork/view');
+    }else if(e.currentTarget.id==='extension'){
+        this.props.history.push('../../extension/view');
+    }else if(e.currentTarget.id==='studyload'){
+        this.props.history.push('../../studyload/view');
+    }else if(e.currentTarget.id==='profession'){
+        this.props.history.push('../../profession/view');
+    }else if(e.currentTarget.id==='profchair'){
+        this.props.history.push('../../professorialchair/view');
+    }else if(e.currentTarget.id==='consultation'){
+        this.props.history.push('../../consultation/view');
+    }
+    this.forceUpdate();
+  }
+
   render() {
     return(
       <div>
@@ -137,7 +163,7 @@ export default class SideNav extends Component {
           <a id="consultation" class={this.state.consultationClass} onClick={this.activateConsultation}>
             Consultation Hours
           </a>
-          <a id="profession" class={this.state.professionClass} onClick={this.activateProfession}>
+          <a id="profession" class={this.state.professionClass} onClick={(event) => { this.activateProfession; this.handleSubmenus;}}>
             Limited Practice of Profession
           </a>
           <a id="profchair" class={this.state.profChairClass} onClick={this.activateProfChair}>
