@@ -19,16 +19,16 @@ export default class EditPublication extends Component {
     super(props);
 
     this.state = {
-      researchType : 'Research',
-      researchSubtype : 'Research Proposal',
-      completeTitle: 'Sample',
-      Role: 'ABC',
-      Coworkers: 'ABC',
-      Funding: 'N/A',
-      StartDate: '03/03/03',
-      EndDate: '04/04/04',
-      ApprovedCreditUnits: '3',
-      TotalWorkLoadUnits: '3'
+      researchType : '',
+      researchSubtype : '',
+      completeTitle: '',
+      Role: '',
+      Coworkers: '',
+      Funding: '',
+      StartDate: '',
+      EndDate: '',
+      ApprovedCreditUnits: '',
+      TotalWorkLoadUnits: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -42,7 +42,13 @@ export default class EditPublication extends Component {
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
     this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
-    this.startAdd = this.startAdd.bind(this);
+    this.startEdit = this.startEdit.bind(this);
+  }
+
+  componentDidMount(){
+    if(typeof this.props.history!=='undefined'){
+      console.log(this.props.history.location.state.id);
+    }
   }
 
   handleChangeType(e) {
@@ -85,9 +91,9 @@ export default class EditPublication extends Component {
     this.setState({ TotalWorkLoadUnits: e.target.value });
   }
 
-  startAdd(e) {
+  startEdit(e) {
     // e.preventDefault();
-    // Api.addteachingload({
+    // Api.editpublications({
     //   subj: this.state.subj,
     //   seccode: this.state.seccode,
     //   room: this.state.room,
@@ -212,7 +218,7 @@ export default class EditPublication extends Component {
             <button class="ui blue button">Upload Attachments</button>
             <button
               class="ui blue button"
-              onClick={this.startAdd}>
+              onClick={this.startEdit}>
               Save changes
             </button>
           </div>

@@ -4,7 +4,8 @@ import {Modal} from 'semantic-ui-react'
 import DeleteModal from '../GenericDelete';
 
 export default class ViewPublicationsRow extends Component{
-	render(){
+
+      render(){
 		return(
 			<tr>
                   <td class = "center aligned">{this.props.completeTitle}</td>

@@ -12,6 +12,7 @@ export default class AddTeachingLoad extends Component {
     super(props);
 
     this.state = {
+      emp_id: '',
       subj: '',
       seccode: '',
       room: '',
@@ -38,6 +39,13 @@ export default class AddTeachingLoad extends Component {
     this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.startAdd = this.startAdd.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  componentDidMount(){
+    console.log(this.props.history);
+    // if(typeof this.props.history!=='undefined'){
+    //   this.setState({emp_id: this.props.history.location.state.emp_id});
+    // }
   }
 
   handleChangeSubj(e) {
