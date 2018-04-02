@@ -94,17 +94,17 @@ class Signup extends Component {
   startSignup(e) {
     e.preventDefault();
     Api.signup({
-      empid: this.state.empid,
+      emp_id: this.state.empid,
       username: this.state.username,
       password: this.state.password,
       type: 'FACULTY',
-      fname: this.state.fname,
-      mname: this.state.mname,
-      lname: this.state.lname,
-      dept: this.state.dept,
+      f_name: this.state.fname,
+      m_name: this.state.mname,
+      l_name: this.state.lname,
+      department: this.state.dept,
       college: this.state.college,
-      emptype: this.state.emptype,
-      isFullTime: this.state.fulltime,
+      emp_type: this.state.emptype,
+      is_full_time: this.state.fulltime,
       email: this.state.email
     }).then(result => {
       this.props.history.push('../');
