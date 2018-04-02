@@ -33,9 +33,9 @@ export default class Login extends Component {
       if (result.data.data !== null) {
         this.setState({ type: result.data.data.type });
         if (this.state.type === 'ADMIN') {
-          this.props.history.push('./teachingload/add');
-        } else if (this.state.type === 'FACULTY') {
           this.props.history.push('/admin/ViewAllFaculty');
+        } else if (this.state.type === 'FACULTY') {
+          this.props.history.push('./teachingload/add');
         }
       }
     });
@@ -54,16 +54,14 @@ export default class Login extends Component {
     Api.login({
       username: this.state.username,
       password: this.state.password
-    })
-      .then(result => {
-        this.setState({ type: result.data.data.type });
-        if (this.state.type === 'ADMIN') {
-          this.props.history.push('./teachingload/add');
-        } else if (this.state.type === 'FACULTY') {
-          this.props.history.push('/admin/ViewAllFaculty');
-        }
-      })
-      .catch(e => alert('Wrong Credentials!'));
+    }).then(result => {
+      this.setState({ type: result.data.data.type });
+      if (this.state.type === 'ADMIN') {
+        this.props.history.push('/admin/ViewAllFaculty');
+      } else if (this.state.type === 'FACULTY') {
+        this.props.history.push('./teachingload/add');
+      }
+    });
   }
 
   render() {
