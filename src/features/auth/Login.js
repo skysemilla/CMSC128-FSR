@@ -35,7 +35,7 @@ export default class Login extends Component {
         if (this.state.type === 'ADMIN') {
           this.props.history.push('./teachingload/add');
         } else if (this.state.type === 'FACULTY') {
-          this.props.history.push('./studyload/add');
+          this.props.history.push('/admin/ViewAllFaculty');
         }
       }
     });
@@ -59,8 +59,8 @@ export default class Login extends Component {
         this.setState({ type: result.data.data.type });
         if (this.state.type === 'ADMIN') {
           this.props.history.push('./teachingload/add');
-        } else if (this.state.type === 'USER') {
-          this.props.history.push('./profile');
+        } else if (this.state.type === 'FACULTY') {
+          this.props.history.push('/admin/ViewAllFaculty');
         }
       })
       .catch(e => alert('Wrong Credentials!'));
