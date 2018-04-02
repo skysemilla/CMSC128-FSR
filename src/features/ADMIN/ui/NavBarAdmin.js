@@ -41,8 +41,6 @@ export default class NavBarAdmin extends Component {
       this.props.history.push('../../admin/viewApprovedFSR');
     }else if(e.currentTarget.id==='faculty'){
       this.props.history.push('../../admin/viewAllFaculty');
-    }else if(e.currentTarget.id==='edit'){
-      this.props.history.push('../../admin/editFSR/teachingload/view');
     }
     this.forceUpdate();
   }
@@ -65,9 +63,6 @@ export default class NavBarAdmin extends Component {
               <a class="item" id="faculty" onClick={this.handleChange}>
                 All Faculty
               </a>
-              <a class="item" id="edit" onClick={this.handleChange}>
-                Edit
-              </a>
               <div class="right menu">
                 <a class="ui item" onClick={this.handleLogout}>
                   Logout
@@ -87,9 +82,6 @@ export default class NavBarAdmin extends Component {
               </a>
               <a class="item" id="faculty" onClick={this.handleChange}>
                 All Faculty
-              </a>
-              <a class="item" id="edit" onClick={this.handleChange}>
-                Edit
               </a>
               <div class="right menu">
                 <a class="ui item" onClick={this.handleLogout}>
@@ -111,16 +103,13 @@ export default class NavBarAdmin extends Component {
               <a class="item" id="faculty" onClick={this.handleChange}>
                 All Faculty
               </a>
-              <a class="item" id="edit" onClick={this.handleChange}>
-                Edit
-              </a>
               <div class="right menu">
                 <a class="ui item" onClick={this.handleLogout}>
                   Logout
                 </a>
               </div>
             </div>
-          :this.state.activeMenu==='faculty'?
+          :
             <div class="ui blue inverted huge menu div1">
               <a class="item" id="all" onClick={this.handleChange}>
                 All FSR
@@ -134,20 +123,12 @@ export default class NavBarAdmin extends Component {
               <a class="active item" id="faculty" onClick={this.handleChange}>
                 All Faculty
               </a>
-              <a class="item" id="edit" onClick={this.handleChange}>
-                Edit
-              </a>
               <div class="right menu">
                 <a class="ui item" onClick={this.handleLogout}>
                   Logout
                 </a>
               </div>
             </div>
-          :this.state.activeMenu==='edit'?
-            <div>
-              <EditNav {...this.props} activeSubLabel={this.state.subMenu} />
-            </div>
-          : <div> </div>
         }
       </div>
     )
