@@ -10,7 +10,8 @@ export default class NavBar extends Component {
 
     this.state = {
       activeMenu: this.props.Label,
-      subMenu: this.props.subLabel
+      subMenu: this.props.subLabel,
+      emp_id: this.props.emp_id
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -39,21 +40,21 @@ export default class NavBar extends Component {
     this.setState({ activeMenu: 'FSR'});
     this.setState({ subMenu: e.currentTarget.id });
     if(e.currentTarget.id==='teachingload'){
-        this.props.history.push('../../teachingload/view');
+        this.props.history.push('../../teachingload/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='publications'){
-        this.props.history.push('../../publications/view');
+        this.props.history.push('../../publications/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='adminwork'){
-        this.props.history.push('../../adminwork/view');
+        this.props.history.push('../../adminwork/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='extension'){
-        this.props.history.push('../../extension/view');
+        this.props.history.push('../../extension/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='studyload'){
-        this.props.history.push('../../studyload/view');
+        this.props.history.push('../../studyload/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='profession'){
-        this.props.history.push('../../profession/view');
+        this.props.history.push('../../profession/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='profchair'){
-        this.props.history.push('../../professorialchair/view');
+        this.props.history.push('../../professorialchair/view', {empid: this.state.emp_id});
     }else if(e.currentTarget.id==='consultation'){
-        this.props.history.push('../../consultationhours/view');
+        this.props.history.push('../../consultationhours/view', {empid: this.state.emp_id});
     }
     this.forceUpdate();
   }
