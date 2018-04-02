@@ -11,3 +11,7 @@ export const logout = () => {
 export const getSession = () => {
   return axios.post('/api/session');
 };
+
+export const signup = form => {
+  return axios.post('/api/signup', form);
+};
