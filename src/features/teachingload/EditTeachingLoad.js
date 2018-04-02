@@ -12,6 +12,7 @@ export default class EditTeachingLoad extends Component {
     super(props);
 
     this.state = {
+      emp_id: '',
       subj: 'CMSC 128',
       seccode: 'CMSC 128',
       room: 'CAS B04',
@@ -38,6 +39,12 @@ export default class EditTeachingLoad extends Component {
     this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
+  }
+
+  componentDidMount(){
+    if(typeof this.props.history!=='undefined'){
+      this.setState({emp_id: this.props.history.location.state.emp_id});
+    }
   }
 
   handleChangeSubj(e) {

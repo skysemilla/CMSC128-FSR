@@ -9,7 +9,20 @@ import SendtoAdmin from './../SendtoAdmin'
 import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBar'
 
-const dummySample = {researchType : 'Research',
+const dummySample = { pub_id: 4,
+                      researchType : 'Research',
+                      researchSubtype : 'Research Proposal',
+                      completeTitle: 'Sample',
+                      Role: 'ABC',
+                      Coworkers: 'ABC',
+                      Funding: 'N/A',
+                      StartDate: '03/03/03',
+                      EndDate: '04/04/04',
+                      ApprovedCreditUnits: '3',
+                      TotalWorkLoadUnits: '3'};
+
+const dummySample2 = { pub_id: 5,
+                      researchType : 'Research',
                       researchSubtype : 'Research Proposal',
                       completeTitle: 'Sample',
                       Role: 'ABC',
@@ -25,7 +38,7 @@ export default class ViewPublications extends Component {
     super(props);
 
     this.state = {
-      data: [dummySample]
+      data: [dummySample, dummySample2]
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -91,6 +104,7 @@ export default class ViewPublications extends Component {
               {this.state.data.map((item) =>{
                 return(
                     <ViewPublicationsRow {...this.props}
+                          id={item.pub_id}
                           completeTitle= {item.completeTitle}
                           researchSubtype ={item.researchSubtype}
                           Role= {item.Role}
