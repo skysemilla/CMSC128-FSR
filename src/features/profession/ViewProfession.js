@@ -46,9 +46,9 @@ export default class ViewProfession extends Component {
           class="ui compact piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
-              VIEW PROFESSION
-            </h2>
+            <h1 class="ui blue header">
+              LIMITED PRACTICE OF PROFESSION
+            </h1>
           </div>
           <Divider hidden="true" />
           <div>
