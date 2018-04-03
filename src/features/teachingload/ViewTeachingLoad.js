@@ -53,17 +53,10 @@ export default class ViewTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      emp_id: 9,
       data: [dummySample, dummySample2, dummySample3] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
-  }
-
-  componentDidMount(){
-    if(typeof this.props.history!=='undefined'){
-      this.setState({emp_id: this.props.history.location.state.emp_id});
-    }
   }
 
   startAdd(e) {
