@@ -101,7 +101,6 @@ export default class AddTeachingLoad extends Component {
   startAdd(e) {
     e.preventDefault();
     Api.addTeachLoad({
-      emp_id: 11, //Temporary emp_id value
       subject_code: this.state.subj,
       section_code: this.state.seccode,
       room: this.state.room,
