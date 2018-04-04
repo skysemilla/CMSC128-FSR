@@ -35,7 +35,7 @@ export default class Login extends Component {
         if (this.state.type === 'ADMIN') {
           this.props.history.push('/admin/ViewAllFaculty');
         } else if (this.state.type === 'FACULTY') {
-          this.props.history.push('./teachingload/add');
+          this.props.history.push('./profile');
         }
       }
     });
@@ -59,7 +59,7 @@ export default class Login extends Component {
       if (this.state.type === 'ADMIN') {
         this.props.history.push('/admin/ViewAllFaculty');
       } else if (this.state.type === 'FACULTY') {
-        this.props.history.push('./teachingload/add');
+        this.props.history.push('./profile');
       }
     });
   }
