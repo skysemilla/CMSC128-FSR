@@ -61,20 +61,18 @@ export default class AddStudyLoad extends Component {
   }
 
   startAdd(e) {
-    //   e.preventDefault();
-    //   Api.addstudyload({
-    // courseno: this.state.courseno,
-    // ccred: this.state.ccred,
-    // day: this.state.day,
-    // time: this.state.time,
-    // school: this.state.school,
-    // slcred: this.state.slcred
-    //   })
-    //     .then(result => {
-    //       this.props.history.push('./studyload/view');  //change to profile later!!
-    //       alert('Study load successfully added!');
-    //     })
-    //     .catch(e => alert('Error adding new Study Load!'));
+    e.preventDefault();
+    Api.addStudyLoad({
+      subject_id : this.state.courseno,
+      emp_id : 11 ,
+      credits : this.state.slcred
+
+    })
+      .then(result =>{
+        this.props.history.push('./teachingload/view'); //change to profile later!!
+        alert('Studylooad successfully added!');
+      })
+      .catch(e => alert('Error adding new Study Load!'));
   }
 
   render() {
