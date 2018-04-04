@@ -53,17 +53,18 @@ export default class ViewTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      emp_id: 9,
-      data: [dummySample, dummySample2, dummySample3] //dummmy data
+      data: [] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
   }
-
   componentDidMount(){
-    if(typeof this.props.history!=='undefined'){
-      this.setState({emp_id: this.props.history.location.state.emp_id});
-    }
+    Api.viewTeachLoad().then((response)=>{
+      if(response.data.data[0]!== undefined){
+        this.setState({data:response.data.data}
+        )}
+        console.log(response.data.data)
+    })
   }
 
   startAdd(e) {
@@ -112,13 +113,13 @@ export default class ViewTeachingLoad extends Component {
                   <ViewTeachingLoadRow {...this.props}
                     id={this.state.emp_id}
                     subj={item.subj}
-                    seccode={item.seccode}
+                    seccode={item.section_code}
                     room={item.room}
                     days={item.days}
-                    starttime={item.starttime}
-                    endtime={item.endtime}
+                    starttime={item.start_time}
+                    endtime={item.end_time}
                     hours={item.hours}
-                    studnum={item.studnum}
+                    studnum={item.no_of_students}
                     creditwo={item.creditwo}
                     studcred={item.studcred}
                     creditw={item.creditw}

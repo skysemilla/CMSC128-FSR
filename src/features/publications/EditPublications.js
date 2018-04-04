@@ -19,11 +19,12 @@ export default class EditPublication extends Component {
     super(props);
 
     this.state = {
+      posCoworkers: ['ABC', 'DEF', 'GHI'],
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
       Role: '',
-      Coworkers: '',
+      Coworkers: [],
       Funding: '',
       StartDate: '',
       EndDate: '',
@@ -35,7 +36,7 @@ export default class EditPublication extends Component {
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeCoworkers = this.handleChangeCoworkers.bind(this);
+    this.addCoworker = this.addCoworker.bind(this);  //!!!
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
@@ -67,8 +68,22 @@ export default class EditPublication extends Component {
     this.setState({ Role: e.target.value });
   }
 
-  handleChangeCoworkers(e) {
-    this.setState({ Coworkers: e.target.value });
+  addCoworker(e){  //!!!
+    if(this.state.Coworkers.includes(e.target.value)){
+      for(var index = 0; index < this.state.Coworkers.length; index++){
+        if(this.state.Coworkers[index] === e.target.value) 
+          this.state.Coworkers.splice(index,1);
+      }
+      this.setState({Coworkers : this.state.Coworkers});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
+      var newArray = this.state.Coworkers;
+      newArray.push(e.target.value);
+      this.setState({Coworkers : newArray});
+      console.log("Added " + e.target.value);
+    }
+    console.log(this.state.Coworkers);
   }
 
   handleChangeFunding(e) {
@@ -159,14 +174,17 @@ export default class EditPublication extends Component {
             type = "text"
             handler = {this.handleChangeRole} />
           <p>
-            <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeCoworkers}
-                placeHolder={this.state.Coworkers}
-              />
-            </div>
+            <a class="ui small header"> Co-workers </a>
+            {this.state.posCoworkers.map((item) =>{
+                return(
+                    <p>
+                    <div class="ui checked checkbox">
+                      <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
+                      <label>{item.fname} {item.lname}</label>
+                    </div>
+                    </p>
+                )
+            })}
           </p>
           <GenericDisabledInput
             compareState = {this.state.researchSubtype}

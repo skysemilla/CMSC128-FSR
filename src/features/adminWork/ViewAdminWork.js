@@ -51,7 +51,7 @@ export default class ViewAdminWork extends Component {
         <div class="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
             <h1 class="ui blue header">
-              VIEW ADMINISTRATIVE WORK
+              ADMINISTRATIVE WORK
             </h1>
           </div>
           <Divider hidden="true" />

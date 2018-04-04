@@ -14,19 +14,7 @@ const dummySample = { pub_id: 4,
                       researchSubtype : 'Research Proposal',
                       completeTitle: 'Sample',
                       Role: 'ABC',
-                      Coworkers: 'ABC',
-                      Funding: 'N/A',
-                      StartDate: '03/03/03',
-                      EndDate: '04/04/04',
-                      ApprovedCreditUnits: '3',
-                      TotalWorkLoadUnits: '3'};
-
-const dummySample2 = { pub_id: 5,
-                      researchType : 'Research',
-                      researchSubtype : 'Research Proposal',
-                      completeTitle: 'Sample',
-                      Role: 'ABC',
-                      Coworkers: 'ABC',
+                      Coworkers: ['ABC', 'DEF', 'GHI'],
                       Funding: 'N/A',
                       StartDate: '03/03/03',
                       EndDate: '04/04/04',
@@ -38,7 +26,7 @@ export default class ViewPublications extends Component {
     super(props);
 
     this.state = {
-      data: [dummySample, dummySample2]
+      data: [dummySample]
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -77,9 +65,9 @@ export default class ViewPublications extends Component {
           class="ui compact piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h1 class="ui blue header">
               PUBLICATIONS
-            </h2>
+            </h1>
           </div>
           <Divider hidden="true" />
           <div>
@@ -108,7 +96,7 @@ export default class ViewPublications extends Component {
                           completeTitle= {item.completeTitle}
                           researchSubtype ={item.researchSubtype}
                           Role= {item.Role}
-                          Coworkers={item.Coworkers}
+                          Coworkers= {item.Coworkers}
                           Funding={item.Funding}
                           StartDate={item.StartDate}
                           EndDate= {item.EndDate}
