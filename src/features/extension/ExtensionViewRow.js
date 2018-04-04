@@ -14,7 +14,8 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.title} </td>
         <td class="center aligned"> {this.props.noOfHours} </td>
         <td class="center aligned"> {this.props.noOfParticipants} </td>
-        <td class="center aligned"> {this.props.duration} </td>
+        <td class="center aligned"> {this.props.startDate} </td>
+        <td class="center aligned"> {this.props.endDate} </td>
         <td class="center aligned"> {this.props.role} </td>
         <td class="center aligned"> {this.props.fundingAgency} </td>
         <td class="center aligned"> {this.props.approvedCreditUnits} </td>

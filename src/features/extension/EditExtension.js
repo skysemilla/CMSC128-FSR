@@ -13,7 +13,8 @@ const dummySample={
       title: 'SampleTitle',
       noOfHours: '10',
       noOfParticipants: '24',
-      duration: '01/01/17 - 01/01/18',
+      startDate: '01/01/17',
+      endDate: '01/01/18',
       role: 'SampleRole',
       fundingAgency: 'ABC Agency',
       approvedCreditUnits: '3'
@@ -35,7 +36,8 @@ export default class EditExtension extends Component {
       title: dummySample.title,
       noOfHours: dummySample.noOfHours,
       noOfParticipants: dummySample.noOfParticipants,
-      duration: dummySample.duration,
+      startDate: dummySample.startDate,
+      endDate: dummySample.endDate,
       role: dummySample.role,
       approvedCreditUnits: dummySample.approvedCreditUnits,
       fundingAgency: dummySample.fundingAgency,
@@ -45,7 +47,8 @@ export default class EditExtension extends Component {
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeNoOfHours = this.handleChangeNoOfHours.bind(this);
     this.handleChangeNoOfParticipants = this.handleChangeNoOfParticipants.bind(this);
-    this.handleChangeDuration = this.handleChangeDuration.bind(this);
+    this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
+    this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
     this.handleChangeFundingAgency = this.handleChangeFundingAgency.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
@@ -70,10 +73,13 @@ export default class EditExtension extends Component {
     this.setState({ noOfParticipants: e.target.value });
   }
 
-  handleChangeDuration(e) {
-    this.setState({ duration: e.target.value });
+  handleChangeStartDate(e) {
+    this.setState({ startDate: e.target.value });
   }
 
+  handleChangeEndDate(e) {
+    this.setState({ endDate: e.target.value });
+  }
 
   handleChangeRole(e) {
     this.setState({ role: e.target.value });
@@ -163,13 +169,28 @@ export default class EditExtension extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Start Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeDuration}
-                placeholder={this.state.duration}
-              />
+          <a class="ui small header"> Duration </a>
+            <div class="equal width fields">
+              <div class="field">
+                <a class="ui small header"> Start Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeStartDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
+              <div class="field">
+                <a class="ui small header"> End Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeEndDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
             </div>
           </p>
           <p>

@@ -9,12 +9,30 @@ import SendtoAdmin from './../SendtoAdmin'
 import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBar'
 
+const dummy1={
+  fname: 'Hi',
+  lname: 'Hello',
+  emp_id: 1
+  };
+
+const dummy2={
+  fname: 'Hi2',
+  lname: 'Hello2',
+  emp_id: 2
+  };
+
+const dummy3={
+  fname: 'Hi3',
+  lname: 'Hello3',
+  emp_id: 3
+  };
+
 const dummySample = { pub_id: 4,
                       researchType : 'Research',
                       researchSubtype : 'Research Proposal',
                       completeTitle: 'Sample',
                       Role: 'ABC',
-                      Coworkers: ['ABC', 'DEF', 'GHI'],
+                      Coworkers: [dummy1, dummy2, dummy3],
                       Funding: 'N/A',
                       StartDate: '03/03/03',
                       EndDate: '04/04/04',

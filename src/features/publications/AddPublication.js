@@ -13,13 +13,30 @@ const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal"
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
+const dummy1={
+  fname: 'Hi',
+  lname: 'Hello',
+  emp_id: 1
+  };
+
+const dummy2={
+  fname: 'Hi2',
+  lname: 'Hello2',
+  emp_id: 2
+  };
+
+const dummy3={
+  fname: 'Hi3',
+  lname: 'Hello3',
+  emp_id: 3
+  };
 
 export default class AddPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posCoworkers: ['ABC', 'DEF', 'GHI'], //!!!
+      posCoworkers: [dummy1, dummy2, dummy3], //!!!
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
@@ -124,7 +141,7 @@ export default class AddPublication extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div className="App-header" class="wholediv">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
           class="ui piled very padded text left aligned container segment mainDiv"
