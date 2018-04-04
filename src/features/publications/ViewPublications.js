@@ -9,11 +9,12 @@ import SendtoAdmin from './../SendtoAdmin'
 import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBar'
 
-const dummySample = {researchType : 'Research',
+const dummySample = { pub_id: 4,
+                      researchType : 'Research',
                       researchSubtype : 'Research Proposal',
                       completeTitle: 'Sample',
                       Role: 'ABC',
-                      Coworkers: 'ABC',
+                      Coworkers: ['ABC', 'DEF', 'GHI'],
                       Funding: 'N/A',
                       StartDate: '03/03/03',
                       EndDate: '04/04/04',
@@ -64,9 +65,9 @@ export default class ViewPublications extends Component {
           class="ui compact piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h1 class="ui blue header">
               PUBLICATIONS
-            </h2>
+            </h1>
           </div>
           <Divider hidden="true" />
           <div>
@@ -91,10 +92,11 @@ export default class ViewPublications extends Component {
               {this.state.data.map((item) =>{
                 return(
                     <ViewPublicationsRow {...this.props}
+                          id={item.pub_id}
                           completeTitle= {item.completeTitle}
                           researchSubtype ={item.researchSubtype}
                           Role= {item.Role}
-                          Coworkers={item.Coworkers}
+                          Coworkers= {item.Coworkers}
                           Funding={item.Funding}
                           StartDate={item.StartDate}
                           EndDate= {item.EndDate}

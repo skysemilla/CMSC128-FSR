@@ -27,8 +27,8 @@ export default class AddExtension extends Component {
       startDate: '',
       endDate: '',
       role: '',
+      fundingAgency: '',
       approvedCreditUnits: '',
-      totalExtandCommUnits: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -38,8 +38,8 @@ export default class AddExtension extends Component {
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
+    this.handleChangeFundingAgency = this.handleChangeFundingAgency.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalExtandCommUnits = this.handleChangeTotalExtandCommUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -73,12 +73,12 @@ export default class AddExtension extends Component {
     this.setState({ role: e.target.value });
   }
 
-  handleChangeApprovedCreditUnits(e) {
-    this.setState({ approvedCreditUnits: e.target.value });
+  handleChangeFundingAgency(e) {
+    this.setState({ fundingAgency: e.target.value });
   }
 
-  handleChangeTotalExtandCommUnits(e) {
-    this.setState({ totalExtandCommUnits: e.target.value });
+  handleChangeApprovedCreditUnits(e) {
+    this.setState({ approvedCreditUnits: e.target.value });
   }
 
   startAdd(e) {
@@ -88,8 +88,8 @@ export default class AddExtension extends Component {
     //   title: this.state.title,
     //   noOfHours: this.state.noOfHours,
     //   noOfParticipants: this.state.noOfParticipants,
-    //   startDate: this.state.startDate,
-    //   endDate: this.state.endDate,
+    //   duration: this.state.duration,
+    //   fundingAgency: this.state.fundingAgency,
     //   role: this.state.role,
     //   approvedCreditUnits: this.state.approvedCreditUnits,
     //   totalExtandCommUnits: this.state.totalExtandCommUnits
@@ -153,24 +153,33 @@ export default class AddExtension extends Component {
                 />
             </div>
           </p>
+
           <p>
-            <a class="ui small header"> Start Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="date"
-                onChange={this.handleChangeStartDate}
-              />
+          <a class="ui small header"> Duration </a>
+            <div class="equal width fields">
+              <div class="field">
+                <a class="ui small header"> Start Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeStartDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
+              <div class="field">
+                <a class="ui small header"> End Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeEndDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
             </div>
           </p>
-          <p>
-            <a class="ui small header"> End Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="date"
-                onChange={this.handleChangeEndDate}
-              />
-            </div>
-          </p>
+
           <p>
             <a class="ui small header"> Role </a>
             <div class="ui input fluid mini focus">
@@ -181,20 +190,20 @@ export default class AddExtension extends Component {
             </div>
           </p>
           <p>
+            <a class="ui small header"> Funding Agency </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                onChange={this.handleChangeFundingAgency}
+              />
+            </div>
+          </p>
+          <p>
             <a class="ui small header"> Approved Credit Units </a>
             <div class="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeApprovedCreditUnits}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Total Extension and Community Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalExtandCommUnits}
               />
             </div>
           </p>

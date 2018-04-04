@@ -1,46 +1,56 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import NavBar from './../ui/NavBar';
+import NavBar from './../ui/NavBar'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
+import {Divider,Checkbox} from 'semantic-ui-react'
 
 export default class EditConsultationHours extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      days: '',
-      time: '',
-      place: '',
+      days : [],
+      time : '',
+      place : ''
     };
 
     this.handleChangeDays = this.handleChangeDays.bind(this);
     this.handleChangeTime = this.handleChangeTime.bind(this);
     this.handleChangePlace = this.handleChangePlace.bind(this);
+
+    this.startAdd = this.startAdd.bind(this);
   }
 
-  handleChangeDays(e) {
-    this.setState({ subj: e.target.value });
+  handleChangeDays(e){
+    if(this.state.days.includes(e.target.value)){
+      for(var index = 0; index < this.state.days.length; index++){
+        if(this.state.days[index] === e.target.value) 
+          this.state.days.splice(index,1);
+      }
+      this.setState({days : this.state.days});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
+      var newArray = this.state.days;
+      newArray.push(e.target.value);
+      this.setState({days : newArray});
+      console.log("Added " + e.target.value);
+    }
+    console.log(this.state.days);
   }
 
-  handleChangeTime(e) {
-    this.setState({ seccode: e.target.value });
+  handleChangeTime(e){
+    this.setState({time : e.target.value});
   }
 
-  handleChangePlace(e) {
-    this.setState({ room: e.target.value });
+  handleChangePlace(e){
+    this.setState({place : e.target.value});
   }
 
-  handleLogout(e) {
-    e.preventDefault();
-    Api.logout();
-    this.props.history.push('../..');
-  }
-
-  startEdit(e) {
+  startAdd(e) {
     // e.preventDefault();
     // Api.addteachingload({
     //   subj: this.state.subj,
@@ -55,13 +65,14 @@ export default class EditConsultationHours extends Component {
     //   creditw: this.state.creditw
     // })
     //   .then(result => {
-    //     this.props.history.push('./teachingload/view');  //change to profile later!!
-    //     alert('Teaching load successfully added!');
+    //     this.props.history.push('./publications/view');  //change to profile later!!
+    //     alert('Publication successfully added!');
     //   })
-    //   .catch(e => alert('Error adding new Teaching Load!'));
+    //   .catch(e => alert('Error adding new Publication!'));
   }
 
   render() {
+
     return (
       <div className="App-header">
         <NavBar {...this.props}/>
@@ -70,52 +81,86 @@ export default class EditConsultationHours extends Component {
           color="teal">
           <div>
             <h2 class="ui blue header">
-              Edit Consultation Hours
-              <GenerateFSR/>
-              <SendtoAdmin/>
+              EDIT CONSULTATION HOURS
             </h2>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
+          <div>
+          <div>
+            <a class = "ui small header"> Days  </a>
+      <p>
+        <div class = "ui checkbox">
+        <input
+          type = "checkbox"
+          value = "MON"
+          onClick = {this.handleChangeDays.bind(this.state.days)} />
+        <label> Monday </label>     
+        </div>
+        <br/>
+
+        <div class = "ui checkbox">
+        <input 
+          type = "checkbox"
+          value = "TUE"
+          onClick = {this.handleChangeDays.bind(this.state.days)} />
+        <label> Tuesday </label>        
+        </div>
+        <br/>
+
+        <div class = "ui checkbox">
+        <input 
+          type = "checkbox"
+          value = "WED"
+          onClick = {this.handleChangeDays.bind(this.state.days)} />
+        <label> Wednesday </label>        
+        </div>  
+
+        <br/>
+        <div class = "ui checkbox">
+        <input 
+          type = "checkbox"
+          value = "THU"
+          onClick = {this.handleChangeDays.bind(this.state.days)} />
+        <label> Thursday </label>       
+        </div>  
+
+        <br/>
+        <div class = "ui checkbox">
+        <input 
+          type = "checkbox"
+          value = "FRI"
+          onClick = {this.handleChangeDays.bind(this.state.days)} />
+        <label> Friday </label>       
+        </div>
+      </p>
+          </div>
+
           <p>
-            <a class="ui small header"> Subject </a>
-            <div class="ui input mini focus">
+            <a class = "ui small header"> Time </a>
+            <div class="ui input fluid mini focus">
               <input
-                type="text"
-                style={{ width: '540px' }}
-                value={this.state.Days}
-                onChange={this.handleChangeDays}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Section Code </a>
-            <div class="ui input mini focus">
-              <input
-                type="text"
-                style={{ width: '497px' }}
-                value={this.state.time}
-                onChange={this.handleChangeTime}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Room </a>
-            <div class="ui input mini focus">
-              <input
-                type="text"
-                style={{ width: '552px' }}
-                value={this.state.place}
+                type="time"
                 onChange={this.handleChangePlace}
               />
             </div>
           </p>
+
+          <p>
+            <a class = "ui small header"> Place </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                onChange={this.handleChangePlace}
+              />
+            </div>
+          </p>
+          <Divider hidden="true" />
+          </div>
           <div class="ui center aligned container">
             <button
-              class="ui center aligned blue button"
-              onClick={this.startEdit}>
-              Save changes
+              class="ui blue button"
+              onClick={this.startAdd}>
+              Edit Consultation Hours
             </button>
           </div>
         </div>
@@ -124,5 +169,6 @@ export default class EditConsultationHours extends Component {
     );
   }
 }
+
 //=========================
 ReactDOM.render(<EditConsultationHours />, document.getElementById('root'));

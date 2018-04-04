@@ -48,37 +48,34 @@ const dummySample3 = {
   creditw: ' 3'
 };
 
-export default class AddTeachingLoad extends Component {
+export default class ViewTeachingLoad extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // data : []
-      data: [dummySample, dummySample2, dummySample3] //dummmy data
+      data: [] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
   }
-
-  // componentDidMount(){
-  //   e.preventDefault();
-  //   Api.ViewTeachingLoad({
-  //   })
-  //     .then(result => {
-  //       this.setState({ data: result});
-  //     })
-  //     .catch(e => alert('Error loading Publications!!'));
-  // }
+  componentDidMount(){
+    Api.viewTeachLoad().then((response)=>{
+      if(response.data.data[0]!== undefined){
+        this.setState({data:response.data.data}
+        )}
+        console.log(response.data.data)
+    })
+  }
 
   startAdd(e) {
     e.preventDefault();
-    this.props.history.push('../teachingload/add');
+    this.props.history.push('../teachingload/add', {emp_id: this.state.emp_id});
   }
 
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
+        <NavBar {...this.props} emp_id={this.state.emp_id} Label="FSR" subLabel="teachingload"/>
 
         <div class="ui compact piled very padded text left aligned container segment mainDiv" color="teal">
           <div>
@@ -114,14 +111,15 @@ export default class AddTeachingLoad extends Component {
               {this.state.data.map(item => {
                 return (
                   <ViewTeachingLoadRow {...this.props}
+                    id={this.state.emp_id}
                     subj={item.subj}
-                    seccode={item.seccode}
+                    seccode={item.section_code}
                     room={item.room}
                     days={item.days}
-                    starttime={item.starttime}
-                    endtime={item.endtime}
+                    starttime={item.start_time}
+                    endtime={item.end_time}
                     hours={item.hours}
-                    studnum={item.studnum}
+                    studnum={item.no_of_students}
                     creditwo={item.creditwo}
                     studcred={item.studcred}
                     creditw={item.creditw}
@@ -141,4 +139,4 @@ export default class AddTeachingLoad extends Component {
   }
 }
 //=========================
-ReactDOM.render(<AddTeachingLoad />, document.getElementById('root'));
+ReactDOM.render(<ViewTeachingLoad />, document.getElementById('root'));

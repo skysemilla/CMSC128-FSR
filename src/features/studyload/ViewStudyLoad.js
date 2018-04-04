@@ -10,23 +10,25 @@ import SendtoAdmin from './../SendtoAdmin'
 import NavBar from './../ui/NavBar'
 
 //Dummy data
-const dummySample = {degree : 'MSCS', uni : 'UPLB', studyleave : 'No',
-                      fellowship : 'Yes', courseno:  '3', ccred : '201', day : 'TTh', time : '3', school : ' ', slcred : ' 3'};
+const dummySample = {courseno:  '3', ccred : '201', day : 'TTh', time : '3', school : 'UPD', slcred : ' 3'};
 
-const dummySample2 = {degree : 'MSCS', uni : 'UPD', studyleave : 'Yes',
-                      fellowship : 'No', courseno:  '3', ccred : '049', day : '3', time : 'MWF', school : ' ', slcred : ' 5'};
+const dummySample2 = {courseno:  '3', ccred : '049', day : '3', time : 'MWF', school : 'UPM', slcred : ' 5'};
 
-const dummySample3 = {degree : 'MSCS', uni : 'UPLB', studyleave : 'Yes',
-                      fellowship : 'Yes', courseno:  '3', ccred : '352', day : '3', time : 'TTh', school : ' ', slcred : ' 3'};
+const dummySample3 = {courseno:  '3', ccred : '352', day : '3', time : 'TTh', school : 'UPD', slcred : ' 3'};
 
 export default class ViewStudyLoad extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data : [dummySample,dummySample2,dummySample3]  //dummmy data
+      degree: 'NaN',
+      uni: 'NaN',
+      studyleave: 'No',
+      fellowship: 'No',
+      data : []  //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
+    this.startEdit = this.startEdit.bind(this);
   }
 
   startAdd(e) {
@@ -34,6 +36,18 @@ export default class ViewStudyLoad extends Component {
     this.props.history.push('../studyload/add');
   }
 
+  startEdit(e){
+    e.preventDefault();
+    this.props.history.push('../studyload/editInfo');
+  }
+  componentDidMount(){
+    Api.viewStudyLoad().then((response)=>{
+      if(response.data.data[0]!== undefined){
+        this.setState({uni:response.data.data[0].university, degree:response.data.data[0].degree,data:response.data.data}
+        )}
+        console.log(response.data.data)
+    })
+  }
   render() {
 
     return (
@@ -46,19 +60,37 @@ export default class ViewStudyLoad extends Component {
               STUDY LOAD
             </h1>
           </div>
-          <Divider hidden="true" />
 
+          <div class="ui list">
+              <div class="item">
+                   <b><i class="right triangle icon"></i>Degree Enrolled In: </b>
+                    {this.state.degree}
+              </div>
+              <div class="item">
+                   <b><i class="right triangle icon"></i>University Enrolled In: </b>
+                    {this.state.uni}
+              </div>
+              <div class="item">
+                   <b><i class="right triangle icon"></i>On Full Study Leave with Pay? </b>
+                    {this.state.studyleave}
+              </div>
+              <div class="item">
+                   <b><i class="right triangle icon"></i>Recepient of Faculty Fellowship? </b>
+                    {this.state.fellowship}
+              </div>
+              <button class="ui blue right floated button" onClick={this.startEdit}>Edit</button>
+          </div>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <style> {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`} </style>
           <table class = "ui celled table">
             <thead>
               <tr>
-                <th class = "center aligned"> Degree enrolled in </th>
-                <th class = "center aligned"> University enrolled in </th>
-                <th class = "center aligned"> On Full-Study Leave w/ pay? </th>
-                <th class = "center aligned"> Recepient of Faculty Fellowship </th>
                 <th class = "center aligned"> Course Number </th>
                 <th class = "center aligned"> Course Credit </th>
-                <th class = "center aligned"> Days </th>
+                <th class = "center aligned"> Section Code </th>
                 <th class = "center aligned"> Time </th>
                 <th class = "center aligned"> School </th>
                 <th class = "center aligned"> Study load credits </th>
@@ -69,16 +101,12 @@ export default class ViewStudyLoad extends Component {
               {this.state.data.map((item) =>{
                 return(
                     <ViewStudyLoadRow {...this.props}
-                      degree = {item.degree}
-                      uni = {item.uni}
-                      studyleave = {item.studyleave}
-                      fellowship = {item.fellowship}
-                      courseno = {item.courseno}
-                      ccred = {item.ccred}
-                      day = {item.day}
-                      time = {item.time}
-                      school = {item.school}
-                      slcred = {item.slcred}
+                      courseno = {item.subject_code}
+                      ccred = {item.units}
+                      day = {item.section_code}
+                      time = {item.start_time}
+                      school = {item.university}
+                      slcred = {item.credits}
                       editURL = "../studyload/edit"
                       label = "Study Load"
                       subLabel = "Study load"/>

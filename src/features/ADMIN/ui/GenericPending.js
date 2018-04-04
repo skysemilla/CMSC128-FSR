@@ -35,6 +35,7 @@ export default class GenericPending extends Component {
   startEdit(e) {
     // e.preventDefault();
     // this.props.history.push(); //view FSR
+    this.props.history.push('../../admin/editFSR/teachingload/view');
   }
 
   render() {
