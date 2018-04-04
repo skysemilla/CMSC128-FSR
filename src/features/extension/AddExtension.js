@@ -24,7 +24,8 @@ export default class AddExtension extends Component {
       title: '',
       noOfHours: '',
       noOfParticipants: '',
-      duration: '',
+      startDate: '',
+      endDate: '',
       role: '',
       fundingAgency: '',
       approvedCreditUnits: '',
@@ -34,7 +35,8 @@ export default class AddExtension extends Component {
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeNoOfHours = this.handleChangeNoOfHours.bind(this);
     this.handleChangeNoOfParticipants = this.handleChangeNoOfParticipants.bind(this);
-    this.handleChangeDuration = this.handleChangeDuration.bind(this);
+    this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
+    this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
     this.handleChangeFundingAgency = this.handleChangeFundingAgency.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
@@ -59,10 +61,13 @@ export default class AddExtension extends Component {
     this.setState({ noOfParticipants: e.target.value });
   }
 
-  handleChangeDuration(e) {
-    this.setState({ duration: e.target.value });
+  handleChangeStartDate(e) {
+    this.setState({ startDate: e.target.value });
   }
 
+  handleChangeEndDate(e) {
+    this.setState({ endDate: e.target.value });
+  }
 
   handleChangeRole(e) {
     this.setState({ role: e.target.value });
@@ -148,15 +153,33 @@ export default class AddExtension extends Component {
                 />
             </div>
           </p>
+
           <p>
-            <a class="ui small header"> Duration </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeDuration}
-              />
+          <a class="ui small header"> Duration </a>
+            <div class="equal width fields">
+              <div class="field">
+                <a class="ui small header"> Start Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeStartDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
+              <div class="field">
+                <a class="ui small header"> End Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeEndDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
             </div>
           </p>
+
           <p>
             <a class="ui small header"> Role </a>
             <div class="ui input fluid mini focus">

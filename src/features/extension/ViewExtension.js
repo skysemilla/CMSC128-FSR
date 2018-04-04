@@ -14,7 +14,8 @@ const dummySample={
       title: 'SampleTitle',
       noOfHours: '10',
       noOfParticipants: '24',
-      duration: '01/01/17 - 01/01/18',
+      startDate: '01/01/17',
+      endDate: '01/01/18',
       role: 'SampleRole',
       fundingAgency: 'ABC Agency',
       approvedCreditUnits: '3'
@@ -69,7 +70,8 @@ export default class ViewExtension extends Component {
                 <th class="center aligned">Title</th>
                 <th class="center aligned">No. of Hours </th>
                 <th class="center aligned">No. of Participants</th>
-                <th class="center aligned">Duration</th>
+                <th class="center aligned">Start Date</th>
+                <th class="center aligned">End Date</th>
                 <th class="center aligned">Role</th>
                 <th class="center aligned">Funding Agency</th>
                 <th class="center aligned">Approved Course Credits </th>
@@ -84,7 +86,8 @@ export default class ViewExtension extends Component {
                   title={item.title}
                   noOfHours={item.noOfHours}
                   noOfParticipants={item.noOfParticipants}
-                  duration={item.duration}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
                   role={item.role}
                   fundingAgency={item.fundingAgency}
                   approvedCreditUnits={item.approvedCreditUnits}
