@@ -36,8 +36,7 @@ const dummySample = { pub_id: 4,
                       Funding: 'N/A',
                       StartDate: '03/03/03',
                       EndDate: '04/04/04',
-                      ApprovedCreditUnits: '3',
-                      TotalWorkLoadUnits: '3'};
+                      ApprovedCreditUnits: '3'};
 
 export default class ViewPublications extends Component {
   constructor(props) {
@@ -102,7 +101,6 @@ export default class ViewPublications extends Component {
                   <th class = "center aligned">Start Date</th>
                   <th class = "center aligned">End Date</th>
                   <th class = "center aligned">Approved Credit Units</th>
-                  <th class = "center aligned">Total Workload Units</th>
                   <th class = "center aligned">Edit/Delete</th>
                 </tr>
               </thead>
@@ -119,7 +117,6 @@ export default class ViewPublications extends Component {
                           StartDate={item.StartDate}
                           EndDate= {item.EndDate}
                           ApprovedCreditUnits= {item.ApprovedCreditUnits}
-                          TotalWorkLoadUnits= {item.TotalWorkLoadUnits}
                           editURL = "../publications/edit"
                           label = "Publication"
                           subLabel = "publication"/>

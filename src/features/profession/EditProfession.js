@@ -14,11 +14,17 @@ export default class EditProfession extends Component {
     super(props);
 
     this.state = {
-        permission: dummySample.permission,
-        date: dummySample.date
+        data: []
     };
 
     this.handleChangePermission = this.handleChangePermission.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+  }
+
+  componentDidMount(){
+    if(typeof this.props.history!=='undefined'){
+      console.log(this.props.history.location.state.id);
+    }
   }
 
   handleChangePermission(e) {

@@ -20,7 +20,6 @@ export default class ViewPublicationsRow extends Component{
                   <td class = "center aligned">{this.props.StartDate}</td>
                   <td class = "center aligned">{this.props.EndDate}</td>
                   <td class = "center aligned">{this.props.ApprovedCreditUnits}</td>
-                  <td class = "center aligned">{this.props.TotalWorkLoadUnits}</td>
                   <td class="center aligned">
                   <DeleteModal {...this.props}/>
                   </td>

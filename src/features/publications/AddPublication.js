@@ -45,8 +45,7 @@ export default class AddPublication extends Component {
       Funding: 'N/A',
       StartDate: '',
       EndDate: '',
-      ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      ApprovedCreditUnits: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -58,7 +57,6 @@ export default class AddPublication extends Component {
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -112,10 +110,6 @@ export default class AddPublication extends Component {
 
   handleChangeApprovedCreditUnits(e) {
     this.setState({ ApprovedCreditUnits: e.target.value });
-  }
-
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
   }
 
   startAdd(e) {
@@ -290,16 +284,6 @@ export default class AddPublication extends Component {
               <input
                 type="number"
                 onChange={this.handleChangeApprovedCreditUnits}
-              />
-            </div>
-          </p>
-
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
               />
             </div>
           </p>

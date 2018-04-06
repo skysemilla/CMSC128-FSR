@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import GenericDropdown from './../GenericDropdown'
 import {
   Form,
   Button,
@@ -16,6 +17,19 @@ import {
 } from 'semantic-ui-react';
 import * as Api from '../../api';
 
+const optionsMain = [ {id : 0, text : 'Assistant Professor'},
+                      {id : 1, text : 'Associate Professor'},
+                      {id : 2, text : 'Professor'},
+                      {id : 3, text : 'Instructor'}]
+
+const optionsMain2 = [ {id : 0, text : '1'},
+                      {id : 1, text : '2'},
+                      {id : 2, text : '3'},
+                      {id : 3, text : '4'},
+                      {id : 4, text : '5'},
+                      {id : 5, text : '6'},
+                      {id : 6, text : '7'}]
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +43,7 @@ class Signup extends Component {
       college: '',
       dept: '',
       emptype: '',
+      emptypeno: '',
       email: '',
       fulltime: 0
     };
@@ -42,6 +57,7 @@ class Signup extends Component {
     this.handleChangeCollege = this.handleChangeCollege.bind(this);
     this.handleChangeDept = this.handleChangeDept.bind(this);
     this.handleChangeEmptype = this.handleChangeEmptype.bind(this);
+    this.handleChangeEmptypeNo = this.handleChangeEmptypeNo.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangeFulltime = this.handleChangeFulltime.bind(this);
     this.startSignup = this.startSignup.bind(this);
@@ -81,6 +97,10 @@ class Signup extends Component {
 
   handleChangeEmptype(e) {
     this.setState({ emptype: e.target.value });
+  }
+
+  handleChangeEmptypeNo(e) {
+    this.setState({ emptypeno: e.target.value });
   }
 
   handleChangeEmail(e) {
@@ -175,16 +195,24 @@ class Signup extends Component {
                     />
                   </div>
                 </div>
+
                 <div class="field">
-                  <label>Employee Type</label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="Employee Type"
-                      onChange={this.handleChangeEmptype}
-                    />
-                  </div>
+                  <a class="ui small header"> Employee Type</a>
+                  <div class="equal width fields">
+                  <GenericDropdown
+                    labelProper = "Type"
+                    value = {this.state.emptype}
+                    handler = {this.handleChangeEmptype}
+                    options = {optionsMain}/>
+
+                  <GenericDropdown
+                    labelProper = "Number"
+                    value = {this.state.emptype}
+                    handler = {this.handleChangeEmptype}
+                    options = {optionsMain2}/>
+                    </div>
                 </div>
+
                 <div class="div1">
                   <div class="ui form">
                     <div class="grouped fields">
