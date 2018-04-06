@@ -150,6 +150,3 @@ export default class AddConsultationHours extends Component {
     );
   }
 }
-
-//=========================
-ReactDOM.render(<AddConsultationHours />, document.getElementById('root'));
