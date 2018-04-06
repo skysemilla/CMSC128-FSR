@@ -5,20 +5,31 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
+const dummy = [
+  {
+    id: '0000000000',
+    fname: 'asd',
+    mname: 'efg',
+    lname: 'qweqwe',
+    college: 'CAS',
+    dept: 'asdasad',
+    approved: 'YES'
+  }
+];
 
 export default class ViewApprovedFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: dummy
     };
   }
 
   componentDidMount() {
-    Api.ViewApprovedFSR().then(result => {
-      this.setState({ data: result.data.data[0] });
-    });
+    // Api.ViewApprovedFSR().then(result => {
+    //   this.setState({ data: result.data.data[0] });
+    // });
   }
 
   render() {
