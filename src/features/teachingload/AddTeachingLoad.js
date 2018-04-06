@@ -242,5 +242,3 @@ export default class AddTeachingLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<AddTeachingLoad />, document.getElementById('root'));

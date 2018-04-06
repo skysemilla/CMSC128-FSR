@@ -251,5 +251,3 @@ export default class EditTeachingLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditTeachingLoad />, document.getElementById('root'));
