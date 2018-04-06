@@ -295,6 +295,7 @@ export default class EditProfessorialChair extends Component {
           }
 
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachment</button>
             <button
               class="ui center aligned blue button"
               onClick={this.startAdd}>
