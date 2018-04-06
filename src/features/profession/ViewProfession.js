@@ -59,6 +59,7 @@ export default class ViewProfession extends Component {
                 <tr>
                   <th class = "center aligned">Official permission?</th>
                   <th class = "center aligned">Date</th>
+                  <th class = "center aligned">Attachments</th>
                   <th class = "center aligned">Edit/Delete</th>
                 </tr>
               </thead>

@@ -47,7 +47,8 @@ export default class EditPublication extends Component {
       StartDate: '',
       EndDate: '',
       ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      TotalWorkLoadUnits: '',
+      attachmentLink: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -61,6 +62,7 @@ export default class EditPublication extends Component {
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
 
     this.startEdit = this.startEdit.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
   }
 
   componentDidMount(){
@@ -138,6 +140,10 @@ export default class EditPublication extends Component {
     //     alert('Publication successfully added!');
     //   })
     //   .catch(e => alert('Error adding new Publication!'));
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   render() {

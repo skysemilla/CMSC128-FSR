@@ -45,7 +45,8 @@ export default class AddPublication extends Component {
       Funding: 'N/A',
       StartDate: '',
       EndDate: '',
-      ApprovedCreditUnits: ''
+      ApprovedCreditUnits: '',
+      attachmentLink: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -59,6 +60,7 @@ export default class AddPublication extends Component {
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
   }
 
   handleChangeType(e) {
@@ -131,6 +133,10 @@ export default class AddPublication extends Component {
     //     alert('Publication successfully added!');
     //   })
     //   .catch(e => alert('Error adding new Publication!'));
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   render() {
@@ -289,7 +295,7 @@ export default class AddPublication extends Component {
           </p>
 
           <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachments</button>
+            <button class="ui blue button" onClick={this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
