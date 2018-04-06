@@ -138,5 +138,3 @@ export default class ViewTeachingLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewTeachingLoad />, document.getElementById('root'));

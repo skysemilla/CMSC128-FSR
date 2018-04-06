@@ -124,4 +124,3 @@ export default class ViewStudyLoad extends Component {
     );
   }
 }
-ReactDOM.render(<ViewStudyLoad />, document.getElementById('root'));
