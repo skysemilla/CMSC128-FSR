@@ -133,5 +133,3 @@ export default class EditAdministrativeWork extends Component {
   }
 }
 
-//=========================
-ReactDOM.render(<EditAdministrativeWork />, document.getElementById('root'));

@@ -93,5 +93,3 @@ export default class ViewAdminWork extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewAdminWork/>, document.getElementById('root'));
