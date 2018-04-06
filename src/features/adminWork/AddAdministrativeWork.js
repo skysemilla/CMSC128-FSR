@@ -132,5 +132,3 @@ export default class AddAdministrativeWork extends Component {
   }
 }
 
-//=========================
-ReactDOM.render(<AddAdministrativeWork />, document.getElementById('root'));
