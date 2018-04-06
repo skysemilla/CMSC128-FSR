@@ -118,12 +118,14 @@ export default class EditAdministrativeWork extends Component {
           </p>
 
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachment</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
               Edit Administrative Work
             </button>
           </div>
+
         </div>
         <Divider hidden="true" />
       </div>
