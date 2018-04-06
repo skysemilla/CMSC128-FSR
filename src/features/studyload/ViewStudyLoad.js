@@ -10,11 +10,11 @@ import SendtoAdmin from './../SendtoAdmin'
 import NavBar from './../ui/NavBar'
 
 //Dummy data
-const dummySample = {courseno:  '3', ccred : '201', day : 'TTh', time : '3', school : 'UPD', slcred : ' 3'};
+const dummySample = {study_id: 1,courseno:  '3', ccred : '201', day : 'TTh', time : '3', school : 'UPD', slcred : ' 3'};
 
-const dummySample2 = {courseno:  '3', ccred : '049', day : '3', time : 'MWF', school : 'UPM', slcred : ' 5'};
+const dummySample2 = {study_id: 2,courseno:  '3', ccred : '049', day : '3', time : 'MWF', school : 'UPM', slcred : ' 5'};
 
-const dummySample3 = {courseno:  '3', ccred : '352', day : '3', time : 'TTh', school : 'UPD', slcred : ' 3'};
+const dummySample3 = {study_id: 3,courseno:  '3', ccred : '352', day : '3', time : 'TTh', school : 'UPD', slcred : ' 3'};
 
 export default class ViewStudyLoad extends Component {
   constructor(props) {
@@ -95,12 +95,14 @@ export default class ViewStudyLoad extends Component {
                 <th class = "center aligned"> School </th>
                 <th class = "center aligned"> Study load credits </th>
                 <th class = "center aligned"> Edit/Delete </th>
+                <th class = "center aligned"> Attachments </th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map((item) =>{
                 return(
                     <ViewStudyLoadRow {...this.props}
+                      id = {item.study_id}
                       courseno = {item.subject_code}
                       ccred = {item.units}
                       day = {item.section_code}

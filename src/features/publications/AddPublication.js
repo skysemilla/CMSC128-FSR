@@ -46,7 +46,7 @@ export default class AddPublication extends Component {
       StartDate: '',
       EndDate: '',
       ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      attachmentLink: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -58,9 +58,9 @@ export default class AddPublication extends Component {
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
   }
 
   handleChangeType(e) {
@@ -114,10 +114,6 @@ export default class AddPublication extends Component {
     this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
-  }
-
   startAdd(e) {
     // e.preventDefault();
     // Api.addteachingload({
@@ -137,6 +133,10 @@ export default class AddPublication extends Component {
     //     alert('Publication successfully added!');
     //   })
     //   .catch(e => alert('Error adding new Publication!'));
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   render() {
@@ -294,18 +294,8 @@ export default class AddPublication extends Component {
             </div>
           </p>
 
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
-              />
-            </div>
-          </p>
-
           <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachments</button>
+            <button class="ui blue button" onClick={this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
