@@ -108,6 +108,7 @@ export default class AddExtension extends Component {
       funding_agency: this.state.fundingAgency,
       extension_role: this.state.role,
       credit_unit: this.state.approvedCreditUnits,
+      emp_id : this.state.emp_id
     })
       .then(result => {
         this.props.history.push('./extension/view');
