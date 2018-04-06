@@ -15,7 +15,12 @@ export default class ViewStudyLoadRow extends Component{
 				<td class = "center aligned"> {this.props.slcred} </td>
 		        <td class="center aligned">
 		        <DeleteModal {...this.props}/>
-        </td>
+        		</td>
+        		<td class = "center aligned">
+        			<button class = "ui icon button">
+        				<i class = "eye icon"> </i>
+        			</button>
+		        </td>	
 			</tr>
 		)
 	}
