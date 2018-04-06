@@ -32,6 +32,7 @@ export default class EditExtension extends Component {
     super(props);
 
     this.state = {
+      emp_id: ''
       type: dummySample.type,
       title: dummySample.title,
       noOfHours: dummySample.noOfHours,
@@ -52,8 +53,16 @@ export default class EditExtension extends Component {
     this.handleChangeRole = this.handleChangeRole.bind(this);
     this.handleChangeFundingAgency = this.handleChangeFundingAgency.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-
+    this.handleLogout = this.handleLogout.bind(this);
     this.startAdd = this.startAdd.bind(this);
+  }
+
+  componentDidMount() {
+      Api.getSession().then(result => {
+       if (result.data.data !== null) {
+         this.setState({ emp_id: result.data.data.emp_id });
+       }
+     });
   }
 
   handleChangeType(e) {
@@ -92,25 +101,31 @@ export default class EditExtension extends Component {
   handleChangeApprovedCreditUnits(e) {
     this.setState({ approvedCreditUnits: e.target.value });
   }
+  handleLogout(e) {
+    e.preventDefault();
+    Api.logout();
+    this.props.history.push('../..');
+  }
 
   startAdd(e) {
-    // e.preventDefault();
-    // Api.editextension({
-    //   type: this.state.type,
-    //   title: this.state.title,
-    //   noOfHours: this.state.noOfHours,
-    //   noOfParticipants: this.state.noOfParticipants,
-    //   duration: this.state.duration,
-    //   fundingAgency: this.state.fundingAgency,
-    //   role: this.state.role,
-    //   approvedCreditUnits: this.state.approvedCreditUnits,
-    //   totalExtandCommUnits: this.state.totalExtandCommUnits
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./extension/view');
-    //     alert('Extension successfully edited!');
-    //   })
-    //   .catch(e => alert('Error editing new Extension!'));
+    e.preventDefault();
+    Api.editExtension({
+      extension_type_update: this.state.type,
+      extension_title_update: this.state.title,
+      no_of_hours_update: this.state.noOfHours,
+      no_of_participants_update: this.state.noOfParticipants,
+      start_time_update : this.state.startDate,
+      end_time_update : this.state.endDate,
+      funding_agency_update: this.state.fundingAgency,
+      extension_role_update: this.state.role,
+      credit_unit_update: this.state.approvedCreditUnits,
+      end_time_update : this.state.emp_id
+    })
+      .then(result => {
+        this.props.history.push('./extension/view');
+        alert('Extension successfully edited!');
+      })
+      .catch(e => alert('Error editing new Extension!'));
   }
 
   render() {

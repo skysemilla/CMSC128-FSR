@@ -26,7 +26,6 @@ export default class ViewExtension extends Component {
     super(props);
 
     this.state = {
-      // data : []
       data: [dummySample] //dummmy data
     };
     this.startAdd = this.startAdd.bind(this);
@@ -37,15 +36,15 @@ export default class ViewExtension extends Component {
     this.props.history.push('../extension/add');
   }
 
-  // componentDidMount(){
-  //   e.preventDefault();
-  //   Api.viewextension({
-  //   })
-  //     .then(result => {
-  //       this.setState({ data: result});
-  //     })
-  //     .catch(e => alert('Error loading Extension!!'));
-  // }
+  componentDidMount(){
+    e.preventDefault();
+    Api.viewExtension({
+    })
+      .then(result => {
+        this.setState({ data: result});
+      })
+      .catch(e => alert('Error loading Extension!!'));
+  }
 
   render() {
     return (
