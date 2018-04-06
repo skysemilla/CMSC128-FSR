@@ -156,5 +156,3 @@ export default class AddStudyLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<AddStudyLoad />, document.getElementById('root'));

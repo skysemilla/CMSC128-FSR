@@ -169,5 +169,3 @@ export default class EditStudyLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditStudyLoad />, document.getElementById('root'));
