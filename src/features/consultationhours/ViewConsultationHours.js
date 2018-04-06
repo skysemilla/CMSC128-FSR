@@ -77,4 +77,3 @@ export default class ViewConsultationHours extends Component {
     );
   }
 }
-ReactDOM.render(<ViewConsultationHours />, document.getElementById('root'));

@@ -169,6 +169,3 @@ export default class EditConsultationHours extends Component {
     );
   }
 }
-
-//=========================
-ReactDOM.render(<EditConsultationHours />, document.getElementById('root'));
