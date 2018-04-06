@@ -9,8 +9,8 @@ import SendtoAdmin from './../SendtoAdmin'
 import ViewProfessionsRow from './ProfessionsViewRow'
 import NavBar from './../ui/NavBar'
 
-const dummySample={permission: 'YES', date: '03/26/18'};
-const dummySample2={permission: 'NO', date: ''};
+const dummySample={id: 1, permission: 'YES', date: '03/26/18'};
+const dummySample2={id: 2, permission: 'NO', date: ''};
 
 export default class ViewProfession extends Component {
   constructor(props) {
@@ -66,6 +66,7 @@ export default class ViewProfession extends Component {
               {this.state.data.map((item) =>{
                 return(
                     <ViewProfessionsRow {...this.props}
+                          id={item.id}
                           permission= {item.permission}
                           date ={item.date}
                           label = "Profession"
