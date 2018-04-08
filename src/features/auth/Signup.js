@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import GenericDropdown from './../GenericDropdown'
 import {
   Form,
   Button,
@@ -15,20 +14,6 @@ import {
   Grid,
   Menu
 } from 'semantic-ui-react';
-import * as Api from '../../api';
-
-const optionsMain = [ {id : 0, text : 'Assistant Professor'},
-                      {id : 1, text : 'Associate Professor'},
-                      {id : 2, text : 'Professor'},
-                      {id : 3, text : 'Instructor'}]
-
-const optionsMain2 = [ {id : 0, text : '1'},
-                      {id : 1, text : '2'},
-                      {id : 2, text : '3'},
-                      {id : 3, text : '4'},
-                      {id : 4, text : '5'},
-                      {id : 5, text : '6'},
-                      {id : 6, text : '7'}]
 
 export default class Signup extends Component {
   constructor(props) {
@@ -43,9 +28,7 @@ export default class Signup extends Component {
       college: '',
       dept: '',
       emptype: '',
-      emptypeno: '',
-      email: '',
-      fulltime: 0
+      email: ''
     };
 
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
@@ -57,9 +40,7 @@ export default class Signup extends Component {
     this.handleChangeCollege = this.handleChangeCollege.bind(this);
     this.handleChangeDept = this.handleChangeDept.bind(this);
     this.handleChangeEmptype = this.handleChangeEmptype.bind(this);
-    this.handleChangeEmptypeNo = this.handleChangeEmptypeNo.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangeFulltime = this.handleChangeFulltime.bind(this);
     this.startSignup = this.startSignup.bind(this);
   }
 
@@ -99,36 +80,29 @@ export default class Signup extends Component {
     this.setState({ emptype: e.target.value });
   }
 
-  handleChangeEmptypeNo(e) {
-    this.setState({ emptypeno: e.target.value });
-  }
-
   handleChangeEmail(e) {
     this.setState({ email: e.target.value });
   }
 
-  handleChangeFulltime(e) {
-    this.setState({ fulltime: e.target.value });
-  }
-
   startSignup(e) {
-    e.preventDefault();
-    Api.signup({
-      emp_id: this.state.empid,
-      username: this.state.username,
-      password: this.state.password,
-      type: 'FACULTY',
-      f_name: this.state.fname,
-      m_name: this.state.mname,
-      l_name: this.state.lname,
-      department: this.state.dept,
-      college: this.state.college,
-      emp_type: this.state.emptype,
-      is_full_time: this.state.fulltime,
-      email: this.state.email
-    }).then(result => {
-      this.props.history.push('../');
-    });
+    //   e.preventDefault();
+    //   Api.signup({
+    //     username: this.state.username,
+    //     password: this.state.password,
+    //     fname: this.state.fname,
+    //     mname: this.state.mname,
+    //     lname: this.state.lname,
+    //     empid: this.state.empid,
+    //     college: this.state.college,
+    //     dept: this.state.dept,
+    //     emptype: this.state.emptype,
+    //     email: this.state.email,
+    //   })
+    //     .then(result => {
+    //       this.props.history.push('./profile');
+    //       alert('Signup successful! Welcome to your profile.');
+    //     })
+    //     .catch(e => alert('Error with signup!'));
   }
 
   render() {
@@ -183,89 +157,44 @@ export default class Signup extends Component {
                   </div>
                 </div>
               </div>
-
-              <div class="equal width fields">
-                <div class="field">
-                  <label>Employee Id</label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="Employee Id"
-                      onChange={this.handleChangeEmpid}
-                    />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <a class="ui small header"> Employee Type</a>
-                  <div class="equal width fields">
-                  <GenericDropdown
-                    labelProper = "Type"
-                    value = {this.state.emptype}
-                    handler = {this.handleChangeEmptype}
-                    options = {optionsMain}/>
-
-                  <GenericDropdown
-                    labelProper = "Number"
-                    value = {this.state.emptype}
-                    handler = {this.handleChangeEmptype}
-                    options = {optionsMain2}/>
-                    </div>
-                </div>
-
-                <div class="div1">
-                  <div class="ui form">
-                    <div class="grouped fields">
-                      <div class="field">
-                        <label>Full Time Employee?</label>
-                      </div>
-                      <div class="inline fields">
-                        <div class="field">
-                          <div class="ui radio checkbox">
-                            <input
-                              type="radio"
-                              name="fulltime"
-                              value={1}
-                              onClick={this.handleChangeFulltime}
-                            />
-                            <label>Yes</label>
-                          </div>
-                          <div class="ui radio checkbox">
-                            <input
-                              type="radio"
-                              name="fulltime"
-                              value={0}
-                              onClick={this.handleChangeFulltime}
-                            />
-                            <label>No</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div class="field">
+                <label>Employee Id</label>
+                <div class="ui input">
+                  <input
+                    type="text"
+                    placeholder="Employee Id"
+                    onChange={this.handleChangeEmpid}
+                  />
                 </div>
               </div>
-
-              <div class="equal width fields">
-                <div class="field">
-                  <label>College</label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="College"
-                      onChange={this.handleChangeCollege}
-                    />
-                  </div>
+              <div class="field">
+                <label>College</label>
+                <div class="ui input">
+                  <input
+                    type="text"
+                    placeholder="College"
+                    onChange={this.handleChangeCollege}
+                  />
                 </div>
-                <div class="field">
-                  <label>Department</label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="Department"
-                      onChange={this.handleChangeDept}
-                    />
-                  </div>
+              </div>
+              <div class="field">
+                <label>Department</label>
+                <div class="ui input">
+                  <input
+                    type="text"
+                    placeholder="Department"
+                    onChange={this.handleChangeDept}
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label>Employee Type</label>
+                <div class="ui input">
+                  <input
+                    type="text"
+                    placeholder="Employee Type"
+                    onChange={this.handleChangeEmptype}
+                  />
                 </div>
               </div>
               <div class="field">
@@ -298,16 +227,6 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
-                <label>Repeat Password</label>
-                <div class="ui input">
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    onChange={this.handleChangePassword}
-                  />
-                </div>
-              </div>
               <button
                 class="ui blue button"
                 role="button"
@@ -320,8 +239,6 @@ export default class Signup extends Component {
               <a href="/">Click here to Login</a> instead.
             </div>
           </div>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
         </Container>
       </div>
     );
