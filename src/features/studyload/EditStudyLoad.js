@@ -17,7 +17,8 @@ export default class EditStudyLoad extends Component {
       day : 'TTh', 
       time : '3', 
       school : ' ', 
-      slcred : ' 3'
+      slcred : ' 3',
+      attachmentLink : ''
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
@@ -26,6 +27,8 @@ export default class EditStudyLoad extends Component {
     this.handleChangeTime = this.handleChangeTime.bind(this);
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
     this.handleChangeSlcred = this.handleChangeSlcred.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
+
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
   }
@@ -52,6 +55,16 @@ export default class EditStudyLoad extends Component {
 
   handleChangeSlcred(e) {
     this.setState({ slcred: e.target.value });
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
+  }
+
+  componentDidMount(){
+    if(typeof this.props.history!=='undefined'){
+      console.log(this.props.history.location.state.id);
+    }
   }
 
   handleLogout(e) {
@@ -157,6 +170,7 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <div class="ui center aligned container">
+            <button class="ui blue button" onClick = {this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui center aligned blue button"
               onClick={this.startEdit}>
@@ -169,5 +183,3 @@ export default class EditStudyLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditStudyLoad />, document.getElementById('root'));

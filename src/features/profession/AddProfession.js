@@ -13,10 +13,14 @@ export default class AddProfession extends Component {
 
     this.state = {
         permission: '',
-        date: ''
+        date: '',
+        attachmentLink: ''
     };
 
     this.handleChangePermission = this.handleChangePermission.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
+    this.startAdd = this.startAdd.bind(this);
   }
 
   handleChangePermission(e) {
@@ -38,6 +42,10 @@ export default class AddProfession extends Component {
     //     alert('Teaching load successfully added!');
     //   })
     //   .catch(e => alert('Error adding new Teaching Load!'));
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   render() {
@@ -106,6 +114,7 @@ export default class AddProfession extends Component {
               </p>
           }
           <div class="ui center aligned container">
+            <button class="ui blue button" onClick={this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui center aligned blue button"
               onClick={this.startAdd}>

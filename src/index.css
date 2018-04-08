@@ -14,23 +14,29 @@ body {
 
 .div1{
 	display: block;
-	padding-top: 0px;
-	padding-left: 15px;
+	padding-left: 3%;
 	width: 100%;
 	max-width: 100%;
 }
 
 .navDiv{
 	position: fixed;
-	display: block;
 	width: 20%;
 	max-width: 20%;
 	height:100%;
 	max-height:100%;
+	clear: both;
 }
 
 .mainDiv{
 	display: block;
 	width: 80%;
 	max-width: 80%;
+	height:100%;
+	max-height:100%;
+	clear: both;
+}
+
+.wholediv{
+	width: 100%;
 }
