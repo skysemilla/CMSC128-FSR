@@ -10,9 +10,9 @@ import SendtoAdmin from './../SendtoAdmin'
 import NavBar from './../ui/NavBar'
 
 //Dummy data
-const dummySample = {days : ['MON','TUE','WED'], time : '2 P.M - 4 P.M', place : 'ICSMH'};
-const dummySample2 = {days : ['FRI','THU'], time : '2 P.M - 4 P.M', place : 'ICSLH2'};
-const dummySample3 = {days : ['MON'], time : '2 P.M - 4 P.M', place : 'ICSLH3'};
+const dummySample = {consultation_id: 1,days : ['MON','TUE','WED'], time : '2 P.M - 4 P.M', place : 'ICSMH'};
+const dummySample2 = {consultation_id: 2,days : ['FRI','THU'], time : '2 P.M - 4 P.M', place : 'ICSLH2'};
+const dummySample3 = {consultation_id: 3,days : ['MON'], time : '2 P.M - 4 P.M', place : 'ICSLH3'};
 
 export default class ViewConsultationHours extends Component {
   constructor(props) {
@@ -51,12 +51,14 @@ export default class ViewConsultationHours extends Component {
                 <th class = "center aligned"> Time </th>
                 <th class = "center aligned"> Place </th>
                 <th class = "center aligned"> Edit/Delete </th>
+                <th class = "center aligned"> Attachments </th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map((item) =>{
                 return(
                     <ViewConsultationHoursRow {...this.props}
+                      id = {item.consultation_id}
                       days = {item.days}
                       time = {item.time}
                       place = {item.place}
@@ -75,4 +77,3 @@ export default class ViewConsultationHours extends Component {
     );
   }
 }
-ReactDOM.render(<ViewConsultationHours />, document.getElementById('root'));

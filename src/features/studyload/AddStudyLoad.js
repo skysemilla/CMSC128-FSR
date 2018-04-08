@@ -143,6 +143,7 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachments</button>
             <button
               class="ui center aligned blue button"
               onClick={this.startAdd}>
@@ -155,5 +156,3 @@ export default class AddStudyLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<AddStudyLoad />, document.getElementById('root'));

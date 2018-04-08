@@ -6,44 +6,57 @@ import NavBar from './../ui/NavBar'
 import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
 import {Divider,Checkbox} from 'semantic-ui-react'
+import GenericDropdown from './../GenericDropdown'
+import ConsultationHourSubTypeDropdown from './ConsultationHourSubTypeDropdown'
+
+const timeIndex = 8;
+const optionsDays = [{text: 'Monday'},{text: 'Tuesday'},{text: 'Wednesday'},{text: 'Thursday'},{text: 'Friday'}]
+
+const optionsTimeFrom = [{value : 0,text : '8:00 A.M'},{value : 1,text : '9:00 A.M'},{value : 2,text : '10:00 A.M'},
+                          {value : 3,text : '11:00 A.M'},{value : 4,text : '12:00 NN'},{value : 5,text : '1:00 P.M'},
+                          {value : 6,text : '2:00 P.M'},{value : 7,text : '3:00 P.M'},{value : 8,text : '4:00 P.M'}]
+
+const optionsTimeTo = [{value : 0,text : '9:00 A.M'},{value : 1,text : '10:00 A.M'},{value : 2,text : '11:00 A.M'},
+                       {value : 3,text : '12:00 NN'},{value : 4,text : '1:00 P.M'},{value : 5,text : '2:00 P.M'},
+                       {value : 6,text : '3:00 P.M'},{value : 7,text : '4:00 P.M'},{value : 8,text : '5:00 P.M'}]
 
 export default class AddConsultationHours extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      days : [],
-      time : '',
+      days : '',
+      timeFrom : '',
+      timeFromValue : '',
+      timeTo : '',
       place : ''
     };
 
     this.handleChangeDays = this.handleChangeDays.bind(this);
-    this.handleChangeTime = this.handleChangeTime.bind(this);
+    this.handleChangeTimeFrom = this.handleChangeTimeFrom.bind(this);
+    this.handleChangeTimeTo = this.handleChangeTimeTo.bind(this);
     this.handleChangePlace = this.handleChangePlace.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
 
   handleChangeDays(e){
-  	if(this.state.days.includes(e.target.value)){
-  		for(var index = 0; index < this.state.days.length; index++){
-  			if(this.state.days[index] === e.target.value) 
-  				this.state.days.splice(index,1);
-  		}
-  		this.setState({days : this.state.days});
-  		console.log("Deleted " + e.target.value);
-  	}
-  	else{
-  		var newArray = this.state.days;
-  		newArray.push(e.target.value);
-  		this.setState({days : newArray});
-  		console.log("Added " + e.target.value);
-  	}
-  	console.log(this.state.days);
+  	this.setState({days : e.target.value});
   }
 
-  handleChangeTime(e){
-    this.setState({time : e.target.value});
+  handleChangeTimeTo(e){
+    this.setState({timeTo : e.target.value});
+  }
+
+  handleChangeTimeFrom(e){
+    this.setState({timeFrom : e.target.value});
+
+    var index;
+    for(index = 0; index < timeIndex; index++){
+      if(optionsTimeFrom[index].text === e.target.value){
+        this.setState({timeFromValue : optionsTimeFrom[index].value});
+      }
+    }
   }
 
   handleChangePlace(e){
@@ -84,65 +97,33 @@ export default class AddConsultationHours extends Component {
               ADD CONSULTATION HOURS
             </h2>
           </div>
+
           <Divider hidden="true" />
-          <div>
-          <div>
-            <a class = "ui small header"> Days  </a>
-			<p>
-				<div class = "ui checkbox">
-				<input
-					type = "checkbox"
-					value = "MON"
-					onClick = {this.handleChangeDays.bind(this.state.days)} />
-				<label> Monday </label>			
-				</div>
-				<br/>
-
-				<div class = "ui checkbox">
-				<input 
-					type = "checkbox"
-					value = "TUE"
-					onClick = {this.handleChangeDays.bind(this.state.days)} />
-				<label> Tuesday </label>				
-				</div>
-				<br/>
-
-				<div class = "ui checkbox">
-				<input 
-					type = "checkbox"
-					value = "WED"
-					onClick = {this.handleChangeDays.bind(this.state.days)} />
-				<label> Wednesday </label>				
-				</div>	
-
-				<br/>
-				<div class = "ui checkbox">
-				<input 
-					type = "checkbox"
-					value = "THU"
-					onClick = {this.handleChangeDays.bind(this.state.days)} />
-				<label> Thursday </label>				
-				</div>	
-
-				<br/>
-				<div class = "ui checkbox">
-				<input 
-					type = "checkbox"
-					value = "FRI"
-					onClick = {this.handleChangeDays.bind(this.state.days)} />
-				<label> Friday </label>				
-				</div>
-			</p>
-          </div>
 
           <p>
-          	<a class = "ui small header"> Time </a>
-          	<div class="ui input fluid mini focus">
-              <input
-                type="time"
-                onChange={this.handleChangePlace}
-              />
-            </div>
+               <GenericDropdown
+                labelHeader = "Day"
+                labelProper = "Choose Day of Consultation"
+                value = {this.state.days}
+                handler = {this.handleChangeDays}
+                options = {optionsDays}/>
+          </p>
+
+          <p>
+            <GenericDropdown
+              labelHeader = "Time From"
+              labelProper = "Choose Start Time of Consultation"
+              value = {this.state.timeFrom}
+              handler = {this.handleChangeTimeFrom}
+              options = {optionsTimeFrom}/>
+          </p>
+
+          <p>
+              <ConsultationHourSubTypeDropdown
+                value = {this.state.timeTo}
+                handler = {this.handleChangeTimeTo}
+                options = {optionsTimeTo}
+                timeFromValue = {this.state.timeFromValue}/>
           </p>
 
           <p>
@@ -155,8 +136,8 @@ export default class AddConsultationHours extends Component {
             </div>
           </p>
           <Divider hidden="true" />
-          </div>
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachments</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
@@ -169,6 +150,3 @@ export default class AddConsultationHours extends Component {
     );
   }
 }
-
-//=========================
-ReactDOM.render(<AddConsultationHours />, document.getElementById('root'));

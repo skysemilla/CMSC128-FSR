@@ -30,7 +30,7 @@ const optionsMain2 = [ {id : 0, text : '1'},
                       {id : 5, text : '6'},
                       {id : 6, text : '7'}]
 
-class Signup extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -327,4 +327,3 @@ class Signup extends Component {
     );
   }
 }
-export default Signup;

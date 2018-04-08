@@ -73,6 +73,7 @@ export default class ViewProfessorialChair extends Component {
                 <th class="center aligned"> Grant Title </th>
                 <th class="center aligned"> Approve Start Date </th>
                 <th class="center aligned"> End Date </th>
+                <th class="center aligned"> Attachments </th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
             </thead>

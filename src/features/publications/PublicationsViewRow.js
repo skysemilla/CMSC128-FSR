@@ -7,7 +7,13 @@ import ViewCoworkers from './ViewCoworkers';
 export default class ViewPublicationsRow extends Component{
       constructor(props) {
             super(props);
+
+            this.startView=this.startView.bind(this);
       };
+
+      startView(){
+            this.props.history.push('./link/to/attached/file');
+      }
 
       render(){
 		return(
@@ -20,6 +26,11 @@ export default class ViewPublicationsRow extends Component{
                   <td class = "center aligned">{this.props.StartDate}</td>
                   <td class = "center aligned">{this.props.EndDate}</td>
                   <td class = "center aligned">{this.props.ApprovedCreditUnits}</td>
+                  <td class="center aligned">
+                    <button class="ui large compact icon button" onClick={this.startView}>
+                      <i class="eye icon"> </i>
+                    </button>
+                  </td>
                   <td class="center aligned">
                   <DeleteModal {...this.props}/>
                   </td>
