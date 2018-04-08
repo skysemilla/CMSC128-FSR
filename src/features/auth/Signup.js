@@ -88,6 +88,17 @@ const optionsMain2 = [
   { id: 6, text: '7' }
 ];
 
+const optionsMain3 = [
+  { id: 0, text: 'CAFS' },
+  { id: 1, text: 'CAS' },
+  { id: 2, text: 'CDC' },
+  { id: 3, text: 'CEAT' },
+  { id: 4, text: 'CEM' },
+  { id: 5, text: 'CFNR' },
+  { id: 6, text: 'CHE' },
+  { id: 7, text: 'CVM' }
+];
+
 export default class Signup extends Component {
   constructor(props) {
     super(props);
@@ -156,6 +167,7 @@ export default class Signup extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
+    console.log(this.state.college);
   }
 
   handleChangeDept(e) {
@@ -501,13 +513,12 @@ export default class Signup extends Component {
                   <label>
                     <span>College{formError.text.col}</span>
                   </label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="College"
-                      onChange={this.handleChangeCollege}
-                    />
-                  </div>
+                  <GenericDropdown
+                    labelProper="Select College"
+                    value={this.state.college}
+                    handler={this.handleChangeCollege}
+                    options={optionsMain3}
+                  />
                 </div>
                 <div class="field">
                   <label>

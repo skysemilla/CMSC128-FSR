@@ -50,8 +50,8 @@ export default class ViewConsultationHours extends Component {
                 <th class = "center aligned"> Days </th>
                 <th class = "center aligned"> Time </th>
                 <th class = "center aligned"> Place </th>
-                <th class = "center aligned"> Edit/Delete </th>
                 <th class = "center aligned"> Attachments </th>
+                <th class = "center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>

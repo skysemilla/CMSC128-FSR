@@ -74,8 +74,6 @@ export default class ViewPublications extends Component {
     return (
       <div className="App-header" class="wholediv">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
-        <div>
-          <div class="div2"></div>
           <div
             class="ui compact piled very padded text left aligned container segment mainDiv"
             color="teal">
@@ -130,7 +128,6 @@ export default class ViewPublications extends Component {
             </div>
           </div>
         <Divider hidden="true" />
-        </div>
       </div>
     );
   }
