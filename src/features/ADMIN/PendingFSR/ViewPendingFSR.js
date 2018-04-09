@@ -6,19 +6,31 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
+const dummy2 = [
+  {
+    id: '0000000001',
+    fname: 'asd',
+    mname: 'efg',
+    lname: 'qweqwe',
+    college: 'CAS',
+    dept: 'asdasad',
+    approved: 'NO'
+  }
+];
+
 export default class ViewPendingFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: dummy2
     };
   }
 
   componentDidMount() {
-    Api.ViewPendingFSR().then(result => {
-      this.setState({ data: result.data.data[0] });
-    });
+    // Api.ViewPendingFSR().then(result => {
+    //   this.setState({ data: result.data.data[0] });
+    // });
   }
 
   render() {

@@ -14,35 +14,61 @@ const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal"
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
+const dummy1={
+  fname: 'Hi',
+  lname: 'Hello',
+  emp_id: 1
+  };
+
+const dummy2={
+  fname: 'Hi2',
+  lname: 'Hello2',
+  emp_id: 2
+  };
+
+const dummy3={
+  fname: 'Hi3',
+  lname: 'Hello3',
+  emp_id: 3
+  };
+
 export default class EditPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      researchType : 'Research',
-      researchSubtype : 'Research Proposal',
-      completeTitle: 'Sample',
-      Role: 'ABC',
-      Coworkers: 'ABC',
-      Funding: 'N/A',
-      StartDate: '03/03/03',
-      EndDate: '04/04/04',
-      ApprovedCreditUnits: '3',
-      TotalWorkLoadUnits: '3'
+      posCoworkers: [dummy1, dummy2, dummy3],
+      researchType : '',
+      researchSubtype : '',
+      completeTitle: '',
+      Role: '',
+      Coworkers: [],
+      Funding: '',
+      StartDate: '',
+      EndDate: '',
+      ApprovedCreditUnits: '',
+      TotalWorkLoadUnits: '',
+      attachmentLink: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeCoworkers = this.handleChangeCoworkers.bind(this);
+    this.addCoworker = this.addCoworker.bind(this);  //!!!
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
-    this.startAdd = this.startAdd.bind(this);
+    this.startEdit = this.startEdit.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
+  }
+
+  componentDidMount(){
+    if(typeof this.props.history!=='undefined'){
+      console.log(this.props.history.location.state.id);
+    }
   }
 
   handleChangeType(e) {
@@ -61,8 +87,22 @@ export default class EditPublication extends Component {
     this.setState({ Role: e.target.value });
   }
 
-  handleChangeCoworkers(e) {
-    this.setState({ Coworkers: e.target.value });
+  addCoworker(e){  //!!!
+    if(this.state.Coworkers.includes(e.target.value)){
+      for(var index = 0; index < this.state.Coworkers.length; index++){
+        if(this.state.Coworkers[index] === e.target.value) 
+          this.state.Coworkers.splice(index,1);
+      }
+      this.setState({Coworkers : this.state.Coworkers});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
+      var newArray = this.state.Coworkers;
+      newArray.push(e.target.value);
+      this.setState({Coworkers : newArray});
+      console.log("Added " + e.target.value);
+    }
+    console.log(this.state.Coworkers);
   }
 
   handleChangeFunding(e) {
@@ -81,13 +121,9 @@ export default class EditPublication extends Component {
     this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
-  }
-
-  startAdd(e) {
+  startEdit(e) {
     // e.preventDefault();
-    // Api.addteachingload({
+    // Api.editpublications({
     //   subj: this.state.subj,
     //   seccode: this.state.seccode,
     //   room: this.state.room,
@@ -104,6 +140,10 @@ export default class EditPublication extends Component {
     //     alert('Publication successfully added!');
     //   })
     //   .catch(e => alert('Error adding new Publication!'));
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   render() {
@@ -153,14 +193,17 @@ export default class EditPublication extends Component {
             type = "text"
             handler = {this.handleChangeRole} />
           <p>
-            <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeCoworkers}
-                placeHolder={this.state.Coworkers}
-              />
-            </div>
+            <a class="ui small header"> Co-workers </a>
+            {this.state.posCoworkers.map((item) =>{
+                return(
+                    <p>
+                    <div class="ui checked checkbox">
+                      <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
+                      <label>{item.fname} {item.lname}</label>
+                    </div>
+                    </p>
+                )
+            })}
           </p>
           <GenericDisabledInput
             compareState = {this.state.researchSubtype}
@@ -197,22 +240,11 @@ export default class EditPublication extends Component {
             </div>
           </p>
 
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
-                placeHolder={this.state.TotalWorkLoadUnits}
-              />
-            </div>
-          </p>
-
           <div class="ui center aligned container">
             <button class="ui blue button">Upload Attachments</button>
             <button
               class="ui blue button"
-              onClick={this.startAdd}>
+              onClick={this.startEdit}>
               Save changes
             </button>
           </div>

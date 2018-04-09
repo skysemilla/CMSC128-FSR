@@ -71,14 +71,13 @@ export default class ViewTeachingLoad extends Component {
   // }
 
   startAdd() {
-    this.props.history.push('../admin/editFSR/teachingload/view');
+    this.props.history.push('../teachingload/add');
   }
 
   render() {
     return (
       <div className="App-header">
         <NavBar {...this.props} Label="edit" subLabel="teachingload"/>
-
         <div class="ui compact piled very padded text left aligned container segment mainDiv" color="teal">
           <div>
             <h1 class="ui blue header">

@@ -14,11 +14,11 @@ const dummySample={
       title: 'SampleTitle',
       noOfHours: '10',
       noOfParticipants: '24',
-      startDate: '03/24/18',
-      endDate: '03/25/18',
+      startDate: '01/01/17',
+      endDate: '01/01/18',
       role: 'SampleRole',
-      approvedCreditUnits: '3',
-      totalExtandCommUnits: '3'
+      fundingAgency: 'ABC Agency',
+      approvedCreditUnits: '3'
 };
 
 export default class ViewExtension extends Component {
@@ -73,8 +73,8 @@ export default class ViewExtension extends Component {
                 <th class="center aligned">Start Date</th>
                 <th class="center aligned">End Date</th>
                 <th class="center aligned">Role</th>
+                <th class="center aligned">Funding Agency</th>
                 <th class="center aligned">Approved Course Credits </th>
-                <th class="center aligned">Total Extension and Community Credits</th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
@@ -89,8 +89,8 @@ export default class ViewExtension extends Component {
                   startDate={item.startDate}
                   endDate={item.endDate}
                   role={item.role}
+                  fundingAgency={item.fundingAgency}
                   approvedCreditUnits={item.approvedCreditUnits}
-                  totalExtandCommUnits={item.totalExtandCommUnits}
                     editURL = "../extension/edit"
                     label = "Extension and Community Services"
                     subLabel = "extension"

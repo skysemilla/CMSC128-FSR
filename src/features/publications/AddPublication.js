@@ -13,36 +13,54 @@ const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal"
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
+const dummy1={
+  fname: 'Hi',
+  lname: 'Hello',
+  emp_id: 1
+  };
+
+const dummy2={
+  fname: 'Hi2',
+  lname: 'Hello2',
+  emp_id: 2
+  };
+
+const dummy3={
+  fname: 'Hi3',
+  lname: 'Hello3',
+  emp_id: 3
+  };
 
 export default class AddPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      posCoworkers: [dummy1, dummy2, dummy3], //!!!
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
       Role: '',
-      Coworkers: '',
+      Coworkers: [],   //!!!
       Funding: 'N/A',
       StartDate: '',
       EndDate: '',
       ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      attachmentLink: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeCoworkers = this.handleChangeCoworkers.bind(this);
+    this.addCoworker = this.addCoworker.bind(this);  //!!!
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
   }
 
   handleChangeType(e) {
@@ -62,8 +80,22 @@ export default class AddPublication extends Component {
     this.setState({ Role: e.target.value });
   }
 
-  handleChangeCoworkers(e) {
-    this.setState({ Coworkers: e.target.value });
+  addCoworker(e){  //!!!
+    if(this.state.Coworkers.includes(e.target.value)){
+      for(var index = 0; index < this.state.Coworkers.length; index++){
+        if(this.state.Coworkers[index] === e.target.value) 
+          this.state.Coworkers.splice(index,1);
+      }
+      this.setState({Coworkers : this.state.Coworkers});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
+      var newArray = this.state.Coworkers;
+      newArray.push(e.target.value);
+      this.setState({Coworkers : newArray});
+      console.log("Added " + e.target.value);
+    }
+    console.log(this.state.Coworkers);
   }
 
   handleChangeFunding(e) {
@@ -80,10 +112,6 @@ export default class AddPublication extends Component {
 
   handleChangeApprovedCreditUnits(e) {
     this.setState({ ApprovedCreditUnits: e.target.value });
-  }
-
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
   }
 
   startAdd(e) {
@@ -107,10 +135,13 @@ export default class AddPublication extends Component {
     //   .catch(e => alert('Error adding new Publication!'));
   }
 
-  render() {
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
+  }
 
+  render() {
     return (
-      <div className="App-header">
+      <div className="App-header" class="wholediv">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
           class="ui piled very padded text left aligned container segment mainDiv"
@@ -169,13 +200,17 @@ export default class AddPublication extends Component {
               </p>
           }
           <p>
-            <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeCoworkers}
-              />
-            </div>
+            <a class="ui small header"> Co-workers </a>
+            {this.state.posCoworkers.map((item) =>{
+                return(
+                    <p>
+                    <div class="ui checked checkbox">
+                      <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
+                      <label>{item.fname} {item.lname}</label>
+                    </div>
+                    </p>
+                )
+            })}
           </p>
           {
             this.state.researchSubtype !== 'Research Proposal' ?
@@ -259,18 +294,8 @@ export default class AddPublication extends Component {
             </div>
           </p>
 
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
-              />
-            </div>
-          </p>
-
           <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachments</button>
+            <button class="ui blue button" onClick={this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>

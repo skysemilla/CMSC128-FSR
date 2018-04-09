@@ -6,19 +6,39 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
+const dummy = {
+  id: '0000000000',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy2 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
 export default class ViewAllFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: [dummy, dummy2]
     };
   }
 
   componentDidMount() {
-    Api.ViewAllFSR().then(result => {
-      this.setState({ data: result.data.data[0] });
-    });
+    // Api.ViewAllFSR().then(result => {
+    //   this.setState({ data: result.data.data[0] });
+    // });
   }
 
   render() {
@@ -72,7 +92,6 @@ export default class ViewAllFSR extends Component {
                     dept={item.dept}
                     approved={item.approved}
                     editURL="../admin/editFSR"
-                    label="all"
                   />
                 );
               })}

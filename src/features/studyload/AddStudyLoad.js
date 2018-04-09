@@ -17,7 +17,8 @@ export default class AddStudyLoad extends Component {
       day: '',
       time: '',
       school: '',
-      slcred: ''
+      slcred: '',
+      attachmentLink : ''
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
@@ -26,6 +27,8 @@ export default class AddStudyLoad extends Component {
     this.handleChangeTime = this.handleChangeTime.bind(this);
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
     this.handleChangeSlcred = this.handleChangeSlcred.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
+
     this.startAdd = this.startAdd.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -54,6 +57,10 @@ export default class AddStudyLoad extends Component {
     this.setState({ slcred: e.target.value });
   }
 
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
+  }
+
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
@@ -61,20 +68,18 @@ export default class AddStudyLoad extends Component {
   }
 
   startAdd(e) {
-    //   e.preventDefault();
-    //   Api.addstudyload({
-    // courseno: this.state.courseno,
-    // ccred: this.state.ccred,
-    // day: this.state.day,
-    // time: this.state.time,
-    // school: this.state.school,
-    // slcred: this.state.slcred
-    //   })
-    //     .then(result => {
-    //       this.props.history.push('./studyload/view');  //change to profile later!!
-    //       alert('Study load successfully added!');
-    //     })
-    //     .catch(e => alert('Error adding new Study Load!'));
+    e.preventDefault();
+    Api.addStudyLoad({
+      subject_id : this.state.courseno,
+      emp_id : 11 ,
+      credits : this.state.slcred
+
+    })
+      .then(result =>{
+        this.props.history.push('./teachingload/view'); //change to profile later!!
+        alert('Studylooad successfully added!');
+      })
+      .catch(e => alert('Error adding new Study Load!'));
   }
 
   render() {
@@ -145,6 +150,7 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <div class="ui center aligned container">
+            <button class="ui blue button" onClick = {this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui center aligned blue button"
               onClick={this.startAdd}>
@@ -157,5 +163,3 @@ export default class AddStudyLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<AddStudyLoad />, document.getElementById('root'));
