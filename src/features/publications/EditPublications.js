@@ -14,12 +14,30 @@ const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal"
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
+const dummy1={
+  fname: 'Hi',
+  lname: 'Hello',
+  emp_id: 1
+  };
+
+const dummy2={
+  fname: 'Hi2',
+  lname: 'Hello2',
+  emp_id: 2
+  };
+
+const dummy3={
+  fname: 'Hi3',
+  lname: 'Hello3',
+  emp_id: 3
+  };
+
 export default class EditPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posCoworkers: ['ABC', 'DEF', 'GHI'],
+      posCoworkers: [dummy1, dummy2, dummy3],
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
@@ -29,7 +47,8 @@ export default class EditPublication extends Component {
       StartDate: '',
       EndDate: '',
       ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      TotalWorkLoadUnits: '',
+      attachmentLink: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -41,9 +60,9 @@ export default class EditPublication extends Component {
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
     this.startEdit = this.startEdit.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
   }
 
   componentDidMount(){
@@ -102,10 +121,6 @@ export default class EditPublication extends Component {
     this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
-  }
-
   startEdit(e) {
     // e.preventDefault();
     // Api.editpublications({
@@ -125,6 +140,10 @@ export default class EditPublication extends Component {
     //     alert('Publication successfully added!');
     //   })
     //   .catch(e => alert('Error adding new Publication!'));
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   render() {
@@ -217,17 +236,6 @@ export default class EditPublication extends Component {
                 type="number"
                 onChange={this.handleChangeApprovedCreditUnits}
                 placeHolder={this.state.ApprovedCreditUnits}
-              />
-            </div>
-          </p>
-
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
-                placeHolder={this.state.TotalWorkLoadUnits}
               />
             </div>
           </p>

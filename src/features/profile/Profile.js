@@ -7,25 +7,33 @@ import NavBar from './../ui/NavBar';
 import SendToAdmin from './../SendtoAdmin';
 
 const dummySample = {
-    fname: 'Jasper',
-    mname: '123',
-    lname: 'Arquilita',
-    empid: '1',
-    college: 'CAS',
-    dept: 'ICS',
-    emptype: 'Faculty',
-    email: 'jasarqui123@up.edu.ph'
+  fname: 'Jasper',
+  mname: '123',
+  lname: 'Arquilita',
+  empid: '1',
+  college: 'CAS',
+  dept: 'ICS',
+  emptype: 'Faculty',
+  email: 'jasarqui123@up.edu.ph'
 };
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
 
-    this.state={
-      data: dummySample
-    }
+    this.state = {
+      data: ''
+    };
 
     this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  componentDidMount() {
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        this.setState({ data: result.data.data });
+      }
+    });
   }
 
   handleEdit(e) {
@@ -35,67 +43,85 @@ export default class Profile extends Component {
 
   render() {
     return (
-       <div classname="App-header">
-            <NavBar {...this.props} Label="profile" subLabel=""/>
+      <div classname="App-header">
+        <NavBar {...this.props} Label="profile" subLabel="" />
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
             <h2 class="ui blue header">
-              <button class="ui blue right floated button" onClick={this.handleEdit}>Edit Profile</button>
+              <button
+                class="ui blue right floated button"
+                onClick={this.handleEdit}>
+                Edit Profile
+              </button>
               PROFILE
             </h2>
           </div>
           <div class="ui large list">
-              <div>
+            <div>
               <div class="item">
-                  <div class="content">
-                    <b><i class="user circle icon"></i>Full Name: </b>
-                    {this.state.data.fname} {this.state.data.mname} {this.state.data.lname}
-                  </div>
-              </div>
-              <div class="item">
-                  <div class="content">
-                    <b><i class="id card outline icon"></i>Employee ID: </b>
-                    {this.state.data.empid}
-                  </div>
+                <div class="content">
+                  <b>
+                    <i class="user circle icon" />Full Name:{' '}
+                  </b>
+                  {this.state.data.f_name} {this.state.data.m_name}{' '}
+                  {this.state.data.l_name}
+                </div>
               </div>
               <div class="item">
-                  <div class="content">
-                    <b><i class="building icon"></i>Department and College: </b>
-                    {this.state.data.dept}, {this.state.data.college}
-                  </div>
+                <div class="content">
+                  <b>
+                    <i class="id card outline icon" />Employee ID:{' '}
+                  </b>
+                  {this.state.data.emp_id}
+                </div>
               </div>
               <div class="item">
-                  <div class="content">
-                    <b><i class="users icon"></i>Employee Type: </b>
-                    {this.state.data.emptype}
-                  </div>
+                <div class="content">
+                  <b>
+                    <i class="building icon" />Department and College:{' '}
+                  </b>
+                  {this.state.data.department}, {this.state.data.college}
+                </div>
               </div>
               <div class="item">
-                  <div class="content">
-                    <b><i class="mail outline icon"></i>Email Address: </b>
-                    {this.state.data.email}
-                  </div>
+                <div class="content">
+                  <b>
+                    <i class="users icon" />Employee Type:{' '}
+                  </b>
+                  {this.state.data.emp_type}
+                </div>
               </div>
+              <div class="item">
+                <div class="content">
+                  <b>
+                    <i class="mail outline icon" />Email Address:{' '}
+                  </b>
+                  {this.state.data.email}
+                </div>
               </div>
+            </div>
           </div>
           <Divider hidden="true" />
           <Divider hidden="true" />
           <div>
-            <h2 class="ui blue header">
-              FSRs
-            </h2>
+            <h2 class="ui blue header">FSRs</h2>
             <table class="ui blue table">
               <thead>
-                <tr><th>School Year</th>
-                <th>Semester</th>
-                <th>View/Edit</th>
-              </tr></thead><tbody>
+                <tr>
+                  <th>School Year</th>
+                  <th>Semester</th>
+                  <th>View/Edit</th>
+                </tr>
+              </thead>
+              <tbody>
                 <tr>
                   <td>2017-2018</td>
                   <td>2nd</td>
-                  <td><SendToAdmin {...this.props}/></td>
+                  <td>
+                    <SendToAdmin {...this.props} />
+                  </td>
                 </tr>
               </tbody>
             </table>

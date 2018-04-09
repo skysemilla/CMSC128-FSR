@@ -4,6 +4,17 @@ import {Modal} from 'semantic-ui-react';
 import DeleteModal from '../GenericDelete';
 
 export default class ViewStudyLoadRow extends Component{
+
+	constructor(props) {
+        super(props);
+
+        this.startView=this.startView.bind(this);
+      };
+
+    startView(){
+        this.props.history.push('./link/to/attached/file');
+    }
+
 	render(){
 		return(
 			<tr>
@@ -13,9 +24,14 @@ export default class ViewStudyLoadRow extends Component{
 				<td class = "center aligned"> {this.props.time} </td>
 				<td class = "center aligned"> {this.props.school} </td>
 				<td class = "center aligned"> {this.props.slcred} </td>
+				<td class = "center aligned">
+        			<button class = "ui icon button" onClick = {this.startView}>
+        				<i class = "eye icon"> </i>
+        			</button>
+		        </td>	
 		        <td class="center aligned">
 		        <DeleteModal {...this.props}/>
-        </td>
+        		</td>
 			</tr>
 		)
 	}

@@ -118,6 +118,7 @@ export default class AddAdministrativeWork extends Component {
           </p>
 
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachment</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
@@ -131,5 +132,3 @@ export default class AddAdministrativeWork extends Component {
   }
 }
 
-//=========================
-ReactDOM.render(<AddAdministrativeWork />, document.getElementById('root'));

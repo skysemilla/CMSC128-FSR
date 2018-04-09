@@ -66,13 +66,14 @@ export default class ViewAdminWork extends Component {
                 <th class="center aligned">Office Unit</th>
                 <th class="center aligned">Approved Credit Units</th>
                 <th class="center aligned">Total Admin Load Credits</th>
+                <th class="center aligned"> Attachments </th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map(item => {
                 return (
-                  <ViewAdminWorkRow {...this.props}
+                  <ViewAdminWorkRow {...this.props} 
                       positionOfWork={item.positionOfWork}
                       officeUnit={item.officeUnit}
                       approvedCreditUnits={item.approvedCreditUnits}
@@ -92,5 +93,3 @@ export default class ViewAdminWork extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewAdminWork/>, document.getElementById('root'));
