@@ -101,17 +101,6 @@ export default class AddAdministrativeWork extends Component {
               />
             </div>
           </p>
-
-           <p>
-            <a class="ui small header"> Total Administrative Load Credits </a> {/* Can change to dropdown? */}
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleTotalAdminCredits}
-              />
-            </div>
-          </p>
-
           
           <table class="ui unstackable table" style={{ border: 0}}>
             <tr>
