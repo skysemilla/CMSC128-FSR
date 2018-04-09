@@ -7,7 +7,7 @@ import ProfessorialChairViewRow from './ProfessorialChairViewRow';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
-import ViewAttachments from './../ViewAttachments';
+import ViewAttachments from './../ViewAttachments'; 
 
 //Dummy data
 const dummySample = {
