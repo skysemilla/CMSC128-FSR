@@ -51,7 +51,7 @@ export default class ViewAdminWork extends Component {
         <div class="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
             <h1 class="ui blue header">
-              VIEW ADMINISTRATIVE WORK
+              ADMINISTRATIVE WORK
             </h1>
           </div>
           <Divider hidden="true" />
@@ -65,14 +65,14 @@ export default class ViewAdminWork extends Component {
                 <th class="center aligned">Position Of Work</th>
                 <th class="center aligned">Office Unit</th>
                 <th class="center aligned">Approved Credit Units</th>
-                <th class="center aligned">Total Admin Load Credits</th>
+                <th class="center aligned"> Attachments </th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map(item => {
                 return (
-                  <ViewAdminWorkRow {...this.props}
+                  <ViewAdminWorkRow {...this.props} 
                       positionOfWork={item.positionOfWork}
                       officeUnit={item.officeUnit}
                       approvedCreditUnits={item.approvedCreditUnits}
@@ -85,12 +85,23 @@ export default class ViewAdminWork extends Component {
               })}
             </tbody>
           </table>
-          <button class="ui blue right floated button" onClick={this.startAdd}>Add Administrative Work</button>
+          <table class="ui unstackable table" style={{ border: 0}}>
+            <tr>
+              <td>
+                {this.state.data.map(item => {
+                  return (
+                    <p class="ui segment">Total Load Credits: {item.totalAdminLoadCredits}</p>
+                  );
+                })}
+              </td>
+              <td class="right aligned">
+                <button class="ui blue button" onClick={this.startAdd}>Add Administrative Work</button>
+              </td>
+            </tr>
+          </table>
           <Divider hidden="true" />
         </div>
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewAdminWork/>, document.getElementById('root'));
