@@ -14,7 +14,6 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.positionOfWork} </td>
         <td class="center aligned"> {this.props.officeUnit} </td>
         <td class="center aligned"> {this.props.approvedCreditUnits} </td>
-        <td class="center aligned"> {this.props.totalAdminLoadCredits} </td>
         <td class="center aligned">
           <ViewAttachments {...this.props} />
         </td>
@@ -22,6 +21,7 @@ export default class ViewTeachingLoadRow extends Component {
           <GenericDelete {...this.props}/>
         </td>
       </tr>
+
     );
   }
 }
