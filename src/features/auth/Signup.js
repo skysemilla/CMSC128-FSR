@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import GenericDropdown from './../GenericDropdown'
+import GenericDropdown from './../GenericDropdown';
 import {
   Form,
   Button,
@@ -17,25 +17,95 @@ import {
 } from 'semantic-ui-react';
 import * as Api from '../../api';
 
-const optionsMain = [ {id : 0, text : 'Assistant Professor'},
-                      {id : 1, text : 'Associate Professor'},
-                      {id : 2, text : 'Professor'},
-                      {id : 3, text : 'Instructor'}]
+// form validation
+const error = {
+  color: 'red'
+};
 
-const optionsMain2 = [ {id : 0, text : '1'},
-                      {id : 1, text : '2'},
-                      {id : 2, text : '3'},
-                      {id : 3, text : '4'},
-                      {id : 4, text : '5'},
-                      {id : 5, text : '6'},
-                      {id : 6, text : '7'}]
+var messageClass = 'ui negative message';
 
-class Signup extends Component {
+const errorTexts = [
+  <span style={error}> {' is required'}</span>, //0
+  <span style={error}> {' number is required'}</span>, //1
+  <span style={error}> {' >= 6 characters'}</span>, //2
+  <span style={error}> {' <= 16 characters'}</span>, //3
+  <span style={error}> {' = 10 digits'}</span>, //4
+  <span style={error}> {' must match'}</span>, //5
+  <span style={error}> {' must be alphanumeric'}</span>, //6
+  <span style={error}> {' must be valid'}</span> //7
+];
+
+const nameRegex = /[A-Za-z0-9\-']+/;
+const alphanumRegex = /[A-Za-z0-9]+/;
+const empIdRegex = /[0-9]{10}/;
+const emailRegex = /.+\@.+\..+/;
+
+var formError = {
+  text: {
+    fname: '',
+    mname: '',
+    lname: '',
+    empId: '',
+    empType: '',
+    fullTime: '',
+    col: '',
+    dept: '',
+    email: '',
+    user: '',
+    pass: '',
+    repPass: ''
+  },
+  bool: {
+    fname: false,
+    mname: false,
+    lname: false,
+    empId: false,
+    empType: false,
+    fullTime: false,
+    col: false,
+    dept: false,
+    email: false,
+    user: false,
+    pass: false,
+    repPass: false
+  }
+};
+
+const optionsMain = [
+  { id: 0, text: 'Assistant Professor' },
+  { id: 1, text: 'Associate Professor' },
+  { id: 2, text: 'Professor' },
+  { id: 3, text: 'Instructor' }
+];
+
+const optionsMain2 = [
+  { id: 0, text: '1' },
+  { id: 1, text: '2' },
+  { id: 2, text: '3' },
+  { id: 3, text: '4' },
+  { id: 4, text: '5' },
+  { id: 5, text: '6' },
+  { id: 6, text: '7' }
+];
+
+const optionsMain3 = [
+  { id: 0, text: 'CAFS' },
+  { id: 1, text: 'CAS' },
+  { id: 2, text: 'CDC' },
+  { id: 3, text: 'CEAT' },
+  { id: 4, text: 'CEM' },
+  { id: 5, text: 'CFNR' },
+  { id: 6, text: 'CHE' },
+  { id: 7, text: 'CVM' }
+];
+
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
+      repPassword: '',
       fname: '',
       mname: '',
       lname: '',
@@ -45,11 +115,14 @@ class Signup extends Component {
       emptype: '',
       emptypeno: '',
       email: '',
-      fulltime: 0
+      fulltime: null
     };
 
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeRepeatPassword = this.handleChangeRepeatPassword.bind(
+      this
+    );
     this.handleChangeFname = this.handleChangeFname.bind(this);
     this.handleChangeMname = this.handleChangeMname.bind(this);
     this.handleChangeLname = this.handleChangeLname.bind(this);
@@ -60,6 +133,7 @@ class Signup extends Component {
     this.handleChangeEmptypeNo = this.handleChangeEmptypeNo.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangeFulltime = this.handleChangeFulltime.bind(this);
+    this.checkSignup = this.checkSignup.bind(this);
     this.startSignup = this.startSignup.bind(this);
   }
 
@@ -69,6 +143,10 @@ class Signup extends Component {
 
   handleChangePassword(e) {
     this.setState({ password: e.target.value });
+  }
+
+  handleChangeRepeatPassword(e) {
+    this.setState({ repPassword: e.target.value });
   }
 
   handleChangeFname(e) {
@@ -89,6 +167,7 @@ class Signup extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
+    console.log(this.state.college);
   }
 
   handleChangeDept(e) {
@@ -111,8 +190,7 @@ class Signup extends Component {
     this.setState({ fulltime: e.target.value });
   }
 
-  startSignup(e) {
-    e.preventDefault();
+  startSignup() {
     Api.signup({
       emp_id: this.state.empid,
       username: this.state.username,
@@ -123,12 +201,181 @@ class Signup extends Component {
       l_name: this.state.lname,
       department: this.state.dept,
       college: this.state.college,
-      emp_type: this.state.emptype,
+      emp_type: this.state.emptype + ' ' + this.state.emptypeno,
       is_full_time: this.state.fulltime,
       email: this.state.email
     }).then(result => {
       this.props.history.push('../');
     });
+  }
+
+  checkSignup(e) {
+    e.preventDefault();
+    // check emp id
+    if (!this.state.empid) {
+      formError.text.empId = errorTexts[0];
+      formError.bool.empId = false;
+    } else if (!this.state.empid.match(empIdRegex)) {
+      formError.text.empId = errorTexts[4];
+      formError.bool.empId = false;
+    } else {
+      formError.text.empId = '';
+      formError.bool.empId = true;
+    }
+
+    // check username
+    if (!this.state.username) {
+      formError.text.user = errorTexts[0];
+      formError.bool.user = false;
+    } else if (!this.state.username.match(alphanumRegex)) {
+      formError.text.user = errorTexts[7];
+      formError.bool.user = false;
+    } else {
+      formError.text.user = '';
+      formError.bool.user = true;
+    }
+
+    // check pass
+    if (!this.state.passsword) {
+      formError.text.pass = errorTexts[0];
+      formError.bool.pass = false;
+    } else if (this.state.password.length < 6) {
+      formError.text.pass = errorTexts[2];
+      formError.bool.pass = false;
+    } else if (this.state.password.length > 16) {
+      formError.text.pass = errorTexts[3];
+      formError.bool.pass = false;
+    } else if (this.state.password !== this.state.repPassword) {
+      formError.text.pass = errorTexts[5];
+      formError.bool.pass = false;
+    } else if (!this.state.password.match(alphanumRegex)) {
+      formError.text.pass = errorTexts[6];
+      formError.bool.pass = false;
+    } else {
+      formError.text.pass = '';
+      formError.bool.pass = true;
+    }
+
+    // check repeat pass
+    if (!this.state.repPassword) {
+      formError.text.repPass = errorTexts[0];
+      formError.bool.repPass = false;
+    } else if (this.state.repPassword.length < 6) {
+      formError.text.repPass = errorTexts[2];
+      formError.bool.repPass = false;
+    } else if (this.state.repPassword.length > 16) {
+      formError.text.repPass = errorTexts[3];
+      formError.bool.repPass = false;
+    } else if (this.state.repPassword !== this.state.password) {
+      formError.text.repPass = errorTexts[5];
+      formError.bool.repPass = false;
+    } else if (!this.state.repPassword.match(alphanumRegex)) {
+      formError.text.repPass = errorTexts[6];
+      formError.bool.repPass = false;
+    } else {
+      formError.text.repPass = '';
+      formError.bool.repPass = true;
+    }
+
+    // check fname
+    if (!this.state.fname) {
+      formError.text.fname = errorTexts[0];
+      formError.bool.fname = false;
+    } else if (!this.state.fname.match(nameRegex)) {
+      formError.text.fname = errorTexts[6];
+      formError.bool.fname = false;
+    } else {
+      formError.text.fname = '';
+      formError.bool.fname = true;
+    }
+
+    // check mname
+    if (!this.state.mname) {
+      formError.text.mname = errorTexts[0];
+      formError.bool.mname = false;
+    } else if (!this.state.mname.match(nameRegex)) {
+      formError.text.mname = errorTexts[6];
+      formError.bool.mname = false;
+    } else {
+      formError.text.mname = '';
+      formError.bool.mname = true;
+    }
+
+    // check lname
+    if (!this.state.lname) {
+      formError.text.lname = errorTexts[0];
+      formError.bool.lname = false;
+    } else if (!this.state.lname.match(nameRegex)) {
+      formError.text.lname = errorTexts[6];
+      formError.bool.lname = false;
+    } else {
+      formError.text.lname = '';
+      formError.bool.lname = true;
+    }
+
+    // check emptype
+    if (!this.state.emptype || !this.state.emptypeno) {
+      formError.text.empType = errorTexts[0];
+      formError.bool.empType = false;
+    } else {
+      formError.text.empType = '';
+      formError.bool.empType = true;
+    }
+
+    // check email
+    if (!this.state.email) {
+      formError.text.email = errorTexts[0];
+      formError.bool.email = false;
+    } else if (!this.state.email.match(emailRegex)) {
+      formError.text.email = errorTexts[7];
+      formError.bool.email = false;
+    } else {
+      formError.text.email = '';
+      formError.bool.email = true;
+    }
+
+    // check is full time
+    if (!this.state.fulltime) {
+      formError.text.fullTime = errorTexts[0];
+      formError.bool.fullTime = false;
+    } else {
+      formError.text.fullTime = '';
+      formError.bool.fullTime = true;
+    }
+
+    // check college
+    if (!this.state.college) {
+      formError.text.col = errorTexts[0];
+      formError.bool.col = false;
+    } else {
+      formError.text.col = '';
+      formError.bool.col = false;
+    }
+
+    // check department
+    if (!this.state.department) {
+      formError.text.dept = errorTexts[0];
+      formError.bool.dept = false;
+    } else {
+      formError.text.dept = '';
+      formError.bool.dept = false;
+    }
+
+    if (
+      formError.bool.user &&
+      formError.bool.pass &&
+      formError.bool.repPass &&
+      formError.bool.fname &&
+      formError.bool.mname &&
+      formError.bool.lname &&
+      formError.bool.col &&
+      formError.bool.dept &&
+      formError.bool.email &&
+      formError.bool.empId &&
+      formError.bool.empType
+    ) {
+      this.startSignup();
+    } else this.forceUpdate();
   }
 
   render() {
@@ -153,7 +400,9 @@ class Signup extends Component {
             <form class="ui form attached fluid segment">
               <div class="equal width fields">
                 <div class="field">
-                  <label>First Name</label>
+                  <label>
+                    <span>First Name{formError.text.fname}</span>
+                  </label>
                   <div class="ui fluid input">
                     <input
                       type="text"
@@ -163,7 +412,9 @@ class Signup extends Component {
                   </div>
                 </div>
                 <div class="field">
-                  <label>Middle Name</label>
+                  <label>
+                    <span>Middle Name{formError.text.mname}</span>
+                  </label>
                   <div class="ui fluid input">
                     <input
                       type="text"
@@ -173,7 +424,9 @@ class Signup extends Component {
                   </div>
                 </div>
                 <div class="field">
-                  <label>Last Name</label>
+                  <label>
+                    <span>Last Name{formError.text.lname}</span>
+                  </label>
                   <div class="ui fluid input">
                     <input
                       type="text"
@@ -186,7 +439,9 @@ class Signup extends Component {
 
               <div class="equal width fields">
                 <div class="field">
-                  <label>Employee Id</label>
+                  <label>
+                    <span>Employee Id{formError.text.empId}</span>
+                  </label>
                   <div class="ui input">
                     <input
                       type="text"
@@ -197,27 +452,34 @@ class Signup extends Component {
                 </div>
 
                 <div class="field">
-                  <a class="ui small header"> Employee Type</a>
+                  <label>
+                    <span>Employee Type{formError.text.empType}</span>
+                  </label>
                   <div class="equal width fields">
-                  <GenericDropdown
-                    labelProper = "Type"
-                    value = {this.state.emptype}
-                    handler = {this.handleChangeEmptype}
-                    options = {optionsMain}/>
-
-                  <GenericDropdown
-                    labelProper = "Number"
-                    value = {this.state.emptype}
-                    handler = {this.handleChangeEmptype}
-                    options = {optionsMain2}/>
-                    </div>
+                    <GenericDropdown
+                      labelProper="Type"
+                      value={this.state.emptype}
+                      handler={this.handleChangeEmptype}
+                      options={optionsMain}
+                    />
+                    <GenericDropdown
+                      labelProper="Number"
+                      value={this.state.emptype}
+                      handler={this.handleChangeEmptype}
+                      options={optionsMain2}
+                    />
+                  </div>
                 </div>
 
                 <div class="div1">
                   <div class="ui form">
                     <div class="grouped fields">
                       <div class="field">
-                        <label>Full Time Employee?</label>
+                        <label>
+                          <span>
+                            Full Time Employee?{formError.text.fullTime}
+                          </span>
+                        </label>
                       </div>
                       <div class="inline fields">
                         <div class="field">
@@ -248,17 +510,20 @@ class Signup extends Component {
 
               <div class="equal width fields">
                 <div class="field">
-                  <label>College</label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="College"
-                      onChange={this.handleChangeCollege}
-                    />
-                  </div>
+                  <label>
+                    <span>College{formError.text.col}</span>
+                  </label>
+                  <GenericDropdown
+                    labelProper="Select College"
+                    value={this.state.college}
+                    handler={this.handleChangeCollege}
+                    options={optionsMain3}
+                  />
                 </div>
                 <div class="field">
-                  <label>Department</label>
+                  <label>
+                    <span>Department{formError.text.dept}</span>
+                  </label>
                   <div class="ui input">
                     <input
                       type="text"
@@ -269,7 +534,9 @@ class Signup extends Component {
                 </div>
               </div>
               <div class="field">
-                <label>Email Address</label>
+                <label>
+                  <span>Email Address{formError.text.email}</span>
+                </label>
                 <div class="ui input">
                   <input
                     type="text"
@@ -279,7 +546,9 @@ class Signup extends Component {
                 </div>
               </div>
               <div class="field">
-                <label>Username</label>
+                <label>
+                  <span>Username{formError.text.user}</span>
+                </label>
                 <div class="ui input">
                   <input
                     type="text"
@@ -289,7 +558,9 @@ class Signup extends Component {
                 </div>
               </div>
               <div class="field">
-                <label>Password</label>
+                <label>
+                  <span>Password{formError.text.pass}</span>
+                </label>
                 <div class="ui input">
                   <input
                     type="password"
@@ -299,19 +570,21 @@ class Signup extends Component {
                 </div>
               </div>
               <div class="field">
-                <label>Repeat Password</label>
+                <label>
+                  <span>Repeat Password{formError.text.repPass}</span>
+                </label>
                 <div class="ui input">
                   <input
                     type="password"
                     placeholder="Password"
-                    onChange={this.handleChangePassword}
+                    onChange={this.handleChangeRepeatPassword}
                   />
                 </div>
               </div>
               <button
                 class="ui blue button"
                 role="button"
-                onClick={this.startSignup}>
+                onClick={this.checkSignup}>
                 Create an Account
               </button>
             </form>
@@ -327,4 +600,3 @@ class Signup extends Component {
     );
   }
 }
-export default Signup;

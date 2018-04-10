@@ -251,5 +251,3 @@ export default class EditExtension extends Component {
     );
   }
 }
-
-ReactDOM.render(<EditExtension />, document.getElementById('root'));

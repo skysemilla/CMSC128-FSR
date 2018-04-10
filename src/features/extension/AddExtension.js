@@ -236,5 +236,3 @@ export default class AddExtension extends Component {
     );
   }
 }
-
-ReactDOM.render(<AddExtension />, document.getElementById('root'));

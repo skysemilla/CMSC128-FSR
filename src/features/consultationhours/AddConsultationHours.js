@@ -29,13 +29,15 @@ export default class AddConsultationHours extends Component {
       timeFrom : '',
       timeFromValue : '',
       timeTo : '',
-      place : ''
+      place : '',
+      attachmentLink : ''
     };
 
     this.handleChangeDays = this.handleChangeDays.bind(this);
     this.handleChangeTimeFrom = this.handleChangeTimeFrom.bind(this);
     this.handleChangeTimeTo = this.handleChangeTimeTo.bind(this);
     this.handleChangePlace = this.handleChangePlace.bind(this);
+    this.uploadAttachment = this.uploadAttachment.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -61,6 +63,10 @@ export default class AddConsultationHours extends Component {
 
   handleChangePlace(e){
     this.setState({place : e.target.value});
+  }
+
+  uploadAttachment(e){
+    //this.setState({ attachmentLink: ???});
   }
 
   startAdd(e) {
@@ -137,7 +143,7 @@ export default class AddConsultationHours extends Component {
           </p>
           <Divider hidden="true" />
           <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachments</button>
+            <button class="ui blue button" onClick = {this.uploadAttachment}>Upload Attachments</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
@@ -150,6 +156,3 @@ export default class AddConsultationHours extends Component {
     );
   }
 }
-
-//=========================
-ReactDOM.render(<AddConsultationHours />, document.getElementById('root'));

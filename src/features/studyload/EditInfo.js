@@ -147,5 +147,3 @@ export default class EditInfo extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditInfo />, document.getElementById('root'));

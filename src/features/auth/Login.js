@@ -18,18 +18,23 @@ const error = {
   color: 'red'
 };
 
+var messageClass = 'ui negative message';
+
 const errorTexts = [
   <span style={error}> {' is required'}</span>,
   <span style={error}> {' >= 6 characters'}</span>,
   <span style={error}> {' <= 16 characters'}</span>,
   <span style={error}> {' must be alphanumeric'}</span>,
-  <span style={error}>
-    {' '}
-    <center>{'Wrong Credentials!'}</center>
-  </span>
+  <div class={messageClass}>
+    <p>
+      <span style={error}>
+        <center>{'Wrong Credentials!'}</center>
+      </span>
+    </p>
+  </div>
 ];
 
-const userRegex = /[A-Za-z0-9]+/;
+const alphanumRegex = /[A-Za-z0-9]+/;
 
 var formValid = {
   userError: '',
@@ -38,7 +43,8 @@ var formValid = {
   passValid: false
 };
 
-var messageClass = 'ui hidden message';
+var errorCredMessage = <div />;
+var apiDidThen = false;
 
 export default class Login extends Component {
   constructor(props) {
@@ -57,6 +63,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
+    errorCredMessage = <div />;
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ type: result.data.data.type });
@@ -83,6 +90,7 @@ export default class Login extends Component {
       password: this.state.password
     })
       .then(result => {
+        apiDidThen = true;
         this.setState({ type: result.data.data.type });
         if (this.state.type === 'ADMIN') {
           this.props.history.push('/admin/ViewAllFaculty');
@@ -90,21 +98,22 @@ export default class Login extends Component {
           this.props.history.push('./profile');
         }
       })
-      .catch(
-        (messageClass = 'ui negative visible message'),
-        this.forceUpdate()
-      );
+      .catch(error => {
+        if (!apiDidThen) {
+          errorCredMessage = errorTexts[4];
+          this.forceUpdate();
+        }
+      });
   }
 
   checkLogin(e) {
     e.preventDefault();
-    messageClass = 'ui hidden message';
-
+    errorCredMessage = <div />;
     // username validate
     if (!this.state.username) {
       formValid.userError = errorTexts[0];
       formValid.userValid = false;
-    } else if (!this.state.username.match(userRegex)) {
+    } else if (!this.state.username.match(alphanumRegex)) {
       formValid.userError = errorTexts[3];
       formValid.userValid = false;
     } else {
@@ -121,6 +130,9 @@ export default class Login extends Component {
       formValid.passValid = false;
     } else if (this.state.password.length > 16) {
       formValid.passError = errorTexts[2];
+      formValid.passValid = false;
+    } else if (!this.state.password.match(alphanumRegex)) {
+      formValid.passError = errorTexts[3];
       formValid.passValid = false;
     } else {
       formValid.passError = '';
@@ -199,9 +211,7 @@ export default class Login extends Component {
                   {' '}
                   Login{' '}
                 </Button>
-                <div class={messageClass}>
-                  <p>{errorTexts[4]}</p>
-                </div>
+                {errorCredMessage}
               </Segment>
             </Form>
             <Message attached="bottom">
@@ -215,5 +225,3 @@ export default class Login extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<Login />, document.getElementById('root'));

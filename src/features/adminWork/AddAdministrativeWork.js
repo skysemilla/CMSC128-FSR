@@ -21,7 +21,6 @@ export default class AddAdministrativeWork extends Component {
     this.handlePositionOfWork = this.handlePositionOfWork.bind(this);
     this.handleOfficeUnit = this.handleOfficeUnit.bind(this);
     this.handleApprovedCreditUnits = this.handleApprovedCreditUnits.bind(this);
-    this.handleTotalAdminCredits = this.handleTotalAdminCredits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -36,10 +35,6 @@ export default class AddAdministrativeWork extends Component {
 
   handleApprovedCreditUnits(e){
     this.setState({approvedCreditUnits : e.target.value});
-  }
-
-  handleTotalAdminCredits(e){
-    this.setState({totalAdminLoadCredits : e.target.value});
   }
 
   startAdd(e) {
@@ -106,25 +101,19 @@ export default class AddAdministrativeWork extends Component {
               />
             </div>
           </p>
-
-           <p>
-            <a class="ui small header"> Total Administrative Load Credits </a> {/* Can change to dropdown? */}
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleTotalAdminCredits}
-              />
-            </div>
-          </p>
-
-          <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachment</button>
-            <button
-              class="ui blue button"
-              onClick={this.startAdd}>
-              Add Administrative Work
-            </button>
-          </div>
+          
+          <table class="ui unstackable table" style={{ border: 0}}>
+            <tr>
+              <td> 
+                <p class="ui segment">Total Load Credits: {this.state.totalAdminLoadCredits}</p>
+              </td>
+              <td class="right aligned">
+                <button class="ui blue button">Upload Attachment</button>
+                <button class="ui blue button" onClick={this.startAdd}>Edit Administrative Work</button>
+              </td>
+            </tr>
+          </table>
+          
         </div>
         <Divider hidden="true" />
       </div>
@@ -132,5 +121,3 @@ export default class AddAdministrativeWork extends Component {
   }
 }
 
-//=========================
-ReactDOM.render(<AddAdministrativeWork />, document.getElementById('root'));
