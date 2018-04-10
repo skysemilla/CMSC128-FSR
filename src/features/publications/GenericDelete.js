@@ -30,10 +30,9 @@ export default class GenericDelete extends Component {
     })
       .then(result => {
         window.location.reload();
-        alert(this.props.label+' successfully deleted!');
+        alert('{this.props.label} successfully deleted!');
       })
-      .catch(e => alert('Error deleting new'+this.props.label+'!'));
-    this.close();
+      .catch(e => alert('Error deleting new {this.props.label}!'));
   }
 
   render() {
