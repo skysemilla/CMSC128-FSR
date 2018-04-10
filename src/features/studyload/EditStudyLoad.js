@@ -12,12 +12,12 @@ export default class EditStudyLoad extends Component {
     super(props);
 
     this.state = {
-      courseno:  '3',
-      ccred : '201', 
-      day : 'TTh', 
-      time : '3', 
-      school : ' ', 
-      slcred : ' 3',
+      courseno:  '',
+      ccred : '', 
+      day : '', 
+      time : '', 
+      school : '', 
+      slcred : '',
       attachmentLink : ''
     };
 
