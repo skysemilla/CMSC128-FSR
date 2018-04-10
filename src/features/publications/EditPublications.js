@@ -14,41 +14,22 @@ const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal"
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
-const dummy1={
-  fname: 'Hi',
-  lname: 'Hello',
-  emp_id: 1
-  };
-
-const dummy2={
-  fname: 'Hi2',
-  lname: 'Hello2',
-  emp_id: 2
-  };
-
-const dummy3={
-  fname: 'Hi3',
-  lname: 'Hello3',
-  emp_id: 3
-  };
-
 export default class EditPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posCoworkers: [dummy1, dummy2, dummy3],
+      posCoworkers: [],
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
       Role: '',
       Coworkers: [],
+      newCoworkers: [],
       Funding: '',
       StartDate: '',
       EndDate: '',
-      ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: '',
-      attachmentLink: ''
+      ApprovedCreditUnits: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -62,13 +43,57 @@ export default class EditPublication extends Component {
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
 
     this.startEdit = this.startEdit.bind(this);
-    this.uploadAttachment = this.uploadAttachment.bind(this);
   }
 
   componentDidMount(){
+    console.log(this.props.id);
     if(typeof this.props.history!=='undefined'){
       console.log(this.props.history.location.state.id);
+      //Kianaaaa yung piniprint dito yung pub_id HAHAHA
+      console.log(this.props.history.location.state.id);
+      Api.viewOnePublication({
+        id: this.props.history.location.state.id
+      })
+        .then(result => {
+          this.setState({ 
+            researchType : result.data.data[0].category,
+            completeTitle: result.data.data[0].title,
+            Role: result.data.data[0].role,
+            // Coworkers: [],
+            Funding: result.data.data[0].funding,
+            StartDate: result.data.data[0].start_date,
+            EndDate: result.data.data[0].end_date,
+            ApprovedCreditUnits: result.data.data[0].credit_units,
+            TotalWorkLoadUnits: ''
+          });
+
+          Api.getCoworkers({
+            id: this.props.history.location.state.id
+          })
+            .then(result => {
+              console.log(result.data.data);
+              result.data.data.map((item) =>{
+                console.log(item.emp_id);
+                this.state.Coworkers.push(item.emp_id);
+              });
+              console.log(this.state.Coworkers);
+            })
+            .catch(err => alert('Error loading coworkers!!'));
+
+          // get coworkers for this publication HERE
+
+          console.log(result.data.data[0]);
+        })
+        .catch(err => alert('Error loading pub!'));
     }
+    //   e.preventDefault();
+   Api.viewEmployees({
+      })
+        .then(result => {
+          this.setState({ posCoworkers: result.data.data});
+          console.log(result.data.data);
+        })
+        .catch(err => alert('Error loading Employees!!'));
   }
 
   handleChangeType(e) {
@@ -88,21 +113,21 @@ export default class EditPublication extends Component {
   }
 
   addCoworker(e){  //!!!
-    if(this.state.Coworkers.includes(e.target.value)){
-      for(var index = 0; index < this.state.Coworkers.length; index++){
-        if(this.state.Coworkers[index] === e.target.value) 
-          this.state.Coworkers.splice(index,1);
+    if(this.state.newCoworkers.includes(e.target.value)){
+      for(var index = 0; index < this.state.newCoworkers.length; index++){
+        if(this.state.newCoworkers[index] === e.target.value) 
+          this.state.newCoworkers.splice(index,1);
       }
-      this.setState({Coworkers : this.state.Coworkers});
+      this.setState({newCoworkers : this.state.newCoworkers});
       console.log("Deleted " + e.target.value);
     }
     else{
-      var newArray = this.state.Coworkers;
+      var newArray = this.state.newCoworkers;
       newArray.push(e.target.value);
-      this.setState({Coworkers : newArray});
+      this.setState({newCoworkers : newArray});
       console.log("Added " + e.target.value);
     }
-    console.log(this.state.Coworkers);
+    console.log(this.state.newCoworkers);
   }
 
   handleChangeFunding(e) {
@@ -122,28 +147,43 @@ export default class EditPublication extends Component {
   }
 
   startEdit(e) {
-    // e.preventDefault();
-    // Api.editpublications({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
-  }
+    e.preventDefault();
+    console.log(this.state);
+    // remove prev coworkers here
+    Api.removeCoworkers({
+      id: this.props.history.location.state.id
+    })
+      .then(result => alert('successfully Deleted Coworkers'))
+      .catch(err => alert('Error removing Coworkers'));
 
-  uploadAttachment(e){
-    //this.setState({ attachmentLink: ???});
+    Api.editPublication({
+      credit_units: this.state.ApprovedCreditUnits,
+      category: this.state.researchType,
+      funding: this.state.Funding,
+      title: this.state.completeTitle,
+      role: this.state.Role,
+      start_date: this.state.StartDate,
+      end_date: this.state.EndDate,
+      publication_id: this.props.history.location.state.id
+    })
+      .then(result => {
+        this.state.newCoworkers.map((item) =>{
+          console.log(item); 
+          Api.addCoworker({
+            coworker_id: item,
+            publication_id: this.props.history.location.state.id
+          })
+            .then(res =>{
+              console.log('Successfully Added Coworker');
+            })
+            .catch(err => alert('Error adding Coworker'));           
+        });
+        this.props.history.push('./view');  //change to profile later!!
+        console.log(result.data);
+        alert('Publication successfully added!');
+
+      })
+      .catch(e => alert('Error editing Publication!'));
   }
 
   render() {
@@ -199,7 +239,7 @@ export default class EditPublication extends Component {
                     <p>
                     <div class="ui checked checkbox">
                       <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
-                      <label>{item.fname} {item.lname}</label>
+                      <label>{item.f_name} {item.l_name}</label>
                     </div>
                     </p>
                 )
