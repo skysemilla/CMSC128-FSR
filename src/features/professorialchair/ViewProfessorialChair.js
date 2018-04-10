@@ -27,13 +27,7 @@ export default class ViewProfessorialChair extends Component {
       data: [dummySample] //dummmy data
     };
 
-    this.startAdd = this.startAdd.bind(this);
     this.startEdit = this.startEdit.bind(this);
-  }
-
-  startAdd(e) {
-    e.preventDefault();
-    this.props.history.push('../professorialchair/add');
   }
 
   startEdit(e) {
@@ -49,11 +43,6 @@ export default class ViewProfessorialChair extends Component {
         <div class="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
             <h1 class="ui blue header">
-              <button
-                class="ui blue right floated button"
-                onClick={this.startEdit}>
-                Edit Professorial Chair
-              </button>
               PROFESSORIAL CHAIR
             </h1>
           </div>
@@ -123,7 +112,7 @@ export default class ViewProfessorialChair extends Component {
             </div>
           </div>
 
-          <button class="ui blue right floated button" onClick={this.startAdd}>Add Professorial Chair</button>
+          <button class="ui blue right floated button" onClick={this.startEdit}>Edit Professorial Chair</button>
           <Divider hidden="true" />
         </div>
       </div>
