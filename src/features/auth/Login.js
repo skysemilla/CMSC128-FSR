@@ -13,6 +13,39 @@ import {
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 
+// form validation
+const error = {
+  color: 'red'
+};
+
+var messageClass = 'ui negative message';
+
+const errorTexts = [
+  <span style={error}> {' is required'}</span>,
+  <span style={error}> {' >= 6 characters'}</span>,
+  <span style={error}> {' <= 16 characters'}</span>,
+  <span style={error}> {' must be alphanumeric'}</span>,
+  <div class={messageClass}>
+    <p>
+      <span style={error}>
+        <center>{'Wrong Credentials!'}</center>
+      </span>
+    </p>
+  </div>
+];
+
+const alphanumRegex = /[A-Za-z0-9]+/;
+
+var formValid = {
+  userError: '',
+  passError: '',
+  userValid: false,
+  passValid: false
+};
+
+var errorCredMessage = <div />;
+var apiDidThen = false;
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -26,16 +59,18 @@ export default class Login extends Component {
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.startLogin = this.startLogin.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
   }
 
   componentDidMount() {
+    errorCredMessage = <div />;
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ type: result.data.data.type });
         if (this.state.type === 'ADMIN') {
-          this.props.history.push('./teachingload/add');
+          this.props.history.push('/admin/ViewAllFaculty');
         } else if (this.state.type === 'FACULTY') {
-          this.props.history.push('./studyload/add');
+          this.props.history.push('./profile');
         }
       }
     });
@@ -49,21 +84,65 @@ export default class Login extends Component {
     this.setState({ password: e.target.value });
   }
 
-  startLogin(e) {
-    e.preventDefault();
+  startLogin() {
     Api.login({
       username: this.state.username,
       password: this.state.password
     })
       .then(result => {
+        apiDidThen = true;
         this.setState({ type: result.data.data.type });
         if (this.state.type === 'ADMIN') {
-          this.props.history.push('./teachingload/add');
-        } else if (this.state.type === 'USER') {
+          this.props.history.push('/admin/ViewAllFaculty');
+        } else if (this.state.type === 'FACULTY') {
           this.props.history.push('./profile');
         }
       })
-      .catch(e => alert('Wrong Credentials!'));
+      .catch(error => {
+        if (!apiDidThen) {
+          errorCredMessage = errorTexts[4];
+          this.forceUpdate();
+        }
+      });
+  }
+
+  checkLogin(e) {
+    e.preventDefault();
+    errorCredMessage = <div />;
+    // username validate
+    if (!this.state.username) {
+      formValid.userError = errorTexts[0];
+      formValid.userValid = false;
+    } else if (!this.state.username.match(alphanumRegex)) {
+      formValid.userError = errorTexts[3];
+      formValid.userValid = false;
+    } else {
+      formValid.userError = '';
+      formValid.userValid = true;
+    }
+
+    // password validate
+    if (!this.state.password) {
+      formValid.passError = errorTexts[0];
+      formValid.passValid = false;
+    } else if (this.state.password.length < 6) {
+      formValid.passError = errorTexts[1];
+      formValid.passValid = false;
+    } else if (this.state.password.length > 16) {
+      formValid.passError = errorTexts[2];
+      formValid.passValid = false;
+    } else if (!this.state.password.match(alphanumRegex)) {
+      formValid.passError = errorTexts[3];
+      formValid.passValid = false;
+    } else {
+      formValid.passError = '';
+      formValid.passValid = true;
+    }
+
+    // check validataion
+    if (formValid.userValid && formValid.passValid) {
+      this.startLogin();
+    } else this.forceUpdate();
   }
 
   render() {
@@ -99,7 +178,10 @@ export default class Login extends Component {
             </Header>
             <Form size="large">
               <Segment stacked>
-                <Header as="h3"> Username </Header>
+                <Header as="h3">
+                  {' '}
+                  <span>Username{formValid.userError}</span>{' '}
+                </Header>
                 <Form.Input
                   fluid
                   icon="user"
@@ -108,7 +190,10 @@ export default class Login extends Component {
                   value={this.state.fname}
                   onChange={this.handleChangeUsername}
                 />
-                <Header as="h3"> Password </Header>
+                <Header as="h3">
+                  {' '}
+                  <span>Password{formValid.passError}</span>{' '}
+                </Header>
                 <Form.Input
                   fluid
                   icon="lock"
@@ -122,10 +207,11 @@ export default class Login extends Component {
                   color="blue"
                   fluid
                   size="medium"
-                  onClick={this.startLogin}>
+                  onClick={this.checkLogin}>
                   {' '}
                   Login{' '}
                 </Button>
+                {errorCredMessage}
               </Segment>
             </Form>
             <Message attached="bottom">
@@ -139,5 +225,3 @@ export default class Login extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<Login />, document.getElementById('root'));

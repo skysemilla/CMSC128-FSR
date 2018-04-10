@@ -19,30 +19,34 @@ export default class AddPublication extends Component {
     super(props);
 
     this.state = {
+      posCoworkers: [], //!!!
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
       Role: '',
-      Coworkers: '',
+      Coworkers: [],   //!!!
       Funding: 'N/A',
       StartDate: '',
       EndDate: '',
-      ApprovedCreditUnits: '',
-      TotalWorkLoadUnits: ''
+      ApprovedCreditUnits: ''
     };
 
+    this.handleChangePosCoworker = this.handleChangePosCoworker.bind(this); // NEW
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeCoworkers = this.handleChangeCoworkers.bind(this);
+    this.addCoworker = this.addCoworker.bind(this);  //!!!
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
+  }
+
+  handleChangePosCoworker(e){ // NEW
+    this.setState({ posCoworkers: e.target.value });
   }
 
   handleChangeType(e) {
@@ -62,8 +66,22 @@ export default class AddPublication extends Component {
     this.setState({ Role: e.target.value });
   }
 
-  handleChangeCoworkers(e) {
-    this.setState({ Coworkers: e.target.value });
+  addCoworker(e){  //!!!
+    if(this.state.Coworkers.includes(e.target.value)){
+      for(var index = 0; index < this.state.Coworkers.length; index++){
+        if(this.state.Coworkers[index] === e.target.value) 
+          this.state.Coworkers.splice(index,1);
+      }
+      this.setState({Coworkers : this.state.Coworkers});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
+      var newArray = this.state.Coworkers;
+      newArray.push(e.target.value);
+      this.setState({Coworkers : newArray});
+      console.log("Added " + e.target.value);
+    }
+    console.log(this.state.Coworkers);
   }
 
   handleChangeFunding(e) {
@@ -82,33 +100,58 @@ export default class AddPublication extends Component {
     this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
-  }
+  componentDidMount = () => {   // NEW
+    //   e.preventDefault();
+   Api.viewEmployees({
+      })
+        .then(result => {
+          this.setState({ posCoworkers: result.data.data});
+          console.log(result.data.data);
+        })
+        .catch(err => alert('Error loading Employees!!'));
+    Api.getSession({
+
+    })
+      .then(result => {
+        // console.log(result.data.data.emp_id);
+        this.setState({ emp_id: result.data.data.emp_id});
+      })
+      .catch(err => alert('Error getSession'));
+  };
 
   startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
+    e.preventDefault();
+    Api.addPublication({
+      credit_units: this.state.ApprovedCreditUnits,
+      category: this.state.researchType,
+      funding: this.state.Funding,
+      title: this.state.completeTitle,
+      role: this.state.Role,
+      start_date: this.state.StartDate,
+      end_date: this.state.EndDate,
+      emp_id: '0000000001'
+    })
+      .then(result => {
+        this.state.Coworkers.map((item) =>{
+          console.log(item); 
+          Api.addCoworker({
+            coworker_id: item,
+            publication_id: result.data.data
+          })
+            .then(res =>{
+              console.log('Successfully Added Coworker');
+            })
+            .catch(err => alert('Error adding Coworker'));           
+        });
+        this.props.history.push('./view');  //change to profile later!!
+        console.log(result.data);
+        alert('Publication successfully added!');
+
+      })
+      .catch(e => alert('Error adding new Publication!'));
   }
 
   render() {
-
     return (
       <div className="App-header">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
@@ -169,13 +212,17 @@ export default class AddPublication extends Component {
               </p>
           }
           <p>
-            <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeCoworkers}
-              />
-            </div>
+            <a class="ui small header"> Co-workers </a>
+            {this.state.posCoworkers.map((item) =>{
+                return(
+                    <p>
+                    <div class="ui checked checkbox">
+                      <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
+                      <label>{item.f_name} {item.l_name}</label>
+                    </div>
+                    </p>
+                )
+            })}
           </p>
           {
             this.state.researchSubtype !== 'Research Proposal' ?
@@ -258,17 +305,7 @@ export default class AddPublication extends Component {
               />
             </div>
           </p>
-
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
-              />
-            </div>
-          </p>
-
+          
           <div class="ui center aligned container">
             <button class="ui blue button">Upload Attachments</button>
             <button

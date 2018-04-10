@@ -9,39 +9,29 @@ import SendtoAdmin from './../SendtoAdmin'
 import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBar'
 
-const dummySample = {researchType : 'Research',
-                      researchSubtype : 'Research Proposal',
-                      completeTitle: 'Sample',
-                      Role: 'ABC',
-                      Coworkers: 'ABC',
-                      Funding: 'N/A',
-                      StartDate: '03/03/03',
-                      EndDate: '04/04/04',
-                      ApprovedCreditUnits: '3',
-                      TotalWorkLoadUnits: '3'};
-
 export default class ViewPublications extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [dummySample]
-    };
+      data: []
+      };
+
 
     this.handleLogout = this.handleLogout.bind(this);
     this.startAdd = this.startAdd.bind(this);
-    this.generate = this.generate.bind(this);
   }
 
 
   componentDidMount = () => {
     //   e.preventDefault();
-    //   Api.viewPublications({
-    //   })
-    //     .then(result => {
-    //       this.setState({ publications: result});
-    //     })
-    //     .catch(e => alert('Error loading Publications!!'));
+   Api.viewPublications({
+      })
+        .then(result => {
+          this.setState({ data: result.data.data[0]});
+          console.log(result.data.data[0]);
+        })
+        .catch(err => alert('Error loading Publications!!'));
   };
 
   handleLogout() {
@@ -53,8 +43,6 @@ export default class ViewPublications extends Component {
     this.props.history.push('./add');
   }
 
-  generate() {
-  }
 
   render() {
     return (
@@ -83,27 +71,42 @@ export default class ViewPublications extends Component {
                   <th class = "center aligned">Start Date</th>
                   <th class = "center aligned">End Date</th>
                   <th class = "center aligned">Approved Credit Units</th>
-                  <th class = "center aligned">Total Workload Units</th>
                   <th class = "center aligned">Edit/Delete</th>
                 </tr>
               </thead>
             <tbody>
               {this.state.data.map((item) =>{
+                var array = [];
+                Api.getCoworkers({
+                  id: item.publication_id
+                })
+                  .then(result => {
+                    result.data.data.map((item) =>{
+                      console.log(item.emp_id);
+                      array.push(item);
+                    });
+                  })
+                  .catch(err => alert('Error loading coworkers!!'));
+                  item.Coworkers = array;
+                  console.log(item.publication_id);
+                  console.log('array');
+                  console.log(item.Coworkers);
                 return(
                     <ViewPublicationsRow {...this.props}
-                          completeTitle= {item.completeTitle}
-                          researchSubtype ={item.researchSubtype}
-                          Role= {item.Role}
+                          id={item.publication_id}
+                          completeTitle= {item.title}
+                          researchSubtype ={item.category}
+                          Role= {item.role}
+                          key= {item.id}
                           Coworkers={item.Coworkers}
-                          Funding={item.Funding}
-                          StartDate={item.StartDate}
-                          EndDate= {item.EndDate}
-                          ApprovedCreditUnits= {item.ApprovedCreditUnits}
-                          TotalWorkLoadUnits= {item.TotalWorkLoadUnits}
+                          Funding={item.funding}
+                          StartDate={item.start_date}
+                          EndDate= {item.end_date}
+                          ApprovedCreditUnits= {item.credit_units}
                           editURL = "../publications/edit"
                           label = "Publication"
                           subLabel = "publication"/>
-                  )
+                  );
                 })
               }
             </tbody>

@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
+import ProfessorialChairViewRow from './ProfessorialChairViewRow';
+import GenerateFSR from './../GenerateFSR';
+import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
 
 const dummySample = {
   profchair: 'CMSC 128',
@@ -15,11 +16,13 @@ const dummySample = {
   enddate: '03/27/18'
 };
 
-export default class AddProfessorialChair extends Component {
+export default class EditProfessorialChair extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      nominee: '',
+      nominated: '',
       profchair: dummySample.profchair,
       grant: dummySample.grant,
       granttitle: dummySample.granttitle,
@@ -27,6 +30,8 @@ export default class AddProfessorialChair extends Component {
       enddate: dummySample.enddate
     };
 
+    this.handleChangeNominee = this.handleChangeNominee.bind(this);
+    this.handleChangeNominated = this.handleChangeNominated.bind(this);
     this.handleChangeProfChair = this.handleChangeProfChair.bind(this);
     this.handleChangeGrant = this.handleChangeGrant.bind(this);
     this.handleChangeGrantTitle = this.handleChangeGrantTitle.bind(this);
@@ -34,6 +39,15 @@ export default class AddProfessorialChair extends Component {
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
+
+  handleChangeNominee(e) {
+    this.setState({ nominee: e.target.value });
+  }
+
+  handleChangeNominated(e) {
+    this.setState({ nominated: e.target.value });
+  }
+
 
   handleChangeProfChair(e) {
     this.setState({ profchair: e.target.value });
@@ -84,14 +98,74 @@ export default class AddProfessorialChair extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
+          <p>
+            <div class="ui form">
+              <div class="inline fields">
+                <label>Are you a receipient or a nominee?</label>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="nominee"
+                      value="Yes"
+                      onClick={this.handleChangeNominee}
+                    />
+                    <label>Yes</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="nominee"
+                      value="No"
+                      onClick={this.handleChangeNominee}
+                    />
+                    <label>No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p>
+
+          {this.state.nominee === 'Yes' ?
+          <div>
+          <p>
+            <div class="ui form">
+              <div class="inline fields">
+                <label>College has already nominated without appointment?</label>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="nominated"
+                      value="Yes"
+                      onClick={this.handleChangeNominated}
+                    />
+                    <label>Yes</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      type="radio"
+                      name="nominated"
+                      value="No"
+                      onClick={this.handleChangeNominated}
+                    />
+                    <label>No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p>
           <p>
             <a class="ui small header">Professorial Chair </a>
             <div class="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeProfChair}
+                placeholder={this.state.profchair}
               />
             </div>
           </p>
@@ -101,6 +175,7 @@ export default class AddProfessorialChair extends Component {
               <input
                 type="text"
                 onChange={this.handleChangeGrant}
+                placeholder={this.state.grant}
               />
             </div>
           </p>
@@ -110,6 +185,7 @@ export default class AddProfessorialChair extends Component {
               <input
                 type="text"
                 onChange={this.handleChangeGrantTitle}
+                placeholder={this.state.granttitle}
               />
             </div>
           </p>
@@ -131,11 +207,99 @@ export default class AddProfessorialChair extends Component {
               />
             </div>
           </p>
+          <Divider hidden="true" />
+          </div>
+          :
+          <div>
+          <p>
+            <div class="ui form">
+              <div class="inline fields">
+                <label>College has already nominated without appointment?</label>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      disabled="disabled"
+                      type="radio"
+                      name="nominated"
+                      value="Yes"
+                      onClick={this.handleChangeNominated}
+                    />
+                    <label>Yes</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input
+                      disabled="disabled"
+                      type="radio"
+                      name="nominated"
+                      value="No"
+                      onClick={this.handleChangeNominated}
+                    />
+                    <label>No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Professorial Chair </a>
+            <div class="ui input fluid mini focus">
+              <input disabled
+                type="text"
+                onChange={this.handleChangeProfChair}
+                placeholder={this.state.profchair}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Grant </a>
+            <div class="ui input fluid mini focus">
+              <input disabled
+                type="text"
+                onChange={this.handleChangeGrant}
+                placeholder={this.state.grant}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Grant Title </a>
+            <div class="ui input fluid mini focus">
+              <input disabled
+                type="text"
+                onChange={this.handleChangeGrantTitle}
+                placeholder={this.state.granttitle}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Start Date </a>
+            <div class="ui input fluid mini focus">
+              <input disabled
+                type="date"
+                onChange={this.handleChangeStartdate}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">End Date </a>
+            <div class="ui input fluid mini focus">
+              <input disabled
+                type="date"
+                onChange={this.handleChangeEndDate}
+              />
+            </div>
+          </p>
+          <Divider hidden="true" />
+          </div>
+          }
+
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachment</button>
             <button
               class="ui center aligned blue button"
               onClick={this.startAdd}>
-              Edit Professorial Chair
+              Add Professorial Chair
             </button>
           </div>
         </div>
@@ -145,4 +309,4 @@ export default class AddProfessorialChair extends Component {
   }
 }
 //=========================
-ReactDOM.render(<AddProfessorialChair />, document.getElementById('root'));
+ReactDOM.render(<EditProfessorialChair />, document.getElementById('root'));

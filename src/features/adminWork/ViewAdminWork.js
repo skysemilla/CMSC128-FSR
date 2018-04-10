@@ -12,8 +12,7 @@ import NavBar from './../ui/NavBar'
 const dummySample = {
     positionOfWork : 'ABC',
     officeUnit : '123',
-    approvedCreditUnits : '3',
-    totalAdminLoadCredits : '3'
+    approvedCreditUnits : '3'
 };
 
 export default class ViewAdminWork extends Component {
@@ -51,7 +50,7 @@ export default class ViewAdminWork extends Component {
         <div class="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
             <h1 class="ui blue header">
-              VIEW ADMINISTRATIVE WORK
+              ADMINISTRATIVE WORK
             </h1>
           </div>
           <Divider hidden="true" />
@@ -65,18 +64,17 @@ export default class ViewAdminWork extends Component {
                 <th class="center aligned">Position Of Work</th>
                 <th class="center aligned">Office Unit</th>
                 <th class="center aligned">Approved Credit Units</th>
-                <th class="center aligned">Total Admin Load Credits</th>
+                <th class="center aligned"> Attachments </th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map(item => {
                 return (
-                  <ViewAdminWorkRow {...this.props}
+                  <ViewAdminWorkRow {...this.props} 
                       positionOfWork={item.positionOfWork}
                       officeUnit={item.officeUnit}
                       approvedCreditUnits={item.approvedCreditUnits}
-                      totalAdminLoadCredits={item.totalAdminLoadCredits}
                       editURL = "../adminwork/edit"
                       label = "Administrative Work"
                       subLabel = "administrative work"
@@ -92,5 +90,3 @@ export default class ViewAdminWork extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewAdminWork/>, document.getElementById('root'));

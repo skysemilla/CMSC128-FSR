@@ -19,30 +19,80 @@ export default class EditPublication extends Component {
     super(props);
 
     this.state = {
-      researchType : 'Research',
-      researchSubtype : 'Research Proposal',
-      completeTitle: 'Sample',
-      Role: 'ABC',
-      Coworkers: 'ABC',
-      Funding: 'N/A',
-      StartDate: '03/03/03',
-      EndDate: '04/04/04',
-      ApprovedCreditUnits: '3',
-      TotalWorkLoadUnits: '3'
+      posCoworkers: [],
+      researchType : '',
+      researchSubtype : '',
+      completeTitle: '',
+      Role: '',
+      Coworkers: [],
+      newCoworkers: [],
+      Funding: '',
+      StartDate: '',
+      EndDate: '',
+      ApprovedCreditUnits: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeCoworkers = this.handleChangeCoworkers.bind(this);
+    this.addCoworker = this.addCoworker.bind(this);  //!!!
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalWorkLoadUnits = this.handleChangeTotalWorkLoadUnits.bind(this);
 
-    this.startAdd = this.startAdd.bind(this);
+    this.startEdit = this.startEdit.bind(this);
+  }
+
+  componentDidMount(){
+    console.log(this.props.id);
+    if(typeof this.props.history!=='undefined'){
+      console.log(this.props.history.location.state.id);
+      //Kianaaaa yung piniprint dito yung pub_id HAHAHA
+      console.log(this.props.history.location.state.id);
+      Api.viewOnePublication({
+        id: this.props.history.location.state.id
+      })
+        .then(result => {
+          this.setState({ 
+            researchType : result.data.data[0].category,
+            completeTitle: result.data.data[0].title,
+            Role: result.data.data[0].role,
+            Funding: result.data.data[0].funding,
+            StartDate: result.data.data[0].start_date,
+            EndDate: result.data.data[0].end_date,
+            ApprovedCreditUnits: result.data.data[0].credit_units,
+            TotalWorkLoadUnits: ''
+          });
+
+          Api.getCoworkers({
+            id: this.props.history.location.state.id
+          })
+            .then(result => {
+              console.log(result.data.data);
+              result.data.data.map((item) =>{
+                console.log(item.emp_id);
+                this.state.Coworkers.push(item.emp_id);
+              });
+              console.log(this.state.Coworkers);
+            })
+            .catch(err => alert('Error loading coworkers!!'));
+
+          // get coworkers for this publication HERE
+
+          console.log(result.data.data[0]);
+        })
+        .catch(err => alert('Error loading pub!'));
+    }
+    //   e.preventDefault();
+   Api.viewEmployees({
+      })
+        .then(result => {
+          this.setState({ posCoworkers: result.data.data});
+          console.log(result.data.data);
+        })
+        .catch(err => alert('Error loading Employees!!'));
   }
 
   handleChangeType(e) {
@@ -61,8 +111,22 @@ export default class EditPublication extends Component {
     this.setState({ Role: e.target.value });
   }
 
-  handleChangeCoworkers(e) {
-    this.setState({ Coworkers: e.target.value });
+  addCoworker(e){  //!!!
+    if(this.state.newCoworkers.includes(e.target.value)){
+      for(var index = 0; index < this.state.newCoworkers.length; index++){
+        if(this.state.newCoworkers[index] === e.target.value) 
+          this.state.newCoworkers.splice(index,1);
+      }
+      this.setState({newCoworkers : this.state.newCoworkers});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
+      var newArray = this.state.newCoworkers;
+      newArray.push(e.target.value);
+      this.setState({newCoworkers : newArray});
+      console.log("Added " + e.target.value);
+    }
+    console.log(this.state.newCoworkers);
   }
 
   handleChangeFunding(e) {
@@ -81,29 +145,44 @@ export default class EditPublication extends Component {
     this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
-  handleChangeTotalWorkLoadUnits(e) {
-    this.setState({ TotalWorkLoadUnits: e.target.value });
-  }
+  startEdit(e) {
+    e.preventDefault();
+    console.log(this.state);
+    // remove prev coworkers here
+    Api.removeCoworkers({
+      id: this.props.history.location.state.id
+    })
+      .then(result => alert('successfully deleted Coworkers'))
+      .catch(err => alert('Error removing Coworkers'));
 
-  startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
+    Api.editPublication({
+      credit_units: this.state.ApprovedCreditUnits,
+      category: this.state.researchType,
+      funding: this.state.Funding,
+      title: this.state.completeTitle,
+      role: this.state.Role,
+      start_date: this.state.StartDate,
+      end_date: this.state.EndDate,
+      publication_id: this.props.history.location.state.id
+    })
+      .then(result => {
+        this.state.newCoworkers.map((item) =>{
+          console.log(item); 
+          Api.addCoworker({
+            coworker_id: item,
+            publication_id: this.props.history.location.state.id
+          })
+            .then(res =>{
+              console.log('Successfully Added Coworker');
+            })
+            .catch(err => alert('Error adding Coworker'));           
+        });
+        this.props.history.push('./view');  //change to profile later!!
+        console.log(result.data);
+        alert('Publication successfully added!');
+
+      })
+      .catch(e => alert('Error editing Publication!'));
   }
 
   render() {
@@ -153,14 +232,17 @@ export default class EditPublication extends Component {
             type = "text"
             handler = {this.handleChangeRole} />
           <p>
-            <a class="ui small header"> Co-workers / Co-authors </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeCoworkers}
-                placeHolder={this.state.Coworkers}
-              />
-            </div>
+            <a class="ui small header"> Co-workers </a>
+            {this.state.posCoworkers.map((item) =>{
+                return(
+                    <p>
+                    <div class="ui checked checkbox">
+                      <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
+                      <label>{item.f_name} {item.l_name}</label>
+                    </div>
+                    </p>
+                )
+            })}
           </p>
           <GenericDisabledInput
             compareState = {this.state.researchSubtype}
@@ -197,22 +279,11 @@ export default class EditPublication extends Component {
             </div>
           </p>
 
-          <p>
-            <a class="ui small header"> Total Work Load Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalWorkLoadUnits}
-                placeHolder={this.state.TotalWorkLoadUnits}
-              />
-            </div>
-          </p>
-
           <div class="ui center aligned container">
             <button class="ui blue button">Upload Attachments</button>
             <button
               class="ui blue button"
-              onClick={this.startAdd}>
+              onClick={this.startEdit}>
               Save changes
             </button>
           </div>

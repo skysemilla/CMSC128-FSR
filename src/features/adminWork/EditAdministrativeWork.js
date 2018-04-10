@@ -14,14 +14,12 @@ export default class EditAdministrativeWork extends Component {
     this.state = {
       positionOfWork : '',
       officeUnit : '',
-      approvedCreditUnits : '',
-      totalAdminLoadCredits : ''
+      approvedCreditUnits : ''
     };
 
     this.handlePositionOfWork = this.handlePositionOfWork.bind(this);
     this.handleOfficeUnit = this.handleOfficeUnit.bind(this);
     this.handleApprovedCreditUnits = this.handleApprovedCreditUnits.bind(this);
-    this.handleTotalAdminCredits = this.handleTotalAdminCredits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -38,29 +36,7 @@ export default class EditAdministrativeWork extends Component {
     this.setState({approvedCreditUnits : e.target.value});
   }
 
-  handleTotalAdminCredits(e){
-    this.setState({totalAdminLoadCredits : e.target.value});
-  }
-
   startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
   }
 
   render() {
@@ -106,24 +82,15 @@ export default class EditAdministrativeWork extends Component {
               />
             </div>
           </p>
-
-           <p>
-            <a class="ui small header"> Total Administrative Load Credits </a> {/* Can change to dropdown? */}
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleTotalAdminCredits}
-              />
-            </div>
-          </p>
-
           <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachment</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
               Edit Administrative Work
             </button>
           </div>
+
         </div>
         <Divider hidden="true" />
       </div>
@@ -131,5 +98,3 @@ export default class EditAdministrativeWork extends Component {
   }
 }
 
-//=========================
-ReactDOM.render(<EditAdministrativeWork />, document.getElementById('root'));

@@ -10,6 +10,7 @@ export default class GenericDelete extends Component {
     super(props);
     this.state = {};
     this.startEdit = this.startEdit.bind(this);
+    this.startDelete = this.startDelete.bind(this);
   }
 
   state = { open: false }
@@ -19,7 +20,20 @@ export default class GenericDelete extends Component {
 
   startEdit(e) {
     e.preventDefault();
-    this.props.history.push(this.props.editURL);
+    this.props.history.push(this.props.editURL, {id: this.props.id});
+  }
+
+  startDelete(e){
+    // e.preventDefault();
+    Api.removePublication({
+      id: this.props.id    //Eto naman yung sa pagkuha ng pub_id sa delete :)
+    })
+      .then(result => {
+        window.location.reload();
+        alert(this.props.label+' successfully deleted!');
+      })
+      .catch(e => alert('Error deleting new'+this.props.label+'!'));
+    this.close();
   }
 
   render() {
@@ -45,7 +59,7 @@ export default class GenericDelete extends Component {
             <Button negative onClick={this.close}>
               No
             </Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+            <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.startDelete}/>
           </Modal.Actions>
         </Modal>
       </div>

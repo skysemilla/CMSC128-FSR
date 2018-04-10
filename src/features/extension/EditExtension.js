@@ -13,11 +13,11 @@ const dummySample={
       title: 'SampleTitle',
       noOfHours: '10',
       noOfParticipants: '24',
-      startDate: '03/24/18',
-      endDate: '03/25/18',
+      startDate: '01/01/17',
+      endDate: '01/01/18',
       role: 'SampleRole',
-      approvedCreditUnits: '3',
-      totalExtandCommUnits: '3'
+      fundingAgency: 'ABC Agency',
+      approvedCreditUnits: '3'
 };
 
 const optionsMain = [ {id : 0, text : 'Trainings'},
@@ -40,7 +40,7 @@ export default class EditExtension extends Component {
       endDate: dummySample.endDate,
       role: dummySample.role,
       approvedCreditUnits: dummySample.approvedCreditUnits,
-      totalExtandCommUnits: dummySample.totalExtandCommUnits
+      fundingAgency: dummySample.fundingAgency,
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -50,8 +50,8 @@ export default class EditExtension extends Component {
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
+    this.handleChangeFundingAgency = this.handleChangeFundingAgency.bind(this);
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalExtandCommUnits = this.handleChangeTotalExtandCommUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -85,12 +85,12 @@ export default class EditExtension extends Component {
     this.setState({ role: e.target.value });
   }
 
-  handleChangeApprovedCreditUnits(e) {
-    this.setState({ approvedCreditUnits: e.target.value });
+  handleChangeFundingAgency(e) {
+    this.setState({ fundingAgency: e.target.value });
   }
 
-  handleChangeTotalExtandCommUnits(e) {
-    this.setState({ totalExtandCommUnits: e.target.value });
+  handleChangeApprovedCreditUnits(e) {
+    this.setState({ approvedCreditUnits: e.target.value });
   }
 
   startAdd(e) {
@@ -100,8 +100,8 @@ export default class EditExtension extends Component {
     //   title: this.state.title,
     //   noOfHours: this.state.noOfHours,
     //   noOfParticipants: this.state.noOfParticipants,
-    //   startDate: this.state.startDate,
-    //   endDate: this.state.endDate,
+    //   duration: this.state.duration,
+    //   fundingAgency: this.state.fundingAgency,
     //   role: this.state.role,
     //   approvedCreditUnits: this.state.approvedCreditUnits,
     //   totalExtandCommUnits: this.state.totalExtandCommUnits
@@ -169,23 +169,28 @@ export default class EditExtension extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Start Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="date"
-                onChange={this.handleChangeStartDate}
-                placeholder={this.state.startDate}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> End Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="date"
-                onChange={this.handleChangeEndDate}
-                placeholder={this.state.endDate}
-              />
+          <a class="ui small header"> Duration </a>
+            <div class="equal width fields">
+              <div class="field">
+                <a class="ui small header"> Start Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeStartDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
+              <div class="field">
+                <a class="ui small header"> End Date </a>
+                  <div class="ui input fluid mini focus">
+                    <input
+                      type="date"
+                      onChange={this.handleChangeEndDate}
+                      style={{width: "100px"}}
+                    />
+                  </div>
+              </div>
             </div>
           </p>
           <p>
@@ -199,22 +204,22 @@ export default class EditExtension extends Component {
             </div>
           </p>
           <p>
+            <a class="ui small header"> End Date </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                onChange={this.handleChangeFundingAgency}
+                placeholder={this.state.fundingAgency}
+              />
+            </div>
+          </p>
+          <p>
             <a class="ui small header"> Approved Credit Units </a>
             <div class="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeApprovedCreditUnits}
                 placeholder={this.state.approvedCreditUnits}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Total Extension and Community Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalExtandCommUnits}
-                placeholder={this.state.totalExtandCommUnits}
               />
             </div>
           </p>
@@ -231,5 +236,3 @@ export default class EditExtension extends Component {
     );
   }
 }
-
-ReactDOM.render(<EditExtension />, document.getElementById('root'));
