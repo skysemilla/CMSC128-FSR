@@ -22,10 +22,10 @@ export default class GenericDelete extends Component {
 
   startEdit(e) {
     e.preventDefault();
-    // this.props.history.push({
-    //     pathname: this.props.editURL,
-    //     state: {id: this.props.id}
-    //   });
+    this.props.history.push({
+        pathname: this.props.editURL,
+        state: {id: this.props.id}
+      });
     this.props.history.push(this.props.editURL, {id: this.props.id});
   }
 
