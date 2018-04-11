@@ -295,3 +295,5 @@ export default class EditPublication extends Component {
   }
 }
 
+//=========================
+ReactDOM.render(<EditPublication />, document.getElementById('root'));

@@ -132,3 +132,5 @@ export default class Profile extends Component {
     );
   }
 }
+//=========================
+ReactDOM.render(<Profile />, document.getElementById('root'));

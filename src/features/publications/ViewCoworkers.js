@@ -35,3 +35,6 @@ export default class GenericDelete extends Component {
     }
   }
 }
+
+//=========================
+ReactDOM.render(<GenericDelete />, document.getElementById('root'));

@@ -320,3 +320,6 @@ export default class AddPublication extends Component {
     );
   }
 }
+
+//=========================
+ReactDOM.render(<AddPublication />, document.getElementById('root'));

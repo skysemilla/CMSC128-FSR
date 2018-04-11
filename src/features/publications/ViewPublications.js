@@ -121,3 +121,5 @@ export default class ViewPublications extends Component {
     );
   }
 }
+//=========================
+ReactDOM.render(<ViewPublications />, document.getElementById('root'));

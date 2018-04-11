@@ -88,3 +88,5 @@ export default class ViewProfession extends Component {
     );
   }
 }
+//=========================
+ReactDOM.render(<ViewProfession />, document.getElementById('root'));
