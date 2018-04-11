@@ -108,7 +108,10 @@ export default class EditStudyLoad extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="studyload"/>
+        </div>
+        <div className="bodydiv">
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
@@ -253,9 +256,8 @@ export default class EditStudyLoad extends Component {
           </div>
         </div>
         <Divider hidden="true" />
+        </div>
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<EditStudyLoad />, document.getElementById('root'));

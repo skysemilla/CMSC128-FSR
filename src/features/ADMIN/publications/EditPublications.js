@@ -110,7 +110,10 @@ export default class EditPublication extends Component {
 
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="publications"/>
+        </div>
+        <div className="bodydiv">
         <div
           class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
@@ -218,6 +221,7 @@ export default class EditPublication extends Component {
           </div>
         </div>
         <Divider hidden="true" />
+        </div>
       </div>
     );
   }

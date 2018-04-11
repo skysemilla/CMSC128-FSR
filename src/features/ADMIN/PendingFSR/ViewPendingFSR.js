@@ -36,8 +36,10 @@ export default class ViewPendingFSR extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="pending" />
-
+        </div>
+        <div className="bodydiv">
         <div
           class="ui compact piled very padded container segment"
           color="teal">
@@ -91,9 +93,8 @@ export default class ViewPendingFSR extends Component {
           </table>
           <Divider hidden="true" />
         </div>
+        </div>
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewPendingFSR />, document.getElementById('root'));

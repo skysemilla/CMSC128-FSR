@@ -77,7 +77,10 @@ export default class ViewTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="teachingload"/>
+        </div>
+        <div className="bodydiv">
         <div class="ui compact piled very padded text left aligned container segment mainDiv" color="teal">
           <div>
             <h1 class="ui blue header">
@@ -133,6 +136,7 @@ export default class ViewTeachingLoad extends Component {
           </table>
           <button class="ui blue right floated button" onClick={this.startAdd}>Add Teaching Load</button>
           <Divider hidden="true" />
+        </div>
         </div>
       </div>
     );

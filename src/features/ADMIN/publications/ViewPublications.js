@@ -59,7 +59,10 @@ export default class ViewPublications extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="publications"/>
+        </div>
+        <div className="bodydiv">
         <div
           class="ui compact piled very padded text left aligned container segment mainDiv"
           color="teal">
@@ -113,10 +116,9 @@ export default class ViewPublications extends Component {
             </button>
           </div>
         </div>
+        </div>
         <Divider hidden="true" />
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewPublications />, document.getElementById('root'));

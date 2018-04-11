@@ -27,5 +27,3 @@ export default class RedirectToTeachingLoad extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<RedirectToTeachingLoad />, document.getElementById('root'));

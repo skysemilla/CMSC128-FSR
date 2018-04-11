@@ -105,7 +105,10 @@ export default class AddExtension extends Component {
 
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="extension"/>
+        </div>
+        <div className="bodydiv">
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
@@ -205,6 +208,7 @@ export default class AddExtension extends Component {
               Add Extension
             </button>
           </div>
+        </div>
         </div>
         <Divider hidden="true" />
       </div>
