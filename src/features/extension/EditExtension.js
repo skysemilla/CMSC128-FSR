@@ -32,7 +32,7 @@ export default class EditExtension extends Component {
     super(props);
 
     this.state = {
-      emp_id: ''
+      emp_id: '',
       type: dummySample.type,
       title: dummySample.title,
       noOfHours: dummySample.noOfHours,

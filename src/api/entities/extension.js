@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 export const addExtension = extensionInfo => {
-	return axios.post('/api/extension/add', positionInfo);
+	return axios.post('/api/extension/add', extensionInfo);
 };
 
 export const deleteExtension = extensionInfo => {
-	return axios.post('/api/extension/delete', positionInfo)
+	return axios.post('/api/extension/delete', extensionInfo)
 };
 
 export const editExtension = extensionInfo => {
-	return axios.post('/api/extension/edit', positionInfo)
+	return axios.post('/api/extension/edit', extensionInfo)
 };
 
 export const viewAllExtensions = () => {
