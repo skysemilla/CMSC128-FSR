@@ -4,8 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
+import GenerateFSR from './../GenerateFSR';
+import SendtoAdmin from './../SendtoAdmin';
 
 export default class AddStudyLoad extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class AddStudyLoad extends Component {
       time: '',
       school: '',
       slcred: '',
-      attachmentLink : ''
+      attachmentLink: ''
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
@@ -57,7 +57,7 @@ export default class AddStudyLoad extends Component {
     this.setState({ slcred: e.target.value });
   }
 
-  uploadAttachment(e){
+  uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
   }
 
@@ -70,13 +70,13 @@ export default class AddStudyLoad extends Component {
   startAdd(e) {
     e.preventDefault();
     Api.addStudyLoad({
-      credits : this.state.slcred,
+      credits: this.state.slcred,
       courseno: this.state.courseno,
       no_of_days: this.state.day,
       start_time: this.state.time,
       school: this.state.school
     })
-      .then(result =>{
+      .then(result => {
         this.props.history.push('./view'); //change to profile later!!
         alert('Studylooad successfully added!');
       })
@@ -86,77 +86,63 @@ export default class AddStudyLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="studyload"/>
-        <div
-          class="ui piled very padded text left aligned container segment"
-          color="teal">
-          <div>
-            <h2 class="ui blue header">
-            ADD STUDY LOAD
-            </h2>
-          </div>
-          <Divider hidden="true" />
-          <p>
-            <a class="ui small header">Course Number </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeCourseno}
-              />
+        <div>
+          <NavBar {...this.props} Label="FSR" subLabel="studyload" />
+        </div>
+        <div className="bodyDiv">
+          <div
+            class="ui piled very padded text left aligned container segment"
+            color="teal">
+            <div>
+              <h2 class="ui blue header">ADD STUDY LOAD</h2>
             </div>
-          </p>
-          <p>
-            <a class="ui small header">Course Credit </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeCcred}
-              />
+            <Divider hidden="true" />
+            <p>
+              <a class="ui small header">Course Number </a>
+              <div class="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeCourseno} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Course Credit </a>
+              <div class="ui input fluid mini focus">
+                <input type="number" onChange={this.handleChangeCcred} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Days </a>
+              <div class="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeDay} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Time </a>
+              <div class="ui input fluid mini focus">
+                <input type="time" onChange={this.handleChangeTime} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">School </a>
+              <div class="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeSchool} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Study Load Credits </a>
+              <div class="ui input fluid mini focus">
+                <input type="number" onChange={this.handleChangeSlcred} />
+              </div>
+            </p>
+            <div class="ui center aligned container">
+              <button class="ui blue button" onClick={this.uploadAttachment}>
+                Upload Attachments
+              </button>
+              <button
+                class="ui center aligned blue button"
+                onClick={this.startAdd}>
+                Add Study Load
+              </button>
             </div>
-          </p>
-          <p>
-            <a class="ui small header">Days </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeDay}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Time </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="time"
-                onChange={this.handleChangeTime}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">School </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeSchool}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Study Load Credits </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeSlcred}
-              />
-            </div>
-          </p>
-          <div class="ui center aligned container">
-            <button class="ui blue button" onClick = {this.uploadAttachment}>Upload Attachments</button>
-            <button
-              class="ui center aligned blue button"
-              onClick={this.startAdd}>
-              Add Study Load
-            </button>
           </div>
         </div>
         <Divider hidden="true" />
