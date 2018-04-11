@@ -12,9 +12,9 @@ export default class EditInfo extends Component {
     super(props);
 
     this.state = {
-      degree: 'MSCS',
-      uni: 'UPLB',
-      studyleave: 'Yes',
+      degree: 'NaN',
+      uni: 'NaN',
+      studyleave: 'No',
       fellowship: 'No'
     };
 
@@ -22,6 +22,7 @@ export default class EditInfo extends Component {
     this.handleChangeUni = this.handleChangeUni.bind(this);
     this.handleChangeStudyLeave = this.handleChangeStudyLeave.bind(this);
     this.handleChangeFellowship = this.handleChangeFellowship.bind(this);
+    this.startEdit = this.startEdit.bind(this);
   }
 
   handleChangeDegree(e) {
@@ -45,20 +46,30 @@ export default class EditInfo extends Component {
     Api.logout();
     this.props.history.push('../..');
   }
-
+  componentDidMount(e){
+    Api.viewStudyCredentials().then((response)=>{
+      this.setState({degree:response.data.data.degree,uni:response.data.data.university});
+      if(response.data.data.full_studyleave==true){
+        this.setState({studyleave:'Yes'})
+      }
+      if(response.data.data.faculty_fellowship==true){
+        this.setState({fellowship:'Yes'})
+      }
+    })
+  }
   startEdit(e) {
-    //   e.preventDefault();
-    //   Api.addstudyload({
-    // degree: this.state.degree,
-    // uni: this.state.uni,
-    // studyleave: this.state.studyleave,
-    // fellowship: this.state.fellowship
-    //   })
-    //     .then(result => {
-    //       this.props.history.push('./studyload/view');  //change to profile later!!
-    //       alert('Study load successfully added!');
-    //     })
-    //     .catch(e => alert('Error adding new Study Load!'));
+      e.preventDefault();
+      Api.editStudyCredentials({
+        degree:this.state.degree,
+        uni:this.state.uni,
+        studyleave: this.state.studyleave,
+        fellowship:this.state.fellowship
+      })
+        .then(result => {
+          this.props.history.push('./view');  //change to profile later!!
+          alert('Study credentials successfully edited!');
+        })
+        .catch(e => alert('Error editing Study Credentials!'));
   }
 
   render() {

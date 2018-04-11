@@ -47,6 +47,18 @@ export default class ViewStudyLoad extends Component {
         )}
         console.log(response.data.data)
     })
+    Api.viewStudyCredentials().then((response)=>{
+      if(response.data.data!== undefined){
+        this.setState({degree:response.data.data.degree,uni:response.data.data.university}
+      )}
+      if(response.data.data.full_studyleave===1){
+        this.setState({studyleave:'Yes'})
+      }
+      if(response.data.data.faculty_fellowship===1){
+        this.setState({fellowship:'Yes'})
+      }
+      console.log(response.data.data)
+    })
   }
   render() {
 

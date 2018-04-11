@@ -37,7 +37,6 @@ export default class ViewExtension extends Component {
   }
 
   componentDidMount(e){
-    e.preventDefault();
     Api.viewExtension({
     })
       .then(result => {
