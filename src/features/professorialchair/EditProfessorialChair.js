@@ -308,5 +308,3 @@ export default class EditProfessorialChair extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditProfessorialChair />, document.getElementById('root'));

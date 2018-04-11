@@ -304,5 +304,3 @@ export default class EditProfile extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditProfile />, document.getElementById('root'));

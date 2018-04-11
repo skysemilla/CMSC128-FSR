@@ -127,5 +127,3 @@ export default class AddProfession extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<AddProfession/>, document.getElementById('root'));

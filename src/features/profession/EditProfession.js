@@ -135,5 +135,3 @@ export default class EditProfession extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<EditProfession/>, document.getElementById('root'));
