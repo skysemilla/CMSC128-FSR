@@ -4,6 +4,7 @@ import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import EditNav from './EditNav';
+import SideNav from './SideNav';
 
 export default class NavBarAdmin extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ export default class NavBarAdmin extends Component {
                 </a>
               </div>
             </div>
-          :
+          :this.state.activeMenu==='faculty'?
             <div class="ui blue inverted huge menu div1">
               <a class="item" id="all" onClick={this.handleChange}>
                 All FSR
@@ -129,6 +130,13 @@ export default class NavBarAdmin extends Component {
                 </a>
               </div>
             </div>
+          :this.state.activeMenu==='edit'?
+          <div>
+            <EditNav {...this.props} activeSubLabel={this.state.subMenu}/>
+          </div>
+          :
+          <div></div>
+
         }
       </div>
     )

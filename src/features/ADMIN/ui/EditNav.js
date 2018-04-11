@@ -224,9 +224,6 @@ export default class EditNav extends Component {
           <a class="item" id="faculty" onClick={this.handleChange}>
             All Faculty
           </a>
-          <a class="active item" id="edit" onClick={this.handleChange}>
-            Edit
-          </a>
           <div class="right menu">
             <a class="ui item" onClick={this.handleLogout}>
               Logout
