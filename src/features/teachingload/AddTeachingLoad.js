@@ -122,7 +122,10 @@ export default class AddTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
+      <div>
         <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
+        </div>
+        <div className="bodyDiv">
         <div
           class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
@@ -236,6 +239,7 @@ export default class AddTeachingLoad extends Component {
               Add Teaching Load
             </button>
           </div>
+        </div>
         </div>
         <Divider hidden="true" />
       </div>

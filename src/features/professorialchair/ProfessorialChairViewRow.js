@@ -15,11 +15,11 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.granttitle} </td>
         <td class="center aligned"> {this.props.startdate} </td>
         <td class="center aligned"> {this.props.enddate} </td>
-        <td class="center aligned"> 
-          <ViewAttachments {...this.props}/>
+        <td class="center aligned">
+          <ViewAttachments {...this.props} />
         </td>
         <td class="center aligned">
-        <GenericDelete {...this.props}/>
+          <GenericDelete {...this.props} />
         </td>
       </tr>
     );
