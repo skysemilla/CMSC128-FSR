@@ -43,9 +43,21 @@ export default class ViewStudyLoad extends Component {
   componentDidMount(){
     Api.viewStudyLoad().then((response)=>{
       if(response.data.data[0]!== undefined){
-        this.setState({uni:response.data.data[0].university, degree:response.data.data[0].degree,data:response.data.data}
+        this.setState({data:response.data.data}
         )}
         console.log(response.data.data)
+    })
+    Api.viewStudyCredentials().then((response)=>{
+      if(response.data.data!== undefined){
+        this.setState({degree:response.data.data.degree,uni:response.data.data.university}
+      )}
+      if(response.data.data.full_studyleave===1){
+        this.setState({studyleave:'Yes'})
+      }
+      if(response.data.data.faculty_fellowship===1){
+        this.setState({fellowship:'Yes'})
+      }
+      console.log(response.data.data)
     })
   }
   render() {
@@ -102,12 +114,12 @@ export default class ViewStudyLoad extends Component {
               {this.state.data.map((item) =>{
                 return(
                     <ViewStudyLoadRow {...this.props}
-                      id = {item.study_id}
-                      courseno = {item.subject_code}
-                      ccred = {item.units}
-                      day = {item.section_code}
+                      id = {item.studyload_id}
+                      courseno = {item.course_no}
+                      ccred = {item.credits}
+                      day = {item.no_of_days}
                       time = {item.start_time}
-                      school = {item.university}
+                      school = {item.school}
                       slcred = {item.credits}
                       editURL = "../studyload/edit"
                       label = "Study Load"
