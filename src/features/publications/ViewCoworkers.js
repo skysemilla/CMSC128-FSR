@@ -9,6 +9,10 @@ import * as Api from '../../api';
 export default class GenericDelete extends Component {
   constructor(props) {
     super(props);
+
+    if(typeof this.props.Coworkers!=='undefined'){
+      console.log(this.props.Coworkers);
+    }
   }
 
   render() {
@@ -17,8 +21,8 @@ export default class GenericDelete extends Component {
         <div class="ui bulleted list">
         {this.props.Coworkers.map((item) =>{
             return(
-                  <div class="item">
-                        {item.fname} {item.lname}
+                  <div class="item" key={item.emp_id} >
+                        {item.f_name}
                   </div>
             )
         })}

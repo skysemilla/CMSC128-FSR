@@ -8,9 +8,7 @@ import * as Api from '../api';
 export default class GenericDelete extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: ''
-    };
+    this.state = {};
     this.startEdit = this.startEdit.bind(this);
     this.startDelete = this.startDelete.bind(this);
   }
@@ -22,30 +20,20 @@ export default class GenericDelete extends Component {
 
   startEdit(e) {
     e.preventDefault();
-    // this.props.history.push({
-    //     pathname: this.props.editURL,
-    //     state: {id: this.props.id}
-    //   });
     this.props.history.push(this.props.editURL, {id: this.props.id});
   }
 
-  componentDidMount(){
-    if(typeof this.props.history!=='undefined'){
-        this.setState({id: this.props.id});
-        console.log(this.props.id);
-    }
-  }
-
   startDelete(e){
-    console.log(this.props.id);
     // e.preventDefault();
-    // Api.delete({
-    //   id: this.props.id    //Eto naman yung sa pagkuha ng pub_id sa delete :)
-    // })
-    //   .then(result => {
-    //     alert('{this.props.label} successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new {this.props.label}!'));
+    Api.removePublication({
+      id: this.props.id    //Eto naman yung sa pagkuha ng pub_id sa delete :)
+    })
+      .then(result => {
+        window.location.reload();
+        alert(this.props.label+' successfully deleted!');
+      })
+      .catch(e => alert('Error deleting new'+this.props.label+'!'));
+    this.close();
   }
 
   render() {

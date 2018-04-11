@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GenericDropdown from './../GenericDropdown';
+import DeptDropdown from './DeptDropdown'
 import {
   Form,
   Button,
@@ -89,14 +90,14 @@ const optionsMain2 = [
 ];
 
 const optionsMain3 = [
-  { id: 0, text: 'CAFS' },
-  { id: 1, text: 'CAS' },
-  { id: 2, text: 'CDC' },
-  { id: 3, text: 'CEAT' },
-  { id: 4, text: 'CEM' },
-  { id: 5, text: 'CFNR' },
-  { id: 6, text: 'CHE' },
-  { id: 7, text: 'CVM' }
+  { id: 0, text: 'CAFS', Subtype : ["Department A", "Department B", "Department C", "Department D", "Department E"]},
+  { id: 1, text: 'CAS', Subtype : ["Institute of Biological Sciences", "Institute of Chemistry", "Institute of Computer Science", "Institute of Mathematical Sciences and Physics", "Institute of Statistics"]},
+  { id: 2, text: 'CDC', Subtype : ["Department F", "Department G", "Department H", "Department I", "Department J"] },
+  { id: 3, text: 'CEAT', Subtype : ["Department K", "Department L", "Department M", "Department N", "Department O"] },
+  { id: 4, text: 'CEM', Subtype : ["Department P", "Department Q", "Department R", "Department S", "Department T"] },
+  { id: 5, text: 'CFNR', Subtype : ["Department U", "Department V", "Department W", "Department X", "Department Y"] },
+  { id: 6, text: 'CHE', Subtype : ["Department Z", "Department 1", "Department 2", "Department 3", "Department 4"] },
+  { id: 7, text: 'CVM', Subtype : ["Department 5", "Department 6", "Department 7", "Department 8", "Department 9"] }
 ];
 
 export default class Signup extends Component {
@@ -464,8 +465,8 @@ export default class Signup extends Component {
                     />
                     <GenericDropdown
                       labelProper="Number"
-                      value={this.state.emptype}
-                      handler={this.handleChangeEmptype}
+                      value={this.state.emptypeno}
+                      handler={this.handleChangeEmptypeNo}
                       options={optionsMain2}
                     />
                   </div>
@@ -521,16 +522,11 @@ export default class Signup extends Component {
                   />
                 </div>
                 <div class="field">
-                  <label>
-                    <span>Department{formError.text.dept}</span>
-                  </label>
-                  <div class="ui input">
-                    <input
-                      type="text"
-                      placeholder="Department"
-                      onChange={this.handleChangeDept}
-                    />
-                  </div>
+                  <DeptDropdown
+                    value = {this.state.dept}
+                    handler = {this.handleChangeDept}
+                    options = {optionsMain3}
+                    college = {this.state.college} />
                 </div>
               </div>
               <div class="field">

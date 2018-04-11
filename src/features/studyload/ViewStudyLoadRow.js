@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import 'semantic-ui-css/semantic.min.css';
 import {Modal} from 'semantic-ui-react';
-import DeleteModal from '../GenericDelete';
+import DeleteModal from './GenericDelete';
 
 export default class ViewStudyLoadRow extends Component{
 

@@ -13,30 +13,13 @@ const optionsMain = [ {id : 0, text : 'Research', Subtype : ["Research Proposal"
                       {id : 1, text : 'Creative Work', Subtype : ["Oral/Poster Papers","Papers for Conferences"
                       ,"Monographs","Articles in referred journals","Chapters in a book","Books","Others"]}]
 
-const dummy1={
-  fname: 'Hi',
-  lname: 'Hello',
-  emp_id: 1
-  };
-
-const dummy2={
-  fname: 'Hi2',
-  lname: 'Hello2',
-  emp_id: 2
-  };
-
-const dummy3={
-  fname: 'Hi3',
-  lname: 'Hello3',
-  emp_id: 3
-  };
 
 export default class AddPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posCoworkers: [dummy1, dummy2, dummy3], //!!!
+      posCoworkers: [], //!!!
       researchType : '',
       researchSubtype : '',
       completeTitle: '',
@@ -45,10 +28,10 @@ export default class AddPublication extends Component {
       Funding: 'N/A',
       StartDate: '',
       EndDate: '',
-      ApprovedCreditUnits: '',
-      attachmentLink: ''
+      ApprovedCreditUnits: ''
     };
 
+    this.handleChangePosCoworker = this.handleChangePosCoworker.bind(this); // NEW
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -60,7 +43,10 @@ export default class AddPublication extends Component {
     this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
-    this.uploadAttachment = this.uploadAttachment.bind(this);
+  }
+
+  handleChangePosCoworker(e){ // NEW
+    this.setState({ posCoworkers: e.target.value });
   }
 
   handleChangeType(e) {
@@ -114,34 +100,60 @@ export default class AddPublication extends Component {
     this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
-  startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
-  }
+  componentDidMount = () => {   // NEW
+    //   e.preventDefault();
+   Api.viewEmployees({
+      })
+        .then(result => {
+          this.setState({ posCoworkers: result.data.data});
+          console.log(result.data.data);
+        })
+        .catch(err => alert('Error loading Employees!!'));
+    Api.getSession({
 
-  uploadAttachment(e){
-    //this.setState({ attachmentLink: ???});
+    })
+      .then(result => {
+        // console.log(result.data.data.emp_id);
+        this.setState({ emp_id: result.data.data.emp_id});
+      })
+      .catch(err => alert('Error getSession'));
+  };
+
+  startAdd(e) {
+    e.preventDefault();
+    Api.addPublication({
+      credit_units: this.state.ApprovedCreditUnits,
+      category: this.state.researchType,
+      funding: this.state.Funding,
+      title: this.state.completeTitle,
+      role: this.state.Role,
+      start_date: this.state.StartDate,
+      end_date: this.state.EndDate,
+      emp_id: '0000000001'
+    })
+      .then(result => {
+        this.state.Coworkers.map((item) =>{
+          console.log(item); 
+          Api.addCoworker({
+            coworker_id: item,
+            publication_id: result.data.data
+          })
+            .then(res =>{
+              console.log('Successfully Added Coworker');
+            })
+            .catch(err => alert('Error adding Coworker'));           
+        });
+        this.props.history.push('./view');  //change to profile later!!
+        console.log(result.data);
+        alert('Publication successfully added!');
+
+      })
+      .catch(e => alert('Error adding new Publication!'));
   }
 
   render() {
     return (
-      <div className="App-header" class="wholediv">
+      <div className="App-header">
         <NavBar {...this.props} Label="FSR" subLabel="publications"/>
         <div
           class="ui piled very padded text left aligned container segment mainDiv"
@@ -206,7 +218,7 @@ export default class AddPublication extends Component {
                     <p>
                     <div class="ui checked checkbox">
                       <input type="checkbox" value={item.emp_id} onClick={this.addCoworker}/>
-                      <label>{item.fname} {item.lname}</label>
+                      <label>{item.f_name} {item.l_name}</label>
                     </div>
                     </p>
                 )
@@ -293,9 +305,9 @@ export default class AddPublication extends Component {
               />
             </div>
           </p>
-
+          
           <div class="ui center aligned container">
-            <button class="ui blue button" onClick={this.uploadAttachment}>Upload Attachments</button>
+            <button class="ui blue button">Upload Attachments</button>
             <button
               class="ui blue button"
               onClick={this.startAdd}>
