@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import EditNav from './EditNav';
 import SideNav from './SideNav';
+import GenericLogout from './GenericLogout';
 
 export default class NavBarAdmin extends Component {
   constructor(props) {
@@ -65,9 +66,7 @@ export default class NavBarAdmin extends Component {
                 All Faculty
               </a>
               <div class="right menu">
-                <a class="ui item" onClick={this.handleLogout}>
-                  Logout
-                </a>
+                <GenericLogout {...this.props}/>
               </div>
             </div>
           :this.state.activeMenu==='pending'?
@@ -85,9 +84,7 @@ export default class NavBarAdmin extends Component {
                 All Faculty
               </a>
               <div class="right menu">
-                <a class="ui item" onClick={this.handleLogout}>
-                  Logout
-                </a>
+                <GenericLogout {...this.props}/>
               </div>
             </div>
           :this.state.activeMenu==='approved'?
@@ -105,9 +102,7 @@ export default class NavBarAdmin extends Component {
                 All Faculty
               </a>
               <div class="right menu">
-                <a class="ui item" onClick={this.handleLogout}>
-                  Logout
-                </a>
+                <GenericLogout {...this.props}/>
               </div>
             </div>
           :this.state.activeMenu==='faculty'?
@@ -125,9 +120,7 @@ export default class NavBarAdmin extends Component {
                 All Faculty
               </a>
               <div class="right menu">
-                <a class="ui item" onClick={this.handleLogout}>
-                  Logout
-                </a>
+                <GenericLogout {...this.props}/>
               </div>
             </div>
           :this.state.activeMenu==='edit'?

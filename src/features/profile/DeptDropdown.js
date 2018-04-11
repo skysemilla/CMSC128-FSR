@@ -10,6 +10,7 @@ export default class PublicationSubTypeDropdown extends Component{
 				<style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
 				<p>
 					<a class="ui small header"> Department
+					<p>
 						<select 
 							class = "dropdown"
 							value = {this.props.value} 
@@ -33,6 +34,7 @@ export default class PublicationSubTypeDropdown extends Component{
 								}
 							)}
 						</select>
+					</p>
 					</a>
 				</p>
 			</div>

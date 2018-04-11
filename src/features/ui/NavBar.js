@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Button, Modal } from 'semantic-ui-react'
 import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
+import GenericLogout from './GenericLogout';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -71,9 +73,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
         </div>
@@ -89,9 +89,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -133,9 +131,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -177,9 +173,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -221,9 +215,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -265,9 +257,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -309,9 +299,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -353,9 +341,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -397,9 +383,7 @@ export default class NavBar extends Component {
                 FSR
               </a>
               <div class="right menu">
-              <a class="ui item" onClick={this.handleLogout}>
-                Logout
-              </a>
+              <GenericLogout {...this.props}/>
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -428,6 +412,20 @@ export default class NavBar extends Component {
               Consultation Hours
             </a>
           </div>
+          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
+            <Modal.Header>
+              APPROVE FSR
+            </Modal.Header>
+            <Modal.Content>
+              <p>Are you sure you want to approve this FSR?</p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button negative onClick={this.close}>
+                No
+              </Button>
+              <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+            </Modal.Actions>
+          </Modal> 
         </div>
         )
       }
