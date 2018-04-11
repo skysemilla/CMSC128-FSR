@@ -206,7 +206,8 @@ export default class EditProfile extends Component {
             </div>
           </p>
           <p>
-            <div class="flex-container">
+            <div>
+            <div class="flex-container dropDown">
                 <label>
                   <span><b>College</b></span>
                 </label>
@@ -223,6 +224,7 @@ export default class EditProfile extends Component {
                   handler = {this.handleChangeDept}
                   options = {optionsMain3}
                   college = {this.state.college} />
+            </div>
           </p>
           <p>
             <div class="flex-container dropDown">
