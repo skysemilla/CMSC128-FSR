@@ -36,7 +36,7 @@ export default class ViewExtension extends Component {
     this.props.history.push('../extension/add');
   }
 
-  componentDidMount(){
+  componentDidMount(e){
     e.preventDefault();
     Api.viewExtension({
     })
@@ -105,5 +105,3 @@ export default class ViewExtension extends Component {
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewExtension />, document.getElementById('root'));

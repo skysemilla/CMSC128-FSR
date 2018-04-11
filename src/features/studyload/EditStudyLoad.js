@@ -12,13 +12,11 @@ export default class EditStudyLoad extends Component {
     super(props);
 
     this.state = {
-      courseno:  '3',
-      ccred : '201', 
-      day : 'TTh', 
-      time : '3', 
-      school : ' ', 
-      slcred : ' 3',
-      attachmentLink : ''
+      courseno:  '',
+      credits: 0,
+      start_time: '',
+      school:'',
+      no_of_days: 0
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
@@ -38,15 +36,15 @@ export default class EditStudyLoad extends Component {
   }
 
   handleChangeCcred(e) {
-    this.setState({ ccred: e.target.value });
+    this.setState({ credits: e.target.value });
   }
 
   handleChangeDay(e) {
-    this.setState({ day: e.target.value });
+    this.setState({ no_of_days: e.target.value });
   }
 
   handleChangeTime(e) {
-    this.setState({ time: e.target.value });
+    this.setState({ start_time: e.target.value });
   }
 
   handleChangeSchool(e) {
@@ -65,6 +63,18 @@ export default class EditStudyLoad extends Component {
     if(typeof this.props.history!=='undefined'){
       console.log(this.props.history.location.state.id);
     }
+    Api.viewByStudyloadId(this.state.id).then(
+      (response)=>{
+        this.setState(
+          {courseno:response.course_no},
+          {credits:response.credits},
+          {start_time:response.start_time},
+          {school:response.school},
+          {no_of_days:response.no_of_days});
+      }
+    ).then(
+      console.log(this.state)
+    )
   }
 
   handleLogout(e) {
@@ -74,20 +84,21 @@ export default class EditStudyLoad extends Component {
   }
 
   startEdit(e) {
-    //   e.preventDefault();
-    //   Api.addstudyload({
-    // courseno: this.state.courseno,
-    // ccred: this.state.ccred,
-    // day: this.state.day,
-    // time: this.state.time,
-    // school: this.state.school,
-    // slcred: this.state.slcred
-    //   })
-    //     .then(result => {
-    //       this.props.history.push('./studyload/view');  //change to profile later!!
-    //       alert('Study load successfully added!');
-    //     })
-    //     .catch(e => alert('Error adding new Study Load!'));
+    console.log(this.props.location.state)
+      e.preventDefault();
+      Api.editStudyLoad({
+        studyload_id: this.props.history.location.state.id,
+        courseno:  this.state.courseno,
+        credits: this.state.credits,
+        start_time: this.state.start_time,
+        school: this.state.school,
+        no_of_days: this.state.no_of_days
+        })
+        .then(result => {
+          this.props.history.push('./view');  //change to profile later!!
+          alert('Study load successfully edited!');
+        })
+        .catch(e => alert('Error editting new Study Load!'));
   }
 
   render() {
@@ -119,8 +130,8 @@ export default class EditStudyLoad extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="number"
-                value={this.state.ccred}
-                placeholder={this.state.ccred}
+                value={this.state.credits}
+                placeholder={this.state.credits}
                 onChange={this.handleChangeCcred}
               />
             </div>
@@ -130,8 +141,8 @@ export default class EditStudyLoad extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                value={this.state.day}
-                placeholder={this.state.day}
+                value={this.state.no_of_days}
+                placeholder={this.state.no_of_days}
                 onChange={this.handleChangeDay}
               />
             </div>
@@ -141,8 +152,8 @@ export default class EditStudyLoad extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="time"
-                value={this.state.time}
-                placeholder={this.state.time}
+                value={this.state.start_time}
+                placeholder={this.state.start_time}
                 onChange={this.handleChangeTime}
               />
             </div>

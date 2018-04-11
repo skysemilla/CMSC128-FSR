@@ -70,13 +70,14 @@ export default class AddStudyLoad extends Component {
   startAdd(e) {
     e.preventDefault();
     Api.addStudyLoad({
-      subject_id : this.state.courseno,
-      emp_id : 11 ,
-      credits : this.state.slcred
-
+      credits : this.state.slcred,
+      courseno: this.state.courseno,
+      no_of_days: this.state.day,
+      start_time: this.state.time,
+      school: this.state.school
     })
       .then(result =>{
-        this.props.history.push('./teachingload/view'); //change to profile later!!
+        this.props.history.push('./view'); //change to profile later!!
         alert('Studylooad successfully added!');
       })
       .catch(e => alert('Error adding new Study Load!'));
