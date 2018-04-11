@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
@@ -26,7 +26,7 @@ export default class ViewExtension extends Component {
     super(props);
 
     this.state = {
-      data: [dummySample] //dummmy data
+      data: [dummySample]
     };
     this.startAdd = this.startAdd.bind(this);
   }
