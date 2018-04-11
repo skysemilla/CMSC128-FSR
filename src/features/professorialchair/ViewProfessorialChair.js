@@ -119,3 +119,5 @@ export default class ViewProfessorialChair extends Component {
     );
   }
 }
+//=========================
+ReactDOM.render(<ViewProfessorialChair />, document.getElementById('root'));
