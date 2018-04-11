@@ -122,18 +122,23 @@ export default class AddPublication extends Component {
   componentDidMount = () => {
     // NEW
     //   e.preventDefault();
-    Api.viewEmployees({})
-      .then(result => {
-        this.setState({ posCoworkers: result.data.data });
-        console.log(result.data.data);
-      })
-      .catch(err => alert('Error loading Employees!!'));
-    Api.getSession({})
-      .then(result => {
-        // console.log(result.data.data.emp_id);
-        this.setState({ emp_id: result.data.data.emp_id });
-      })
-      .catch(err => alert('Error getSession'));
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        Api.viewEmployees({})
+          .then(result => {
+            this.setState({ posCoworkers: result.data.data });
+            console.log(result.data.data);
+          })
+          .catch(err => alert('Error loading Employees!!'));
+        Api.getSession({})
+          .then(result => {
+            // console.log(result.data.data.emp_id);
+            this.setState({ emp_id: result.data.data.emp_id });
+          })
+          .catch(err => alert('Error getSession'));    
+      }
+    });
+    
   };
 
   startAdd(e) {
@@ -146,7 +151,7 @@ export default class AddPublication extends Component {
       role: this.state.Role,
       start_date: this.state.StartDate,
       end_date: this.state.EndDate,
-      emp_id: '0000000001'
+      emp_id: this.state.emp_id
     })
       .then(result => {
         this.state.Coworkers.map(item => {
