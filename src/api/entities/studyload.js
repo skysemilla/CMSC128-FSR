@@ -21,3 +21,9 @@ export const viewByStudyloadId = studyload_id=>{
 export const viewAllStudyLoad = () => {
 	return axios.get('/api/studyload/viewAll');
 };
+export const viewStudyCredentials = ()=> {
+	return axios.get('/api/studyload/viewStudyCredentials')
+}
+export const editStudyCredentials = studyLoadInfo => {
+	return axios.post('/api/studyload/editStudyCredentials',studyLoadInfo)
+}
