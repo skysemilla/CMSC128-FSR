@@ -41,7 +41,10 @@ export default class ViewProfession extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBarAdmin {...this.props} Label="edit" subLabel="profession"/>
+        </div>
+        <div className="bodydiv">
         <div
           class="ui compact piled very padded text left aligned container segment"
           color="teal">
@@ -81,10 +84,9 @@ export default class ViewProfession extends Component {
             </button>
           </div>
         </div>
+        </div>
         <Divider hidden="true" />
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewProfession />, document.getElementById('root'));

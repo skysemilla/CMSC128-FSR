@@ -44,8 +44,10 @@ export default class ViewAllFSR extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="all" />
-
+        </div>
+        <div className="bodydiv">
         <div
           class="ui compact piled very padded container segment"
           color="teal">
@@ -98,6 +100,7 @@ export default class ViewAllFSR extends Component {
             </tbody>
           </table>
           <Divider hidden="true" />
+          </div>
         </div>
       </div>
     );

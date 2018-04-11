@@ -42,9 +42,11 @@ export default class AdminEditFSR extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit"/>
         <SideNav {...this.props} subLabel="teachingload"/>
-
+        </div>
+        <div className="bodydiv">
         <div class="ui compact piled very padded container segment" color="teal">
           <div class="ui two column grid">
             <h1 class="ui blue header">
@@ -92,6 +94,7 @@ export default class AdminEditFSR extends Component {
             </tbody>
           </table>
           <Divider hidden="true" />
+          </div>
         </div>
       </div>
     );

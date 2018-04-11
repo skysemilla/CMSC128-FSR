@@ -55,8 +55,10 @@ export default class ViewAdministrativeWork extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="adminwork"/>
-
+        </div>
+        <div className="bodydiv">
         <div class="ui piled very padded container segment" color="teal">
           <div>
             <h1 class="ui blue header">
@@ -105,6 +107,7 @@ export default class ViewAdministrativeWork extends Component {
                 </a>
               </button>
             </h1>
+          </div>
           </div>
           <Divider hidden="true" />
         </div>

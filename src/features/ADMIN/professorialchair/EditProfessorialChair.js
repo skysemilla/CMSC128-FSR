@@ -75,7 +75,10 @@ export default class EditProfessorialChair extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="profchair"/>
+        </div>
+        <div className="bodydiv">
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
@@ -147,10 +150,9 @@ export default class EditProfessorialChair extends Component {
             </button>
           </div>
         </div>
+        </div>
         <Divider hidden="true" />
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<EditProfessorialChair />, document.getElementById('root'));

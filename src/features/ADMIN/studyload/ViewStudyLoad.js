@@ -38,8 +38,10 @@ export default class ViewStudyLoad extends Component {
 
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="studyload"/>
-
+        </div>
+        <div className="bodydiv">
         <div class = "ui compact piled very padded text left aligned container segment" color = "teal">
           <div>
             <h1 class = "ui blue header">
@@ -90,8 +92,8 @@ export default class ViewStudyLoad extends Component {
           <button class="ui blue right floated button" onClick={this.startAdd}>Add Study Load</button>
           <Divider hidden="true" />
         </div>
+        </div>
       </div>
     );
   }
 }
-ReactDOM.render(<ViewStudyLoad />, document.getElementById('root'));

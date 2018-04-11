@@ -119,7 +119,10 @@ export default class EditTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
+        </div>
+        <div>
         <div
           class="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
@@ -243,10 +246,9 @@ export default class EditTeachingLoad extends Component {
             </button>
           </div>
         </div>
+        </div>
         <Divider hidden="true" />
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<EditTeachingLoad />, document.getElementById('root'));
