@@ -9,8 +9,6 @@ export default class GenericPending extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.disabled);
-
     this.state = {
       size: '',
       open: false,
