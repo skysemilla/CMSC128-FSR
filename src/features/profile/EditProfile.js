@@ -9,21 +9,6 @@ import SendtoAdmin from './../SendtoAdmin'
 import GenericDropdown from './../GenericDropdown';
 import DeptDropdown from './DeptDropdown'
 
-const dummySample = {
-    fname: 'Jasper',
-    mname: '123',
-    lname: 'Arquilita',
-    empid: '1',
-    college: 'CAS',
-    dept: 'ICS',
-    emptype: 'Assistant Professor',
-    emptypeno: '1',
-    email: 'jasarqui123@up.edu.ph',
-    username: 'JasperJeje',
-    password: 'jasper123',
-    password2: 'jasper123'
-};
-
 const optionsMain = [
   { id: 0, text: 'Assistant Professor' },
   { id: 1, text: 'Associate Professor' },
@@ -57,18 +42,18 @@ export default class EditProfile extends Component {
     super(props);
 
     this.state = {
-      fname: dummySample.fname,
-      mname: dummySample.mname,
-      lname: dummySample.lname,
-      empid: dummySample.empid,
-      college: dummySample.college,
-      dept: dummySample.dept,
-      emptype: dummySample.emptype,
-      emptypeno: dummySample.emptypeno,
-      email: dummySample.email,
-      username: dummySample.username,
-      password: dummySample.password,
-      password2: dummySample.password2
+      fname: '',
+      mname: '',
+      lname: '',
+      empid: '',
+      college: '',
+      dept: '',
+      emptype: '',
+      emptypeno: '',
+      email: '',
+      username: '',
+      password: '',
+      password2: ''
     };
 
     this.handleChangeFname=this.handleChangeFname.bind(this);
@@ -143,7 +128,11 @@ export default class EditProfile extends Component {
     //   college: this.state.college,
     //   dept: this.state.dept,
     //   emptype: this.state.emptype,
-    //   email: this.state.email
+    //   emptypeno: this.state.emptypeno,
+    //   email: this.state.email,
+    //   username: this.state.username,
+    //   password: this.state.password,
+    //   password2: this.state.password2
     // })
     //   .then(result => {
     //     this.props.history.push('./profile');
@@ -170,7 +159,7 @@ export default class EditProfile extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                placeholder={this.state.fname}
+                value={this.state.fname}
                 onChange={this.handleChangeFname}
               />
             </div>
@@ -180,7 +169,7 @@ export default class EditProfile extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                placeholder={this.state.mname}
+                value={this.state.mname}
                 onChange={this.handleChangeMname}
               />
             </div>
@@ -190,7 +179,7 @@ export default class EditProfile extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                placeholder={this.state.lname}
+                value={this.state.lname}
                 onChange={this.handleChangeLname}
               />
             </div>
@@ -200,7 +189,7 @@ export default class EditProfile extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="number"
-                placeholder={this.state.empid}
+                value={this.state.empid}
                 onChange={this.handleChangeEmpid}
               />
             </div>
@@ -255,7 +244,7 @@ export default class EditProfile extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                placeholder={this.state.email}
+                value={this.state.email}
                 onChange={this.handleChangeEmail}
               />
             </div>
@@ -265,7 +254,7 @@ export default class EditProfile extends Component {
             <div class="ui input fluid mini focus">
               <input
                 type="text"
-                placeholder={this.state.username}
+                value={this.state.username}
                 onChange={this.handleChangeUsername}
               />
             </div>

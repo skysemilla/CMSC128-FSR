@@ -240,7 +240,7 @@ export default class EditPublication extends Component {
                 <input
                   type="text"
                   onChange={this.handleChangeTitle}
-                  placeHolder={this.state.completeTitle}
+                  value={this.state.completeTitle}
                 />
               </div>
             </p>
@@ -278,7 +278,7 @@ export default class EditPublication extends Component {
               label="Funding"
               type="text"
               handler={this.handleChangeFunding}
-              placeHolder={this.state.Funding}
+              value={this.state.Funding}
             />
 
             <GenericDisabledInput
@@ -288,7 +288,7 @@ export default class EditPublication extends Component {
               label="Start Date"
               type="date"
               handler={this.handleChangeStartDate}
-              placeHolder={this.state.StartDate}
+              value={this.state.StartDate}
             />
 
             <GenericDisabledInput
@@ -298,7 +298,7 @@ export default class EditPublication extends Component {
               label="End Date"
               type="date"
               handler={this.handleChangeEndDate}
-              placeHolder={this.state.EndDate}
+              value={this.state.EndDate}
             />
 
             <p>
@@ -307,7 +307,7 @@ export default class EditPublication extends Component {
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
-                  placeHolder={this.state.ApprovedCreditUnits}
+                  value={this.state.ApprovedCreditUnits}
                 />
               </div>
             </p>

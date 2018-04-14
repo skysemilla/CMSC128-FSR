@@ -22,7 +22,7 @@ export default class GenericDelete extends Component {
           {this.props.Coworkers.map(item => {
             return (
               <div class="item" key={item.emp_id}>
-                {item.f_name}
+                {item.f_name} {item.l_name}
               </div>
             );
           })}
