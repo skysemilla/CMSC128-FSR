@@ -145,6 +145,7 @@ export default class EditProfile extends Component {
     this.handleChangeDept = this.handleChangeDept.bind(this);
     this.handleChangeEmptype = this.handleChangeEmptype.bind(this);
     this.handleChangeEmptypeNo = this.handleChangeEmptypeNo.bind(this);
+    this.handleChangeFulltime = this.handleChangeFulltime.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -170,6 +171,10 @@ export default class EditProfile extends Component {
         });
       }
     });
+  }
+
+  componentDidUpdate(){
+    console.log(this.state.fulltime);
   }
 
   handleChangeFname(e) {
@@ -202,6 +207,10 @@ export default class EditProfile extends Component {
 
   handleChangeEmptypeNo(e) {
     this.setState({ emptypeno: e.target.value });
+  }
+
+  handleChangeFulltime(e) {
+    this.setState({ fulltime: e.target.value });
   }
 
   handleChangeEmail(e) {
@@ -312,8 +321,36 @@ export default class EditProfile extends Component {
                 options={optionsMain3}
                 college={this.state.college}
               />
+
+                <div class="ui form flex-container">
+                <div class="grouped fields">
+                      <div class="field">
+                        <label>
+                          <span>
+                            Full Time Employee?
+                          </span>
+                        </label>
+                      </div>
+                  <div class="inline fields">
+                    <div class="field">
+                      <div class="ui radio checkbox" >
+                        <input type="radio" name="fulltime" value="Yes" onClick={this.handleChangeFulltime}/>
+                        <label>Yes</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="fulltime" value="No" onClick={this.handleChangeFulltime}/>
+                        <label>No</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </p>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <p>
             <div class="flex-container dropDown">
               <label>

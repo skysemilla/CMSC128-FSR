@@ -88,6 +88,14 @@ export default class Profile extends Component {
               <div class="item">
                 <div class="content">
                   <b>
+                    <i class="male icon" />Full-time Employee?{' '}
+                  </b>
+                  {this.state.data.fulltime}
+                </div>
+              </div>
+              <div class="item">
+                <div class="content">
+                  <b>
                     <i class="users icon" />Employee Type:{' '}
                   </b>
                   {this.state.data.emp_type}
