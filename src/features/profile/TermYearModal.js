@@ -36,6 +36,7 @@ export default class TermYearModal extends Component {
     };
     this.handleChangeTerm = this.handleChangeTerm.bind(this);
     this.handleChangeYear = this.handleChangeYear.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
   }
 
   state = { open: false }
@@ -57,6 +58,10 @@ export default class TermYearModal extends Component {
 
   handleChangeYear(e) {
     this.setState({ year: e.target.value });
+  }
+
+  updateProfile(e) {
+    
   }
 
   render() {
@@ -89,7 +94,7 @@ export default class TermYearModal extends Component {
             <Button negative onClick={this.close}>
               No
             </Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.startDelete}/>
+            <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.updateProfile}/>
           </Modal.Actions>
         </Modal>
       </div>
