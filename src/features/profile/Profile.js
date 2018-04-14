@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 import SendToAdmin from './../SendtoAdmin';
+import TermYearModal from './TermYearModal';
 
 const dummySample = {
   fname: 'Jasper',
@@ -42,8 +43,14 @@ export default class Profile extends Component {
   }
 
   render() {
+    if(this.state.data===''){
+      return(
+        <div></div>
+      );
+    }else{
     return (
       <div classname="App-header">
+        <TermYearModal {...this.props} is_new={this.state.data.is_new}/>
         <NavBar {...this.props} Label="profile" subLabel="" />
         <div
           class="ui piled very padded text left aligned container segment"
@@ -137,7 +144,7 @@ export default class Profile extends Component {
         </div>
         <Divider hidden="true" />
       </div>
-    );
+    );}
   }
 }
 //=========================

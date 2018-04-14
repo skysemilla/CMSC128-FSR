@@ -172,11 +172,7 @@ export default class EditProfile extends Component {
       }
     });
   }
-
-  componentDidUpdate(){
-    console.log(this.state.fulltime);
-  }
-
+  
   handleChangeFname(e) {
     this.setState({ fname: e.target.value });
   }
