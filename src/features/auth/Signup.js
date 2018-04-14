@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GenericDropdown from './../GenericDropdown';
-import DeptDropdown from './DeptDropdown'
+import DeptDropdown from './DeptDropdown';
 import {
   Form,
   Button,
@@ -90,14 +90,94 @@ const optionsMain2 = [
 ];
 
 const optionsMain3 = [
-  { id: 0, text: 'CAFS', Subtype : ["Department A", "Department B", "Department C", "Department D", "Department E"]},
-  { id: 1, text: 'CAS', Subtype : ["Institute of Biological Sciences", "Institute of Chemistry", "Institute of Computer Science", "Institute of Mathematical Sciences and Physics", "Institute of Statistics"]},
-  { id: 2, text: 'CDC', Subtype : ["Department F", "Department G", "Department H", "Department I", "Department J"] },
-  { id: 3, text: 'CEAT', Subtype : ["Department K", "Department L", "Department M", "Department N", "Department O"] },
-  { id: 4, text: 'CEM', Subtype : ["Department P", "Department Q", "Department R", "Department S", "Department T"] },
-  { id: 5, text: 'CFNR', Subtype : ["Department U", "Department V", "Department W", "Department X", "Department Y"] },
-  { id: 6, text: 'CHE', Subtype : ["Department Z", "Department 1", "Department 2", "Department 3", "Department 4"] },
-  { id: 7, text: 'CVM', Subtype : ["Department 5", "Department 6", "Department 7", "Department 8", "Department 9"] }
+  {
+    id: 0,
+    text: 'CAFS',
+    Subtype: [
+      'Department A',
+      'Department B',
+      'Department C',
+      'Department D',
+      'Department E'
+    ]
+  },
+  {
+    id: 1,
+    text: 'CAS',
+    Subtype: [
+      'Institute of Biological Sciences',
+      'Institute of Chemistry',
+      'Institute of Computer Science',
+      'Institute of Mathematical Sciences and Physics',
+      'Institute of Statistics'
+    ]
+  },
+  {
+    id: 2,
+    text: 'CDC',
+    Subtype: [
+      'Department F',
+      'Department G',
+      'Department H',
+      'Department I',
+      'Department J'
+    ]
+  },
+  {
+    id: 3,
+    text: 'CEAT',
+    Subtype: [
+      'Department K',
+      'Department L',
+      'Department M',
+      'Department N',
+      'Department O'
+    ]
+  },
+  {
+    id: 4,
+    text: 'CEM',
+    Subtype: [
+      'Department P',
+      'Department Q',
+      'Department R',
+      'Department S',
+      'Department T'
+    ]
+  },
+  {
+    id: 5,
+    text: 'CFNR',
+    Subtype: [
+      'Department U',
+      'Department V',
+      'Department W',
+      'Department X',
+      'Department Y'
+    ]
+  },
+  {
+    id: 6,
+    text: 'CHE',
+    Subtype: [
+      'Department Z',
+      'Department 1',
+      'Department 2',
+      'Department 3',
+      'Department 4'
+    ]
+  },
+  {
+    id: 7,
+    text: 'CVM',
+    Subtype: [
+      'Department 5',
+      'Department 6',
+      'Department 7',
+      'Department 8',
+      'Department 9'
+    ]
+  }
 ];
 
 export default class Signup extends Component {
@@ -237,7 +317,7 @@ export default class Signup extends Component {
     }
 
     // check pass
-    if (!this.state.passsword) {
+    if (!this.state.password) {
       formError.text.pass = errorTexts[0];
       formError.bool.pass = false;
     } else if (this.state.password.length < 6) {
@@ -350,16 +430,16 @@ export default class Signup extends Component {
       formError.bool.col = false;
     } else {
       formError.text.col = '';
-      formError.bool.col = false;
+      formError.bool.col = true;
     }
 
     // check department
-    if (!this.state.department) {
+    if (!this.state.dept) {
       formError.text.dept = errorTexts[0];
       formError.bool.dept = false;
     } else {
       formError.text.dept = '';
-      formError.bool.dept = false;
+      formError.bool.dept = true;
     }
 
     if (
@@ -522,11 +602,15 @@ export default class Signup extends Component {
                   />
                 </div>
                 <div class="field">
+                  <label>
+                    <span>Department{formError.text.dept}</span>
+                  </label>
                   <DeptDropdown
-                    value = {this.state.dept}
-                    handler = {this.handleChangeDept}
-                    options = {optionsMain3}
-                    college = {this.state.college} />
+                    value={this.state.dept}
+                    handler={this.handleChangeDept}
+                    options={optionsMain3}
+                    college={this.state.college}
+                  />
                 </div>
               </div>
               <div class="field">
