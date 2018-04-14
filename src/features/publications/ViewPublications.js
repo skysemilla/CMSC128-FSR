@@ -14,7 +14,8 @@ export default class ViewPublications extends Component {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      hasData: false
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -27,6 +28,18 @@ export default class ViewPublications extends Component {
       .then(result => {
         this.setState({ data: result.data.data[0] });
         console.log(result.data.data[0]);
+
+        this.state.data.map(item => {
+          Api.getCoworkers({
+            id: item.publication_id
+          })
+            .then(result => {
+              console.log(result.data.data);
+              item.Coworkers = result.data.data;
+              this.setState({ hasData: true })
+            })
+            .catch(err => alert('Error loading coworkers!!'));
+        });
       })
       .catch(err => alert('Error loading Publications!!'));
   };
@@ -41,6 +54,10 @@ export default class ViewPublications extends Component {
   }
 
   render() {
+ 
+    if(!this.state.hasData){
+      return null;
+    }
     return (
       <div className="App-header">
         <div>
@@ -75,19 +92,14 @@ export default class ViewPublications extends Component {
                 </thead>
                 <tbody>
                   {this.state.data.map(item => {
-                    var array = [];
                     Api.getCoworkers({
                       id: item.publication_id
                     })
                       .then(result => {
-                        result.data.data.map(item => {
-                          console.log(item.emp_id);
-                          array.push(item);
-                        });
+                        console.log(result.data.data);
+                        item.Coworkers = result.data.data;
                       })
                       .catch(err => alert('Error loading coworkers!!'));
-                    item.Coworkers = array;
-                    console.log(item.publication_id);
                     console.log('array');
                     console.log(item.Coworkers);
                     return (

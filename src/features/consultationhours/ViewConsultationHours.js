@@ -48,7 +48,7 @@ export default class ViewConsultationHours extends Component {
     return (
       <div className="App-header">
         <div>
-          <NavBar {...this.props} Label="FSR" subLabel="consultationhours" />
+          <NavBar {...this.props} Label="FSR" subLabel="consultation" />
         </div>
         <div className="bodyDiv">
           <div

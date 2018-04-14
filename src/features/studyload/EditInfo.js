@@ -117,13 +117,13 @@ export default class EditInfo extends Component {
                   <label>On Full Study Leave w/ Pay?</label>
                   <div class="field">
                     <div class="ui radio checkbox">
-                      <input type="radio" name="studyleave" />
+                      <input type="radio" name="studyleave" value="Yes"/>
                       <label>Yes</label>
                     </div>
                   </div>
                   <div class="field">
                     <div class="ui radio checkbox">
-                      <input type="radio" name="studyleave" />
+                      <input type="radio" name="studyleave" value="No"/>
                       <label>No</label>
                     </div>
                   </div>
@@ -136,13 +136,13 @@ export default class EditInfo extends Component {
                   <label>Recepient of Faculty Fellowship?</label>
                   <div class="field">
                     <div class="ui radio checkbox">
-                      <input type="radio" name="fellowship" />
+                      <input type="radio" name="fellowship" value="Yes"/>
                       <label>Yes</label>
                     </div>
                   </div>
                   <div class="field">
                     <div class="ui radio checkbox">
-                      <input type="radio" name="fellowship" />
+                      <input type="radio" name="fellowship" value="No"/>
                       <label>No</label>
                     </div>
                   </div>

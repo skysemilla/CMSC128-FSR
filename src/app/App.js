@@ -6,29 +6,37 @@ import {css} from './../index.css'
 
 import Login from './../features/auth/Login';
 import Signup from './../features/auth/Signup';
+import EditProfile from './../features/profile/EditProfile';
+import Profile from './../features/profile/Profile';
+
 import AddTeachingLoad from './../features/teachingload/AddTeachingLoad';
 import EditTeachingLoad from './../features/teachingload/EditTeachingLoad';
+import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
+
 import AddStudyLoad from './../features/studyload/AddStudyLoad';
 import EditInfo from './../features/studyload/EditInfo';
-import AddPublication from './../features/publications/AddPublication';
 import EditStudyLoad from './../features/studyload/EditStudyLoad';
-import ViewPublications from './../features/publications/ViewPublications';
-import ViewTeachingLoad from './../features/teachingload/ViewTeachingLoad';
 import ViewStudyLoad from './../features/studyload/ViewStudyLoad';
+
+import AddPublication from './../features/publications/AddPublication';
+import ViewPublications from './../features/publications/ViewPublications';
 import EditPublications from './../features/publications/EditPublications';
+
 import ViewProfessorialChair from './../features/professorialchair/ViewProfessorialChair';
 import EditProfessorialChair from './../features/professorialchair/EditProfessorialChair';
+
 import AddAdministrativeWork from './../features/adminWork/AddAdministrativeWork';
 import EditAdministrativeWork from './../features/adminWork/EditAdministrativeWork';
 import ViewAdminWork from './../features/adminWork/ViewAdminWork';
+
 import EditConsultationHours from './../features/consultationhours/EditConsultationHours';
 import AddConsultationHours from './../features/consultationhours/AddConsultationHours';
 import ViewConsultationHours from './../features/consultationhours/ViewConsultationHours';
+
 import AddExtension from './../features/extension/AddExtension';
 import EditExtension from './../features/extension/EditExtension';
 import ViewExtension from './../features/extension/ViewExtension';
-import Profile from './../features/profile/Profile';
-import EditProfile from './../features/profile/EditProfile';
+
 import AddProfession from './../features/profession/AddProfession';
 import EditProfession from './../features/profession/EditProfession';
 import ViewProfession from './../features/profession/ViewProfession';
@@ -71,6 +79,10 @@ import AdminViewProfessorialChair from './../features/ADMIN/professorialchair/Vi
 import AdminAddAdministrativeWork from './../features/ADMIN/adminWork/AddAdministrativeWork';
 import AdminEditAdministrativeWork from './../features/ADMIN/adminWork/EditAdministrativeWork';
 import AdminViewAdministrativeWork from './../features/ADMIN/adminWork/ViewAdministrativeWork';
+
+import ViewSubjects from './../features/subject/ViewSubjects';
+import AddSubjects from './../features/subject/AddSubjects';
+import EditSubjects from './../features/subject/EditSubjects';
 
 class App extends Component {
   render() {
@@ -115,6 +127,10 @@ class App extends Component {
             <Route exact={true} path="/profession/add" component={AddProfession}/>
             <Route exact={true} path="/profession/edit" component={EditProfession}/>
             <Route exact={true} path="/profession/view" component={ViewProfession}/>
+
+            <Route exact={true} path="/subjects/view" component={ViewSubjects}/>
+            <Route exact={true} path="/subjects/add" component={AddSubjects}/>
+            <Route exact={true} path="/subjects/edit" component={EditSubjects}/>
       
             <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
