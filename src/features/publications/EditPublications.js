@@ -252,11 +252,11 @@ export default class EditPublication extends Component {
               type="text"
               handler={this.handleChangeRole}
             />
-            <p>
-              <a class="ui small header"> Co-workers </a>
+            <a class="ui small header"> Co-workers </a>
+            <div class="scrollable">
               {this.state.posCoworkers.map(item => {
                 return (
-                  <p>
+                    <div>
                     <div class="ui checked checkbox">
                       <input
                         type="checkbox"
@@ -267,10 +267,11 @@ export default class EditPublication extends Component {
                         {item.f_name} {item.l_name}
                       </label>
                     </div>
-                  </p>
+                    </div>
                 );
               })}
-            </p>
+            </div>
+            
             <GenericDisabledInput
               compareState={this.state.researchSubtype}
               compareString="Research Proposal"

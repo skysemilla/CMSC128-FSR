@@ -228,11 +228,12 @@ export default class AddPublication extends Component {
                 </div>
               </p>
             )}
-            <p>
-              <a class="ui small header"> Co-workers </a>
+
+            <a class="ui small header"> Co-workers </a>
+            <div class="scrollable">
               {this.state.posCoworkers.map(item => {
                 return (
-                  <p>
+                    <div>
                     <div class="ui checked checkbox">
                       <input
                         type="checkbox"
@@ -243,10 +244,11 @@ export default class AddPublication extends Component {
                         {item.f_name} {item.l_name}
                       </label>
                     </div>
-                  </p>
+                    </div>
                 );
               })}
-            </p>
+            </div>
+
             {this.state.researchSubtype !== 'Research Proposal' ? (
               <p>
                 <a class="ui small header"> Funding </a>

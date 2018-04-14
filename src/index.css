@@ -49,3 +49,13 @@ body {
   padding-left: 20%;
   padding-top: 5%;
 }
+
+.scrollable{
+  float: left;
+  position: relative;
+  height: 200px;
+  max-height: 200px;
+  width: 100%;
+  max-width: 100%;
+  overflow: scroll;
+}
