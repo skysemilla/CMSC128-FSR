@@ -84,6 +84,8 @@ import ViewSubjects from './../features/subject/ViewSubjects';
 import AddSubjects from './../features/subject/AddSubjects';
 import EditSubjects from './../features/subject/EditSubjects';
 
+import BeingApproved from './../features/ui/beingApproved';
+
 class App extends Component {
   render() {
     return (
@@ -92,6 +94,7 @@ class App extends Component {
           <div id="content-container">
             <Route exact={true} path="/" component={Login}/>
             <Route exact={true} path="/signup" component={Signup}/>
+            <Route exact={true} path="/beingApproved" component={BeingApproved}/>
 
             <Route exact={true} path="/profile" component={Profile}/>
             <Route exact={true} path="/profile/edit" component={EditProfile}/>

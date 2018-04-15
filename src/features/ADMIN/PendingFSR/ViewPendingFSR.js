@@ -6,24 +6,112 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
-const dummy2 = [
-  {
-    id: '0000000001',
-    fname: 'asd',
-    mname: 'efg',
-    lname: 'qweqwe',
-    college: 'CAS',
-    dept: 'asdasad',
-    approved: 'NO'
-  }
-];
+const dummy1 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy2 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy3 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy4 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy5 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy6 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy7 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy8 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy9 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
+
+const dummy10 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'NO'
+};
 
 export default class ViewPendingFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: dummy2
+      data: [dummy1, dummy2, dummy3, dummy4, dummy5, dummy6, dummy7, dummy8, dummy9, dummy10]
     };
   }
 
@@ -39,6 +127,9 @@ export default class ViewPendingFSR extends Component {
         <div>
         <NavBar {...this.props} Label="pending" />
         </div>
+        <Divider hidden='true'/>
+        <Divider hidden='true'/>
+        <Divider hidden='true'/>
         <div className="bodydiv">
         <div
           class="ui compact piled very padded container segment"
@@ -62,6 +153,7 @@ export default class ViewPendingFSR extends Component {
           <style>
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
+          <div className="scrollTable">
           <table class="ui celled table">
             <thead>
               <tr>
@@ -91,6 +183,7 @@ export default class ViewPendingFSR extends Component {
               })}
             </tbody>
           </table>
+          </div>
           <Divider hidden="true" />
         </div>
         </div>
