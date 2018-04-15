@@ -3,62 +3,47 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import DeleteModal from '../GenericDelete'
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
-import ViewPublicationsRow from './PublicationsViewRow'
-import NavBar from './../ui/NavBar'
-
-const dummy1={
-  fname: 'Hi',
-  lname: 'Hello',
-  emp_id: 1
-  };
-
-const dummy2={
-  fname: 'Hi2',
-  lname: 'Hello2',
-  emp_id: 2
-  };
-
-const dummy3={
-  fname: 'Hi3',
-  lname: 'Hello3',
-  emp_id: 3
-  };
-
-const dummySample = { pub_id: 4,
-                      researchType : 'Research',
-                      researchSubtype : 'Research Proposal',
-                      completeTitle: 'Sample',
-                      Role: 'ABC',
-                      Coworkers: [dummy1, dummy2, dummy3],
-                      Funding: 'N/A',
-                      StartDate: '03/03/03',
-                      EndDate: '04/04/04',
-                      ApprovedCreditUnits: '3'};
+import DeleteModal from '../GenericDelete';
+import GenerateFSR from './../GenerateFSR';
+import SendtoAdmin from './../SendtoAdmin';
+import ViewPublicationsRow from './PublicationsViewRow';
+import NavBar from './../ui/NavBar';
 
 export default class ViewPublications extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [dummySample]
+      data: [],
+      hasData: false
     };
 
     this.handleLogout = this.handleLogout.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
 
-
   componentDidMount = () => {
-    //   e.preventDefault();
-    //   Api.viewPublications({
-    //   })
-    //     .then(result => {
-    //       this.setState({ publications: result});
-    //     })
-    //     .catch(e => alert('Error loading Publications!!'));
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        Api.viewPublications({ empid: res.data.data.emp_id }).then(result => {
+          if (result.data.data !== null) {
+            console.log(result);
+            this.setState({ data: result.data.data[0] });
+            console.log(result.data.data[0]);
+
+            this.state.data.map(item => {
+              Api.getCoworkers({
+                id: item.publication_id
+              }).then(result => {
+                console.log(result.data.data);
+                item.Coworkers = result.data.data;
+                this.setState({ hasData: true });
+              });
+            });
+          }
+        });
+      }
+    });
   };
 
   handleLogout() {
@@ -66,71 +51,89 @@ export default class ViewPublications extends Component {
     this.props.history.push('../..');
   }
 
- startAdd() {
+  startAdd() {
     this.props.history.push('./add');
   }
 
   render() {
+    if (!this.state.hasData) {
+      return null;
+    }
     return (
-      <div className="App-header" class="wholediv">
-        <NavBar {...this.props} Label="FSR" subLabel="publications"/>
+      <div className="App-header">
+        <div>
+          <NavBar {...this.props} Label="FSR" subLabel="publications" />
+        </div>
+        <div className="bodyDiv">
           <div
             class="ui compact piled very padded text left aligned container segment mainDiv"
             color="teal">
             <div>
-              <h1 class="ui blue header">
-                PUBLICATIONS
-              </h1>
+              <h2 class="ui blue header">PUBLICATIONS</h2>
             </div>
             <Divider hidden="true" />
             <div>
-
-            <style> {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`} </style>
-            <table class = "ui celled table">
+              <style>
+                {' '}
+                {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
+              </style>
+              <table class="ui celled table">
                 <thead>
                   <tr>
-                    <th class = "center aligned">Title</th>
-                    <th class = "center aligned">Type</th>
-                    <th class = "center aligned">Role</th>
-                    <th class = "center aligned">Co-workers</th>
-                    <th class = "center aligned">Funding</th>
-                    <th class = "center aligned">Start Date</th>
-                    <th class = "center aligned">End Date</th>
-                    <th class = "center aligned">Approved Credit Units</th>
-                    <th class = "center aligned">Attachments</th>
-                    <th class = "center aligned">Edit/Delete</th>
+                    <th class="center aligned">Title</th>
+                    <th class="center aligned">Type</th>
+                    <th class="center aligned">Role</th>
+                    <th class="center aligned">Co-workers</th>
+                    <th class="center aligned">Funding</th>
+                    <th class="center aligned">Start Date</th>
+                    <th class="center aligned">End Date</th>
+                    <th class="center aligned">Approved Credit Units</th>
+                    <th class="center aligned">Edit/Delete</th>
                   </tr>
                 </thead>
-              <tbody>
-                {this.state.data.map((item) =>{
-                  return(
-                      <ViewPublicationsRow {...this.props}
-                            id={item.pub_id}
-                            completeTitle= {item.completeTitle}
-                            researchSubtype ={item.researchSubtype}
-                            Role= {item.Role}
-                            Coworkers= {item.Coworkers}
-                            Funding={item.Funding}
-                            StartDate={item.StartDate}
-                            EndDate= {item.EndDate}
-                            ApprovedCreditUnits= {item.ApprovedCreditUnits}
-                            editURL = "../publications/edit"
-                            label = "Publication"
-                            subLabel = "publication"/>
-                    )
-                  })
-                }
-              </tbody>
-            </table>
-              <button class="ui right floated blue button" onClick={this.startAdd}>
+                <tbody>
+                  {this.state.data.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        console.log(result.data.data);
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    console.log('array');
+                    console.log(item.Coworkers);
+                    return (
+                      <ViewPublicationsRow
+                        {...this.props}
+                        id={item.publication_id}
+                        completeTitle={item.title}
+                        researchSubtype={item.category}
+                        Role={item.role}
+                        key={item.id}
+                        Coworkers={item.Coworkers}
+                        Funding={item.funding}
+                        StartDate={item.start_date}
+                        EndDate={item.end_date}
+                        ApprovedCreditUnits={item.credit_units}
+                        editURL="../publications/edit"
+                        label="Publication"
+                        subLabel="publication"
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+              <button
+                class="ui right floated blue button"
+                onClick={this.startAdd}>
                 Add Publication
               </button>
             </div>
           </div>
+        </div>
         <Divider hidden="true" />
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewPublications />, document.getElementById('root'));

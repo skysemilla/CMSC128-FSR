@@ -18,10 +18,9 @@ export default class ViewTeachingLoadRow extends Component {
           <ViewAttachments {...this.props} />
         </td>
         <td class="center aligned">
-          <GenericDelete {...this.props}/>
+          <GenericDelete {...this.props} />
         </td>
       </tr>
-
     );
   }
 }

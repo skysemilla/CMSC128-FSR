@@ -46,8 +46,10 @@ export default class ViewAdminWork extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="edit" subLabel="adminwork"/>
-
+        </div>
+        <div className="bodydiv">
         <div class="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
             <h1 class="ui blue header">
@@ -87,10 +89,9 @@ export default class ViewAdminWork extends Component {
           </table>
           <button class="ui blue right floated button" onClick={this.startAdd}>Add Administrative Work</button>
           <Divider hidden="true" />
+          </div>
         </div>
       </div>
     );
   }
 }
-//=========================
-ReactDOM.render(<ViewAdminWork/>, document.getElementById('root'));
