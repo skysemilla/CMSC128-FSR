@@ -27,9 +27,7 @@ export default class ViewPublications extends Component {
       if (res.data.data !== null) {
         Api.viewPublications({ empid: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
-            console.log(result);
             this.setState({ data: result.data.data[0] });
-            console.log(result.data.data[0]);
 
             this.state.data.map(item => {
               Api.getCoworkers({
@@ -56,9 +54,6 @@ export default class ViewPublications extends Component {
   }
 
   render() {
-    if (!this.state.hasData) {
-      return null;
-    }
     return (
       <div className="App-header">
         <div>
