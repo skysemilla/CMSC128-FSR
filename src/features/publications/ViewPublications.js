@@ -28,7 +28,7 @@ export default class ViewPublications extends Component {
         Api.viewPublications({ empid: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
             this.setState({ data: result.data.data[0] });
-
+            console.log(result.data.data[0]);
             this.state.data.map(item => {
               Api.getCoworkers({
                 id: item.publication_id
