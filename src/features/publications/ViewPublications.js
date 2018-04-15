@@ -30,7 +30,6 @@ export default class ViewPublications extends Component {
             console.log(result);
             this.setState({ data: result.data.data[0] });
             console.log(result.data.data[0]);
-
             this.state.data.map(item => {
               Api.getCoworkers({
                 id: item.publication_id

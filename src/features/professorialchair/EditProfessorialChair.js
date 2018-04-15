@@ -8,26 +8,21 @@ import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
 
-const dummySample = {
-  profchair: 'CMSC 128',
-  grant: 'CAS B04',
-  granttitle: 'T-Th',
-  startdate: '03/26/18',
-  enddate: '03/27/18'
-};
+
 
 export default class EditProfessorialChair extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      emp_id: '',
       nominee: '',
       nominated: '',
-      profchair: dummySample.profchair,
-      grant: dummySample.grant,
-      granttitle: dummySample.granttitle,
-      startdate: dummySample.startdate,
-      enddate: dummySample.enddate
+      profchair: '',
+      grant: '',
+      granttitle: '',
+      startdate: '',
+      enddate: ''
     };
 
     this.handleChangeNominee = this.handleChangeNominee.bind(this);
@@ -39,7 +34,15 @@ export default class EditProfessorialChair extends Component {
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
-
+  componentDidMount() {
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        
+        this.setState({emp_id: result.data.data.emp_id})
+        
+      }
+    });
+  }
   handleChangeNominee(e) {
     this.setState({ nominee: e.target.value });
   }
@@ -69,19 +72,30 @@ export default class EditProfessorialChair extends Component {
   }
 
   startAdd(e) {
-    // e.preventDefault();
-    // Api.editprofchair({
-    // profchair: this.state.profchair,
-    // grant: this.state.grant,
-    // granttitle: this.state.granttitle,
-    // startdate: this.state.startdate,
-    // enddate: this.state.enddate
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./professorialchair/view');
-    //     alert('Professorial Chair successfully edited!');
-    //   })
-    //   .catch(e => alert('Error editing Professorial Chair!'));
+    e.preventDefault();
+    console.log(this.state.emp_id)
+    console.log(this.state.nominee)
+    console.log(this.state.nominated)
+    console.log(this.state.profchair)
+    console.log(this.state.grant)
+    console.log(this.state.granttitle)
+    console.log(this.state.startdate)
+    console.log(this.state.enddate)
+    Api.editProfessorialChair({
+      emp_id: this.state.emp_id,
+      type: this.state.nominee,
+      is_approved: this.state.nominated,
+      professional_chair: this.state.profchair,
+      grants: this.state.grant,
+      grant_title: this.state.granttitle,
+      start_date: this.state.startdate,
+      end_date: this.state.enddate
+    })
+      .then(result => {
+        this.props.history.push('./view');
+        alert('Professorial Chair successfully edited!');
+      })
+      .catch(e => alert('Error editing Professorial Chair!'));
   }
 
   render() {
@@ -141,7 +155,7 @@ export default class EditProfessorialChair extends Component {
                           <input
                             type="radio"
                             name="nominated"
-                            value="Yes"
+                            value={1}
                             onClick={this.handleChangeNominated}
                           />
                           <label>Yes</label>
@@ -152,7 +166,7 @@ export default class EditProfessorialChair extends Component {
                           <input
                             type="radio"
                             name="nominated"
-                            value="No"
+                            value={0}
                             onClick={this.handleChangeNominated}
                           />
                           <label>No</label>
@@ -302,7 +316,7 @@ export default class EditProfessorialChair extends Component {
               <button
                 class="ui center aligned blue button"
                 onClick={this.startAdd}>
-                Add Professorial Chair
+                Edit Professorial Chair
               </button>
             </div>
           </div>
