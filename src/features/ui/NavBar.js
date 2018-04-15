@@ -5,6 +5,7 @@ import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import GenericLogout from './GenericLogout';
+import SendtoAdmin from './../SendtoAdmin';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -144,6 +145,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -190,6 +193,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -236,6 +241,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -282,6 +289,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -328,6 +337,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -374,6 +385,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -420,6 +433,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
@@ -466,6 +481,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
           <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
             <Modal.Header>
@@ -526,6 +543,8 @@ export default class NavBar extends Component {
             <a id="subjects" class="item active" onClick={this.handleSubmenus}>
               Subjects
             </a>
+            <div class="ui inverted horizontal divider"></div>
+            <SendtoAdmin/>
           </div>
         </div>
         )
