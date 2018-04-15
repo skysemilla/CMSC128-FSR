@@ -13,9 +13,9 @@ export default class NavBar extends Component {
     this.state = {
       activeMenu: this.props.Label,
       subMenu: this.props.subLabel,
-      emp_id: this.props.emp_id
+      emp_id: this.props.emp_id,
+      is_being_approved: this.props.is_being_approved
     };
-
     this.handleLogout = this.handleLogout.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmenus = this.handleSubmenus.bind(this);
@@ -28,9 +28,14 @@ export default class NavBar extends Component {
   }
 
   handleChange(e) {
+    if(e.currentTarget.id==='FSR'){
+        console.log('AAA');
+    }
     this.setState({ activeMenu: e.currentTarget.id});
     if(e.currentTarget.id==='profile'){
         this.props.history.push('../../profile');
+    }else if(e.currentTarget.id==='FSR' && this.state.is_being_approved===1){
+        this.props.history.push('../../beingApproved');
     }
     else{
         this.props.history.push('../../teachingload/view');
@@ -72,6 +77,22 @@ export default class NavBar extends Component {
                 Profile
               </a>
               <a class="item" id="FSR" onClick={this.handleChange}>
+                FSR
+              </a>
+              <div class="right menu">
+              <GenericLogout {...this.props}/>
+            </div>
+          </div>
+        </div>
+        )
+      }else if(this.state.activeMenu==='beingapproved'){
+        return(
+         <div>
+          <div class="ui blue inverted huge menu div1">
+              <a class="item" id="profile" onClick={this.handleChange}>
+                Profile
+              </a>
+              <a class="active item" id="FSR" onClick={this.handleChange}>
                 FSR
               </a>
               <div class="right menu">

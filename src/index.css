@@ -59,3 +59,13 @@ body {
   max-width: 100%;
   overflow: scroll;
 }
+
+.scrollTable{
+  float: left;
+  position: relative;
+  height: 500px;
+  max-height: 500px;
+  width: 100%;
+  max-width: 100%;
+  overflow: scroll;
+}

@@ -33,6 +33,7 @@ export default class Profile extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ data: result.data.data });
+        console.log(result.data.data);
       }
     });
   }
@@ -53,7 +54,7 @@ export default class Profile extends Component {
             empid={this.state.data.emp_id}
             is_new={this.state.data.is_new}
           />
-          <NavBar {...this.props} Label="profile" subLabel="" />
+          <NavBar {...this.props} Label="profile" subLabel="" is_being_approved={this.state.data.is_being_approved}/>
           <div
             class="ui piled very padded text left aligned container segment"
             color="teal">
