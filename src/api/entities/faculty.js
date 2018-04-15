@@ -7,3 +7,7 @@ export const ViewAllFaculty = () => {
 export const editProfile = facultyInfo => {
   return axios.post('/api/faculty/edit', facultyInfo);
 };
+
+export const editTerm = termInfo => {
+  return axios.post('/api/faculty/termEdit', termInfo);
+};
