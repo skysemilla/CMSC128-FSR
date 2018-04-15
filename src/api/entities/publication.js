@@ -24,6 +24,10 @@ export const viewEmployees = () => {
   return axios.get('/api/publication/viewEmployees');
 };
 
+export const viewEmployeeCoworkers = empid => {
+  return axios.post('/api/publication/viewEmployeeCoworkers', empid);
+};
+
 export const viewCoworkers = id => {
   return axios.get('/api/publication/viewCoworkers', id);
 };

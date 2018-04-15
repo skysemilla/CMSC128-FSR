@@ -122,23 +122,22 @@ export default class AddPublication extends Component {
   componentDidMount = () => {
     // NEW
     //   e.preventDefault();
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        Api.viewEmployees({})
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        Api.viewEmployeeCoworkers({ empid: res.data.data.emp_id })
           .then(result => {
-            this.setState({ posCoworkers: result.data.data });
             console.log(result.data.data);
+            this.setState({ posCoworkers: result.data.data });
           })
           .catch(err => alert('Error loading Employees!!'));
         Api.getSession({})
           .then(result => {
             // console.log(result.data.data.emp_id);
-            this.setState({ emp_id: result.data.data.emp_id });
+            this.setState({ emp_id: res.data.data.emp_id });
           })
-          .catch(err => alert('Error getSession'));    
+          .catch(err => alert('Error getSession'));
       }
     });
-    
   };
 
   startAdd(e) {
@@ -233,7 +232,7 @@ export default class AddPublication extends Component {
             <div class="scrollable">
               {this.state.posCoworkers.map(item => {
                 return (
-                    <div>
+                  <div>
                     <div class="ui checked checkbox">
                       <input
                         type="checkbox"
@@ -244,7 +243,7 @@ export default class AddPublication extends Component {
                         {item.f_name} {item.l_name}
                       </label>
                     </div>
-                    </div>
+                  </div>
                 );
               })}
             </div>

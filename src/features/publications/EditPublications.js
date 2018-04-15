@@ -170,9 +170,7 @@ export default class EditPublication extends Component {
     // remove prev coworkers here
     Api.removeCoworkers({
       id: this.props.history.location.state.id
-    })
-      .then(result => alert('successfully Deleted Coworkers'))
-      .catch(err => alert('Error removing Coworkers'));
+    }).catch(err => alert('Error removing Coworkers'));
 
     Api.editPublication({
       credit_units: this.state.ApprovedCreditUnits,
@@ -198,7 +196,6 @@ export default class EditPublication extends Component {
         });
         this.props.history.push('./view'); //change to profile later!!
         console.log(result.data);
-        alert('Publication successfully added!');
       })
       .catch(e => alert('Error editing Publication!'));
   }
@@ -256,7 +253,7 @@ export default class EditPublication extends Component {
             <div class="scrollable">
               {this.state.posCoworkers.map(item => {
                 return (
-                    <div>
+                  <div>
                     <div class="ui checked checkbox">
                       <input
                         type="checkbox"
@@ -267,11 +264,11 @@ export default class EditPublication extends Component {
                         {item.f_name} {item.l_name}
                       </label>
                     </div>
-                    </div>
+                  </div>
                 );
               })}
             </div>
-            
+
             <GenericDisabledInput
               compareState={this.state.researchSubtype}
               compareString="Research Proposal"
