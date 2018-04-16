@@ -11,3 +11,7 @@ export const editProfile = facultyInfo => {
 export const editTerm = termInfo => {
   return axios.post('/api/faculty/termEdit', termInfo);
 };
+
+export const getEmployeeData = empid => {
+  return axios.post('/api/faculty/data', empid);
+};
