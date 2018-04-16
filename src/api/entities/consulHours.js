@@ -17,5 +17,5 @@ export const viewAllConsultation = () => {
 };
 
 export const viewConsultation = () => {
-	return axios.post('/api/position/view')
+	return axios.post('/api/consultation/view')
 };
