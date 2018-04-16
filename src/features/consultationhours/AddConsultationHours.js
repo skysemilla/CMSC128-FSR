@@ -19,27 +19,27 @@ const optionsDays = [
 ];
 
 const optionsTimeFrom = [
-  { value: 0, text: '8:00 A.M' },
-  { value: 1, text: '9:00 A.M' },
-  { value: 2, text: '10:00 A.M' },
-  { value: 3, text: '11:00 A.M' },
-  { value: 4, text: '12:00 NN' },
-  { value: 5, text: '1:00 P.M' },
-  { value: 6, text: '2:00 P.M' },
-  { value: 7, text: '3:00 P.M' },
-  { value: 8, text: '4:00 P.M' }
+  { value: 0, text: '08:00:00' },
+  { value: 1, text: '09:00:00' },
+  { value: 2, text: '10:00:00' },
+  { value: 3, text: '11:00:00' },
+  { value: 4, text: '12:00:00' },
+  { value: 5, text: '13:00:00' },
+  { value: 6, text: '14:00:00' },
+  { value: 7, text: '15:00:00' },
+  { value: 8, text: '16:00:00' }
 ];
 
 const optionsTimeTo = [
-  { value: 0, text: '9:00 A.M' },
-  { value: 1, text: '10:00 A.M' },
-  { value: 2, text: '11:00 A.M' },
-  { value: 3, text: '12:00 NN' },
-  { value: 4, text: '1:00 P.M' },
-  { value: 5, text: '2:00 P.M' },
-  { value: 6, text: '3:00 P.M' },
-  { value: 7, text: '4:00 P.M' },
-  { value: 8, text: '5:00 P.M' }
+  { value: 0, text: '09:00:00' },
+  { value: 1, text: '10:00:00' },
+  { value: 2, text: '11:00:00' },
+  { value: 3, text: '12:00:00' },
+  { value: 4, text: '13:00:00' },
+  { value: 5, text: '14:00:00' },
+  { value: 6, text: '15:00:00' },
+  { value: 7, text: '16:00:00' },
+  { value: 8, text: '17:00:00' }
 ];
 
 export default class AddConsultationHours extends Component {
@@ -62,6 +62,7 @@ export default class AddConsultationHours extends Component {
     this.uploadAttachment = this.uploadAttachment.bind(this);
 
     this.startAdd = this.startAdd.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleChangeDays(e) {
@@ -87,29 +88,29 @@ export default class AddConsultationHours extends Component {
     this.setState({ place: e.target.value });
   }
 
+  handleLogout(e){
+    e.preventDefault();
+    Api.logout();
+    this.props.history.push('../..');
+  }
+
   uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
   }
 
   startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
+    e.preventDefault();
+    Api.addConsultation({
+      consultation_start_time: this.state.timeFrom,
+      consultation_end_time: this.state.timeTo,
+      consultation_place: this.state.place,
+      day: this.state.days
+    })
+      .then(result =>{
+        this.props.history.push('./view'); //change to profile later!!
+        alert('Consultation Hours successfully added!');
+      })
+      .catch(e => alert('Error adding new consultation hour!'));
   }
 
   render() {
