@@ -568,7 +568,7 @@ export default class Signup extends Component {
                             <input
                               type="radio"
                               name="fulltime"
-                              value={1}
+                              value={0}
                               onClick={this.handleChangeFulltime}
                             />
                             <label>Yes</label>
@@ -577,7 +577,7 @@ export default class Signup extends Component {
                             <input
                               type="radio"
                               name="fulltime"
-                              value={0}
+                              value={1}
                               onClick={this.handleChangeFulltime}
                             />
                             <label>No</label>

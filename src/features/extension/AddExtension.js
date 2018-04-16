@@ -155,11 +155,7 @@ export default class AddExtension extends Component {
             <p>
               <a class="ui small header"> No. of Hours </a>
               <div class="ui input fluid mini focus">
-                <input
-                  disabled
-                  type="number"
-                  onChange={this.handleChangeNoOfHours}
-                />
+                <input type="number" onChange={this.handleChangeNoOfHours} />
               </div>
             </p>
             <p>
