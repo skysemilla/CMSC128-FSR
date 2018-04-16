@@ -12,8 +12,8 @@ export const removePublication = id => {
   return axios.post('/api/publication/delete', id);
 };
 
-export const viewPublications = () => {
-  return axios.get('/api/publication/viewAll');
+export const viewPublications = empid => {
+  return axios.post('/api/publication/viewAll', empid);
 };
 
 export const viewOnePublication = id => {
@@ -21,21 +21,25 @@ export const viewOnePublication = id => {
 };
 
 export const viewEmployees = () => {
-	return axios.get('/api/publication/viewEmployees');
-}
+  return axios.get('/api/publication/viewEmployees');
+};
+
+export const viewEmployeeCoworkers = empid => {
+  return axios.post('/api/publication/viewEmployeeCoworkers', empid);
+};
 
 export const viewCoworkers = id => {
   return axios.get('/api/publication/viewCoworkers', id);
 };
 
 export const addCoworker = info => {
-	return axios.post('/api/coworker/add', info);	
-}
+  return axios.post('/api/coworker/add', info);
+};
 
 export const removeCoworkers = info => {
-	return axios.post('/api/publication/deleteCoworkers', info);
-}
+  return axios.post('/api/publication/deleteCoworkers', info);
+};
 
 export const getCoworkers = id => {
-	return axios.post('/api/publication/getCoworkers', id);
-}
+  return axios.post('/api/publication/getCoworkers', id);
+};

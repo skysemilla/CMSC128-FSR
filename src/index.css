@@ -4,43 +4,68 @@ body {
   font-family: sans-serif;
 }
 
-.flex-container{
-	float: left;
-	width: 25%;
-	box-sizing: border-box;
-	padding: 10px;
-	padding-top: 0px;
+.flex-container {
+  float: left;
+  width: 25%;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-top: 0px;
 }
 
-.div1{
-	display: block;
-	padding-left: 3%;
-	width: 100%;
-	max-width: 100%;
+.div1 {
+  display: block;
+  padding-left: 3%;
+  width: 100%;
+  max-width: 100%;
 }
 
-.navDiv{
-	position: fixed;
-	width: 20%;
-	max-width: 20%;
-	height:100%;
-	max-height:100%;
-	clear: both;
+.navDiv {
+  position: fixed;
+  width: 20%;
+  max-width: 20%;
+  height: 100%;
+  max-height: 100%;
+  clear: both;
 }
 
-.mainDiv{
-	display: block;
-	width: 80%;
-	max-width: 80%;
-	height:100%;
-	max-height:100%;
-	clear: both;
+.mainDiv {
+  display: block;
+  width: 80%;
+  max-width: 80%;
+  height: 100%;
+  max-height: 100%;
+  clear: both;
 }
 
-.wholediv{
-	width: 100%;
+.wholediv {
+  width: 100%;
 }
 
-.dropDown{
-	margin-right: 50px;
+.dropDown {
+  margin-right: 50px;
+}
+
+.bodyDiv {
+  padding-left: 20%;
+  padding-top: 5%;
+}
+
+.scrollable{
+  float: left;
+  position: relative;
+  height: 200px;
+  max-height: 200px;
+  width: 100%;
+  max-width: 100%;
+  overflow: scroll;
+}
+
+.scrollTable{
+  float: left;
+  position: relative;
+  height: 500px;
+  max-height: 500px;
+  width: 100%;
+  max-width: 100%;
+  overflow: scroll;
 }

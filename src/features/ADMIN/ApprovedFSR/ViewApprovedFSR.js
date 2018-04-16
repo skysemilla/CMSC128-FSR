@@ -5,24 +5,112 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
-const dummy = [
-  {
-    id: '0000000000',
-    fname: 'asd',
-    mname: 'efg',
-    lname: 'qweqwe',
-    college: 'CAS',
-    dept: 'asdasad',
-    approved: 'YES'
-  }
-];
+const dummy1 = {
+  id: '0000000000',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy2 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy3 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy4 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy5 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy6 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy7 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy8 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy9 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
+
+const dummy10 = {
+  id: '0000000001',
+  fname: 'asd',
+  mname: 'efg',
+  lname: 'qweqwe',
+  college: 'CAS',
+  dept: 'asdasad',
+  approved: 'YES'
+};
 
 export default class ViewApprovedFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: dummy
+      data: [dummy1, dummy2, dummy3, dummy4, dummy5, dummy6, dummy7, dummy8, dummy9, dummy10]
     };
   }
 
@@ -35,8 +123,13 @@ export default class ViewApprovedFSR extends Component {
   render() {
     return (
       <div className="App-header">
+        <div>
         <NavBar {...this.props} Label="approved" />
-
+        </div>
+        <Divider hidden='true'/>
+        <Divider hidden='true'/>
+        <Divider hidden='true'/>
+        <div className="bodydiv">
         <div
           class="ui compact piled very padded container segment"
           color="teal">
@@ -59,6 +152,7 @@ export default class ViewApprovedFSR extends Component {
           <style>
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
+          <div className="scrollTable">
           <table class="ui celled table">
             <thead>
               <tr>
@@ -88,7 +182,9 @@ export default class ViewApprovedFSR extends Component {
               })}
             </tbody>
           </table>
+          </div>
           <Divider hidden="true" />
+          </div>
         </div>
       </div>
     );
