@@ -258,7 +258,7 @@ export default class EditProfile extends Component {
       email: this.state.email,
       is_full_time: this.state.isfulltime
     }).then(result => {
-      this.props.history.push('./');
+      this.props.history.push('../profile');
     });
   }
 

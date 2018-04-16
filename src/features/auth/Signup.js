@@ -286,7 +286,12 @@ export default class Signup extends Component {
       is_full_time: this.state.fulltime,
       email: this.state.email
     }).then(result => {
-      this.props.history.push('../');
+      Api.login({
+        username: this.state.username,
+        password: this.state.password
+      }).then(result => {
+        this.props.history.push('../profile');
+      });
     });
   }
 
