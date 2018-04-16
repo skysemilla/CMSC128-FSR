@@ -29,7 +29,7 @@ export default class GenericDelete extends Component {
       id: this.props.id //Eto naman yung sa pagkuha ng pub_id sa delete :)
     })
       .then(result => {
-        window.location.reload();
+        this.forceUpdate();
         alert('{this.props.label} successfully deleted!');
       })
       .catch(e => alert('Error deleting new {this.props.label}!'));

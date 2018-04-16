@@ -6,17 +6,6 @@ import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 import TermYearModal from './TermYearModal';
 
-const dummySample = {
-  fname: 'Jasper',
-  mname: '123',
-  lname: 'Arquilita',
-  empid: '1',
-  college: 'CAS',
-  dept: 'ICS',
-  emptype: 'Faculty',
-  email: 'jasarqui123@up.edu.ph'
-};
-
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +21,9 @@ export default class Profile extends Component {
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
-        this.setState({ data: result.data.data });
-        console.log(result.data.data);
+        Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
+          this.setState({ data: res.data.data });
+        });
       }
     });
   }
@@ -59,7 +49,12 @@ export default class Profile extends Component {
             empid={this.state.data.emp_id}
             is_new={this.state.data.is_new}
           />
-          <NavBar {...this.props} Label="profile" subLabel="" is_being_approved={this.state.data.is_being_approved}/>
+          <NavBar
+            {...this.props}
+            Label="profile"
+            subLabel=""
+            is_being_approved={this.state.data.is_being_approved}
+          />
           <div
             class="ui piled very padded text left aligned container segment"
             color="teal">
@@ -143,7 +138,9 @@ export default class Profile extends Component {
                     <td>2017-2018</td>
                     <td>2nd</td>
                     <td>
-                      <button class="ui large compact icon button" onClick={this.startView}>
+                      <button
+                        class="ui large compact icon button"
+                        onClick={this.startView}>
                         <i class="eye icon"> </i>
                       </button>
                     </td>
