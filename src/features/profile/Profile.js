@@ -23,6 +23,12 @@ export default class Profile extends Component {
       if (result.data.data !== null) {
         Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
           this.setState({ data: res.data.data });
+          if (result.data.data.is_studying === 0)
+            this.setState({
+              data: { ...this.state.data, is_full_time: 'YES' }
+            });
+          else
+            this.setState({ data: { ...this.state.data, is_full_time: 'NO' } });
         });
       }
     });
@@ -100,7 +106,7 @@ export default class Profile extends Component {
                     <b>
                       <i class="male icon" />Full-time Employee?{' '}
                     </b>
-                    {this.state.data.fulltime}
+                    {this.state.data.is_full_time}
                   </div>
                 </div>
                 <div class="item">
