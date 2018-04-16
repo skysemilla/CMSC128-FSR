@@ -4,7 +4,6 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import SendToAdmin from './../SendtoAdmin';
 import TermYearModal from './TermYearModal';
 
 const dummySample = {
@@ -27,6 +26,7 @@ export default class Profile extends Component {
     };
 
     this.handleEdit = this.handleEdit.bind(this);
+    this.startView = this.startView.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +41,11 @@ export default class Profile extends Component {
   handleEdit(e) {
     e.preventDefault();
     this.props.history.push('./profile/edit');
+  }
+
+  startView(e) {
+    e.preventDefault();
+    this.props.history.push('./link-to-fsr-pdf'); //view FSR
   }
 
   render() {
@@ -124,13 +129,13 @@ export default class Profile extends Component {
             <Divider hidden="true" />
             <Divider hidden="true" />
             <div>
-              <h2 class="ui blue header">FSRs</h2>
+              <h2 class="ui blue header">Past FSRs</h2>
               <table class="ui blue table">
                 <thead>
                   <tr>
                     <th>School Year</th>
                     <th>Semester</th>
-                    <th>View/Edit</th>
+                    <th>View</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -138,7 +143,9 @@ export default class Profile extends Component {
                     <td>2017-2018</td>
                     <td>2nd</td>
                     <td>
-                      <SendToAdmin {...this.props} />
+                      <button class="ui large compact icon button" onClick={this.startView}>
+                        <i class="eye icon"> </i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>

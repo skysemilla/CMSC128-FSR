@@ -21,8 +21,9 @@ export default class SendtoAdmin extends Component {
 
     return (
       <div>
-        <button class="ui blue button">Edit</button>
-        <button class="ui blue button" onClick={this.show('mini')}>Send to Admin</button>
+        <a class="item" onClick={this.show('mini')}>
+          Send to Admin
+        </a>
         <Modal size={size} open={open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
           <Modal.Header>
             Send to Admin
