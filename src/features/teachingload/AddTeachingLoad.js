@@ -112,7 +112,7 @@ export default class AddTeachingLoad extends Component {
       creditw: this.state.creditw
     })
       .then(result =>{
-        this.props.history.push('./teachingload/view'); //change to profile later!!
+        this.props.history.push('./view'); //change to profile later!!
         alert('Teachingload successfully added!');
       })
       // .catch(e => alert(e));
