@@ -222,10 +222,6 @@ export default class AddExtension extends Component {
             </p>
             <div class="ui center aligned container">
               <button
-                class="ui blue button">
-                Upload Attachments
-              </button>
-              <button
                 class="ui center aligned blue button"
                 onClick={this.startAdd}>
                 Add Extension

@@ -8,6 +8,7 @@ export * from './entities/adminWork';
 export * from './entities/limitedpractice';
 export * from './entities/publication';
 export * from './entities/profchair';
-export * from './entities/extension'
+export * from './entities/extension';
+export * from './entities/subject';
 
 /* export * from './entities/<entity name>*/

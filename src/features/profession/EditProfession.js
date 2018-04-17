@@ -14,11 +14,9 @@ export default class EditProfession extends Component {
     super(props);
 
     this.state = {
-      limited_practice_id: '',
       permission: '',
       date: '',
-      emp_id: ''
-      // attachmentLink: ''
+      attachmentLink: ''
     };
 
     this.handleChangePermission = this.handleChangePermission.bind(this);
@@ -28,11 +26,9 @@ export default class EditProfession extends Component {
   }
 
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({emp_id: result.data.data.emp_id})
-      }
-    });
+    if (typeof this.props.history !== 'undefined') {
+      console.log(this.props.history.location.state.id);
+    }
   }
 
   handleChangePermission(e) {
@@ -44,19 +40,16 @@ export default class EditProfession extends Component {
   }
 
   startEdit(e) {
-    e.preventDefault();
-    (this.state.permission == "YES")? this.state.permission = 1 : this.state.permission = 0;
-    Api.editLimitedPractice({
-      limited_practice_id: this.props.history.location.state.id,
-      haveApplied: this.state.permission,
-      date_submitted: this.state.date,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');  //change to profile later!!
-        alert('Teaching load successfully edited!');
-      })
-      .catch(e => alert('Error editing Teaching Load!'));
+    // e.preventDefault();
+    // Api.addprofession({
+    // permission: this.state.permission,
+    // date: this.state.date
+    // })
+    //   .then(result => {
+    //     this.props.history.push('./teachingload/view');  //change to profile later!!
+    //     alert('Teaching load successfully added!');
+    //   })
+    //   .catch(e => alert('Error adding new Teaching Load!'));
   }
 
   uploadAttachment(e) {
