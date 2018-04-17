@@ -71,14 +71,14 @@ export default class EditProfessorialChair extends Component {
     console.log('from ' + this.state.startdate + ' to ' + e.target.value);
 
     // input date validation
-    if (this.state.enddate != '' && e.target.value > this.state.enddate) {
+    if (e.target.value == '' || ( this.state.enddate != '' && e.target.value > this.state.enddate) ) {
       console.log('new start date is after end date');
       this.setState({ validStartDate: false });
-      this.setState({ validEndDate: false }); // and vice-versa
+      //this.setState({ validEndDate: false }); // and vice-versa
     } else {
       console.log('new start date is before end date');
       this.setState({ validStartDate: true });
-      this.setState({ validEndDate: true }); // and so both are valid
+      //this.setState({ validEndDate: true }); // and so both are valid
     }
 
     console.log('e.target.value: ');
@@ -91,14 +91,14 @@ export default class EditProfessorialChair extends Component {
     console.log('from ' + this.state.enddate + ' to ' + e.target.value);
 
     // input date validation
-    if (this.state.startdate != '' && e.target.value < this.state.startdate) {
+    if (e.target.value == '' || ( this.state.startdate != '' && e.target.value < this.state.startdate) ) {
       console.log('new end date is before start date');
       this.setState({ validEndDate: false });
-      this.setState({ validStartDate: false }); // and vice-versa
+      //this.setState({ validStartDate: false }); // and vice-versa
     } else {
       console.log('new end date is after start date');
       this.setState({ validEndDate: true });
-      this.setState({ validStartDate: true }); // and so both are valid
+      //this.setState({ validStartDate: true }); // and so both are valid
     }
 
     console.log('e.target.value: ');
@@ -107,36 +107,41 @@ export default class EditProfessorialChair extends Component {
   }
 
   startAdd(e) {
-    // if date field is enabled, validate date
-    if ( ( this.state.nominee === 'No' || this.state.nominee === '') ||
-    ( this.state.validStartDate !==false && this.state.validEndDate !== false ) ) {
-      e.preventDefault();
-      console.log(this.state.emp_id)
-      console.log(this.state.nominee)
-      console.log(this.state.nominated)
-      console.log(this.state.profchair)
-      console.log(this.state.grant)
-      console.log(this.state.granttitle)
-      console.log(this.state.startdate)
-      console.log(this.state.enddate)
-      Api.editProfessorialChair({
-        emp_id: this.state.emp_id,
-        type: this.state.nominee,
-        is_approved: this.state.nominated,
-        professional_chair: this.state.profchair,
-        grants: this.state.grant,
-        grant_title: this.state.granttitle,
-        start_date: this.state.startdate,
-        end_date: this.state.enddate
-      })
-        .then(result => {
-          this.props.history.push('./view');
-          alert('Professorial Chair successfully edited!');
+    // if date field is enabled
+    if ( ( this.state.nominee === 'No' ) ||
+    ( this.state.validGrantTitle !== false && this.state.validStartDate !== false && 
+      this.state.nominated !== '' && this.state.profchair !== '' && 
+      this.state.grant !== '' && this.state.granttitle !== '' )
+    ) {
+    // other fields must have a valid input
+
+        e.preventDefault();
+        console.log(this.state.emp_id)
+        console.log(this.state.nominee)
+        console.log(this.state.nominated)
+        console.log(this.state.profchair)
+        console.log(this.state.grant)
+        console.log(this.state.granttitle)
+        console.log(this.state.startdate)
+        console.log(this.state.enddate)
+        Api.editProfessorialChair({
+          emp_id: this.state.emp_id,
+          type: this.state.nominee,
+          is_approved: this.state.nominated,
+          professional_chair: this.state.profchair,
+          grants: this.state.grant,
+          grant_title: this.state.granttitle,
+          start_date: this.state.startdate,
+          end_date: this.state.enddate
         })
-        .catch(e => alert('Error editing Professorial Chair!'));
+          .then(result => {
+            this.props.history.push('./view');
+            alert('Professorial Chair successfully edited!');
+          })
+          .catch(e => alert('Error editing Professorial Chair!'));
     } // if valid date 
     else { // else invalid date
-      alert('Invalid dates!');
+      alert('Invalid input!');
     }
   }
 
@@ -179,6 +184,13 @@ export default class EditProfessorialChair extends Component {
                       />
                       <label>No</label>
                     </div>
+                    {this.state.nominee === '' ?
+                        (
+                          <div class="ui left pointing red basic label">
+                            Required
+                          </div>
+                        ) : (<div></div>)
+                      }
                   </div>
                 </div>
               </div>
@@ -214,6 +226,13 @@ export default class EditProfessorialChair extends Component {
                           <label>No</label>
                         </div>
                       </div>
+                      {this.state.nominated === '' ?
+                        (
+                          <div class="ui left pointing red basic label">
+                            Required
+                          </div>
+                        ) : (<div></div>)
+                      }
                     </div>
                   </div>
                 </p>
@@ -225,6 +244,13 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeProfChair}
                       placeholder={this.state.profchair}
                     />
+                    {this.state.profchair === '' ?
+                      (
+                        <div class="ui left pointing red basic label">
+                          Required
+                        </div>
+                      ) : (<div></div>)
+                    }
                   </div>
                 </p>
                 <p>
@@ -235,6 +261,13 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeGrant}
                       placeholder={this.state.grant}
                     />
+                    {this.state.grant === '' ?
+                      (
+                        <div class="ui left pointing red basic label">
+                          Required
+                        </div>
+                      ) : (<div></div>)
+                    }
                   </div>
                 </p>
                 <p>
@@ -245,6 +278,13 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeGrantTitle}
                       placeholder={this.state.granttitle}
                     />
+                    {this.state.granttitle === '' ?
+                      (
+                        <div class="ui left pointing red basic label">
+                          Required
+                        </div>
+                      ) : (<div></div>)
+                    }
                   </div>
                 </p>
                 <p>
