@@ -75,7 +75,6 @@ export default class ViewExtension extends Component {
                   <th class="center aligned">Role</th>
                   <th class="center aligned">Funding Agency</th>
                   <th class="center aligned">Approved Course Credits </th>
-                  <th class="center aligned"> Attachments </th>
                   <th class="center aligned"> Edit/Delete </th>
                 </tr>
               </thead>

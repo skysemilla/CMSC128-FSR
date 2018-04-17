@@ -26,7 +26,6 @@ export default class PublicationSubTypeDropdown extends Component {
                 }
               })}
             </select>
-            {this.props.formError}
           </a>
         </p>
       </div>

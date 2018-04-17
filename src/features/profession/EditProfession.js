@@ -7,52 +7,28 @@ import NavBar from './../ui/NavBar';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 
-// form validation
-const error = {
-  color: 'red'
-};
-
-const errorTexts = [
-  <span style={error}> {' is required'}</span>, //0
-  <span style={error}> {' *'}</span> //1
-];
-
-var formError = {
-  text: {
-    permission: '',
-    date: ''
-  },
-  bool: {
-    permission: false,
-    date: false
-  }
-};
+const dummySample = { permission: 'YES', date: '' };
 
 export default class EditProfession extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      limited_practice_id: '',
       permission: '',
       date: '',
-      emp_id: ''
-      // attachmentLink: ''
+      attachmentLink: ''
     };
 
     this.handleChangePermission = this.handleChangePermission.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.startEdit = this.startEdit.bind(this);
-    this.checkEdit = this.checkEdit.bind(this);
   }
 
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({emp_id: result.data.data.emp_id})
-      }
-    });
+    if (typeof this.props.history !== 'undefined') {
+      console.log(this.props.history.location.state.id);
+    }
   }
 
   handleChangePermission(e) {
@@ -63,47 +39,17 @@ export default class EditProfession extends Component {
     this.setState({ date: e.target.value });
   }
 
-  checkEdit(e) {
-    e.preventDefault();
-    if (!this.state.permission) {
-      formError.text.permission = errorTexts[1];
-      formError.bool.permission = false;
-    } else {
-      formError.text.permission = '';
-      formError.bool.permission = true;
-    }
-
-    // check date
-    if (!this.state.date) {
-      formError.text.date = errorTexts[0];
-      formError.bool.date = false;
-    } else {
-      formError.text.date = '';
-      formError.bool.date = true;
-    }
-
-    if (
-      formError.bool.permission &&
-      formError.bool.date 
-    ) {
-      this.startEdit();
-    } else this.forceUpdate();
-  }
-
   startEdit(e) {
-    e.preventDefault();
-    (this.state.permission == "YES")? this.state.permission = 1 : this.state.permission = 0;
-    Api.editLimitedPractice({
-      limited_practice_id: this.props.history.location.state.id,
-      haveApplied: this.state.permission,
-      date_submitted: this.state.date,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');  //change to profile later!!
-        alert('Teaching load successfully edited!');
-      })
-      .catch(e => alert('Error editing Teaching Load!'));
+    // e.preventDefault();
+    // Api.addprofession({
+    // permission: this.state.permission,
+    // date: this.state.date
+    // })
+    //   .then(result => {
+    //     this.props.history.push('./teachingload/view');  //change to profile later!!
+    //     alert('Teaching load successfully added!');
+    //   })
+    //   .catch(e => alert('Error adding new Teaching Load!'));
   }
 
   uploadAttachment(e) {
@@ -131,7 +77,7 @@ export default class EditProfession extends Component {
                 <div class="inline fields">
                   <label>
                     Have you applied for official permission for limited
-                    practice of profession?{formError.text.permission}
+                    practice of profession?
                   </label>
                   <div class="field">
                     <div class="ui radio checkbox">
@@ -171,7 +117,7 @@ export default class EditProfession extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header">Date submitted{formError.text.date} </a>
+                <a class="ui small header">Date submitted </a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeDate} />
                 </div>
@@ -183,7 +129,7 @@ export default class EditProfession extends Component {
               </button>
               <button
                 class="ui center aligned blue button"
-                onClick={this.checkEdit}>
+                onClick={this.startEdit}>
                 Edit Profession
               </button>
             </div>

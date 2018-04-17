@@ -15,3 +15,19 @@ export const getSession = () => {
 export const signup = form => {
   return axios.post('/api/signup', form);
 };
+
+export const viewAllSubjects = () => {
+	return axios.post('/api/subject/viewAll');
+};
+
+export const deleteSubject = subjectInfo => {
+	return axios.post('/api/subject/remove', subjectInfo)
+};
+
+export const editSubject = subjectInfo => {
+	return axios.post('/api/subject/edit', subjectInfo)
+};
+
+export const addSubject = () => {
+	return axios.post('/api/subject/add')
+};

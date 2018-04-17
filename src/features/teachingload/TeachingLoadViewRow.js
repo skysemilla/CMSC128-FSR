@@ -3,7 +3,6 @@ import 'semantic-ui-css/semantic.min.css';
 //import CellItem from './CellItem'
 import { Modal } from 'semantic-ui-react';
 import DeleteModal from './GenericDelete';
-import ViewAttachments from './../ViewAttachments';
 
 export default class ViewTeachingLoadRow extends Component {
   render() {
@@ -22,9 +21,6 @@ export default class ViewTeachingLoadRow extends Component {
         {/*<td class="center aligned"> {this.props.creditwo} </td>*/}
         {/*<td class="center aligned"> {this.props.studcred} </td>*/}
         {/*<td class="center aligned"> {this.props.creditw} </td>*/}
-        <td class="center aligned">
-          <ViewAttachments {...this.props} />
-        </td>
         <td class="center aligned">
           <DeleteModal {...this.props} />
         </td>

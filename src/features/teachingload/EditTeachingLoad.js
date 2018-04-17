@@ -12,39 +12,55 @@ export default class EditTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      emp_id: '',
+      // emp_id: '',
       subj: 'CMSC 128',
       seccode: 'CMSC 128',
-      room: 'CAS B04',
-      days: 'T-Th',
-      starttime: '4pm',
-      endtime: '7pm',
-      hours: '3',
-      studnum: '49',
-      creditwo: '3',
-      studcred: '3',
-      creditw: '3'
+      // room: 'CAS B04',
+      // days: 'T-Th',
+      // starttime: '4pm',
+      // endtime: '7pm',
+      // hours: '3',
+      studnum: '',
+      data: [],
+      sectionArray: []
+      // creditwo: '3',
+      // studcred: '3',
+      // creditw: '3'
     };
 
     this.handleChangeSubj = this.handleChangeSubj.bind(this);
     this.handleChangeSeccode = this.handleChangeSeccode.bind(this);
-    this.handleChangeRoom = this.handleChangeRoom.bind(this);
-    this.handleChangeDays = this.handleChangeDays.bind(this);
-    this.handleChangeStartTime = this.handleChangeStartTime.bind(this);
-    this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
-    this.handleChangeHours = this.handleChangeHours.bind(this);
+    // this.handleChangeRoom = this.handleChangeRoom.bind(this);
+    // this.handleChangeDays = this.handleChangeDays.bind(this);
+    // this.handleChangeStartTime = this.handleChangeStartTime.bind(this);
+    // this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
+    // this.handleChangeHours = this.handleChangeHours.bind(this);
     this.handleChangeStudnum = this.handleChangeStudnum.bind(this);
-    this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
-    this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
-    this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
+    // this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
+    // this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
+    // this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
   }
 
   componentDidMount(){
-    if(typeof this.props.history!=='undefined'){
-      this.setState({emp_id: this.props.history.location.state.emp_id});
-    }
+    Api.viewAllSubjects().then(response => {
+      if (response.data.data[0] !== undefined) {
+        this.setState({ data: response.data.data });
+        console.log(response.data.data);
+      }
+    });
+
+    // Api.viewByTeachloadId(this.props.id)
+    //   .then(response => {
+    //     this.setState(
+    //       { subj: response.subj },
+    //       { seccode: response.seccode },
+    //       { studnum: response.studnum }
+    //     );
+    //   })
+    //   // .catch(e => alert(e));
+    //   .then(console.log(this.state));
   }
 
   handleChangeSubj(e) {
@@ -55,41 +71,41 @@ export default class EditTeachingLoad extends Component {
     this.setState({ seccode: e.target.value });
   }
 
-  handleChangeRoom(e) {
-    this.setState({ room: e.target.value });
-  }
+  // handleChangeRoom(e) {
+  //   this.setState({ room: e.target.value });
+  // }
 
-  handleChangeDays(e) {
-    this.setState({ days: e.target.value });
-  }
+  // handleChangeDays(e) {
+  //   this.setState({ days: e.target.value });
+  // }
 
-  handleChangeStartTime(e) {
-    this.setState({ starttime: e.target.value });
-  }
+  // handleChangeStartTime(e) {
+  //   this.setState({ starttime: e.target.value });
+  // }
 
-  handleChangeEndTime(e) {
-    this.setState({ endtime: e.target.value });
-  }
+  // handleChangeEndTime(e) {
+  //   this.setState({ endtime: e.target.value });
+  // }
 
-  handleChangeHours(e) {
-    this.setState({ hours: e.target.value });
-  }
+  // handleChangeHours(e) {
+  //   this.setState({ hours: e.target.value });
+  // }
 
   handleChangeStudnum(e) {
     this.setState({ studnum: e.target.value });
   }
 
-  handleChangeCreditwo(e) {
-    this.setState({ creditwo: e.target.value });
-  }
+  // handleChangeCreditwo(e) {
+  //   this.setState({ creditwo: e.target.value });
+  // }
 
-  handleChangeStudcred(e) {
-    this.setState({ studcred: e.target.value });
-  }
+  // handleChangeStudcred(e) {
+  //   this.setState({ studcred: e.target.value });
+  // }
 
-  handleChangeCreditwith(e) {
-    this.setState({ creditw: e.target.value });
-  }
+  // handleChangeCreditwith(e) {
+  //   this.setState({ creditw: e.target.value });
+  // }
 
   handleLogout(e) {
     e.preventDefault();
@@ -100,16 +116,16 @@ export default class EditTeachingLoad extends Component {
   startEdit(e) {
     e.preventDefault();
     Api.editTeachLoad({
-      emp_id: 11, //Temporary emp_id value
+ //     emp_id: 11, //Temporary emp_id value
       subject_code: this.state.subj,
       section_code: this.state.seccode,
-      room: this.state.room,
-      days: this.state.days,
-      start_time: this.state.starttime,
-      end_time: this.state.endtime,
-      hours: this.state.hours,
+      // room: this.state.room,
+      // days: this.state.days,
+      // start_time: this.state.starttime,
+      // end_time: this.state.endtime,
+      // hours: this.state.hours,
       no_of_students: this.state.studnum,
-      creditw: this.state.creditw,
+      //creditw: this.state.creditw,
       teachingload_id: this.props.history.location.state.id
     })
       .then(result => {
@@ -121,6 +137,43 @@ export default class EditTeachingLoad extends Component {
   }
 
   render() {
+    var optionsArray = [];
+    var secArray = [];
+    var suppDup = [];
+    var suppDup2 = [];
+
+    {
+      this.state.data.map(item=>{
+        suppDup.push(item.subject_code);
+      });
+    }
+
+    {
+      for(var count = 0; count < suppDup.length; count++){
+        if(suppDup2.includes(suppDup[count]) != true){
+          suppDup2.push(suppDup[count]);
+        }
+      }
+    }
+
+    {
+      for(var count = 0; count < suppDup2.length; count++){
+        var values = {subject : suppDup2[count], section : []}
+        optionsArray.push(values);
+      }
+    }
+
+    {
+      this.state.data.map(item=>{
+      
+        optionsArray.map(data=>{
+          if(data.subject === item.subject_code){
+            data.section.push(item.section_code);
+          }
+        });
+      });
+    }
+
     return (
       <div className="App-header">
         <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
@@ -134,70 +187,55 @@ export default class EditTeachingLoad extends Component {
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                placeholder={this.state.subj}
-                onChange={this.handleChangeSubj}
-              />
-            </div>
+            <a class="ui small header"> Subject
+             <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
+              <select 
+                class = "dropdown"
+                value = {this.state.subj} 
+                onChange = {this.handleChangeSubj}>
+
+              <option value = {this.state.subj} selected> {this.state.subj} </option>
+              {
+                optionsArray.map(
+                  (item)=>{
+                    return(
+                      <option value = {item.subject}>
+                      {item.subject}
+                      </option>
+                    )
+                  }
+                )}
+              </select>
+            </a>
           </p>
           <p>
-            <a class="ui small header"> Section Code </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                placeholder={this.state.seccode}
-                onChange={this.handleChangeSeccode}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Room </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                placeholder={this.state.room}
-                onChange={this.handleChangeRoom}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Days </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                placeholder={this.state.days}
-                onChange={this.handleChangeDays}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Start Time </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="time"
-                onChange={this.handleChangeStartTime}
-              />
-            </div>
-            <a class="ui small header">End Time </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="time"
-                onChange={this.handleChangeEndTime}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Hours per Week </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                placeholder={this.state.hours}
-                onChange={this.handleChangeHours}
-              />
-            </div>
+            {
+              optionsArray.map(
+                (item)=>{
+                  if(this.state.subj === item.subject){
+                    secArray = item.section;
+                }
+              }
+            )}
+            <a class="ui small header"> Section
+              <select 
+                class = "dropdown"
+                value = {this.state.seccode} 
+                onChange = {this.handleChangeSeccode}>
+
+              <option value = {this.state.seccode} selected> {this.state.seccode} </option>
+              {
+              secArray.map(
+                (item)=>{
+                  return(
+                    <option value = {item}>
+                      {item}
+                    </option>
+                  )
+                }
+              )}
+              </select>
+            </a>
           </p>
           <p>
             <a class="ui small header">No. of Students </a>
@@ -206,36 +244,6 @@ export default class EditTeachingLoad extends Component {
                 type="number"
                 placeholder={this.state.studnum}
                 onChange={this.handleChangeStudnum}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Course Credit w/o Multiplier </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                placeholder={this.state.creditwo}
-                onChange={this.handleChangeCreditwo}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Student Credit Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                placeholder={this.state.studcred}
-                onChange={this.handleChangeStudcred}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                placeholder={this.state.creditw}
-                onChange={this.handleChangeCreditwith}
               />
             </div>
           </p>

@@ -21,21 +21,22 @@ export default class ViewAdminWork extends Component {
     super(props);
 
     this.state = {
-      data : []
-      // data: [dummySample] //dummmy data
+      // data : []
+      data: [dummySample] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
   }
 
-  componentDidMount(e) {
-    Api.viewPosition({})
-      .then(result => {
-        this.setState({ data: result });
-      })
-      .catch(e => alert('Error loading Adminwork!'));
-  }
-
+  // componentDidMount(){
+  //   e.preventDefault();
+  //   Api.ViewTeachingLoad({
+  //   })
+  //     .then(result => {
+  //       this.setState({ data: result});
+  //     })
+  //     .catch(e => alert('Error loading Publications!!'));
+  // }
 
   startAdd(e) {
     e.preventDefault();
