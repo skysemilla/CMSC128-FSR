@@ -112,7 +112,7 @@ export default class EditTeachingLoad extends Component {
       creditw: this.state.creditw,
       teachingload_id: this.props.history.location.state.id
     })
-      .then(result =>{
+      .then(result => {
         this.props.history.push('./view'); //change to profile later!!
         alert('Teachingload successfully edited!');
       })
