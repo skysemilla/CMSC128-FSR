@@ -54,7 +54,7 @@ export default class ViewTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      data: [] //dummmy data
+      data: [dummySample] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
@@ -107,10 +107,11 @@ export default class ViewTeachingLoad extends Component {
                     <th class="center aligned"> No. Of Students </th>
                     {/*  <th class="center aligned"> Course Credit </th> */}
                     {/*  <th class="center aligned"> Student Credit Units </th> */}
-                    {/* <th class="center aligned"> 
+                    {/* <th class="center aligned">
                   {' '}
                   Teaching load credits with Multiplier{' '}
                 </th>*/}
+                    <th class="center aligned"> Attachments </th>
                     <th class="center aligned"> Edit/Delete </th>
                   </tr>
                 </thead>
