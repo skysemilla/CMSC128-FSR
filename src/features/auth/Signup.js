@@ -23,21 +23,30 @@ const error = {
   color: 'red'
 };
 
+var messageClass = 'ui negative message';
+
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
   <span style={error}> {' number is required'}</span>, //1
   <span style={error}> {' >= 6 characters'}</span>, //2
   <span style={error}> {' <= 16 characters'}</span>, //3
-  <span style={error}> {' = 9 digits'}</span>, //4
+  <span style={error}> {' = 10 digits'}</span>, //4
   <span style={error}> {' must match'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
   <span style={error}> {' must be valid'}</span> //7
 ];
 
+<<<<<<< HEAD
 const nameRegex = /^[A-Za-z0-9\-']+$/;
 const alphanumRegex = /^[A-Za-z0-9]+$/;
 const empIdRegex = /^[0-9]{9}$/;
 const emailRegex = /^.+\@up.edu.ph$/;
+=======
+const nameRegex = /[A-Za-z0-9\-']+/;
+const alphanumRegex = /[A-Za-z0-9]+/;
+const empIdRegex = /[0-9]{10}/;
+const emailRegex = /.+\@.+\..+/;
+>>>>>>> 8f9d0a97ad1e64d9626308b22b852c8f80bd34b9
 
 var formError = {
   text: {
@@ -246,6 +255,7 @@ export default class Signup extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
+    console.log(this.state.college);
   }
 
   handleChangeDept(e) {
@@ -287,7 +297,7 @@ export default class Signup extends Component {
         username: this.state.username,
         password: this.state.password
       }).then(result => {
-        this.props.history.push('/profile');
+        this.props.history.push('../profile');
       });
     });
   }
