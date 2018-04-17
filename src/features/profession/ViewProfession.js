@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import DeleteModal from './../GenericDelete';
+import DeleteModal from '../GenericDelete';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import ViewProfessionsRow from './ProfessionsViewRow';
@@ -17,25 +17,20 @@ export default class ViewProfession extends Component {
     super(props);
 
     this.state = {
-      data: []
+      data: [dummySample, dummySample2]
     };
 
     this.startAdd = this.startAdd.bind(this);
   }
 
   componentDidMount = () => {
-        Api.getSession().then(res => {
-          if (res.data.data !== null) {
-            Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
-              if (result.data.data !== null) {
-                console.log({data: result.data.data[0]})
-                this.setState({ data: result.data.data});
-              }
-            });
-          }
-        });
-
-
+    //   e.preventDefault();
+    //   Api.viewProfession({
+    //   })
+    //     .then(result => {
+    //       this.setState({ publications: result});
+    //     })
+    //     .catch(e => alert('Error loading Profession!!'));
   };
 
   startAdd() {
@@ -75,9 +70,9 @@ export default class ViewProfession extends Component {
                     return (
                       <ViewProfessionsRow
                         {...this.props}
-                        id={item.limited_practice_id}
-                        haveApplied = {item.haveApplied}
-                        date_submitted = {item.date_submitted}
+                        id={item.id}
+                        permission={item.permission}
+                        date={item.date}
                         label="Profession"
                         subLabel="profession"
                         editURL="../profession/edit"

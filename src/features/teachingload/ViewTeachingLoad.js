@@ -54,7 +54,7 @@ export default class ViewTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      data: [dummySample] //dummmy data
+      data: [] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
@@ -90,10 +90,6 @@ export default class ViewTeachingLoad extends Component {
           <div
             class="ui compact piled very padded text left aligned container segment mainDiv"
             color="teal">
-            <div>
-              <h1 class="ui blue header">TEACHING LOAD</h1>
-            </div>
-            <Divider hidden="true" />
             <style>
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
@@ -111,11 +107,10 @@ export default class ViewTeachingLoad extends Component {
                     <th class="center aligned"> No. Of Students </th>
                     {/*  <th class="center aligned"> Course Credit </th> */}
                     {/*  <th class="center aligned"> Student Credit Units </th> */}
-                    {/* <th class="center aligned">
+                    {/* <th class="center aligned"> 
                   {' '}
                   Teaching load credits with Multiplier{' '}
                 </th>*/}
-                    <th class="center aligned"> Attachments </th>
                     <th class="center aligned"> Edit/Delete </th>
                   </tr>
                 </thead>

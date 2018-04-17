@@ -30,89 +30,41 @@ const optionsMain = [
   }
 ];
 
-// form validation
-const error = {
-  color: 'red'
-};
-
-var messageClass = 'ui negative message';
-
-const errorTexts = [
-  <span style={error}> {' is required'}</span>, //0
-  <span style={error}> {' number is required'}</span>, //1
-  <span style={error}> {' >= 6 characters'}</span>, //2
-  <span style={error}> {' <= 16 characters'}</span>, //3
-  <span style={error}> {' = 10 digits'}</span>, //4
-  <span style={error}> {' must match'}</span>, //5
-  <span style={error}> {' must be alphanumeric'}</span>, //6
-  <span style={error}> {' must be valid'}</span>, //7
-  <span style={error}> {' *required'}</span> //8
-];
-
-// researchType: '',
-//       researchSubtype: '',
-//       completeTitle: '',
-//       Role: '',
-//       Coworkers: [], //!!!
-//       Funding: 'N/A',
-//       StartDate: '',
-//       EndDate: '',
-//       ApprovedCreditUnits: 
-
-var formError = {
-  text: {
-    researchType: '',
-    researchSubtype: '',
-    completeTitle: '',
-    Role: '',
-    Funding: '',
-    StartDate: '',
-    EndDate: '',
-    ApprovedCreditUnits: ''
-  },
-  bool: {
-    researchType: false,
-    researchSubtype: false,
-    completeTitle: false,
-    Role: false,
-    Funding: false,
-    StartDate: false,
-    EndDate: false,
-    ApprovedCreditUnits: false
-  }
-};
-
 export default class AddPublication extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posCoworkers: [], 
+      posCoworkers: [], //!!!
       researchType: '',
       researchSubtype: '',
       completeTitle: '',
       Role: '',
-      Coworkers: [], 
+      Coworkers: [], //!!!
       Funding: 'N/A',
       StartDate: '',
       EndDate: '',
       ApprovedCreditUnits: ''
     };
-    this.handleChangePosCoworker = this.handleChangePosCoworker.bind(this);
+
+    this.handleChangePosCoworker = this.handleChangePosCoworker.bind(this); // NEW
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.addCoworker = this.addCoworker.bind(this); 
+    this.addCoworker = this.addCoworker.bind(this); //!!!
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
-    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.validateAdd = this.validateAdd.bind(this);
+    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(
+      this
+    );
+
     this.startAdd = this.startAdd.bind(this);
   }
 
   handleChangePosCoworker(e) {
+    // NEW
     this.setState({ posCoworkers: e.target.value });
   }
 
@@ -133,23 +85,8 @@ export default class AddPublication extends Component {
     this.setState({ Role: e.target.value });
   }
 
-  handleChangeFunding(e) {
-    this.setState({ Funding: e.target.value });
-  }
-
-  handleChangeStartDate(e) {
-    this.setState({ StartDate: e.target.value });
-  }
-
-  handleChangeEndDate(e) {
-    this.setState({ EndDate: e.target.value });
-  }
-
-  handleChangeApprovedCreditUnits(e) {
-    this.setState({ ApprovedCreditUnits: e.target.value });
-  }
-
   addCoworker(e) {
+    //!!!
     if (this.state.Coworkers.includes(e.target.value)) {
       for (var index = 0; index < this.state.Coworkers.length; index++) {
         if (this.state.Coworkers[index] === e.target.value)
@@ -166,106 +103,36 @@ export default class AddPublication extends Component {
     console.log(this.state.Coworkers);
   }
 
-  validateAdd(){
-  	// e.preventDefault();
-  	// check research type
-  	if(!this.state.researchType){
-  		formError.text.researchType = errorTexts[8];
-  		formError.bool.researchType = false;
-  	}else{
-  		formError.text.researchType = '';
-  		formError.bool.researchType = true;
-  	}
+  handleChangeFunding(e) {
+    this.setState({ Funding: e.target.value });
+  }
 
-  	// check research subtype
-  	if(!this.state.researchSubtype){
-  		formError.text.researchSubtype = errorTexts[8];
-  		formError.bool.researchSubtype = false;
-  	}else{
-  		formError.text.researchSubtype = '';
-  		formError.bool.researchSubtype = true;
-  	}
+  handleChangeStartDate(e) {
+    this.setState({ StartDate: e.target.value });
+  }
 
-  	// check title
-  	if(!this.state.completeTitle){
-  		formError.text.completeTitle = errorTexts[0];
-  		formError.bool.completeTitle = false;
-  	}else{
-  		formError.text.completeTitle = errorTexts[0];
-  		formError.bool.completeTitle = true;
-  	}
+  handleChangeEndDate(e) {
+    this.setState({ EndDate: e.target.value });
+  }
 
-  	// check role
-  	if(!this.state.Role && this.researchType == 'Research'){
-  		formError.text.Role = errorTexts[0];
-  		formError.bool.Role = false;
-  	}else{
-  		formError.text.Role = errorTexts[0];
-  		formError.bool.Role = true;
-  	}
-
-  	// check funding
-  	if(!this.state.Funding && this.researchSubtype != 'Research Proposal'){
-  		formError.text.Funding = errorTexts[0];
-  		formError.bool.Funding = false;
-  	}else{
-  		formError.text.Funding = errorTexts[0];
-  		formError.bool.Funding = true;
-  	}
-
-  	// check start date
-  	if(!this.state.StartDate){
-  		formError.text.StartDate = errorTexts[0];
-  		formError.bool.StartDate = false;
-  	}else{
-  		formError.text.StartDate = errorTexts[0];
-  		formError.bool.StartDate = true;
-  	}
-
-  	// check end date
-  	if(!this.state.EndDate){
-  		formError.text.EndDate = errorTexts[0];
-  		formError.bool.EndDate = false;
-  	}else{
-  		formError.text.EndDate = errorTexts[0];
-  		formError.bool.EndDate = true;
-  	}
-
-  	// check approved credit units
-  	if(!this.state.ApprovedCreditUnits){
-  		formError.text.ApprovedCreditUnits = errorTexts[0];
-  		formError.bool.ApprovedCreditUnits = false;
-  	}else{
-  		formError.text.ApprovedCreditUnits = errorTexts[0];
-  		formError.bool.ApprovedCreditUnits = true;
-  	}
-
-  	if(
-  		formError.bool.researchType &&
-  		formError.bool.researchSubtype &&
-  		formError.bool.completeTitle &&
-  		formError.bool.Role &&
-  		formError.bool.Funding &&
-  		// formError.bool.StartDate &&
-  		// formError.bool.EndDate &&
-  		formError.bool.ApprovedCreditUnits
-  		){
-  		this.startAdd();
-  	} else this.forceUpdate();
-
+  handleChangeApprovedCreditUnits(e) {
+    this.setState({ ApprovedCreditUnits: e.target.value });
   }
 
   componentDidMount = () => {
+    // NEW
     //   e.preventDefault();
     Api.getSession().then(res => {
       if (res.data.data !== null) {
         Api.viewEmployeeCoworkers({ empid: res.data.data.emp_id })
           .then(result => {
+            console.log(result.data.data);
             this.setState({ posCoworkers: result.data.data });
           })
           .catch(err => alert('Error loading Employees!!'));
         Api.getSession({})
           .then(result => {
+            // console.log(result.data.data.emp_id);
             this.setState({ emp_id: res.data.data.emp_id });
           })
           .catch(err => alert('Error getSession'));
@@ -274,11 +141,10 @@ export default class AddPublication extends Component {
   };
 
   startAdd(e) {
-    // e.preventDefault();
+    e.preventDefault();
     Api.addPublication({
       credit_units: this.state.ApprovedCreditUnits,
       category: this.state.researchType,
-      subcategory: this.state.researchSubtype,
       funding: this.state.Funding,
       title: this.state.completeTitle,
       role: this.state.Role,
@@ -320,17 +186,14 @@ export default class AddPublication extends Component {
             </div>
             <Divider hidden="true" />
             <div>
-            {formError.text.researchType}
-              <GenericDropdown class="flex-container"
+              <GenericDropdown
                 labelHeader="Publication Type"
                 labelProper="Choose Publication Type"
                 value={this.state.researchType}
                 handler={this.handleChangeType}
                 options={optionsMain}
               />
-             {formError.text.researchType}
             </div>
-
             <div>
               <PublicationSubTypeDropdown
                 value={this.state.researchSubtype}
@@ -340,7 +203,7 @@ export default class AddPublication extends Component {
               />
             </div>
             <p>
-              <a class="ui small header"> Complete Title{formError.text.completeTitle} </a>
+              <a class="ui small header"> Complete Title </a>
               <div class="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeTitle} />
               </div>
@@ -358,7 +221,7 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Role{formError.text.Role} </a>
+                <a class="ui small header"> Role </a>
                 <div class="ui input fluid mini focus">
                   <input type="text" onChange={this.handleChangeRole} />
                 </div>
@@ -400,7 +263,7 @@ export default class AddPublication extends Component {
               <p>
                 <a class="ui small header"> Funding </a>
                 <div class="ui input fluid mini focus">
-                  <input type="text" onChange={this.handleChangeFunding} />
+                  <input type="number" onChange={this.handleChangeFunding} />
                 </div>
               </p>
             )}
@@ -418,7 +281,7 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Start Date{formError.text.StartDate} </a>
+                <a class="ui small header"> Start Date </a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeStartDate} />
                 </div>
@@ -438,7 +301,7 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> End Date{formError.text.EndDate} </a>
+                <a class="ui small header"> End Date </a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeEndDate} />
                 </div>
@@ -446,7 +309,7 @@ export default class AddPublication extends Component {
             )}
 
             <p>
-              <a class="ui small header"> Approved Credit Units{formError.text.ApprovedCreditUnits} </a>
+              <a class="ui small header"> Approved Credit Units </a>
               <div class="ui input fluid mini focus">
                 <input
                   type="number"
@@ -457,7 +320,7 @@ export default class AddPublication extends Component {
 
             <div class="ui center aligned container">
               <button class="ui blue button">Upload Attachments</button>
-              <button class="ui blue button" onClick={this.validateAdd}>
+              <button class="ui blue button" onClick={this.startAdd}>
                 Add Publication
               </button>
             </div>

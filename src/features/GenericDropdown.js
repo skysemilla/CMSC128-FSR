@@ -26,7 +26,6 @@ export default class GenericDropdown extends Component{
 								}
 							)}
 						</select>
-						{this.props.formError}
 					</a>
 				</p>
 			</div>

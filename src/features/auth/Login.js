@@ -45,11 +45,6 @@ var formValid = {
 
 var errorCredMessage = <div />;
 var apiDidThen = false;
-var fetchDiv = (
-  <div class="ui active inverted dimmer">
-    <div class="ui indeterminate text loader">Loading Session Info</div>
-  </div>
-);
 
 export default class Login extends Component {
   constructor(props) {
@@ -69,22 +64,16 @@ export default class Login extends Component {
 
   componentDidMount() {
     errorCredMessage = <div />;
-    setTimeout(
-      Api.getSession().then(result => {
-        if (result.data.data !== null) {
-          this.setState({ type: result.data.data.type });
-          if (this.state.type === 'ADMIN') {
-            this.props.history.push('/admin/ViewAllFaculty');
-          } else if (this.state.type === 'FACULTY') {
-            this.props.history.push('/profile');
-          }
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        this.setState({ type: result.data.data.type });
+        if (this.state.type === 'ADMIN') {
+          this.props.history.push('/admin/ViewAllFaculty');
+        } else if (this.state.type === 'FACULTY') {
+          this.props.history.push('/profile');
         }
-        fetchDiv = <div />;
-        this.forceUpdate();
-      }),
-      2000
-    );
-    this.forceUpdate();
+      }
+    });
   }
 
   handleChangeUsername(e) {
@@ -187,7 +176,6 @@ export default class Login extends Component {
               {' '}
               LOG IN
             </Header>
-            {fetchDiv}
             <Form size="large">
               <Segment stacked>
                 <Header as="h3">
