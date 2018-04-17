@@ -25,14 +25,16 @@ const optionsMain = [
   { id: 3, text: 'Symposium' },
   { id: 4, text: 'Others' }
 ];
-const error = { 
+const error = {  
   color: 'red'
 };
+const nameRegex = /[A-Za-z0-9\-']+/;
 
 var messageClass = 'ui negative message';
 
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
+  <span style={error}> {' must be alphanumeric'}</span>, //1
 ]
 
 var formError = {
@@ -176,6 +178,9 @@ export default class AddExtension extends Component {
     if(!this.state.approvedCreditUnits){
       formError.text.approvedCreditUnits = errorTexts[0];
       formError.bool.approvedCreditUnits = false;
+    }else if (!this.state.approvedCreditUnits.match(nameRegex)) {
+      formError.text.approvedCreditUnits = errorTexts[1];
+      formError.bool.approvedCreditUnits = false;
     }else{
       formError.text.approvedCreditUnits = '';
       formError.bool.approvedCreditUnits = true;
@@ -199,6 +204,9 @@ export default class AddExtension extends Component {
 
     if(!this.state.title){
       formError.text.title = errorTexts[0];
+      formError.bool.title = false;
+    }else if (!this.state.title.match(nameRegex)) {
+      formError.text.title = errorTexts[1];
       formError.bool.title = false;
     }else{
       formError.text.title = '';
@@ -241,6 +249,9 @@ export default class AddExtension extends Component {
     if(!this.state.role){
       formError.text.role = errorTexts[0];
       formError.bool.role = false;
+    }else if (!this.state.role.match(nameRegex)) {
+      formError.text.role = errorTexts[1];
+      formError.bool.role = false;
     }else{
       formError.text.role = '';
       formError.bool.role = true;
@@ -248,6 +259,9 @@ export default class AddExtension extends Component {
 
     if(!this.state.fundingAgency){
       formError.text.fundingAgency = errorTexts[0];
+      formError.bool.fundingAgency = false;
+    }else if (!this.state.fundingAgency.match(nameRegex)) {
+      formError.text.fundingAgency = errorTexts[1];
       formError.bool.fundingAgency = false;
     }else{
       formError.text.fundingAgency = '';

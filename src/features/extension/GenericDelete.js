@@ -3,12 +3,12 @@ import { Button, Modal } from 'semantic-ui-react';
 import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../api';
+import * as Api from '../../api';
 
 export default class GenericDelete extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { id : ''};
     this.startEdit = this.startEdit.bind(this);
     this.startDelete = this.startDelete.bind(this);
   }
@@ -25,21 +25,21 @@ export default class GenericDelete extends Component {
 
   componentDidMount() {
     if (typeof this.props.history !== 'undefined') {
-      this.setState({ id: this.props.id });
+      this.setState({ extension_id: this.props.id });
       console.log(this.props.id);
     }
   }
 
   startDelete(e) {
     e.preventDefault();
-    console.log(id)
+    console.log(this.props.id)
     Api.deleteExtension({
       id: this.props.id //Eto naman yung sa pagkuha ng pub_id sa delete :)
     })
       .then(result => {
-        alert('Successfully  hah deleted!');
+        alert('Successfully deleted HAHA!');
       })
-      .catch(e => alert('Error deleting row}!'));
+      .catch(e => alert('Error deleting row!'));
   }
 
   render() {
