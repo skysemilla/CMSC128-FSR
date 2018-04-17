@@ -34,7 +34,7 @@ const errorTexts = [
   </div>
 ];
 
-const alphanumRegex = /[A-Za-z0-9]+/;
+const alphanumRegex = /^[A-Za-z0-9]+$/;
 
 var formValid = {
   userError: '',

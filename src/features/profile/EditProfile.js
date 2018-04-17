@@ -26,10 +26,10 @@ const errorTexts = [
   <span style={error}> {' *'}</span> //8
 ];
 
-const nameRegex = /[A-Za-z0-9\-']+/;
-const alphanumRegex = /[A-Za-z0-9]+/;
-const empIdRegex = /[0-9]{9}/;
-const emailRegex = /.+\@.+\..+/;
+const nameRegex = /^[A-Za-z0-9\-']+$/;
+const alphanumRegex = /^[A-Za-z0-9]+$/;
+const empIdRegex = /^[0-9]{9}$/;
+const emailRegex = /^.+\@up.edu.ph$/;
 
 var formError = {
   text: {
