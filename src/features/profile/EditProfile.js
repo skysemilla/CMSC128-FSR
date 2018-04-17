@@ -336,43 +336,8 @@ export default class EditProfile extends Component {
                 college={this.state.college}
               />
 
-              <div class="ui form flex-container">
-                <div class="grouped fields">
-                  <div class="field">
-                    <label>
-                      <span>Full Time Employee?</span>
-                    </label>
-                  </div>
-                  <div class="inline fields">
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input
-                          type="radio"
-                          name="fulltime"
-                          value={0}
-                          onClick={this.handleChangeFulltime}
-                        />
-                        <label>Yes</label>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input
-                          type="radio"
-                          name="fulltime"
-                          value={1}
-                          onClick={this.handleChangeFulltime}
-                        />
-                        <label>No</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </p>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
           <p>
             <div class="flex-container dropDown">
               <label>
@@ -381,26 +346,66 @@ export default class EditProfile extends Component {
                 </span>
               </label>
               <GenericDropdown
-                labelProper="Select Employee Type"
+                labelProper="Select Type"
                 value={this.state.emptype}
                 handler={this.handleChangeEmptype}
                 options={optionsMain}
               />
             </div>
-            <div>
+            <div class="flex-container dropDown">
               <label>
                 <span>
                   <b>Number</b>
                 </span>
               </label>
               <GenericDropdown
-                labelProper="Select Employee Type Number"
+                labelProper="Select Number"
                 value={this.state.emptypeno}
                 handler={this.handleChangeEmptypeNo}
                 options={optionsMain2}
               />
             </div>
+
+            <div class="ui form flex-container">
+              <div class="grouped fields">
+                <div class="field">
+                  <label>
+                    <span>Full Time Employee?</span>
+                  </label>
+                </div>
+                <div class="inline fields">
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input
+                        type="radio"
+                        name="fulltime"
+                        value={0}
+                        onClick={this.handleChangeFulltime}
+                      />
+                      <label>Yes</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input
+                        type="radio"
+                        name="fulltime"
+                        value={1}
+                        onClick={this.handleChangeFulltime}
+                      />
+                      <label>No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </p>
+          <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
+          <Divider hidden="true" />
           <p>
             <a class="ui small header">Email Address</a>
             <div class="ui input fluid mini focus">
