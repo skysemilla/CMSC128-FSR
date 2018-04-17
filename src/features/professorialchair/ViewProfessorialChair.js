@@ -11,12 +11,12 @@ import ViewAttachments from './../ViewAttachments';
 
 //Dummy data
 const dummySample = {
-  profchair: 'CMSC 128',
-  grant: 'CAS B04',
-  granttitle: 'T-Th',
-  startdate: '03/26/18',
-  enddate: '03/27/18',
-  attachment: 'a'
+  professional_chair: 'CMSC 128',
+  grants: 'CAS B04',
+  grant_title: 'T-Th',
+  start_date: '03/26/18',
+  end_date: '03/27/18',
+  attachment: 'not null'
 };
 
 export default class ViewProfessorialChair extends Component {
@@ -24,7 +24,7 @@ export default class ViewProfessorialChair extends Component {
     super(props);
 
     this.state = {
-      data: []
+      data: null
       
     };
 
@@ -42,7 +42,9 @@ export default class ViewProfessorialChair extends Component {
       if (res.data.data !== null) {
         Api.viewFacultyGrant({id: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
-            this.setState({ data: result.data.data[0] });
+            this.setState({ data: result.data.data });
+          } else { // if no result
+            this.setState({ data: null});
           }
         });
       }
@@ -69,7 +71,11 @@ export default class ViewProfessorialChair extends Component {
                   <div class="content">
                     <p>
                       <b>Professorial Chair: </b>
-                      {this.state.data.professional_chair}
+                      {this.state.data === null ? (
+                        <div class="ui disabled input"> None </div>
+                      ) : (
+                        this.state.data.professional_chair
+                      )}
                     </p>
                   </div>
                 </div>
@@ -77,7 +83,11 @@ export default class ViewProfessorialChair extends Component {
                   <div class="content">
                     <p>
                       <b>Grant: </b>
-                      {this.state.data.grants}
+                      {this.state.data === null ? (
+                        <div class="ui disabled input"> None </div>
+                      ) : (
+                        this.state.data.grants
+                      )}
                     </p>
                   </div>
                 </div>
@@ -85,7 +95,11 @@ export default class ViewProfessorialChair extends Component {
                   <div class="content">
                     <p>
                       <b>Grant title: </b>
-                      {this.state.data.grant_title}
+                      {this.state.data === null ? (
+                        <div class="ui disabled input"> None </div>
+                      ) : (
+                        this.state.data.grant_title
+                      )}
                     </p>
                   </div>
                 </div>
@@ -93,7 +107,11 @@ export default class ViewProfessorialChair extends Component {
                   <div class="content">
                     <p>
                       <b>Start date: </b>
-                      {this.state.data.start_date}
+                      {this.state.data === null ? (
+                        <div class="ui disabled input"> None </div>
+                      ) : (
+                        this.state.data.start_date
+                      )}
                     </p>
                   </div>
                 </div>
@@ -101,7 +119,11 @@ export default class ViewProfessorialChair extends Component {
                   <div class="content">
                     <p>
                       <b>End date: </b>
-                      {this.state.data.end_date}
+                      {this.state.data === null ? (
+                        <div class="ui disabled input"> None</div>
+                      ) : (
+                        this.state.data.end_date
+                      )}
                     </p>
                   </div>
                 </div>
@@ -109,8 +131,8 @@ export default class ViewProfessorialChair extends Component {
                   <div class="content">
                     <p>
                       <b>Attachments: </b>
-                      {this.state.data.attachment === '' ? (
-                        'None'
+                      {this.state.data === null ? (
+                        <div class="ui disabled input"> None</div>
                       ) : (
                         <ViewAttachments
                           {...this.props}
