@@ -27,6 +27,8 @@ export default class NavBar extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ username: result.data.data.username });
+      } else {
+        this.props.history.push('/');
       }
     });
   }
@@ -112,6 +114,7 @@ export default class NavBar extends Component {
             <div class="right menu">
               <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
