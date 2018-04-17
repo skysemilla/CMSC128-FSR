@@ -9,7 +9,6 @@ import SendtoAdmin from './../SendtoAdmin';
 import GenericDropdown from './../GenericDropdown';
 import DeptDropdown from './DeptDropdown';
 
-<<<<<<< HEAD
 // form validation
 const error = {
   color: 'red'
@@ -63,8 +62,6 @@ var formError = {
   }
 };
 
-=======
->>>>>>> 8f9d0a97ad1e64d9626308b22b852c8f80bd34b9
 const optionsMain = [
   { id: 0, text: 'Assistant Professor' },
   { id: 1, text: 'Associate Professor' },
