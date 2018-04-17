@@ -7,6 +7,7 @@ import ViewExtensionRow from './ExtensionViewRow';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
+import DeleteModal from '../GenericDelete';
 
 //Dummy data
 const dummySample = {
@@ -44,7 +45,7 @@ componentDidMount = () => {
           console.log(result.data.data);
           if (result.data.data !== null) {
             this.setState({ data: result.data.data });
-            console.log(result.data.data);
+            // console.log(result.data.data);
           }
         });
       }
@@ -83,7 +84,7 @@ componentDidMount = () => {
                   <th class="center aligned">Funding Agency</th>
                   <th class="center aligned">Approved Course Credits </th>
                   <th class="center aligned"> Edit/Delete </th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
                 {this.state.data.map(item => {
