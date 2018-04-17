@@ -116,10 +116,10 @@ export default class ViewApprovedFSR extends Component {
   }
 
   componentDidMount() {
-    Api.ViewAllFaculty().then(result => {
-      console.log(result.data.data);
-      this.setState({ data: result.data.data[0] });
-    });
+    // Api.ViewAllFaculty().then(result => {
+    //   console.log(result.data.data);
+    //   this.setState({ data: result.data.data[0] });
+    // });
   }
 
   render() {

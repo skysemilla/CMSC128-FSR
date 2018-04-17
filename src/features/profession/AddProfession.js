@@ -14,23 +14,13 @@ export default class AddProfession extends Component {
     this.state = {
       permission: '',
       date: '',
-      emp_id: ''
-      // attachmentLink: ''
+      attachmentLink: ''
     };
 
     this.handleChangePermission = this.handleChangePermission.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.startAdd = this.startAdd.bind(this);
-  }
-
-
-  componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({emp_id: result.data.data.emp_id})
-      }
-    });
   }
 
   handleChangePermission(e) {
@@ -42,20 +32,16 @@ export default class AddProfession extends Component {
   }
 
   startAdd(e) {
-    e.preventDefault();
-    console.log(this.state.permission)
-    console.log(this.state.date)
-    console.log(this.state.emp_id)
-    Api.addLimitedPractice({
-      haveApplied: this.state.permission,
-      date_submitted: this.state.date,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');  //change to profile later!!
-        alert('Teaching load successfully added!');
-      })
-      .catch(e => alert('Error adding new Teaching Load!'));
+    // e.preventDefault();
+    // Api.addprofession({
+    // permission: this.state.permission,
+    // date: this.state.date
+    // })
+    //   .then(result => {
+    //     this.props.history.push('./teachingload/view');  //change to profile later!!
+    //     alert('Teaching load successfully added!');
+    //   })
+    //   .catch(e => alert('Error adding new Teaching Load!'));
   }
 
   uploadAttachment(e) {
@@ -88,7 +74,7 @@ export default class AddProfession extends Component {
                       <input
                         type="radio"
                         name="studyleave"
-                        value={1}
+                        value="YES"
                         onClick={this.handleChangePermission}
                       />
                       <label>Yes</label>
@@ -99,7 +85,7 @@ export default class AddProfession extends Component {
                       <input
                         type="radio"
                         name="studyleave"
-                        value={0}
+                        value="NO"
                         onClick={this.handleChangePermission}
                       />
                       <label>No</label>
@@ -108,7 +94,7 @@ export default class AddProfession extends Component {
                 </div>
               </div>
             </p>
-            {this.state.permission !== "1" ? (
+            {this.state.permission !== 'YES' ? (
               <p>
                 <a class="ui small header">Date submitted </a>
                 <div class="ui input fluid mini focus">
