@@ -24,8 +24,8 @@ export default class EditProfessorialChair extends Component {
       startdate: '',
       enddate: '',
 
-      validStartDate: null,
-      validEndDate: null
+      validStartDate: false,
+      validEndDate: false
     };
 
     this.handleChangeNominee = this.handleChangeNominee.bind(this);
@@ -108,8 +108,8 @@ export default class EditProfessorialChair extends Component {
 
   startAdd(e) {
     // if date field is enabled, validate date
-    if ( ( this.state.nominee !== 'No') &&
-    this.state.validStartDate !==false && this.state.validEndDate !== false) {
+    if ( ( this.state.nominee === 'No' || this.state.nominee === '') ||
+    ( this.state.validStartDate !==false && this.state.validEndDate !== false ) ) {
       e.preventDefault();
       console.log(this.state.emp_id)
       console.log(this.state.nominee)
