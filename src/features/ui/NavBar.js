@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react';
 import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
@@ -15,109 +15,156 @@ export default class NavBar extends Component {
       activeMenu: this.props.Label,
       subMenu: this.props.subLabel,
       emp_id: this.props.emp_id,
-      is_being_approved: this.props.is_being_approved
+      is_being_approved: this.props.is_being_approved,
+      username: ''
     };
     this.handleLogout = this.handleLogout.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmenus = this.handleSubmenus.bind(this);
   }
 
+  componentDidMount() {
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        this.setState({ username: result.data.data.username });
+      } else {
+        this.props.history.push('/');
+      }
+    });
+  }
+
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('../..');
+    this.props.history.push('/');
   }
 
   handleChange(e) {
-    if(e.currentTarget.id==='FSR'){
-        console.log('AAA');
+    if (e.currentTarget.id === 'FSR') {
+      console.log('AAA');
     }
-    this.setState({ activeMenu: e.currentTarget.id});
-    if(e.currentTarget.id==='profile'){
-        this.props.history.push('../../profile');
-    }else if(e.currentTarget.id==='FSR' && this.state.is_being_approved===1){
-        this.props.history.push('../../beingApproved');
-    }
-    else{
-        this.props.history.push('../../teachingload/view');
+    this.setState({ activeMenu: e.currentTarget.id });
+    if (e.currentTarget.id === 'profile') {
+      this.props.history.push('/profile');
+    } else if (
+      e.currentTarget.id === 'FSR' &&
+      this.state.is_being_approved === 1
+    ) {
+      this.props.history.push('/beingApproved');
+    } else {
+      this.props.history.push('/teachingload/view');
     }
   }
 
   handleSubmenus(e) {
     e.preventDefault();
-    this.setState({ activeMenu: 'FSR'});
+    this.setState({ activeMenu: 'FSR' });
     this.setState({ subMenu: e.currentTarget.id });
-    if(e.currentTarget.id==='teachingload'){
-        this.props.history.push('../../teachingload/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='publications'){
-        this.props.history.push('../../publications/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='adminwork'){
-        this.props.history.push('../../adminwork/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='extension'){
-        this.props.history.push('../../extension/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='studyload'){
-        this.props.history.push('../../studyload/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='profession'){
-        this.props.history.push('../../profession/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='profchair'){
-        this.props.history.push('../../professorialchair/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='consultation'){
-        this.props.history.push('../../consultationhours/view', {empid: this.state.emp_id});
-    }else if(e.currentTarget.id==='subjects'){
-        this.props.history.push('../../subjects/view', {empid: this.state.emp_id});
+    if (e.currentTarget.id === 'teachingload') {
+      this.props.history.push('/teachingload/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'publications') {
+      this.props.history.push('/publications/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'adminwork') {
+      this.props.history.push('/adminwork/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'extension') {
+      this.props.history.push('/extension/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'studyload') {
+      this.props.history.push('/studyload/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'profession') {
+      this.props.history.push('/profession/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'profchair') {
+      this.props.history.push('/professorialchair/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'consultation') {
+      this.props.history.push('/consultationhours/view', {
+        empid: this.state.emp_id
+      });
+    } else if (e.currentTarget.id === 'subjects') {
+      this.props.history.push('/subjects/view', {
+        empid: this.state.emp_id
+      });
     }
     this.forceUpdate();
   }
 
   render() {
-      if(this.state.activeMenu==='profile'){
-        return(
-         <div>
-          <div class="ui blue inverted huge menu div1">
-              <a class="active item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
-            </div>
-          </div>
-        </div>
-        )
-      }else if(this.state.activeMenu==='beingapproved'){
-        return(
-         <div>
-          <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
-            </div>
-          </div>
-        </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='teachingload'){
-        return(
+    if (this.state.activeMenu === 'profile') {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="active item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+                <i class="user circle icon" />
+              </label>
+              <GenericLogout {...this.props} />
+            </div>
+          </div>
+        </div>
+      );
+    } else if (this.state.activeMenu === 'beingapproved') {
+      return (
+        <div>
+          <div class="ui blue inverted huge menu div1">
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
+            </div>
+          </div>
+        </div>
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'teachingload'
+    ) {
+      return (
+        <div>
+          <div class="ui blue inverted huge menu div1">
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item active" onClick={this.handleSubmenus}>
+            <a
+              id="teachingload"
+              class="item active"
+              onClick={this.handleSubmenus}>
               Teaching Load
             </a>
             <a id="publications" class="item" onClick={this.handleSubmenus}>
@@ -141,17 +188,20 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='publications'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'publications'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
             <a class="item" id="profile" onClick={this.handleChange}>
@@ -161,14 +211,20 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <GenericLogout {...this.props}/>
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
             <a id="teachingload" class="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item active" onClick={this.handleSubmenus}>
+            <a
+              id="publications"
+              class="item active"
+              onClick={this.handleSubmenus}>
               Publications
             </a>
             <a id="adminwork" class="item" onClick={this.handleSubmenus}>
@@ -189,27 +245,33 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='adminwork'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'adminwork'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -237,27 +299,33 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='extension'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'extension'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -285,27 +353,33 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='studyload'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'studyload'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -333,27 +407,33 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='profession'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'profession'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -372,7 +452,10 @@ export default class NavBar extends Component {
             <a id="studyload" class="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item active" onClick={this.handleSubmenus}>
+            <a
+              id="profession"
+              class="item active"
+              onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
             <a id="profchair" class="item" onClick={this.handleSubmenus}>
@@ -381,27 +464,33 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='profchair'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'profchair'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -429,27 +518,33 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }else if(this.state.activeMenu==='FSR' && this.state.subMenu==='consultation'){
-        return(
+      );
+    } else if (
+      this.state.activeMenu === 'FSR' &&
+      this.state.subMenu === 'consultation'
+    ) {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -474,20 +569,25 @@ export default class NavBar extends Component {
             <a id="profchair" class="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item active" onClick={this.handleSubmenus}>
+            <a
+              id="consultation"
+              class="item active"
+              onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
-            <Modal.Header>
-              APPROVE FSR
-            </Modal.Header>
+          <Modal
+            size={this.state.size}
+            open={this.state.open}
+            onClose={this.close}
+            style={{ marginTop: '18%', marginLeft: '40%' }}>
+            <Modal.Header>APPROVE FSR</Modal.Header>
             <Modal.Content>
               <p>Are you sure you want to approve this FSR?</p>
             </Modal.Content>
@@ -495,23 +595,31 @@ export default class NavBar extends Component {
               <Button negative onClick={this.close}>
                 No
               </Button>
-              <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+              <Button
+                positive
+                icon="checkmark"
+                labelPosition="right"
+                content="Yes"
+              />
             </Modal.Actions>
-          </Modal> 
+          </Modal>
         </div>
-        )
-      }else{
-        return(
+      );
+    } else {
+      return (
         <div>
           <div class="ui blue inverted huge menu div1">
-              <a class="item" id="profile" onClick={this.handleChange}>
-                Profile
-              </a>
-              <a class="active item" id="FSR" onClick={this.handleChange}>
-                FSR
-              </a>
-              <div class="right menu">
-              <GenericLogout {...this.props}/>
+            <a class="item" id="profile" onClick={this.handleChange}>
+              Profile
+            </a>
+            <a class="active item" id="FSR" onClick={this.handleChange}>
+              FSR
+            </a>
+            <div class="right menu">
+              <label className="ui item">
+                Logged in as {this.state.username}
+              </label>
+              <GenericLogout {...this.props} />
             </div>
           </div>
           <div class="ui large inverted blue vertical menu flex-container large navDiv">
@@ -539,17 +647,15 @@ export default class NavBar extends Component {
             <a id="consultation" class="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider"></div>
+            <div class="ui inverted horizontal divider" />
             <a id="subjects" class="item active" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider"></div>
-            <SendtoAdmin/>
+            <div class="ui inverted horizontal divider" />
+            <SendtoAdmin />
           </div>
         </div>
-        )
-      }
+      );
+    }
   }
 }
-//=========================
-ReactDOM.render(<NavBar />, document.getElementById('root'));

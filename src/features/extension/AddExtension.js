@@ -155,11 +155,7 @@ export default class AddExtension extends Component {
             <p>
               <a class="ui small header"> No. of Hours </a>
               <div class="ui input fluid mini focus">
-                <input
-                  disabled
-                  type="number"
-                  onChange={this.handleChangeNoOfHours}
-                />
+                <input type="number" onChange={this.handleChangeNoOfHours} />
               </div>
             </p>
             <p>
@@ -220,6 +216,10 @@ export default class AddExtension extends Component {
               </div>
             </p>
             <div class="ui center aligned container">
+              <button
+                class="ui blue button">
+                Upload Attachments
+              </button>
               <button
                 class="ui center aligned blue button"
                 onClick={this.startAdd}>

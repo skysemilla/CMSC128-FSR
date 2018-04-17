@@ -78,6 +78,7 @@ export default class TermYearModal extends Component {
       return (
         <div>
           <Modal
+            closeOnDimmerClick={false}
             size={'mini'}
             open={this.state.open}
             onClose={this.close}

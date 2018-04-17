@@ -23,14 +23,12 @@ const error = {
   color: 'red'
 };
 
-var messageClass = 'ui negative message';
-
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
   <span style={error}> {' number is required'}</span>, //1
   <span style={error}> {' >= 6 characters'}</span>, //2
   <span style={error}> {' <= 16 characters'}</span>, //3
-  <span style={error}> {' = 10 digits'}</span>, //4
+  <span style={error}> {' = 9 digits'}</span>, //4
   <span style={error}> {' must match'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
   <span style={error}> {' must be valid'}</span> //7
@@ -38,7 +36,7 @@ const errorTexts = [
 
 const nameRegex = /[A-Za-z0-9\-']+/;
 const alphanumRegex = /[A-Za-z0-9]+/;
-const empIdRegex = /[0-9]{10}/;
+const empIdRegex = /[0-9]{9}/;
 const emailRegex = /.+\@.+\..+/;
 
 var formError = {
@@ -248,7 +246,6 @@ export default class Signup extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
-    console.log(this.state.college);
   }
 
   handleChangeDept(e) {
@@ -286,7 +283,12 @@ export default class Signup extends Component {
       is_full_time: this.state.fulltime,
       email: this.state.email
     }).then(result => {
-      this.props.history.push('../');
+      Api.login({
+        username: this.state.username,
+        password: this.state.password
+      }).then(result => {
+        this.props.history.push('/profile');
+      });
     });
   }
 
@@ -568,7 +570,7 @@ export default class Signup extends Component {
                             <input
                               type="radio"
                               name="fulltime"
-                              value={1}
+                              value={0}
                               onClick={this.handleChangeFulltime}
                             />
                             <label>Yes</label>
@@ -577,7 +579,7 @@ export default class Signup extends Component {
                             <input
                               type="radio"
                               name="fulltime"
-                              value={0}
+                              value={1}
                               onClick={this.handleChangeFulltime}
                             />
                             <label>No</label>
