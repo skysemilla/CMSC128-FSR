@@ -17,8 +17,8 @@ export default class ViewPublicationsRow extends Component {
   render() {
     return (
       <tr>
-        <td class="center aligned">{this.props.permission}</td>
-        <td class="center aligned">{this.props.date}</td>
+        <td class="center aligned">{this.props.haveApplied}</td>
+        <td class="center aligned">{this.props.date_submitted}</td>
         <td class="center aligned">
           <button class="ui large compact icon button" onClick={this.startView}>
             <i class="eye icon"> </i>
