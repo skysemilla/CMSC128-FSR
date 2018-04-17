@@ -53,6 +53,7 @@ export default class AddExtension extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
+        console.log(this.state.emp_id)
       }
     });
   }
@@ -102,20 +103,21 @@ export default class AddExtension extends Component {
 
   startAdd(e) {
     e.preventDefault();
+    console.log("thsi")
     Api.addExtension({
-      extension_type: this.state.type,
+      credit_unit: this.state.approvedCreditUnits,
       extension_name: this.state.title,
+      extension_type: this.state.type,
       no_of_hours: this.state.noOfHours,
       no_of_participants: this.state.noOfParticipants,
+      extension_role: this.state.role,
       start_time: this.state.startDate,
       end_time: this.state.endDate,
       funding_agency: this.state.fundingAgency,
-      extension_role: this.state.role,
-      credit_unit: this.state.approvedCreditUnits,
       emp_id: this.state.emp_id
     })
       .then(result => {
-        this.props.history.push('./extension/view');
+        this.props.history.push('./view');
         alert('Extension successfully added!');
       })
       .catch(e => alert('Error adding new Extension!'));
@@ -155,7 +157,10 @@ export default class AddExtension extends Component {
             <p>
               <a class="ui small header"> No. of Hours </a>
               <div class="ui input fluid mini focus">
-                <input type="number" onChange={this.handleChangeNoOfHours} />
+                <input
+                  type="number"
+                  onChange={this.handleChangeNoOfHours}
+                />
               </div>
             </p>
             <p>

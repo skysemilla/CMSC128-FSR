@@ -8,18 +8,6 @@ import NavBar from './../ui/NavBar';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 
-const dummySample = {
-  type: 'SampleType',
-  title: 'SampleTitle',
-  noOfHours: '10',
-  noOfParticipants: '24',
-  startDate: '01/01/17',
-  endDate: '01/01/18',
-  role: 'SampleRole',
-  fundingAgency: 'ABC Agency',
-  approvedCreditUnits: '3'
-};
-
 const optionsMain = [
   { id: 0, text: 'Trainings' },
   { id: 1, text: 'Information Dissemination' },
@@ -28,21 +16,21 @@ const optionsMain = [
   { id: 4, text: 'Others' }
 ];
 
-export default class EditExtension extends Component {
+export default class AddExtension extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       emp_id: '',
-      type: dummySample.type,
-      title: dummySample.title,
-      noOfHours: dummySample.noOfHours,
-      noOfParticipants: dummySample.noOfParticipants,
-      startDate: dummySample.startDate,
-      endDate: dummySample.endDate,
-      role: dummySample.role,
-      approvedCreditUnits: dummySample.approvedCreditUnits,
-      fundingAgency: dummySample.fundingAgency
+      type: '',
+      title: '',
+      noOfHours: '',
+      noOfParticipants: '',
+      startDate: '',
+      endDate: '',
+      role: '',
+      fundingAgency: '',
+      approvedCreditUnits: ''
     };
 
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -59,13 +47,16 @@ export default class EditExtension extends Component {
       this
     );
     this.handleLogout = this.handleLogout.bind(this);
-    this.startAdd = this.startAdd.bind(this);
+    this.startEdit = this.startEdit.bind(this);
   }
-
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
+        if (typeof this.props.history !== 'undefined') {
+          console.log(this.props.history.location.state.id);
+        }
+        // console.log(this.props.history.location.state.id);
       }
     });
   }
@@ -106,17 +97,19 @@ export default class EditExtension extends Component {
   handleChangeApprovedCreditUnits(e) {
     this.setState({ approvedCreditUnits: e.target.value });
   }
+
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
     this.props.history.push('../..');
   }
 
-  startAdd(e) {
+  startEdit(e) {
     e.preventDefault();
     Api.editExtension({
+      extension_id_update: this.props.history.location.state.id,
       extension_type_update: this.state.type,
-      extension_title_update: this.state.title,
+      extension_name_update: this.state.title,
       no_of_hours_update: this.state.noOfHours,
       no_of_participants_update: this.state.noOfParticipants,
       start_time_update: this.state.startDate,
@@ -124,13 +117,13 @@ export default class EditExtension extends Component {
       funding_agency_update: this.state.fundingAgency,
       extension_role_update: this.state.role,
       credit_unit_update: this.state.approvedCreditUnits,
-      end_time_update: this.state.emp_id
+      emp_id_update: this.state.emp_id
     })
       .then(result => {
-        this.props.history.push('./extension/view');
+        this.props.history.push('./view');
         alert('Extension successfully edited!');
       })
-      .catch(e => alert('Error editing new Extension!'));
+      .catch(e => alert('Error editing Extension!'));
   }
 
   render() {
@@ -161,34 +154,27 @@ export default class EditExtension extends Component {
             <p>
               <a class="ui small header"> Title </a>
               <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  onChange={this.handleChangeTitle}
-                  placeholder={this.state.title}
-                />
+                <input type="text" onChange={this.handleChangeTitle} />
               </div>
             </p>
             <p>
               <a class="ui small header"> No. of Hours </a>
               <div class="ui input fluid mini focus">
                 <input
-                  disabled
                   type="number"
                   onChange={this.handleChangeNoOfHours}
-                  placeholder={this.state.noOfHours}
                 />
               </div>
             </p>
             <p>
               <a class="ui small header"> No. of Participants </a>
               <div class="ui input fluid mini focus">
-                <input
-                  type="number"
+                <input type="number"
                   onChange={this.handleChangeNoOfParticipants}
-                  placeholder={this.state.noOfParticipants}
                 />
               </div>
             </p>
+
             <p>
               <a class="ui small header"> Duration </a>
               <div class="equal width fields">
@@ -214,24 +200,17 @@ export default class EditExtension extends Component {
                 </div>
               </div>
             </p>
+
             <p>
               <a class="ui small header"> Role </a>
               <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  onChange={this.handleChangeRole}
-                  placeholder={this.state.role}
-                />
+                <input type="text" onChange={this.handleChangeRole} />
               </div>
             </p>
             <p>
-              <a class="ui small header"> End Date </a>
+              <a class="ui small header"> Funding Agency </a>
               <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  onChange={this.handleChangeFundingAgency}
-                  placeholder={this.state.fundingAgency}
-                />
+                <input type="text" onChange={this.handleChangeFundingAgency} />
               </div>
             </p>
             <p>
@@ -240,15 +219,14 @@ export default class EditExtension extends Component {
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
-                  placeholder={this.state.approvedCreditUnits}
                 />
               </div>
             </p>
             <div class="ui center aligned container">
               <button
                 class="ui center aligned blue button"
-                onClick={this.startAdd}>
-                Add Extension
+                onClick={this.startEdit}>
+                Edit Extension
               </button>
             </div>
           </div>

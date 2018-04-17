@@ -16,6 +16,6 @@ export const viewAllExtensions = () => {
 	return axios.post('/api/extension/viewAll')
 };
 
-export const viewExtension = () => {
-	return axios.post('/api/extension/view')
+export const viewExtension = id => {
+	return axios.post('/api/extension/view', id)
 };
