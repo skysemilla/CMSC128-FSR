@@ -25,6 +25,7 @@ const errorTexts = [
   <span style={error}> {' >= 6 characters'}</span>,
   <span style={error}> {' <= 16 characters'}</span>,
   <span style={error}> {' must be alphanumeric'}</span>,
+  <span style={error}> {' must be valid'}</span>,
   <div class={messageClass}>
     <p>
       <span style={error}>
@@ -35,6 +36,7 @@ const errorTexts = [
 ];
 
 const alphanumRegex = /^[A-Za-z0-9]+$/;
+const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
 
 var formValid = {
   userError: '',
@@ -142,8 +144,8 @@ export default class Login extends Component {
     } else if (this.state.password.length > 16) {
       formValid.passError = errorTexts[2];
       formValid.passValid = false;
-    } else if (!this.state.password.match(alphanumRegex)) {
-      formValid.passError = errorTexts[3];
+    } else if (!this.state.password.match(passRegex)) {
+      formValid.passError = errorTexts[4];
       formValid.passValid = false;
     } else {
       formValid.passError = '';
