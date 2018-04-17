@@ -31,6 +31,51 @@ const optionsMain = [
   }
 ];
 
+// form validation
+const error = {
+  color: 'red'
+};
+
+var messageClass = 'ui negative message';
+
+const errorTexts = [
+  <span style={error}> {' is required'}</span>, //0
+  <span style={error}> {' number is required'}</span>, //1
+  <span style={error}> {' >= 6 characters'}</span>, //2
+  <span style={error}> {' <= 16 characters'}</span>, //3
+  <span style={error}> {' must be numbers'}</span>, //4
+  <span style={error}> {' must match'}</span>, //5
+  <span style={error}> {' must be alphanumeric'}</span>, //6
+  <span style={error}> {' must be valid'}</span>, //7
+  <span style={error}> {' *required'}</span> //8
+];
+
+const alphanumRegex = /^[A-Za-z0-9]+$/;
+const numRegex = /^[0-9]+$/;
+
+var formError = {
+  text: {
+    researchType: '',
+    researchSubtype: '',
+    completeTitle: '',
+    Role: '',
+    Funding: '',
+    StartDate: '',
+    EndDate: '',
+    ApprovedCreditUnits: ''
+  },
+  bool: {
+    researchType: false,
+    researchSubtype: false,
+    completeTitle: false,
+    Role: false,
+    Funding: false,
+    StartDate: false,
+    EndDate: false,
+    ApprovedCreditUnits: false
+  }
+};
+
 export default class EditPublication extends Component {
   constructor(props) {
     super(props);
@@ -53,73 +98,168 @@ export default class EditPublication extends Component {
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.addCoworker = this.addCoworker.bind(this); //!!!
+    this.addCoworker = this.addCoworker.bind(this); 
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
-    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(
-      this
-    );
-
+    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
+    this.validateEdit = this.validateEdit.bind(this);
     this.startEdit = this.startEdit.bind(this);
   }
 
+  validateEdit() {
+  	// check research type
+  	if(!this.state.researchType){
+  		formError.text.researchType = errorTexts[8];
+  		formError.bool.researchType = false;
+  	}else{
+  		formError.text.researchType = '';
+  		formError.bool.researchType = true;
+  	}
+
+  	// check research subtype
+  	if(!this.state.researchSubtype){
+  		formError.text.researchSubtype = errorTexts[8];
+  		formError.bool.researchSubtype = false;
+  	}else{
+  		formError.text.researchSubtype = '';
+  		formError.bool.researchSubtype = true;
+  	}
+
+  	// check title
+  	if(!this.state.completeTitle){
+  		formError.text.completeTitle = errorTexts[0];
+  		formError.bool.completeTitle = false;
+  	}else if(!this.state.completeTitle.match(alphanumRegex)){
+  		formError.text.completeTitle = errorTexts[6];
+  		formError.bool.completeTitle = false;
+  	}else{
+  		formError.text.completeTitle = '';
+  		formError.bool.completeTitle = true;
+  	}
+
+  	// check role
+  	if(!this.state.Role && this.state.researchType == 'Research'){
+  		formError.text.Role = errorTexts[0];
+  		formError.bool.Role = false;
+  	} else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
+  		formError.text.Role = errorTexts[6];
+  		formError.bool.Role = false;
+  	} else{
+  		formError.text.Role = '';
+  		formError.bool.Role = true;
+  	}
+
+  	// check funding
+  	if(!this.state.Funding && this.state.researchType == 'Research'){
+  		formError.text.Funding = errorTexts[0];
+  		formError.bool.Funding = false;
+  	} else if(!this.state.Funding.match(alphanumRegex) && this.state.researchType == 'Research'){
+  		formError.text.Funding = errorTexts[6];
+  		formError.bool.Funding = false;
+  	} else{
+  		formError.text.Funding = '';
+  		formError.bool.Funding = true;
+  	}
+
+  	// check start date
+  	if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
+  		formError.text.StartDate = errorTexts[0];
+  		formError.bool.StartDate = false;
+  	}else{
+  		formError.text.StartDate = '';
+  		formError.bool.StartDate = true;
+  	}
+
+  	// check end date
+  	if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
+  		formError.text.EndDate = errorTexts[0];
+  		formError.bool.EndDate = false;
+  	}else{
+  		formError.text.EndDate = '';
+  		formError.bool.EndDate = true;
+  	}
+
+  	// check approved credit units
+  	if(!this.state.ApprovedCreditUnits){
+  		formError.text.ApprovedCreditUnits = errorTexts[0];
+  		formError.bool.ApprovedCreditUnits = false;
+  	} else if(!this.state.ApprovedCreditUnits.toString().match(numRegex)){
+  		formError.text.ApprovedCreditUnits = errorTexts[4];
+  		formError.bool.ApprovedCreditUnits = false;
+  	}else{
+  		formError.text.ApprovedCreditUnits = '';
+  		formError.bool.ApprovedCreditUnits = true;
+  	}
+
+  	if(
+  		formError.bool.researchType &&
+  		formError.bool.researchSubtype &&
+  		formError.bool.completeTitle &&
+  		formError.bool.Role &&
+  		formError.bool.Funding &&
+  		formError.bool.StartDate &&
+  		formError.bool.EndDate &&
+  		formError.bool.ApprovedCreditUnits
+  		){
+  		this.startEdit();
+  	}
+  	this.forceUpdate();
+  }
+
   componentDidMount() {
-    console.log(this.props.id);
-    if (typeof this.props.history !== 'undefined') {
-      console.log(this.props.history.location.state.id);
-      //Kianaaaa yung piniprint dito yung pub_id HAHAHA
-      console.log(this.props.history.location.state.id);
-      Api.viewOnePublication({
-        id: this.props.history.location.state.id
-      })
-        .then(result => {
-          this.setState({
-            researchType: result.data.data[0].category,
-            completeTitle: result.data.data[0].title,
-            Role: result.data.data[0].role,
-            // Coworkers: [],
-            Funding: result.data.data[0].funding,
-            StartDate: result.data.data[0].start_date,
-            EndDate: result.data.data[0].end_date,
-            ApprovedCreditUnits: result.data.data[0].credit_units,
-            TotalWorkLoadUnits: ''
-          });
+  	Api.getSession().then(res => {
+    	if (res.data.data !== null) {
+    		if (typeof this.props.history !== 'undefined') {
+		    	Api.viewOnePublication({
+		        	id: this.props.history.location.state.id
+		      	})
+		        	.then(result => {
+		          		this.setState({
+			            researchType: result.data.data[0].category,
+			            researchSubtype: result.data.data[0].subcategory,
+			            completeTitle: result.data.data[0].title,
+			            Role: result.data.data[0].role,
+			            Funding: result.data.data[0].funding,
+			            StartDate: result.data.data[0].start_date,
+			            EndDate: result.data.data[0].end_date,
+			            ApprovedCreditUnits: result.data.data[0].credit_units
+			        });
+		       		 })
+		        	.catch(err => alert('Error loading pub!'));
+		    	}
 
-          Api.getCoworkers({
-            id: this.props.history.location.state.id
-          })
-            .then(result => {
-              console.log(result.data.data);
-              result.data.data.map(item => {
-                console.log(item.emp_id);
-                this.state.Coworkers.push(item.emp_id);
-              });
-              console.log(this.state.Coworkers);
-            })
-            .catch(err => alert('Error loading coworkers!!'));
-
-          // get coworkers for this publication HERE
-
-          console.log(result.data.data[0]);
-        })
-        .catch(err => alert('Error loading pub!'));
-    }
-    //   e.preventDefault();
-    Api.viewEmployees({})
-      .then(result => {
-        this.setState({ posCoworkers: result.data.data });
-        console.log(result.data.data);
-      })
-      .catch(err => alert('Error loading Employees!!'));
+			   	Api.viewEmployeeCoworkers({ empid: res.data.data.emp_id })
+			    	.then(result => {
+			        	this.setState({ posCoworkers: result.data.data });
+			        })
+			        .catch(err => alert('Error loading Employees!!'));
+    	}
+    });
   }
 
   handleChangeType(e) {
     this.setState({ researchType: e.target.value });
+    if(e.target.value==='Research'){
+    	this.setState({ researchSubtype: 'Research Proposal' });
+    	this.setState({ StartDate: '' });
+    	this.setState({ EndDate: '' });
+    }else{
+    	this.setState({ researchSubtype: 'Oral/Poster Papers' });
+    	this.setState({ Funding: '' });
+    	this.setState({ Role: '' });
+    }
   }
 
   handleChangeSubtype(e) {
     this.setState({ researchSubtype: e.target.value });
+    if(e.target.value!=='Research Proposal' && e.target.value!=='Research Implementation'){
+    	this.setState({ Funding: '' });
+    	this.setState({ Role: '' });
+    }
+    if(e.target.value!=='Research Proposal'){
+    	this.setState({ Funding: '' });
+    }
   }
 
   handleChangeTitle(e) {
@@ -131,21 +271,17 @@ export default class EditPublication extends Component {
   }
 
   addCoworker(e) {
-    //!!!
     if (this.state.newCoworkers.includes(e.target.value)) {
       for (var index = 0; index < this.state.newCoworkers.length; index++) {
         if (this.state.newCoworkers[index] === e.target.value)
           this.state.newCoworkers.splice(index, 1);
       }
       this.setState({ newCoworkers: this.state.newCoworkers });
-      console.log('Deleted ' + e.target.value);
     } else {
       var newArray = this.state.newCoworkers;
       newArray.push(e.target.value);
       this.setState({ newCoworkers: newArray });
-      console.log('Added ' + e.target.value);
     }
-    console.log(this.state.newCoworkers);
   }
 
   handleChangeFunding(e) {
@@ -165,9 +301,8 @@ export default class EditPublication extends Component {
   }
 
   startEdit(e) {
-    e.preventDefault();
-    console.log(this.state);
-    // remove prev coworkers here
+    // e.preventDefault();
+
     Api.removeCoworkers({
       id: this.props.history.location.state.id
     }).catch(err => alert('Error removing Coworkers'));
@@ -175,6 +310,7 @@ export default class EditPublication extends Component {
     Api.editPublication({
       credit_units: this.state.ApprovedCreditUnits,
       category: this.state.researchType,
+      subcategory: this.state.researchSubtype,
       funding: this.state.Funding,
       title: this.state.completeTitle,
       role: this.state.Role,
@@ -194,7 +330,7 @@ export default class EditPublication extends Component {
             })
             .catch(err => alert('Error adding Coworker'));
         });
-        this.props.history.push('./view'); //change to profile later!!
+        this.props.history.push('./view'); 
         console.log(result.data);
       })
       .catch(e => alert('Error editing Publication!'));
@@ -221,6 +357,7 @@ export default class EditPublication extends Component {
                 value={this.state.researchType}
                 handler={this.handleChangeType}
                 options={optionsMain}
+                formError={formError.text.researchType}
               />
             </div>
             <div>
@@ -229,10 +366,11 @@ export default class EditPublication extends Component {
                 handler={this.handleChangeSubtype}
                 options={optionsMain}
                 research={this.state.researchType}
+                formError={formError.text.researchSubtype}
               />
             </div>
             <p>
-              <a class="ui small header"> Complete Title </a>
+              <a class="ui small header"> Complete Title{formError.text.completeTitle} </a>
               <div class="ui input fluid mini focus">
                 <input
                   type="text"
@@ -241,14 +379,28 @@ export default class EditPublication extends Component {
                 />
               </div>
             </p>
-            <GenericDisabledInput
-              compareState={this.state.researchType}
-              compareString="Research"
-              operation="!=="
-              label="Role"
-              type="text"
-              handler={this.handleChangeRole}
-            />
+
+            {this.state.researchType !== 'Research' ? (
+              <p>
+                <a class="ui small header"> Role </a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    disabled
+                    type="text"
+                    onChange={this.handleChangeRole}
+                    value={this.state.Role}
+                  />
+                </div>
+              </p>
+            ) : (
+              <p>
+                <a class="ui small header"> Role{formError.text.Role} </a>
+                <div class="ui input fluid mini focus">
+                  <input type="text" onChange={this.handleChangeRole} value={this.state.Role}/>
+                </div>
+              </p>
+            )}
+
             <a class="ui small header"> Co-workers </a>
             <div class="scrollable">
               {this.state.posCoworkers.map(item => {
@@ -269,38 +421,71 @@ export default class EditPublication extends Component {
               })}
             </div>
 
-            <GenericDisabledInput
-              compareState={this.state.researchSubtype}
-              compareString="Research Proposal"
-              operation="!=="
-              label="Funding"
-              type="text"
-              handler={this.handleChangeFunding}
-              value={this.state.Funding}
-            />
+            {this.state.researchSubtype !== 'Research Proposal' ? (
+              <p>
+                <a class="ui small header"> Funding </a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    disabled
+                    type="text"
+                    onChange={this.handleChangeFunding}
+                    value={this.state.Funding}
+                  />
+                </div>
+              </p>
+            ) : (
+              <p>
+                <a class="ui small header"> Funding{formError.text.Funding} </a>
+                <div class="ui input fluid mini focus">
+                  <input type="text" onChange={this.handleChangeFunding} value={this.state.Funding}/>
+                </div>
+              </p>
+            )}
 
-            <GenericDisabledInput
-              compareState={this.state.researchSubtype}
-              compareString="Research Proposal"
-              operation="==="
-              label="Start Date"
-              type="date"
-              handler={this.handleChangeStartDate}
-              value={this.state.StartDate}
-            />
+            {this.state.researchSubtype === 'Research Proposal' ? (
+              <p>
+                <a class="ui small header"> Start Date </a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    disabled
+                    type="date"
+                    onChange={this.handleChangeStartDate}
+                    value={this.state.StartDate}
+                  />
+                </div>
+              </p>
+            ) : (
+              <p>
+                <a class="ui small header"> Start Date{formError.text.StartDate} </a>
+                <div class="ui input fluid mini focus">
+                  <input type="date" onChange={this.handleChangeStartDate} value={this.state.StartDate}/>
+                </div>
+              </p>
+            )}
 
-            <GenericDisabledInput
-              compareState={this.state.researchSubtype}
-              compareString="Research Proposal"
-              operation="==="
-              label="End Date"
-              type="date"
-              handler={this.handleChangeEndDate}
-              value={this.state.EndDate}
-            />
+            {this.state.researchSubtype === 'Research Proposal' ? (
+              <p>
+                <a class="ui small header"> End Date </a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    disabled
+                    type="date"
+                    onChange={this.handleChangeEndDate}
+                    value={this.state.EndDate}
+                  />
+                </div>
+              </p>
+            ) : (
+              <p>
+                <a class="ui small header"> End Date{formError.text.EndDate} </a>
+                <div class="ui input fluid mini focus">
+                  <input type="date" onChange={this.handleChangeEndDate} value={this.state.EndDate}/>
+                </div>
+              </p>
+            )}
 
             <p>
-              <a class="ui small header"> Approved Credit Units </a>
+              <a class="ui small header"> Approved Credit Units{formError.text.ApprovedCreditUnits} </a>
               <div class="ui input fluid mini focus">
                 <input
                   type="number"
@@ -312,7 +497,7 @@ export default class EditPublication extends Component {
 
             <div class="ui center aligned container">
               <button class="ui blue button">Upload Attachments</button>
-              <button class="ui blue button" onClick={this.startEdit}>
+              <button class="ui blue button" onClick={this.validateEdit}>
                 Save changes
               </button>
             </div>
