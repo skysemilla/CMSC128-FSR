@@ -4,8 +4,8 @@ export const addExtension = extensionInfo => {
 	return axios.post('/api/extension/add', extensionInfo);
 };
 
-export const deleteExtension = extensionInfo => {
-	return axios.post('/api/extension/delete', extensionInfo)
+export const deleteExtension = id => {
+	return axios.post('/api/extension/delete', id)
 };
 
 export const editExtension = extensionInfo => {
@@ -16,6 +16,10 @@ export const viewAllExtensions = () => {
 	return axios.post('/api/extension/viewAll')
 };
 
-export const viewExtension = () => {
-	return axios.post('/api/extension/view')
+export const viewExtension = id => {
+	return axios.post('/api/extension/view', id)
+};
+
+export const viewExtensionByID = id => {
+	return axios.post('/api/extension/viewByID', id)
 };
