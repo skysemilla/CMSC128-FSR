@@ -258,7 +258,7 @@ export default class EditProfile extends Component {
       email: this.state.email,
       is_full_time: this.state.isfulltime
     }).then(result => {
-      this.props.history.push('../profile');
+      this.props.history.push('/profile');
     });
   }
 
@@ -273,68 +273,98 @@ export default class EditProfile extends Component {
             <h2 class="ui blue header">EDIT PROFILE</h2>
           </div>
           <Divider hidden="true" />
-          <p>
-            <a class="ui small header">First name</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.fname}
-                onChange={this.handleChangeFname}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Middle name</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.mname}
-                onChange={this.handleChangeMname}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Last name</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.lname}
-                onChange={this.handleChangeLname}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Employee ID</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                value={this.state.empid}
-                onChange={this.handleChangeEmpid}
-              />
-            </div>
-          </p>
-          <p>
-            <div>
+          <form onSubmit={this.startEdit}>
+            <p>
+              <a class="ui small header">First name</a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.fname}
+                  onChange={this.handleChangeFname}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Middle name</a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.mname}
+                  onChange={this.handleChangeMname}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Last name</a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.lname}
+                  onChange={this.handleChangeLname}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Employee ID</a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="number"
+                  value={this.state.empid}
+                  onChange={this.handleChangeEmpid}
+                />
+              </div>
+            </p>
+            <p>
+              <div>
+                <div class="flex-container dropDown">
+                  <label>
+                    <span>
+                      <b>College</b>
+                    </span>
+                  </label>
+                  <GenericDropdown
+                    labelProper="Select College"
+                    value={this.state.college}
+                    handler={this.handleChangeCollege}
+                    options={optionsMain3}
+                  />
+                </div>
+
+                <DeptDropdown
+                  value={this.state.dept}
+                  handler={this.handleChangeDept}
+                  options={optionsMain3}
+                  college={this.state.college}
+                />
+              </div>
+            </p>
+            <p>
               <div class="flex-container dropDown">
                 <label>
                   <span>
-                    <b>College</b>
+                    <b>Employee Type</b>
                   </span>
                 </label>
                 <GenericDropdown
-                  labelProper="Select College"
-                  value={this.state.college}
-                  handler={this.handleChangeCollege}
-                  options={optionsMain3}
+                  labelProper="Select Type"
+                  value={this.state.emptype}
+                  handler={this.handleChangeEmptype}
+                  options={optionsMain}
                 />
               </div>
-
-              <DeptDropdown
-                value={this.state.dept}
-                handler={this.handleChangeDept}
-                options={optionsMain3}
-                college={this.state.college}
-              />
+              <div class="flex-container dropDown">
+                <label>
+                  <span>
+                    <b>Number</b>
+                  </span>
+                </label>
+                <GenericDropdown
+                  labelProper="Select Number"
+                  value={this.state.emptypeno}
+                  handler={this.handleChangeEmptypeNo}
+                  options={optionsMain2}
+                />
+              </div>
 
               <div class="ui form flex-container">
                 <div class="grouped fields">
@@ -369,78 +399,55 @@ export default class EditProfile extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </p>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
-          <p>
-            <div class="flex-container dropDown">
-              <label>
-                <span>
-                  <b>Employee Type</b>
-                </span>
-              </label>
-              <GenericDropdown
-                labelProper="Select Employee Type"
-                value={this.state.emptype}
-                handler={this.handleChangeEmptype}
-                options={optionsMain}
-              />
-            </div>
-            <div>
-              <label>
-                <span>
-                  <b>Number</b>
-                </span>
-              </label>
-              <GenericDropdown
-                labelProper="Select Employee Type Number"
-                value={this.state.emptypeno}
-                handler={this.handleChangeEmptypeNo}
-                options={optionsMain2}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Email Address</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.email}
-                onChange={this.handleChangeEmail}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Username</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.username}
-                onChange={this.handleChangeUsername}
-              />
-            </div>
-          </p>
+            </p>
+            <Divider hidden="true" />
+            <Divider hidden="true" />
+            <Divider hidden="true" />
+            <Divider hidden="true" />
+            <Divider hidden="true" />
+            <Divider hidden="true" />
+            <p>
+              <a class="ui small header">Email Address</a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.email}
+                  onChange={this.handleChangeEmail}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Username</a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.username}
+                  onChange={this.handleChangeUsername}
+                />
+              </div>
+            </p>
 
-          <p>
-            <a class="ui small header">New Password</a>
-            <div class="ui input fluid mini focus">
-              <input type="password" onChange={this.handleChangePassword} />
+            <p>
+              <a class="ui small header">New Password</a>
+              <div class="ui input fluid mini focus">
+                <input type="password" onChange={this.handleChangePassword} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">Repeat Password</a>
+              <div class="ui input fluid mini focus">
+                <input type="password" onChange={this.handleChangePassword2} />
+              </div>
+            </p>
+            <div class="ui center aligned container">
+              <button
+                type="submit"
+                class="ui center aligned blue button"
+                onClick={this.startEdit}>
+                Edit Profile
+              </button>
             </div>
-          </p>
-          <p>
-            <a class="ui small header">Repeat Password</a>
-            <div class="ui input fluid mini focus">
-              <input type="password" onChange={this.handleChangePassword2} />
-            </div>
-          </p>
-          <div class="ui center aligned container">
-            <button
-              class="ui center aligned blue button"
-              onClick={this.startEdit}>
-              Edit Profile
-            </button>
-          </div>
+          </form>
         </div>
         <Divider hidden="true" />
       </div>

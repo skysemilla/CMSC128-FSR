@@ -30,7 +30,7 @@ const errorTexts = [
   <span style={error}> {' number is required'}</span>, //1
   <span style={error}> {' >= 6 characters'}</span>, //2
   <span style={error}> {' <= 16 characters'}</span>, //3
-  <span style={error}> {' = 10 digits'}</span>, //4
+  <span style={error}> {' = 9 digits'}</span>, //4
   <span style={error}> {' must match'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
   <span style={error}> {' must be valid'}</span> //7
@@ -38,7 +38,7 @@ const errorTexts = [
 
 const nameRegex = /[A-Za-z0-9\-']+/;
 const alphanumRegex = /[A-Za-z0-9]+/;
-const empIdRegex = /[0-9]{10}/;
+const empIdRegex = /[0-9]{9}/;
 const emailRegex = /.+\@.+\..+/;
 
 var formError = {
