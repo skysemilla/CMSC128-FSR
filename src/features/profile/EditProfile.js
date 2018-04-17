@@ -154,25 +154,43 @@ export default class EditProfile extends Component {
   }
 
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({
-          fname: result.data.data.f_name,
-          mname: result.data.data.m_name,
-          lname: result.data.data.l_name,
-          empid: result.data.data.emp_id,
-          college: result.data.data.college,
-          dept: result.data.data.department,
-          emptype: result.data.data.emp_type,
-          emptypeno: 6,
-          email: result.data.data.email,
-          username: result.data.data.username,
-          isfulltime: result.data.data.is_studying
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        Api.getEmployeeData({ empid: res.data.data.emp_id }).then(result => {
+          if (result.data.data.is_studying === 0) var is_fulltime = 1;
+          else var is_fulltime = 0;
+
+          // emp_type
+          var employee_type = '';
+          var i;
+          for (i = 0; i < result.data.data.emp_type.split('').length - 1; i++) {
+            if (result.data.data.emp_type.split(' ')[i] !== undefined) {
+              employee_type += result.data.data.emp_type.split(' ')[i] + ' ';
+            }
+          }
+
+          this.setState({
+            fname: result.data.data.f_name,
+            mname: result.data.data.m_name,
+            lname: result.data.data.l_name,
+            empid: result.data.data.emp_id,
+            college: result.data.data.college,
+            dept: result.data.data.department,
+            emptype: employee_type,
+            emptypeno: parseInt(
+              result.data.data.emp_type.split(' ')[
+                result.data.data.emp_type.split(' ').length - 1
+              ]
+            ),
+            email: result.data.data.email,
+            username: result.data.data.username,
+            isfulltime: is_fulltime
+          });
         });
       }
     });
   }
-  
+
   handleChangeFname(e) {
     this.setState({ fname: e.target.value });
   }
@@ -206,7 +224,7 @@ export default class EditProfile extends Component {
   }
 
   handleChangeFulltime(e) {
-    this.setState({ fulltime: e.target.value });
+    this.setState({ isfulltime: e.target.value });
   }
 
   handleChangeEmail(e) {
@@ -240,7 +258,7 @@ export default class EditProfile extends Component {
       email: this.state.email,
       is_full_time: this.state.isfulltime
     }).then(result => {
-      this.props.history.push('./profile');
+      this.props.history.push('../profile');
     });
   }
 
@@ -318,25 +336,33 @@ export default class EditProfile extends Component {
                 college={this.state.college}
               />
 
-                <div class="ui form flex-container">
+              <div class="ui form flex-container">
                 <div class="grouped fields">
-                      <div class="field">
-                        <label>
-                          <span>
-                            Full Time Employee?
-                          </span>
-                        </label>
-                      </div>
+                  <div class="field">
+                    <label>
+                      <span>Full Time Employee?</span>
+                    </label>
+                  </div>
                   <div class="inline fields">
                     <div class="field">
-                      <div class="ui radio checkbox" >
-                        <input type="radio" name="fulltime" value="Yes" onClick={this.handleChangeFulltime}/>
+                      <div class="ui radio checkbox">
+                        <input
+                          type="radio"
+                          name="fulltime"
+                          value={0}
+                          onClick={this.handleChangeFulltime}
+                        />
                         <label>Yes</label>
                       </div>
                     </div>
                     <div class="field">
                       <div class="ui radio checkbox">
-                        <input type="radio" name="fulltime" value="No" onClick={this.handleChangeFulltime}/>
+                        <input
+                          type="radio"
+                          name="fulltime"
+                          value={1}
+                          onClick={this.handleChangeFulltime}
+                        />
                         <label>No</label>
                       </div>
                     </div>

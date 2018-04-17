@@ -286,7 +286,12 @@ export default class Signup extends Component {
       is_full_time: this.state.fulltime,
       email: this.state.email
     }).then(result => {
-      this.props.history.push('../');
+      Api.login({
+        username: this.state.username,
+        password: this.state.password
+      }).then(result => {
+        this.props.history.push('../profile');
+      });
     });
   }
 
@@ -568,7 +573,7 @@ export default class Signup extends Component {
                             <input
                               type="radio"
                               name="fulltime"
-                              value={1}
+                              value={0}
                               onClick={this.handleChangeFulltime}
                             />
                             <label>Yes</label>
@@ -577,7 +582,7 @@ export default class Signup extends Component {
                             <input
                               type="radio"
                               name="fulltime"
-                              value={0}
+                              value={1}
                               onClick={this.handleChangeFulltime}
                             />
                             <label>No</label>

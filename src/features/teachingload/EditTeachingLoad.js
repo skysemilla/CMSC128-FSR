@@ -4,8 +4,8 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
+import GenerateFSR from './../GenerateFSR'
+import SendtoAdmin from './../SendtoAdmin'
 
 export default class EditTeachingLoad extends Component {
   constructor(props) {
@@ -41,9 +41,9 @@ export default class EditTeachingLoad extends Component {
     this.startEdit = this.startEdit.bind(this);
   }
 
-  componentDidMount() {
-    if (typeof this.props.history !== 'undefined') {
-      this.setState({ emp_id: this.props.history.location.state.emp_id });
+  componentDidMount(){
+    if(typeof this.props.history!=='undefined'){
+      this.setState({emp_id: this.props.history.location.state.emp_id});
     }
   }
 
@@ -109,10 +109,11 @@ export default class EditTeachingLoad extends Component {
       end_time: this.state.endtime,
       hours: this.state.hours,
       no_of_students: this.state.studnum,
-      creditw: this.state.creditw
+      creditw: this.state.creditw,
+      teachingload_id: this.props.history.location.state.id
     })
       .then(result => {
-        this.props.history.push('./teachingload/view'); //change to profile later!!
+        this.props.history.push('./view'); //change to profile later!!
         alert('Teachingload successfully edited!');
       })
       // .catch(e => alert(e));
@@ -122,126 +123,128 @@ export default class EditTeachingLoad extends Component {
   render() {
     return (
       <div className="App-header">
-        <div>
-          <NavBar {...this.props} Label="FSR" subLabel="teachingload" />
-        </div>
-        <div className="bodyDiv">
-          <div
-            class="ui piled very padded text left aligned container segment mainDiv"
-            color="teal">
-            <div>
-              <h2 class="ui blue header">EDIT TEACHING LOAD</h2>
+        <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
+        <div
+          class="ui piled very padded text left aligned container segment mainDiv"
+          color="teal">
+          <div>
+            <h2 class="ui blue header">
+              EDIT TEACHING LOAD
+            </h2>
+          </div>
+          <Divider hidden="true" />
+          <p>
+            <a class="ui small header"> Subject</a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                placeholder={this.state.subj}
+                onChange={this.handleChangeSubj}
+              />
             </div>
-            <Divider hidden="true" />
-            <p>
-              <a class="ui small header"> Subject</a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  placeholder={this.state.subj}
-                  onChange={this.handleChangeSubj}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header"> Section Code </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  placeholder={this.state.seccode}
-                  onChange={this.handleChangeSeccode}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Room </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  placeholder={this.state.room}
-                  onChange={this.handleChangeRoom}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Days </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="text"
-                  placeholder={this.state.days}
-                  onChange={this.handleChangeDays}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Start Time </a>
-              <div class="ui input fluid mini focus">
-                <input type="time" onChange={this.handleChangeStartTime} />
-              </div>
-              <a class="ui small header">End Time </a>
-              <div class="ui input fluid mini focus">
-                <input type="time" onChange={this.handleChangeEndTime} />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Hours per Week </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  placeholder={this.state.hours}
-                  onChange={this.handleChangeHours}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">No. of Students </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  placeholder={this.state.studnum}
-                  onChange={this.handleChangeStudnum}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Course Credit w/o Multiplier </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  placeholder={this.state.creditwo}
-                  onChange={this.handleChangeCreditwo}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Student Credit Units </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  placeholder={this.state.studcred}
-                  onChange={this.handleChangeStudcred}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">
-                Teaching Load Credits w/ Multiplier{' '}
-              </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  placeholder={this.state.creditw}
-                  onChange={this.handleChangeCreditwith}
-                />
-              </div>
-            </p>
-            <div class="ui center aligned container">
-              <button
-                class="ui center aligned blue button"
-                onClick={this.startEdit}>
-                Edit Teaching Load
-              </button>
+          </p>
+          <p>
+            <a class="ui small header"> Section Code </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                placeholder={this.state.seccode}
+                onChange={this.handleChangeSeccode}
+              />
             </div>
+          </p>
+          <p>
+            <a class="ui small header">Room </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                placeholder={this.state.room}
+                onChange={this.handleChangeRoom}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Days </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="text"
+                placeholder={this.state.days}
+                onChange={this.handleChangeDays}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Start Time </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="time"
+                onChange={this.handleChangeStartTime}
+              />
+            </div>
+            <a class="ui small header">End Time </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="time"
+                onChange={this.handleChangeEndTime}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Hours per Week </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="number"
+                placeholder={this.state.hours}
+                onChange={this.handleChangeHours}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">No. of Students </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="number"
+                placeholder={this.state.studnum}
+                onChange={this.handleChangeStudnum}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Course Credit w/o Multiplier </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="number"
+                placeholder={this.state.creditwo}
+                onChange={this.handleChangeCreditwo}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Student Credit Units </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="number"
+                placeholder={this.state.studcred}
+                onChange={this.handleChangeStudcred}
+              />
+            </div>
+          </p>
+          <p>
+            <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
+            <div class="ui input fluid mini focus">
+              <input
+                type="number"
+                placeholder={this.state.creditw}
+                onChange={this.handleChangeCreditwith}
+              />
+            </div>
+          </p>
+          <div class="ui center aligned container">
+            <button
+              class="ui center aligned blue button"
+              onClick={this.startEdit}>
+              Edit Teaching Load
+            </button>
           </div>
         </div>
         <Divider hidden="true" />
