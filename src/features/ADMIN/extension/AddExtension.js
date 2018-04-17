@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom';
 import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
-import GenericDropdown from './../../GenericDropdown'
-import NavBar from './../ui/NavBarAdmin'
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
+import GenericDropdown from './../../GenericDropdown';
+import NavBar from './../ui/NavBarAdmin';
+import GenerateFSR from './../../GenerateFSR';
+import SendtoAdmin from './../../SendtoAdmin';
 
-const optionsMain = [ {id : 0, text : 'Trainings'},
-                      {id : 1, text : 'Information Dissemination'},
-                      {id : 2, text : 'Workshops'},
-                      {id : 3, text : 'Symposium'},
-                      {id : 4, text : 'Others'}]
-
+const optionsMain = [
+  { id: 0, text: 'Trainings' },
+  { id: 1, text: 'Information Dissemination' },
+  { id: 2, text: 'Workshops' },
+  { id: 3, text: 'Symposium' },
+  { id: 4, text: 'Others' }
+];
 
 export default class AddExtension extends Component {
   constructor(props) {
@@ -34,12 +35,18 @@ export default class AddExtension extends Component {
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeNoOfHours = this.handleChangeNoOfHours.bind(this);
-    this.handleChangeNoOfParticipants = this.handleChangeNoOfParticipants.bind(this);
+    this.handleChangeNoOfParticipants = this.handleChangeNoOfParticipants.bind(
+      this
+    );
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
-    this.handleChangeTotalExtandCommUnits = this.handleChangeTotalExtandCommUnits.bind(this);
+    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(
+      this
+    );
+    this.handleChangeTotalExtandCommUnits = this.handleChangeTotalExtandCommUnits.bind(
+      this
+    );
 
     this.startAdd = this.startAdd.bind(this);
   }
@@ -102,118 +109,105 @@ export default class AddExtension extends Component {
   }
 
   render() {
-
     return (
       <div className="App-header">
         <div>
-        <NavBar {...this.props} Label="edit" subLabel="extension"/>
+          <NavBar {...this.props} Label="edit" subLabel="extension" />
         </div>
         <div className="bodydiv">
-        <div
-          class="ui piled very padded text left aligned container segment"
-          color="teal">
-          <div>
-            <h2 class="ui blue header">
-              ADD EXTENSION
-            </h2>
-          </div>
-          <Divider hidden="true" />
-          <p>
-          <div>
-            <GenericDropdown
-              labelHeader = "Extension Type "
-              labelProper = "Choose Extension Type"
-              value = {this.state.type}
-              handler = {this.handleChangeType}
-              options = {optionsMain}/>
-          </div>
-          </p>
-          <p>
-            <a class="ui small header"> Title </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeTitle}
-              />
+          <div
+            class="ui piled very padded text left aligned container segment"
+            color="teal">
+            <div>
+              <h2 class="ui blue header">ADD EXTENSION</h2>
             </div>
-          </p>
-          <p>
-            <a class="ui small header"> No. of Hours </a>
-            <div class="ui input fluid mini focus">
-              <input
-                disabled
-                type="number"
-                onChange={this.handleChangeNoOfHours}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> No. of Participants </a>
+            <Divider hidden="true" />
+            <p>
+              <div>
+                <GenericDropdown
+                  labelHeader="Extension Type "
+                  labelProper="Choose Extension Type"
+                  value={this.state.type}
+                  handler={this.handleChangeType}
+                  options={optionsMain}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> Title </a>
+              <div class="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeTitle} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> No. of Hours </a>
+              <div class="ui input fluid mini focus">
+                <input
+                  disabled
+                  type="number"
+                  onChange={this.handleChangeNoOfHours}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> No. of Participants </a>
               <div class="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleChangeNoOfParticipants}
                 />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> Start Date </a>
+              <div class="ui input fluid mini focus">
+                <input type="date" onChange={this.handleChangeStartDate} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> End Date </a>
+              <div class="ui input fluid mini focus">
+                <input type="date" onChange={this.handleChangeEndDate} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> Role </a>
+              <div class="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeRole} />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header"> Approved Credit Units </a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="number"
+                  onChange={this.handleChangeApprovedCreditUnits}
+                />
+              </div>
+            </p>
+            <p>
+              <a class="ui small header">
+                {' '}
+                Total Extension and Community Units{' '}
+              </a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="number"
+                  onChange={this.handleChangeTotalExtandCommUnits}
+                />
+              </div>
+            </p>
+            <div class="ui center aligned container">
+              <button
+                class="ui center aligned blue button"
+                onClick={this.startAdd}>
+                Add Extension
+              </button>
             </div>
-          </p>
-          <p>
-            <a class="ui small header"> Start Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="date"
-                onChange={this.handleChangeStartDate}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> End Date </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="date"
-                onChange={this.handleChangeEndDate}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Role </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeRole}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Approved Credit Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeApprovedCreditUnits}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header"> Total Extension and Community Units </a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeTotalExtandCommUnits}
-              />
-            </div>
-          </p>
-          <div class="ui center aligned container">
-          <button
-              class="ui center aligned blue button"
-              onClick={this.startAdd}>
-              Add Extension
-            </button>
           </div>
-        </div>
         </div>
         <Divider hidden="true" />
       </div>
     );
   }
 }
-
-ReactDOM.render(<AddExtension />, document.getElementById('root'));

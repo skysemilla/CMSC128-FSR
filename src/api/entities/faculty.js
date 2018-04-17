@@ -15,3 +15,11 @@ export const editTerm = termInfo => {
 export const getEmployeeData = empid => {
   return axios.post('/api/faculty/data', empid);
 };
+
+export const SearchFacultyByName = name => {
+  return axios.post('/api/faculty/searchByName', name);
+};
+
+export const SearchFacultyById = empid => {
+  return axios.post('/api/faculty/searchById', empid);
+};

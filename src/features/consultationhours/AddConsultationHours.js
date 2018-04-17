@@ -114,7 +114,6 @@ export default class AddConsultationHours extends Component {
   }
 
   render() {
-
     return (
       <div className="App-header">
         <div>

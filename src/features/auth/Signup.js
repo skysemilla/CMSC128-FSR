@@ -36,10 +36,10 @@ const errorTexts = [
   <span style={error}> {' must be valid'}</span> //7
 ];
 
-const nameRegex = /[A-Za-z0-9\-']+/;
-const alphanumRegex = /[A-Za-z0-9]+/;
-const empIdRegex = /[0-9]{10}/;
-const emailRegex = /.+\@.+\..+/;
+const nameRegex = /^[A-Za-z0-9\-']+$/;
+const alphanumRegex = /^[A-Za-z0-9]+$/;
+const empIdRegex = /^[0-9]{9}$/;
+const emailRegex = /^.+\@up.edu.ph$/;
 
 var formError = {
   text: {
