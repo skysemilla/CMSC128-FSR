@@ -22,7 +22,10 @@ export default class EditProfessorialChair extends Component {
       grant: '',
       granttitle: '',
       startdate: '',
-      enddate: ''
+      enddate: '',
+
+      validStartDate: null,
+      validEndDate: null
     };
 
     this.handleChangeNominee = this.handleChangeNominee.bind(this);
@@ -64,38 +67,77 @@ export default class EditProfessorialChair extends Component {
   }
 
   handleChangeStartdate(e) {
-    this.setState({ startdate: e.target.value });
+    console.log("start date changed");
+    console.log('from ' + this.state.startdate + ' to ' + e.target.value);
+
+    // input date validation
+    if (this.state.enddate != '' && e.target.value > this.state.enddate) {
+      console.log('new start date is after end date');
+      this.setState({ validStartDate: false });
+      this.setState({ validEndDate: false }); // and vice-versa
+    } else {
+      console.log('new start date is before end date');
+      this.setState({ validStartDate: true });
+      this.setState({ validEndDate: true }); // and so both are valid
+    }
+
+    console.log('e.target.value: ');
+    console.log(e.target.value)
+    this.setState({ startdate: e.target.value }); // still, apply changes
   }
 
   handleChangeEndDate(e) {
-    this.setState({ enddate: e.target.value });
+    console.log("end date changed");
+    console.log('from ' + this.state.enddate + ' to ' + e.target.value);
+
+    // input date validation
+    if (this.state.startdate != '' && e.target.value < this.state.startdate) {
+      console.log('new end date is before start date');
+      this.setState({ validEndDate: false });
+      this.setState({ validStartDate: false }); // and vice-versa
+    } else {
+      console.log('new end date is after start date');
+      this.setState({ validEndDate: true });
+      this.setState({ validStartDate: true }); // and so both are valid
+    }
+
+    console.log('e.target.value: ');
+    console.log(e.target.value)
+    this.setState({ enddate: e.target.value }); // still, apply changes
   }
 
   startAdd(e) {
-    e.preventDefault();
-    console.log(this.state.emp_id)
-    console.log(this.state.nominee)
-    console.log(this.state.nominated)
-    console.log(this.state.profchair)
-    console.log(this.state.grant)
-    console.log(this.state.granttitle)
-    console.log(this.state.startdate)
-    console.log(this.state.enddate)
-    Api.editProfessorialChair({
-      emp_id: this.state.emp_id,
-      type: this.state.nominee,
-      is_approved: this.state.nominated,
-      professional_chair: this.state.profchair,
-      grants: this.state.grant,
-      grant_title: this.state.granttitle,
-      start_date: this.state.startdate,
-      end_date: this.state.enddate
-    })
-      .then(result => {
-        this.props.history.push('./view');
-        alert('Professorial Chair successfully edited!');
+    // if date field is enabled, validate date
+    if ( ( this.state.nominee !== 'No') &&
+    this.state.validStartDate !==false && this.state.validEndDate !== false) {
+      e.preventDefault();
+      console.log(this.state.emp_id)
+      console.log(this.state.nominee)
+      console.log(this.state.nominated)
+      console.log(this.state.profchair)
+      console.log(this.state.grant)
+      console.log(this.state.granttitle)
+      console.log(this.state.startdate)
+      console.log(this.state.enddate)
+      Api.editProfessorialChair({
+        emp_id: this.state.emp_id,
+        type: this.state.nominee,
+        is_approved: this.state.nominated,
+        professional_chair: this.state.profchair,
+        grants: this.state.grant,
+        grant_title: this.state.granttitle,
+        start_date: this.state.startdate,
+        end_date: this.state.enddate
       })
-      .catch(e => alert('Error editing Professorial Chair!'));
+        .then(result => {
+          this.props.history.push('./view');
+          alert('Professorial Chair successfully edited!');
+        })
+        .catch(e => alert('Error editing Professorial Chair!'));
+    } // if valid date 
+    else { // else invalid date
+      alert('Invalid dates!');
+    }
   }
 
   render() {
@@ -210,6 +252,13 @@ export default class EditProfessorialChair extends Component {
                   <div class="ui input fluid mini focus">
                     <input type="date" onChange={this.handleChangeStartdate} />
                   </div>
+                  {this.state.validStartDate === false ?
+                    (
+                      <div class="ui pointing red basic label">
+                        Invalid start date!
+                      </div>
+                    ) : (<div></div>)
+                  }
                 </p>
                 <p>
                   <a class="ui small header">End Date </a>
@@ -217,6 +266,13 @@ export default class EditProfessorialChair extends Component {
                     <input type="date" onChange={this.handleChangeEndDate} />
                   </div>
                 </p>
+                {this.state.validEndDate === false ?
+                    (
+                      <div class="ui pointing red basic label">
+                        Invalid end date!
+                      </div>
+                    ) : (<div></div>)
+                  }
                 <Divider hidden="true" />
               </div>
             ) : (
