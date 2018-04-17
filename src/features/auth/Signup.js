@@ -38,6 +38,7 @@ const errorTexts = [
 
 const nameRegex = /^[A-Za-z0-9\-']+$/;
 const alphanumRegex = /^[A-Za-z0-9]+$/;
+const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
 const empIdRegex = /^[0-9]{9}$/;
 const emailRegex = /^.+\@up.edu.ph$/;
 
@@ -248,7 +249,6 @@ export default class Signup extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
-    console.log(this.state.college);
   }
 
   handleChangeDept(e) {
@@ -334,8 +334,8 @@ export default class Signup extends Component {
     } else if (this.state.password !== this.state.repPassword) {
       formError.text.pass = errorTexts[5];
       formError.bool.pass = false;
-    } else if (!this.state.password.match(alphanumRegex)) {
-      formError.text.pass = errorTexts[6];
+    } else if (!this.state.password.match(passRegex)) {
+      formError.text.pass = errorTexts[7];
       formError.bool.pass = false;
     } else {
       formError.text.pass = '';
@@ -355,8 +355,8 @@ export default class Signup extends Component {
     } else if (this.state.repPassword !== this.state.password) {
       formError.text.repPass = errorTexts[5];
       formError.bool.repPass = false;
-    } else if (!this.state.repPassword.match(alphanumRegex)) {
-      formError.text.repPass = errorTexts[6];
+    } else if (!this.state.repPassword.match(passRegex)) {
+      formError.text.repPass = errorTexts[7];
       formError.bool.repPass = false;
     } else {
       formError.text.repPass = '';
