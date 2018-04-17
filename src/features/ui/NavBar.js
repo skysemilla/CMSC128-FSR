@@ -36,7 +36,7 @@ export default class NavBar extends Component {
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('../..');
+    this.props.history.push('/');
   }
 
   handleChange(e) {
@@ -45,14 +45,14 @@ export default class NavBar extends Component {
     }
     this.setState({ activeMenu: e.currentTarget.id });
     if (e.currentTarget.id === 'profile') {
-      this.props.history.push('../../profile');
+      this.props.history.push('/profile');
     } else if (
       e.currentTarget.id === 'FSR' &&
       this.state.is_being_approved === 1
     ) {
-      this.props.history.push('../../beingApproved');
+      this.props.history.push('/beingApproved');
     } else {
-      this.props.history.push('../../teachingload/view');
+      this.props.history.push('/teachingload/view');
     }
   }
 
@@ -61,39 +61,39 @@ export default class NavBar extends Component {
     this.setState({ activeMenu: 'FSR' });
     this.setState({ subMenu: e.currentTarget.id });
     if (e.currentTarget.id === 'teachingload') {
-      this.props.history.push('../../teachingload/view', {
+      this.props.history.push('/teachingload/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'publications') {
-      this.props.history.push('../../publications/view', {
+      this.props.history.push('/publications/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'adminwork') {
-      this.props.history.push('../../adminwork/view', {
+      this.props.history.push('/adminwork/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'extension') {
-      this.props.history.push('../../extension/view', {
+      this.props.history.push('/extension/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'studyload') {
-      this.props.history.push('../../studyload/view', {
+      this.props.history.push('/studyload/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'profession') {
-      this.props.history.push('../../profession/view', {
+      this.props.history.push('/profession/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'profchair') {
-      this.props.history.push('../../professorialchair/view', {
+      this.props.history.push('/professorialchair/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'consultation') {
-      this.props.history.push('../../consultationhours/view', {
+      this.props.history.push('/consultationhours/view', {
         empid: this.state.emp_id
       });
     } else if (e.currentTarget.id === 'subjects') {
-      this.props.history.push('../../subjects/view', {
+      this.props.history.push('/subjects/view', {
         empid: this.state.emp_id
       });
     }

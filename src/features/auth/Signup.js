@@ -23,8 +23,6 @@ const error = {
   color: 'red'
 };
 
-var messageClass = 'ui negative message';
-
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
   <span style={error}> {' number is required'}</span>, //1
@@ -248,7 +246,6 @@ export default class Signup extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
-    console.log(this.state.college);
   }
 
   handleChangeDept(e) {
@@ -290,7 +287,7 @@ export default class Signup extends Component {
         username: this.state.username,
         password: this.state.password
       }).then(result => {
-        this.props.history.push('../profile');
+        this.props.history.push('/profile');
       });
     });
   }
