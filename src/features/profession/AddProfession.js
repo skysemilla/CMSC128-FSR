@@ -86,15 +86,12 @@ export default class AddProfession extends Component {
       formError.bool.permission &&
       formError.bool.date 
     ) {
-      this.startAdd();
+      this.startAdd(e);
     } else this.forceUpdate();
   }
 
   startAdd(e) {
     e.preventDefault();
-    console.log(this.state.permission)
-    console.log(this.state.date)
-    console.log(this.state.emp_id)
     Api.addLimitedPractice({
       haveApplied: this.state.permission,
       date_submitted: this.state.date,
