@@ -30,7 +30,7 @@ export default class GenericDelete extends Component {
     console.log(this.props)
     if(this.props.label==='Publication'){
       Api.removePublication({
-        id: this.props.id    //Eto naman yung sa pagkuha ng pub_id sa delete :)
+        id: this.props.id    
       })
         .then(result => {
           window.location.reload();
@@ -41,7 +41,7 @@ export default class GenericDelete extends Component {
     }else if(this.props.label === 'Profession'){
       console.log("XD")
       Api.deleteLimitedPractice({
-        limited_practice_id: this.props.id    //Eto naman yung sa pagkuha ng pub_id sa delete :)
+        limited_practice_id: this.props.id   
       })
         .then(result => {
           window.location.reload();
@@ -49,6 +49,17 @@ export default class GenericDelete extends Component {
         })
         .catch(e => alert('Error deleting '+this.props.label+'!'));
       this.close();
+    }else if(this.props.label === 'Extension and Community Services'){
+      console.log(":-)");
+      Api.deleteExtension({
+        id: this.props.id 
+      })
+        .then(result => {
+          window.location.reload();
+          alert('extension successfully deleted');
+        })
+        .catch(e => alert('Error deleting row!'));
+        this.close();
     }
   }
 

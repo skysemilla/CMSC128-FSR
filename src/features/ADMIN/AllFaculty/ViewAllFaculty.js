@@ -24,7 +24,9 @@ export default class ViewApprovedFSR extends Component {
 
   componentDidMount() {
     Api.ViewAllFaculty().then(result => {
-      this.setState({ data: result.data.data[0] });
+      if (result.data.data !== null) {
+        this.setState({ data: result.data.data[0] });
+      }
     });
   }
 

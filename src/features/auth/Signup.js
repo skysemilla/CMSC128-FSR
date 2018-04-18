@@ -283,7 +283,7 @@ export default class Signup extends Component {
       department: this.state.dept,
       college: this.state.college,
       emp_type: this.state.emptype,
-      emp_type_no: this.state.emp_type_no,
+      emp_type_no: this.state.emptypeno,
       is_full_time: this.state.fulltime,
       email: this.state.email
     }).then(result => {
