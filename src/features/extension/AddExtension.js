@@ -309,6 +309,7 @@ export default class AddExtension extends Component {
                   value={this.state.type}
                   handler={this.handleChangeType}
                   options={optionsMain}
+                  formError = {formError.text.type}
                 />
               </div>
             </p>
