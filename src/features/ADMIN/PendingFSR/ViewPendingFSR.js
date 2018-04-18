@@ -6,12 +6,16 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
+const nameRegex = /^[A-Za-z0-9\-']+$/;
+const empIdRegex = /^[0-9]{9}$/;
+
 export default class ViewPendingFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      search: ''
     };
   }
 
@@ -21,6 +25,32 @@ export default class ViewPendingFSR extends Component {
         this.setState({ data: [result.data.data] });
       }
     });
+  }
+
+  searchPendingFSR(e) {
+    e.preventDefault();
+    if (!this.state.search) {
+      Api.ViewPendingFSR().then(result => {
+        this.setState({ data: result.data.data[0] });
+      });
+    } else if (this.state.search.match(empIdRegex)) {
+      console.log('USES ID');
+      Api.ViewPendingFSRByID({ empid: this.state.search }).then(result => {
+        this.setState({ data: [result.data.data[0]] });
+      });
+    } else if (this.state.search.match(nameRegex)) {
+      console.log('USES NAME');
+      Api.ViewPendingFSRByName({ name: this.state.search }).then(result => {
+        this.setState({ data: [result.data.data[0]] });
+      });
+    } else {
+      this.setState({ data: [] });
+    }
+    //this.forceUpdate();
+  }
+
+  handleSearch(e) {
+    this.setState({ search: e.target.value });
   }
 
   render() {
