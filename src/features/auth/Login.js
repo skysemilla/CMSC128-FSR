@@ -113,7 +113,7 @@ export default class Login extends Component {
       })
       .catch(error => {
         if (!apiDidThen) {
-          errorCredMessage = errorTexts[4];
+          errorCredMessage = errorTexts[5];
           this.forceUpdate();
         }
       });

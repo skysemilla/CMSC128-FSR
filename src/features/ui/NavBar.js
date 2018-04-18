@@ -134,8 +134,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -156,8 +157,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -213,8 +215,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -270,8 +273,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -324,8 +328,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -378,8 +383,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -432,8 +438,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -489,8 +496,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -543,8 +551,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -618,8 +627,9 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div class="right menu">
-              <label className="ui item">
+            <label className="ui item">
                 Logged in as {this.state.username}
+                <i class="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
