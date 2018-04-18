@@ -7,6 +7,7 @@ import ViewExtensionRow from './ExtensionViewRow';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
+import DeleteModal from '../GenericDelete';
 
 //Dummy data
 const dummySample = {
@@ -36,13 +37,20 @@ export default class ViewExtension extends Component {
     this.props.history.push('../extension/add');
   }
 
-  componentDidMount(e) {
-    Api.viewExtension({})
-      .then(result => {
-        this.setState({ data: result });
-      })
-      .catch(e => alert('Error loading Extension!!'));
-  }
+componentDidMount = () => {
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        console.log(res.data.data.emp_id);
+        Api.viewExtension({ id: res.data.data.emp_id }).then(result => {
+          console.log(result.data.data);
+          if (result.data.data !== null) {
+            this.setState({ data: result.data.data });
+            // console.log(result.data.data);
+          }
+        });
+      }
+    });
+  };
 
   render() {
     return (
@@ -76,22 +84,23 @@ export default class ViewExtension extends Component {
                   <th class="center aligned">Funding Agency</th>
                   <th class="center aligned">Approved Course Credits </th>
                   <th class="center aligned"> Edit/Delete </th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
                 {this.state.data.map(item => {
                   return (
                     <ViewExtensionRow
                       {...this.props}
-                      type={item.type}
-                      title={item.title}
-                      noOfHours={item.noOfHours}
-                      noOfParticipants={item.noOfParticipants}
-                      startDate={item.startDate}
-                      endDate={item.endDate}
-                      role={item.role}
-                      fundingAgency={item.fundingAgency}
-                      approvedCreditUnits={item.approvedCreditUnits}
+                      id={item.extension_id}
+                      type={item.extension_type}
+                      title={item.extension_name}
+                      noOfHours={item.no_of_hours}
+                      noOfParticipants={item.no_of_participants}
+                      startDate={item.start_time}
+                      endDate={item.end_time}
+                      role={item.extension_role}
+                      fundingAgency={item.funding_agency}
+                      approvedCreditUnits={item.credit_unit}
                       editURL="../extension/edit"
                       label="Extension and Community Services"
                       subLabel="extension"

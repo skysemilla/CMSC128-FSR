@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 //import CellItem from './CellItem'
 import { Modal } from 'semantic-ui-react';
-import GenericDelete from './../GenericDelete';
+import GenericDelete from './GenericDelete';
 
 export default class ViewTeachingLoadRow extends Component {
   render() {
