@@ -20,7 +20,7 @@ const optionsMain = [
 const error = { 
   color: 'red'
 };
-const nameRegex = /[A-Za-z0-9\-']+/;
+const nameRegex = /^[A-Za-z0-9 ]+$/;
 var messageClass = 'ui negative message';
 
 const errorTexts = [
