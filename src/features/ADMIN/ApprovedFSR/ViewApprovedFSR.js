@@ -5,130 +5,22 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
-const dummy1 = {
-  id: '0000000000',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy2 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy3 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy4 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy5 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy6 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy7 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy8 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy9 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
-
-const dummy10 = {
-  id: '0000000001',
-  fname: 'asd',
-  mname: 'efg',
-  lname: 'qweqwe',
-  college: 'CAS',
-  dept: 'asdasad',
-  approved: 'YES'
-};
 
 export default class ViewApprovedFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [
-        dummy1,
-        dummy2,
-        dummy3,
-        dummy4,
-        dummy5,
-        dummy6,
-        dummy7,
-        dummy8,
-        dummy9,
-        dummy10
-      ]
+      data: []
     };
   }
 
   componentDidMount() {
-    // Api.ViewApprovedFSR().then(result => {
-    //   this.setState({ data: result.data.data[0] });
-    // });
+    Api.ViewApprovedFSR().then(result => {
+      if (result.data.data !== undefined) {
+        this.setState({ data: [result.data.data] });
+      }
+    });
   }
 
   render() {
@@ -151,7 +43,7 @@ export default class ViewApprovedFSR extends Component {
                   <input
                     class="prompt"
                     type="text"
-                    placeholder="Search Name or EmpID..."
+                    placeholder="Search by Name or ID..."
                   />
                   <i class="search icon" />
                 </div>
@@ -181,15 +73,15 @@ export default class ViewApprovedFSR extends Component {
                     return (
                       <ViewFSRRow
                         {...this.props}
-                        id={item.id}
-                        fname={item.fname}
-                        mname={item.mname}
-                        lname={item.lname}
+                        id={item.emp_id}
+                        fname={item.f_name}
+                        mname={item.m_name}
+                        lname={item.l_name}
                         college={item.college}
-                        dept={item.dept}
+                        dept={item.deparment}
                         semester={item.semester}
                         year={item.year}
-                        editURL="../admin/editFSR"
+                        editURL="/admin/editFSR"
                       />
                     );
                   })}
