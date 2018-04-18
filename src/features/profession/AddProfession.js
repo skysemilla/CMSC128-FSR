@@ -7,6 +7,27 @@ import NavBar from './../ui/NavBar';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 
+// form validation
+const error = {
+  color: 'red'
+};
+
+const errorTexts = [
+  <span style={error}> {' is required'}</span>, //0
+  <span style={error}> {' *'}</span> //1
+];
+
+var formError = {
+  text: {
+    permission: '',
+    date: ''
+  },
+  bool: {
+    permission: false,
+    date: false
+  }
+};
+
 export default class AddProfession extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +43,7 @@ export default class AddProfession extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.startAdd = this.startAdd.bind(this);
+    this.checkAdd = this.checkAdd.bind(this);
   }
 
 
@@ -41,11 +63,41 @@ export default class AddProfession extends Component {
     this.setState({ date: e.target.value });
   }
 
-  startAdd(e) {
+  checkAdd(e) {
     e.preventDefault();
-    console.log(this.state.permission)
-    console.log(this.state.date)
-    console.log(this.state.emp_id)
+    if (!this.state.permission) {
+      formError.text.permission = errorTexts[1];
+      formError.bool.permission = false;
+    } else {
+      formError.text.permission = '';
+      formError.bool.permission = true;
+    }
+
+    // check date
+    if (!this.state.date) {
+      formError.text.date = errorTexts[0];
+      formError.bool.date = false;
+    } else {
+      formError.text.date = '';
+      formError.bool.date = true;
+    }
+
+    if (
+      formError.bool.permission &&
+      formError.bool.date 
+    ) {
+      this.startAdd(e);
+    }else if (
+      this.state.permission == 0 &&
+      !this.state.date
+    ){
+      this.startAdd(e);
+    } else this.forceUpdate();
+  }
+
+  startAdd(e) {
+    if(this.state.date === '') {this.state.date = 'null'}
+    e.preventDefault();
     Api.addLimitedPractice({
       haveApplied: this.state.permission,
       date_submitted: this.state.date,
@@ -81,7 +133,7 @@ export default class AddProfession extends Component {
                 <div class="inline fields">
                   <label>
                     Have you applied for official permission for limited
-                    practice of profession?
+                    practice of profession?{formError.text.permission}
                   </label>
                   <div class="field">
                     <div class="ui radio checkbox">
@@ -121,7 +173,7 @@ export default class AddProfession extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header">Date submitted </a>
+                <a class="ui small header">Date submitted{formError.text.date}</a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeDate} />
                 </div>
@@ -133,7 +185,7 @@ export default class AddProfession extends Component {
               </button>
               <button
                 class="ui center aligned blue button"
-                onClick={this.startAdd}>
+                onClick={this.checkAdd}>
                 Add Profession
               </button>
             </div>
