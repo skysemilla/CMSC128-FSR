@@ -15,8 +15,8 @@ export const editStudyLoad = studyLoadInfo => {
 export const viewStudyLoad = () => {
 	return axios.post('/api/studyload/view')
 };
-export const viewByStudyloadId = studyload_id=>{
-	return axios.post('/api/studyload/viewByStudyloadId')
+export const viewByStudyloadId = studyload_id_input=>{
+	return axios.post('/api/studyload/viewByStudyloadId',{studyload_id:studyload_id_input})
 }
 export const viewAllStudyLoad = () => {
 	return axios.get('/api/studyload/viewAll');

@@ -146,10 +146,11 @@ export default class ViewStudyLoad extends Component {
                 <tr>
                   <th class="center aligned"> Course Number </th>
                   <th class="center aligned"> Course Credit </th>
-                  <th class="center aligned"> Section Code </th>
-                  <th class="center aligned"> Time </th>
+                  <th class="center aligned"> Day1 </th>
+                  <th class="center aligned"> Day2 </th>
+                  <th class="center aligned"> Start Time </th>
+                  <th class="center aligned"> End Time </th>
                   <th class="center aligned"> School </th>
-                  <th class="center aligned"> Study load credits </th>
                   <th class="center aligned"> Attachments </th>
                   <th class="center aligned"> Edit/Delete </th>
                 </tr>
@@ -162,10 +163,11 @@ export default class ViewStudyLoad extends Component {
                       id={item.studyload_id}
                       courseno={item.course_no}
                       ccred={item.credits}
-                      day={item.no_of_days}
-                      time={item.start_time}
+                      day1={item.day1}
+                      day2={item.day2}
+                      time1={item.start_time}
+                      time2={item.end_time}
                       school={item.school}
-                      slcred={item.credits}
                       editURL="../studyload/edit"
                       label="Study Load"
                       subLabel="Study load"

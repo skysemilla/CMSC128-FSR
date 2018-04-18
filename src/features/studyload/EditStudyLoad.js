@@ -15,16 +15,19 @@ export default class EditStudyLoad extends Component {
       courseno: '',
       credits: 0,
       start_time: '',
+      end_time: '',
       school: '',
-      no_of_days: 0
+      day1: '',
+      day2: ''
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
     this.handleChangeCcred = this.handleChangeCcred.bind(this);
     this.handleChangeDay = this.handleChangeDay.bind(this);
     this.handleChangeTime = this.handleChangeTime.bind(this);
+    this.handleChangeDay2 = this.handleChangeDay2.bind(this);
+    this.handleChangeTime2 = this.handleChangeTime2.bind(this);
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
-    this.handleChangeSlcred = this.handleChangeSlcred.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -40,20 +43,26 @@ export default class EditStudyLoad extends Component {
   }
 
   handleChangeDay(e) {
-    this.setState({ no_of_days: e.target.value });
+    this.setState({ day1: e.target.value });
   }
 
   handleChangeTime(e) {
     this.setState({ start_time: e.target.value });
+  }
+  
+  handleChangeDay2(e) {
+    this.setState({ day2: e.target.value });
+  }
+
+  handleChangeTime2(e) {
+    this.setState({ end_time: e.target.value });
   }
 
   handleChangeSchool(e) {
     this.setState({ school: e.target.value });
   }
 
-  handleChangeSlcred(e) {
-    this.setState({ slcred: e.target.value });
-  }
+
 
   uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
@@ -63,17 +72,20 @@ export default class EditStudyLoad extends Component {
     if (typeof this.props.history !== 'undefined') {
       console.log(this.props.history.location.state.id);
     }
-    Api.viewByStudyloadId(this.state.id)
+    Api.viewByStudyloadId(this.props.history.location.state.id)
       .then(response => {
         this.setState(
-          { courseno: response.course_no },
-          { credits: response.credits },
-          { start_time: response.start_time },
-          { school: response.school },
-          { no_of_days: response.no_of_days }
-        );
-      })
-      .then(console.log(this.state));
+          { courseno: response.data.data[0].course_no ,
+           credits: response.data.data[0].credits ,
+           start_time: response.data.data[0].start_time ,
+           end_time: response.data.data[0].end_time ,
+           school: response.data.data[0].school ,
+           day1: response.data.data[0].day1 ,
+           day2: response.data.data[0].day2}
+        ,
+        console.log(response.data.data));
+      }
+    )
   }
 
   handleLogout(e) {
@@ -90,8 +102,10 @@ export default class EditStudyLoad extends Component {
       courseno: this.state.courseno,
       credits: this.state.credits,
       start_time: this.state.start_time,
+      end_time:this.state.end_time,
       school: this.state.school,
-      no_of_days: this.state.no_of_days
+      day1: this.state.day1,
+      day2: this.state.day2
     })
       .then(result => {
         this.props.history.push('./view'); //change to profile later!!
@@ -137,18 +151,30 @@ export default class EditStudyLoad extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header">Days </a>
+              <a class="ui small header">Days 1 </a>
               <div class="ui input fluid mini focus">
                 <input
                   type="text"
-                  value={this.state.no_of_days}
-                  placeholder={this.state.no_of_days}
+                  value={this.state.day1}
+                  placeholder={this.state.day1}
                   onChange={this.handleChangeDay}
                 />
               </div>
             </p>
             <p>
-              <a class="ui small header">Time </a>
+              <a class="ui small header">Day 2 </a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.day2}
+                  placeholder={this.state.day2}
+                  onChange={this.handleChangeDay2}
+                />
+              </div>
+            </p>
+
+            <p>
+              <a class="ui small header">Start Time </a>
               <div class="ui input fluid mini focus">
                 <input
                   type="time"
@@ -159,6 +185,18 @@ export default class EditStudyLoad extends Component {
               </div>
             </p>
             <p>
+              <a class="ui small header">End Time </a>
+              <div class="ui input fluid mini focus">
+                <input
+                  type="time"
+                  value={this.state.end_time}
+                  placeholder={this.state.end_time}
+                  onChange={this.handleChangeTime2}
+                />
+              </div>
+            </p>
+
+            <p>
               <a class="ui small header">School </a>
               <div class="ui input fluid mini focus">
                 <input
@@ -166,17 +204,6 @@ export default class EditStudyLoad extends Component {
                   value={this.state.school}
                   placeholder={this.state.school}
                   onChange={this.handleChangeSchool}
-                />
-              </div>
-            </p>
-            <p>
-              <a class="ui small header">Study Load Credits </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  value={this.state.slcred}
-                  placeholder={this.state.slcred}
-                  onChange={this.handleChangeSlcred}
                 />
               </div>
             </p>
