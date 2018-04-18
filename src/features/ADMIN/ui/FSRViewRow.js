@@ -15,7 +15,8 @@ export default class ViewTeachingLoadRow extends Component {
         <td class="center aligned"> {this.props.fname} {this.props.mname} {this.props.lname}</td>
         <td class="center aligned"> {this.props.college} </td>
         <td class="center aligned"> {this.props.dept} </td>
-        <td class="center aligned"> {this.props.approved} </td>
+        <td class="center aligned"> {this.props.semester} </td>
+        <td class="center aligned"> {this.props.year} </td>
         <td class="center aligned">
          {
             this.props.approved === 'YES' ?

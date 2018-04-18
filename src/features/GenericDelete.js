@@ -25,15 +25,42 @@ export default class GenericDelete extends Component {
 
   startDelete(e){
     // e.preventDefault();
-    Api.removePublication({
-      id: this.props.id    //Eto naman yung sa pagkuha ng pub_id sa delete :)
-    })
-      .then(result => {
-        window.location.reload();
-        alert(this.props.label+' successfully deleted!');
+    console.log({Object: this.props})
+    console.log(this.props.id)
+    console.log(this.props)
+    if(this.props.label==='Publication'){
+      Api.removePublication({
+        id: this.props.id    
       })
-      .catch(e => alert('Error deleting new'+this.props.label+'!'));
-    this.close();
+        .then(result => {
+          window.location.reload();
+          alert(this.props.label+' successfully deleted!');
+        })
+        .catch(e => alert('Error deleting new'+this.props.label+'!'));
+      this.close();
+    }else if(this.props.label === 'Profession'){
+      console.log("XD")
+      Api.deleteLimitedPractice({
+        limited_practice_id: this.props.id   
+      })
+        .then(result => {
+          window.location.reload();
+          alert(this.props.label+' successfully deleted!');
+        })
+        .catch(e => alert('Error deleting '+this.props.label+'!'));
+      this.close();
+    }else if(this.props.label === 'Extension and Community Services'){
+      console.log(":-)");
+      Api.deleteExtension({
+        id: this.props.id 
+      })
+        .then(result => {
+          window.location.reload();
+          alert('extension successfully deleted');
+        })
+        .catch(e => alert('Error deleting row!'));
+        this.close();
+    }
   }
 
   render() {

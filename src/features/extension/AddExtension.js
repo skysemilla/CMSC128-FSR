@@ -28,7 +28,7 @@ const optionsMain = [
 const error = {  
   color: 'red'
 };
-const nameRegex = /[A-Za-z0-9\-']+/;
+const nameRegex = /^[A-Za-z0-9 ]+$/;
 
 var messageClass = 'ui negative message';
 
@@ -385,6 +385,10 @@ export default class AddExtension extends Component {
               </div>
             </p>
             <div class="ui center aligned container">
+              <button
+                class="ui blue button">
+                Upload Attachments
+              </button>
               <button
                 class="ui center aligned blue button"
                 onClick={this.checkAdd}>
