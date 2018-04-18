@@ -42,22 +42,16 @@ const errorTexts = [
   <span style={error}> {' number is required'}</span>, //1
   <span style={error}> {' >= 6 characters'}</span>, //2
   <span style={error}> {' <= 16 characters'}</span>, //3
-  <span style={error}> {' = 10 digits'}</span>, //4
+  <span style={error}> {' must be numbers'}</span>, //4
   <span style={error}> {' must match'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
   <span style={error}> {' must be valid'}</span>, //7
   <span style={error}> {' *required'}</span> //8
 ];
 
-// researchType: '',
-//       researchSubtype: '',
-//       completeTitle: '',
-//       Role: '',
-//       Coworkers: [], //!!!
-//       Funding: 'N/A',
-//       StartDate: '',
-//       EndDate: '',
-//       ApprovedCreditUnits: 
+const alphanumRegex = /^[A-Za-z0-9]+$/;
+const numRegex = /^[0-9]+$/;
+
 
 var formError = {
   text: {
@@ -156,14 +150,11 @@ export default class AddPublication extends Component {
           this.state.Coworkers.splice(index, 1);
       }
       this.setState({ Coworkers: this.state.Coworkers });
-      console.log('Deleted ' + e.target.value);
     } else {
       var newArray = this.state.Coworkers;
       newArray.push(e.target.value);
       this.setState({ Coworkers: newArray });
-      console.log('Added ' + e.target.value);
     }
-    console.log(this.state.Coworkers);
   }
 
   validateAdd(){
@@ -190,44 +181,53 @@ export default class AddPublication extends Component {
   	if(!this.state.completeTitle){
   		formError.text.completeTitle = errorTexts[0];
   		formError.bool.completeTitle = false;
+  	}else if(!this.state.completeTitle.match(alphanumRegex)){
+  		formError.text.completeTitle = errorTexts[6];
+  		formError.bool.completeTitle = false;
   	}else{
-  		formError.text.completeTitle = errorTexts[0];
+  		formError.text.completeTitle = '';
   		formError.bool.completeTitle = true;
   	}
 
   	// check role
-  	if(!this.state.Role && this.researchType == 'Research'){
+  	if(!this.state.Role && this.state.researchType == 'Research'){
   		formError.text.Role = errorTexts[0];
   		formError.bool.Role = false;
-  	}else{
-  		formError.text.Role = errorTexts[0];
+  	} else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
+  		formError.text.Role = errorTexts[6];
+  		formError.bool.Role = false;
+  	} else{
+  		formError.text.Role = '';
   		formError.bool.Role = true;
   	}
 
   	// check funding
-  	if(!this.state.Funding && this.researchSubtype != 'Research Proposal'){
+  	if(!this.state.Funding && this.state.researchSubtype == 'Research Proposal'){
   		formError.text.Funding = errorTexts[0];
   		formError.bool.Funding = false;
-  	}else{
-  		formError.text.Funding = errorTexts[0];
+  	} else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype == 'Research Proposal'){
+  		formError.text.Funding = errorTexts[6];
+  		formError.bool.Funding = false;
+  	} else{
+  		formError.text.Funding = '';
   		formError.bool.Funding = true;
   	}
 
   	// check start date
-  	if(!this.state.StartDate){
+  	if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
   		formError.text.StartDate = errorTexts[0];
   		formError.bool.StartDate = false;
   	}else{
-  		formError.text.StartDate = errorTexts[0];
+  		formError.text.StartDate = '';
   		formError.bool.StartDate = true;
   	}
 
   	// check end date
-  	if(!this.state.EndDate){
+  	if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
   		formError.text.EndDate = errorTexts[0];
   		formError.bool.EndDate = false;
   	}else{
-  		formError.text.EndDate = errorTexts[0];
+  		formError.text.EndDate = '';
   		formError.bool.EndDate = true;
   	}
 
@@ -235,8 +235,11 @@ export default class AddPublication extends Component {
   	if(!this.state.ApprovedCreditUnits){
   		formError.text.ApprovedCreditUnits = errorTexts[0];
   		formError.bool.ApprovedCreditUnits = false;
+  	} else if(!this.state.ApprovedCreditUnits.match(numRegex)){
+  		formError.text.ApprovedCreditUnits = errorTexts[4];
+  		formError.bool.ApprovedCreditUnits = false;
   	}else{
-  		formError.text.ApprovedCreditUnits = errorTexts[0];
+  		formError.text.ApprovedCreditUnits = '';
   		formError.bool.ApprovedCreditUnits = true;
   	}
 
@@ -246,12 +249,14 @@ export default class AddPublication extends Component {
   		formError.bool.completeTitle &&
   		formError.bool.Role &&
   		formError.bool.Funding &&
-  		// formError.bool.StartDate &&
-  		// formError.bool.EndDate &&
+  		formError.bool.StartDate &&
+  		formError.bool.EndDate &&
   		formError.bool.ApprovedCreditUnits
   		){
   		this.startAdd();
-  	} else this.forceUpdate();
+  	}
+
+  	this.forceUpdate();
 
   }
 
@@ -299,7 +304,6 @@ export default class AddPublication extends Component {
             .catch(err => alert('Error adding Coworker'));
         });
         this.props.history.push('./view'); //change to profile later!!
-        console.log(result.data);
         alert('Publication successfully added!');
       })
       .catch(e => alert('Error adding new Publication!'));
@@ -320,15 +324,14 @@ export default class AddPublication extends Component {
             </div>
             <Divider hidden="true" />
             <div>
-            {formError.text.researchType}
-              <GenericDropdown class="flex-container"
+              <GenericDropdown
                 labelHeader="Publication Type"
                 labelProper="Choose Publication Type"
                 value={this.state.researchType}
                 handler={this.handleChangeType}
                 options={optionsMain}
+                formError={formError.text.researchType}
               />
-             {formError.text.researchType}
             </div>
 
             <div>
@@ -337,6 +340,7 @@ export default class AddPublication extends Component {
                 handler={this.handleChangeSubtype}
                 options={optionsMain}
                 research={this.state.researchType}
+                formError={formError.text.researchSubtype}
               />
             </div>
             <p>
@@ -398,7 +402,7 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Funding </a>
+                <a class="ui small header"> Funding{formError.text.Funding} </a>
                 <div class="ui input fluid mini focus">
                   <input type="text" onChange={this.handleChangeFunding} />
                 </div>
@@ -468,3 +472,4 @@ export default class AddPublication extends Component {
     );
   }
 }
+

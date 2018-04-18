@@ -11,11 +11,14 @@ export default class ViewTeachingLoadRow extends Component {
     return (
       <tr>
         <td class="center aligned"> {this.props.id} </td>
-        <td class="center aligned"> {this.props.fname} {this.props.mname} {this.props.lname}</td>
+        <td class="center aligned">
+          {' '}
+          {this.props.fname} {this.props.mname} {this.props.lname}
+        </td>
         <td class="center aligned"> {this.props.college} </td>
         <td class="center aligned"> {this.props.dept} </td>
         <td class="center aligned">
-        <GenericDisable {...this.props}/>
+          <GenericDisable {...this.props} />
         </td>
       </tr>
     );

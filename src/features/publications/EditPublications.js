@@ -43,12 +43,15 @@ const errorTexts = [
   <span style={error}> {' number is required'}</span>, //1
   <span style={error}> {' >= 6 characters'}</span>, //2
   <span style={error}> {' <= 16 characters'}</span>, //3
-  <span style={error}> {' = 10 digits'}</span>, //4
+  <span style={error}> {' must be numbers'}</span>, //4
   <span style={error}> {' must match'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
   <span style={error}> {' must be valid'}</span>, //7
   <span style={error}> {' *required'}</span> //8
 ];
+
+const alphanumRegex = /^[A-Za-z0-9]+$/;
+const numRegex = /^[0-9]+$/;
 
 var formError = {
   text: {
@@ -95,7 +98,7 @@ export default class EditPublication extends Component {
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.addCoworker = this.addCoworker.bind(this); //!!!
+    this.addCoworker = this.addCoworker.bind(this); 
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
@@ -127,44 +130,53 @@ export default class EditPublication extends Component {
   	if(!this.state.completeTitle){
   		formError.text.completeTitle = errorTexts[0];
   		formError.bool.completeTitle = false;
+  	}else if(!this.state.completeTitle.match(alphanumRegex)){
+  		formError.text.completeTitle = errorTexts[6];
+  		formError.bool.completeTitle = false;
   	}else{
-  		formError.text.completeTitle = errorTexts[0];
+  		formError.text.completeTitle = '';
   		formError.bool.completeTitle = true;
   	}
 
   	// check role
-  	if(!this.state.Role){
+  	if(!this.state.Role && this.state.researchType == 'Research'){
   		formError.text.Role = errorTexts[0];
   		formError.bool.Role = false;
-  	}else{
-  		formError.text.Role = errorTexts[0];
+  	} else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
+  		formError.text.Role = errorTexts[6];
+  		formError.bool.Role = false;
+  	} else{
+  		formError.text.Role = '';
   		formError.bool.Role = true;
   	}
 
   	// check funding
-  	if(!this.state.Funding){
+  	if(!this.state.Funding && this.state.researchType == 'Research'){
   		formError.text.Funding = errorTexts[0];
   		formError.bool.Funding = false;
-  	}else{
-  		formError.text.Funding = errorTexts[0];
+  	} else if(!this.state.Funding.match(alphanumRegex) && this.state.researchType == 'Research'){
+  		formError.text.Funding = errorTexts[6];
+  		formError.bool.Funding = false;
+  	} else{
+  		formError.text.Funding = '';
   		formError.bool.Funding = true;
   	}
 
   	// check start date
-  	if(!this.state.StartDate){
+  	if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
   		formError.text.StartDate = errorTexts[0];
   		formError.bool.StartDate = false;
   	}else{
-  		formError.text.StartDate = errorTexts[0];
+  		formError.text.StartDate = '';
   		formError.bool.StartDate = true;
   	}
 
   	// check end date
-  	if(!this.state.EndDate){
+  	if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
   		formError.text.EndDate = errorTexts[0];
   		formError.bool.EndDate = false;
   	}else{
-  		formError.text.EndDate = errorTexts[0];
+  		formError.text.EndDate = '';
   		formError.bool.EndDate = true;
   	}
 
@@ -172,8 +184,11 @@ export default class EditPublication extends Component {
   	if(!this.state.ApprovedCreditUnits){
   		formError.text.ApprovedCreditUnits = errorTexts[0];
   		formError.bool.ApprovedCreditUnits = false;
+  	} else if(!this.state.ApprovedCreditUnits.toString().match(numRegex)){
+  		formError.text.ApprovedCreditUnits = errorTexts[4];
+  		formError.bool.ApprovedCreditUnits = false;
   	}else{
-  		formError.text.ApprovedCreditUnits = errorTexts[0];
+  		formError.text.ApprovedCreditUnits = '';
   		formError.bool.ApprovedCreditUnits = true;
   	}
 
@@ -187,8 +202,9 @@ export default class EditPublication extends Component {
   		formError.bool.EndDate &&
   		formError.bool.ApprovedCreditUnits
   		){
-  		this.startAdd();
-  	} else this.forceUpdate();
+  		this.startEdit();
+  	}
+  	this.forceUpdate();
   }
 
   componentDidMount() {
@@ -207,9 +223,8 @@ export default class EditPublication extends Component {
 			            Funding: result.data.data[0].funding,
 			            StartDate: result.data.data[0].start_date,
 			            EndDate: result.data.data[0].end_date,
-			            ApprovedCreditUnits: result.data.data[0].credit_units,
+			            ApprovedCreditUnits: result.data.data[0].credit_units
 			        });
-		          	console.log(result.data.data[0].start_date);
 		       		 })
 		        	.catch(err => alert('Error loading pub!'));
 		    	}
@@ -225,10 +240,26 @@ export default class EditPublication extends Component {
 
   handleChangeType(e) {
     this.setState({ researchType: e.target.value });
+    if(e.target.value==='Research'){
+    	this.setState({ researchSubtype: 'Research Proposal' });
+    	this.setState({ StartDate: '' });
+    	this.setState({ EndDate: '' });
+    }else{
+    	this.setState({ researchSubtype: 'Oral/Poster Papers' });
+    	this.setState({ Funding: '' });
+    	this.setState({ Role: '' });
+    }
   }
 
   handleChangeSubtype(e) {
     this.setState({ researchSubtype: e.target.value });
+    if(e.target.value!=='Research Proposal' && e.target.value!=='Research Implementation'){
+    	this.setState({ Funding: '' });
+    	this.setState({ Role: '' });
+    }
+    if(e.target.value!=='Research Proposal'){
+    	this.setState({ Funding: '' });
+    }
   }
 
   handleChangeTitle(e) {
@@ -246,14 +277,11 @@ export default class EditPublication extends Component {
           this.state.newCoworkers.splice(index, 1);
       }
       this.setState({ newCoworkers: this.state.newCoworkers });
-      console.log('Deleted ' + e.target.value);
     } else {
       var newArray = this.state.newCoworkers;
       newArray.push(e.target.value);
       this.setState({ newCoworkers: newArray });
-      console.log('Added ' + e.target.value);
     }
-    console.log(this.state.newCoworkers);
   }
 
   handleChangeFunding(e) {
@@ -273,7 +301,7 @@ export default class EditPublication extends Component {
   }
 
   startEdit(e) {
-    e.preventDefault();
+    // e.preventDefault();
 
     Api.removeCoworkers({
       id: this.props.history.location.state.id
@@ -329,6 +357,7 @@ export default class EditPublication extends Component {
                 value={this.state.researchType}
                 handler={this.handleChangeType}
                 options={optionsMain}
+                formError={formError.text.researchType}
               />
             </div>
             <div>
@@ -337,6 +366,7 @@ export default class EditPublication extends Component {
                 handler={this.handleChangeSubtype}
                 options={optionsMain}
                 research={this.state.researchType}
+                formError={formError.text.researchSubtype}
               />
             </div>
             <p>
@@ -358,6 +388,7 @@ export default class EditPublication extends Component {
                     disabled
                     type="text"
                     onChange={this.handleChangeRole}
+                    value={this.state.Role}
                   />
                 </div>
               </p>
@@ -404,7 +435,7 @@ export default class EditPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Funding </a>
+                <a class="ui small header"> Funding{formError.text.Funding} </a>
                 <div class="ui input fluid mini focus">
                   <input type="text" onChange={this.handleChangeFunding} value={this.state.Funding}/>
                 </div>
@@ -466,7 +497,7 @@ export default class EditPublication extends Component {
 
             <div class="ui center aligned container">
               <button class="ui blue button">Upload Attachments</button>
-              <button class="ui blue button" onClick={this.startEdit}>
+              <button class="ui blue button" onClick={this.validateEdit}>
                 Save changes
               </button>
             </div>

@@ -5,10 +5,10 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 
 const activated = {
-  value: 'item active',
+  value: 'item active'
 };
 const deactivated = {
-  value: 'item',
+  value: 'item'
 };
 
 export default class EditNav extends Component {
@@ -18,7 +18,6 @@ export default class EditNav extends Component {
     super(props);
 
     this.state = {
-
       initaialActiveSubMenu: this.props.activeSubLabel,
 
       teachingLoadClass: '',
@@ -29,15 +28,15 @@ export default class EditNav extends Component {
       professionClass: '',
       profChairClass: '',
       adminWorkClass: '',
+      username: ''
+    };
 
-      };
-    
     this.componentDidMount = this.componentDidMount.bind(this);
     this.initializeActiveItem = this.initializeActiveItem.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     this.initializeActiveSubMenu = this.initializeActiveSubMenu.bind(this);
-    
+
     this.activateTeachingLoad = this.activateTeachingLoad.bind(this);
     this.activatePublications = this.activatePublications.bind(this);
     this.activateStudyLoad = this.activateStudyLoad.bind(this);
@@ -46,11 +45,19 @@ export default class EditNav extends Component {
     this.activateProfession = this.activateProfession.bind(this);
     this.activateProfChair = this.activateProfChair.bind(this);
     this.activateAdminWork = this.activateAdminWork.bind(this);
-
   }
 
   componentDidMount(e) {
     this.initializeActiveItem(e);
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
+          this.setState({ username: res.data.data.username });
+        });
+      } else {
+        this.props.history.push('/');
+      }
+    });
   }
 
   initializeActiveItem(e) {
@@ -70,54 +77,53 @@ export default class EditNav extends Component {
       this.activateProfChair();
     } else if (this.props.activeSubLabel === 'adminwork') {
       this.activateAdminWork();
-    } 
-
+    }
   }
 
-  handleChange(e) { 
+  handleChange(e) {
     console.log('');
     console.log('handleChange by EditNav');
     console.log('e.currentTarget.id: ' + e.currentTarget.id);
-    
+
     e.preventDefault();
     // main nav bar
-    if(e.currentTarget.id==='all'){ 
-      this.props.history.push('../../viewAllFSR');
-    }else if(e.currentTarget.id==='pending'){
-      this.props.history.push('../../viewPendingFSR');
-    }else if(e.currentTarget.id==='approved'){
-      this.props.history.push('../../viewApprovedFSR');
-    }else if(e.currentTarget.id==='faculty'){
-      this.props.history.push('../../viewAllFaculty');
-    }else if(e.currentTarget.id==='edit'){
-      this.props.history.push('../../editFSR/teachingload/view');
+    if (e.currentTarget.id === 'all') {
+      this.props.history.push('/admin/viewAllFSR');
+    } else if (e.currentTarget.id === 'pending') {
+      this.props.history.push('/admin/viewPendingFSR');
+    } else if (e.currentTarget.id === 'approved') {
+      this.props.history.push('/admin/viewApprovedFSR');
+    } else if (e.currentTarget.id === 'faculty') {
+      this.props.history.push('/admin/viewAllFaculty');
+    } else if (e.currentTarget.id === 'edit') {
+      this.props.history.push('/admin/editFSR/teachingload/view');
     } // end main navbar
 
     // vertical nav
-    else if(e.currentTarget.id==='teachingload'){
+    else if (e.currentTarget.id === 'teachingload') {
       this.activateTeachingLoad();
-      this.props.history.push('../../editFSR/teachingload/view');
-    }else if(e.currentTarget.id==='publications'){
+      this.props.history.push('/admin/editFSR/teachingload/view');
+    } else if (e.currentTarget.id === 'publications') {
       this.activatePublications();
-      this.props.history.push('../../editFSR/publications/view');
-    }else if(e.currentTarget.id==='studyload'){
+      this.props.history.push('/admin/editFSR/publications/view');
+    } else if (e.currentTarget.id === 'studyload') {
       this.activateStudyLoad();
-      this.props.history.push('../../editFSR/studyload/view');
-    }else if(e.currentTarget.id==='extension'){
+      this.props.history.push('/admin/editFSR/studyload/view');
+    } else if (e.currentTarget.id === 'extension') {
       this.activateExtension();
-      this.props.history.push('../../editFSR/extension/view');
-    }else if(e.currentTarget.id==='consultation'){
+      this.props.history.push('/admin/editFSR/extension/view');
+    } else if (e.currentTarget.id === 'consultation') {
       this.activateConsultation();
-      this.props.history.push('../../editFSR/consultation/edit'); // no view for admin consulataion
-    }else if(e.currentTarget.id==='profession'){
+      this.props.history.push('/admin/editFSR/consultation/edit'); // no view for admin consulataion
+    } else if (e.currentTarget.id === 'profession') {
       this.activateProfession();
-      this.props.history.push('../../editFSR/profession/view');
-    }else if(e.currentTarget.id==='profchair'){
+      this.props.history.push('/admin/editFSR/profession/view');
+    } else if (e.currentTarget.id === 'profchair') {
       this.activateProfChair();
-      this.props.history.push('../../editFSR/profchair/view');
-    }else if(e.currentTarget.id==='adminwork'){
+      this.props.history.push('/admin/editFSR/profchair/view');
+    } else if (e.currentTarget.id === 'adminwork') {
       this.activateAdminWork();
-      this.props.history.push('../../editFSR/adminwork/view');
+      this.props.history.push('/admin/editFSR/adminwork/view');
     } // end vertical nav
 
     this.forceUpdate();
@@ -209,9 +215,9 @@ export default class EditNav extends Component {
   }
 
   render() {
-    return(
-      <div onChange={this.initializeActiveItem} >
-        <div class="ui blue inverted huge menu div1"> 
+    return (
+      <div onChange={this.initializeActiveItem}>
+        <div class="ui blue inverted huge menu div1">
           <a class="item" id="all" onClick={this.handleChange}>
             All FSR
           </a>
@@ -225,6 +231,10 @@ export default class EditNav extends Component {
             All Faculty
           </a>
           <div class="right menu">
+            <label className="ui item">
+              Logged in as {this.state.username}
+              <i class="user circle icon" />
+            </label>
             <a class="ui item" onClick={this.handleLogout}>
               Logout
             </a>
@@ -232,34 +242,56 @@ export default class EditNav extends Component {
         </div>
 
         <div class="ui large inverted blue vertical menu flex-container large navDiv">
-          <a id="teachingload" class={this.state.teachingLoadClass} onClick={this.handleChange.bind(this)} >
+          <a
+            id="teachingload"
+            class={this.state.teachingLoadClass}
+            onClick={this.handleChange.bind(this)}>
             Teaching Load
           </a>
-          <a id="publications" class={this.state.publicationsClass} onClick={this.handleChange}>
+          <a
+            id="publications"
+            class={this.state.publicationsClass}
+            onClick={this.handleChange}>
             Publications
           </a>
-          <a id="studyload" class={this.state.studyLoadClass} onClick={this.handleChange}>
+          <a
+            id="studyload"
+            class={this.state.studyLoadClass}
+            onClick={this.handleChange}>
             Study Load
           </a>
-          <a id="extension" class={this.state.extensionClass} onClick={this.handleChange}>
+          <a
+            id="extension"
+            class={this.state.extensionClass}
+            onClick={this.handleChange}>
             Extension and Community Service
           </a>
-          <a id="consultation" class={this.state.consultationClass} onClick={this.handleChange}>
+          <a
+            id="consultation"
+            class={this.state.consultationClass}
+            onClick={this.handleChange}>
             Consultation Hours
           </a>
-          <a id="profession" class={this.state.professionClass} onClick={this.handleChange}>
+          <a
+            id="profession"
+            class={this.state.professionClass}
+            onClick={this.handleChange}>
             Limited Practice of Profession
           </a>
-          <a id="profchair" class={this.state.profChairClass} onClick={this.handleChange}>
+          <a
+            id="profchair"
+            class={this.state.profChairClass}
+            onClick={this.handleChange}>
             Professorial Chair
           </a>
-          <a id="adminwork" class={this.state.adminWorkClass} onClick={this.handleChange}>
+          <a
+            id="adminwork"
+            class={this.state.adminWorkClass}
+            onClick={this.handleChange}>
             Administrative Work
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
-//=========================
-ReactDOM.render(<EditNav />, document.getElementById('root'));

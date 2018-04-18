@@ -111,6 +111,3 @@ export default class GenericPending extends Component {
     )
   }
 }
-
-//=========================
-ReactDOM.render(<GenericPending />, document.getElementById('root'));

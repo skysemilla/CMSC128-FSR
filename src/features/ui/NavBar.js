@@ -26,7 +26,9 @@ export default class NavBar extends Component {
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
-        this.setState({ username: result.data.data.username });
+        Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
+          this.setState({ username: res.data.data.username });
+        });
       } else {
         this.props.history.push('/');
       }

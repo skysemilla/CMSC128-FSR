@@ -5,10 +5,10 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from './../../../api';
 
 const activated = {
-  value: 'item active',
+  value: 'item active'
 };
 const deactivated = {
-  value: 'item',
+  value: 'item'
 };
 
 export default class SideNav extends Component {
@@ -118,38 +118,60 @@ export default class SideNav extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <Divider hidden="true" />
         <div class="ui large inverted blue vertical menu flex-container large navDiv">
-          <a id="teachingload" class={this.state.teachingLoadClass} onClick={this.activateTeachingLoad.bind(this)} >
+          <a
+            id="teachingload"
+            class={this.state.teachingLoadClass}
+            onClick={this.activateTeachingLoad.bind(this)}>
             Teaching Load
           </a>
-          <a id="publications" class={this.state.publicationsClass} onClick={this.activatePublications.bind(this)}>
+          <a
+            id="publications"
+            class={this.state.publicationsClass}
+            onClick={this.activatePublications.bind(this)}>
             Publications
           </a>
-          <a id="studyload" class={this.state.studyLoadClass} onClick={this.activateStudyLoad}>
+          <a
+            id="studyload"
+            class={this.state.studyLoadClass}
+            onClick={this.activateStudyLoad}>
             Study Load
           </a>
-          <a id="extension" class={this.state.extensionClass} onClick={this.activateExtension}>
+          <a
+            id="extension"
+            class={this.state.extensionClass}
+            onClick={this.activateExtension}>
             Extension and Community Service
           </a>
-          <a id="consultation" class={this.state.consultationClass} onClick={this.activateConsultation}>
+          <a
+            id="consultation"
+            class={this.state.consultationClass}
+            onClick={this.activateConsultation}>
             Consultation Hours
           </a>
-          <a id="profession" class={this.state.professionClass} onClick={this.activateProfession}>
+          <a
+            id="profession"
+            class={this.state.professionClass}
+            onClick={this.activateProfession}>
             Limited Practice of Profession
           </a>
-          <a id="profchair" class={this.state.profChairClass} onClick={this.activateProfChair}>
+          <a
+            id="profchair"
+            class={this.state.profChairClass}
+            onClick={this.activateProfChair}>
             Professorial Chair
           </a>
-          <a id="adminwork" class={this.state.adminWorkClass} onClick={this.activateAdminWork}>
+          <a
+            id="adminwork"
+            class={this.state.adminWorkClass}
+            onClick={this.activateAdminWork}>
             Administrative Work
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
-//=========================
-ReactDOM.render(<SideNav />, document.getElementById('root'));
