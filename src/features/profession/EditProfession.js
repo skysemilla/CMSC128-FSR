@@ -7,7 +7,26 @@ import NavBar from './../ui/NavBar';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 
-const dummySample = { permission: 'YES', date: '' };
+// form validation
+const error = {
+  color: 'red'
+};
+
+const errorTexts = [
+  <span style={error}> {' is required'}</span>, //0
+  <span style={error}> {' *'}</span> //1
+];
+
+var formError = {
+  text: {
+    permission: '',
+    date: ''
+  },
+  bool: {
+    permission: false,
+    date: false
+  }
+};
 
 export default class EditProfession extends Component {
   constructor(props) {
@@ -25,6 +44,7 @@ export default class EditProfession extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.startEdit = this.startEdit.bind(this);
+    this.checkEdit = this.checkEdit.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +61,33 @@ export default class EditProfession extends Component {
 
   handleChangeDate(e) {
     this.setState({ date: e.target.value });
+  }
+
+  checkEdit(e) {
+    e.preventDefault();
+    if (!this.state.permission) {
+      formError.text.permission = errorTexts[1];
+      formError.bool.permission = false;
+    } else {
+      formError.text.permission = '';
+      formError.bool.permission = true;
+    }
+
+    // check date
+    if (!this.state.date) {
+      formError.text.date = errorTexts[0];
+      formError.bool.date = false;
+    } else {
+      formError.text.date = '';
+      formError.bool.date = true;
+    }
+
+    if (
+      formError.bool.permission &&
+      formError.bool.date 
+    ) {
+      this.startEdit();
+    } else this.forceUpdate();
   }
 
   startEdit(e) {
@@ -84,7 +131,7 @@ export default class EditProfession extends Component {
                 <div class="inline fields">
                   <label>
                     Have you applied for official permission for limited
-                    practice of profession?
+                    practice of profession?{formError.text.permission}
                   </label>
                   <div class="field">
                     <div class="ui radio checkbox">
@@ -124,7 +171,7 @@ export default class EditProfession extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header">Date submitted </a>
+                <a class="ui small header">Date submitted{formError.text.date} </a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeDate} />
                 </div>
@@ -136,7 +183,7 @@ export default class EditProfession extends Component {
               </button>
               <button
                 class="ui center aligned blue button"
-                onClick={this.startEdit}>
+                onClick={this.checkEdit}>
                 Edit Profession
               </button>
             </div>
