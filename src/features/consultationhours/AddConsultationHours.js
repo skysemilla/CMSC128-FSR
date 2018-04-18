@@ -19,27 +19,27 @@ const optionsDays = [
 ];
 
 const optionsTimeFrom = [
-  { value: 0, text: '08:00:00' },
-  { value: 1, text: '09:00:00' },
+  { value: 0, text: '8:00:00' },
+  { value: 1, text: '9:00:00' },
   { value: 2, text: '10:00:00' },
   { value: 3, text: '11:00:00' },
   { value: 4, text: '12:00:00' },
-  { value: 5, text: '13:00:00' },
-  { value: 6, text: '14:00:00' },
-  { value: 7, text: '15:00:00' },
-  { value: 8, text: '16:00:00' }
+  { value: 5, text: '1:00:00' },
+  { value: 6, text: '2:00:00' },
+  { value: 7, text: '3:00:00' },
+  { value: 8, text: '4:00:00' }
 ];
 
 const optionsTimeTo = [
-  { value: 0, text: '09:00:00' },
+  { value: 0, text: '9:00:00' },
   { value: 1, text: '10:00:00' },
   { value: 2, text: '11:00:00' },
   { value: 3, text: '12:00:00' },
-  { value: 4, text: '13:00:00' },
-  { value: 5, text: '14:00:00' },
-  { value: 6, text: '15:00:00' },
-  { value: 7, text: '16:00:00' },
-  { value: 8, text: '17:00:00' }
+  { value: 4, text: '1:00:00' },
+  { value: 5, text: '2:00:00' },
+  { value: 6, text: '3:00:00' },
+  { value: 7, text: '4:00:00' },
+  { value: 8, text: '5:00:00' }
 ];
 
 export default class AddConsultationHours extends Component {
@@ -47,34 +47,39 @@ export default class AddConsultationHours extends Component {
     super(props);
 
     this.state = {
-      days: '',
-      timeFrom: '',
-      timeFromValue: '',
-      timeTo: '',
-      place: '',
-      attachmentLink: ''
+      day: '',
+      consultation_start_time: '',
+      consultation_end_time: '',
+      consultation_place: '',
+      emp_id: ''
     };
 
-    this.handleChangeDays = this.handleChangeDays.bind(this);
     this.handleChangeTimeFrom = this.handleChangeTimeFrom.bind(this);
     this.handleChangeTimeTo = this.handleChangeTimeTo.bind(this);
     this.handleChangePlace = this.handleChangePlace.bind(this);
-    this.uploadAttachment = this.uploadAttachment.bind(this);
-
+    this.handleChangeDay = this.handleChangeDay.bind(this);
     this.startAdd = this.startAdd.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleChangeDays(e) {
-    this.setState({ days: e.target.value });
+  componentDidMount() {
+    Api.getSession().then(result => {
+      console.log(result.data.data.emp_id);
+      console.log('hi bitches');
+      this.setState({ emp_id: result.data.data.emp_id });
+      console.log(result.data.data.emp_id);
+    });
+  }
+
+  handleChangeDay(e) {
+    this.setState({ day: e.target.value });
   }
 
   handleChangeTimeTo(e) {
-    this.setState({ timeTo: e.target.value });
+    this.setState({ consultation_end_time: e.target.value });
   }
 
   handleChangeTimeFrom(e) {
-    this.setState({ timeFrom: e.target.value });
+    this.setState({ consultation_start_time: e.target.value });
 
     var index;
     for (index = 0; index < timeIndex; index++) {
@@ -85,94 +90,79 @@ export default class AddConsultationHours extends Component {
   }
 
   handleChangePlace(e) {
-    this.setState({ place: e.target.value });
-  }
-
-  handleLogout(e){
-    e.preventDefault();
-    Api.logout();
-    this.props.history.push('../..');
-  }
-
-  uploadAttachment(e) {
-    //this.setState({ attachmentLink: ???});
+    this.setState({ consultation_place: e.target.value });
   }
 
   startAdd(e) {
     e.preventDefault();
+    console.log(this.state);
     Api.addConsultation({
-      consultation_start_time: this.state.timeFrom,
-      consultation_end_time: this.state.timeTo,
-      consultation_place: this.state.place,
-      day: this.state.days
+      consultation_start_time: this.state.consultation_start_time,
+      consultation_end_time: this.state.consultation_end_time,
+      consultation_place: this.state.consultation_place,
+      day: this.state.day,
+      emp_id: this.state.emp_id
     })
-      .then(result =>{
-        this.props.history.push('./view'); //change to profile later!!
-        alert('Consultation Hours successfully added!');
-      })
-      .catch(e => alert('Error adding new consultation hour!'));
+    .then(result => {
+      this.props.history.push('./view'); //change to profile later!!
+      alert('Consultation successfully added!');
+    });
   }
 
   render() {
     return (
       <div className="App-header">
-        <div>
-          <NavBar {...this.props} />
-        </div>
-        <div className="bodyDiv">
-          <div
-            class="ui piled very padded text left aligned container segment"
-            color="teal">
-            <div>
-              <h2 class="ui blue header">ADD CONSULTATION HOURS</h2>
+        <NavBar {...this.props} />
+        <div
+          class="ui piled very padded text left aligned container segment"
+          color="teal">
+          <div>
+            <h2 class="ui blue header">ADD CONSULTATION HOURS</h2>
+          </div>
+
+          <Divider hidden="true" />
+
+          <p>
+            <GenericDropdown
+              labelHeader="Day"
+              labelProper="Choose Day of Consultation"
+              value={this.state.day}
+              handler={this.handleChangeDay}
+              options={optionsDays}
+            />
+          </p>
+
+          <p>
+            <GenericDropdown
+              labelHeader="Time From"
+              labelProper="Choose Start Time of Consultation"
+              value={this.state.timeFrom}
+              handler={this.handleChangeTimeFrom}
+              options={optionsTimeFrom}
+            />
+          </p>
+
+          <p>
+            <ConsultationHourSubTypeDropdown
+              value={this.state.timeTo}
+              handler={this.handleChangeTimeTo}
+              options={optionsTimeTo}
+              timeFromValue={this.state.timeFromValue}
+            />
+          </p>
+
+          <p>
+            <a class="ui small header"> Place </a>
+            <div class="ui input fluid mini focus">
+              <input type="text" onChange={this.handleChangePlace} />
             </div>
-
-            <Divider hidden="true" />
-
-            <p>
-              <GenericDropdown
-                labelHeader="Day"
-                labelProper="Choose Day of Consultation"
-                value={this.state.days}
-                handler={this.handleChangeDays}
-                options={optionsDays}
-              />
-            </p>
-
-            <p>
-              <GenericDropdown
-                labelHeader="Time From"
-                labelProper="Choose Start Time of Consultation"
-                value={this.state.timeFrom}
-                handler={this.handleChangeTimeFrom}
-                options={optionsTimeFrom}
-              />
-            </p>
-
-            <p>
-              <ConsultationHourSubTypeDropdown
-                value={this.state.timeTo}
-                handler={this.handleChangeTimeTo}
-                options={optionsTimeTo}
-                timeFromValue={this.state.timeFromValue}
-              />
-            </p>
-
-            <p>
-              <a class="ui small header"> Place </a>
-              <div class="ui input fluid mini focus">
-                <input type="text" onChange={this.handleChangePlace} />
-              </div>
-            </p>
-            <Divider hidden="true" />
-            <div class="ui center aligned container">
-              <button class="ui blue button" onClick={this.uploadAttachment}>
-                Upload Attachments
-              </button>
-              <button class="ui blue button" onClick={this.startAdd}>
-                Add Consultation Hours
-              </button>
-            </div>
+          </p>
+          <Divider hidden="true" />
+          <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachments</button>
+            <button class="ui blue button" onClick={this.startAdd}>
+              Add Consultation Hours
+            </button>
           </div>
         </div>
         <Divider hidden="true" />
