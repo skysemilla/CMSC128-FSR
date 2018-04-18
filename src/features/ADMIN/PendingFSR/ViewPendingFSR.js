@@ -161,7 +161,8 @@ export default class ViewPendingFSR extends Component {
                 <th class="center aligned"> Full Name </th>
                 <th class="center aligned"> College </th>
                 <th class="center aligned"> Department </th>
-                <th class="center aligned"> Approved? </th>
+                <th class="center aligned"> Semester </th>
+                <th class="center aligned"> Year </th>
                 <th class="center aligned"> FSR </th>
               </tr>
             </thead>
@@ -176,7 +177,8 @@ export default class ViewPendingFSR extends Component {
                     lname={item.lname}
                     college={item.college}
                     dept={item.dept}
-                    approved={item.approved}
+                    semester={item.semester}
+                    year={item.year}
                     editURL="../admin/editFSR"
                   />
                 );

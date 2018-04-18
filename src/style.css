@@ -1,0 +1,36 @@
+.generate{
+  width: 8.5in;
+  max-width: 8.5in;
+  padding: 30px;
+}
+
+th.thtable {
+   border: 1px solid black;
+}
+
+td.tdtable {
+   border: 1px solid black;
+}
+
+table.fsrtable {
+    border-collapse: collapse;
+    text-align: center;
+    width:100%;
+}
+
+table.inv{
+  border: none;
+}
+
+td.inv2{
+  border: none;
+}
+
+body.fsrbody{
+  margin: 40px;
+}
+
+td.total{
+  text-align: right;
+  border: none;
+}
