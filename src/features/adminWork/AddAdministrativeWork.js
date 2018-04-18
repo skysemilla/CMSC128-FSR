@@ -15,14 +15,35 @@ export default class AddAdministrativeWork extends Component {
       positionOfWork: '',
       officeUnit: '',
       approvedCreditUnits: '',
-      totalAdminLoadCredits: ''
+      totalAdminLoadCredits: '',
+      office: '',
+      credit_units: '',
+      emp_id: '',
+      nature_of_work: ''
     };
 
     this.handlePositionOfWork = this.handlePositionOfWork.bind(this);
     this.handleOfficeUnit = this.handleOfficeUnit.bind(this);
     this.handleApprovedCreditUnits = this.handleApprovedCreditUnits.bind(this);
-
+    this.handleTotalAdminCredits = this.handleTotalAdminCredits.bind(this);
+    this.handleOffice = this.handleOffice.bind(this);
+    this.handleCreditUnits = this.handleCreditUnits.bind(this);
     this.startAdd = this.startAdd.bind(this);
+  }
+
+  componentDidMount() {
+    Api.getSession().then(result => {
+      console.log(result.data.data.emp_id);
+      this.setState({ emp_id: result.data.data.emp_id });
+    });
+  }
+
+  handleChangeOffice(e) {
+    this.setState({ office: e.target.value });
+  }
+
+  handleChangeCreditUnits(e) {
+    this.setState({ credit_units: e.target.value });
   }
 
   handlePositionOfWork(e) {
@@ -37,85 +58,83 @@ export default class AddAdministrativeWork extends Component {
     this.setState({ approvedCreditUnits: e.target.value });
   }
 
+  handleTotalAdminCredits(e) {
+    this.setState({ totalAdminLoadCredits: e.target.value });
+  }
+
+  handleOffice(e) {
+    this.setState({ office: e.target.value });
+  }
+  handleCreditUnits(e) {
+    this.setState({ credit_units: e.target.value });
+  }
+
   startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
+    e.preventDefault();
+    Api.addPosition({
+      office: this.state.positionOfWork,
+      credit_units: this.state.officeUnit,
+      nature_of_work: ' ',
+      emp_id: this.state.emp_id
+    })
+      .then(result => {
+        this.props.history.push('./publications/view'); //change to profile later!!
+        alert('Position successfully added!');
+      })
+      .catch(e => alert('Error adding new Position!'));
+    console.log(this.state);
   }
 
   render() {
     return (
       <div className="App-header">
-        <div>
-          <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
-        </div>
-        <div className="bodyDiv">
-          <div
-            class="ui piled very padded text left aligned container segment"
-            color="teal">
-            <div>
-              <h2 class="ui blue header">ADD ADMINISTRATIVE WORK</h2>
+        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
+        <div
+          class="ui piled very padded text left aligned container segment"
+          color="teal">
+          <div>
+            <h2 class="ui blue header">ADD ADMINISTRATIVE WORK</h2>
+          </div>
+          <Divider hidden="true" />
+          <p>
+            <a class="ui small header">
+              {' '}
+              Position/Nature of Adminstrative Work{' '}
+            </a>
+            <div class="ui input fluid mini focus">
+              <input type="text" onChange={this.handlePositionOfWork} />
             </div>
-            <Divider hidden="true" />
-            <p>
-              <a class="ui small header">
-                {' '}
-                Position/Nature of Adminstrative Work{' '}
-              </a>
-              <div class="ui input fluid mini focus">
-                <input type="text" onChange={this.handlePositionOfWork} />
-              </div>
-            </p>
+          </p>
 
-            <p>
-              <a class="ui small header"> Office Unit </a>{' '}
-              {/* Can change to dropdown? */}
-              <div class="ui input fluid mini focus">
-                <input type="text" onChange={this.handleOfficeUnit} />
-              </div>
-            </p>
+          <p>
+            <a class="ui small header"> Office Unit </a>{' '}
+            {/* Can change to dropdown? */}
+            <div class="ui input fluid mini focus">
+              <input type="text" onChange={this.handleOfficeUnit} />
+            </div>
+          </p>
 
-            <p>
-              <a class="ui small header"> Approved Credit Units </a>{' '}
-              {/* Can change to number? */}
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  onChange={this.handleApprovedCreditUnits}
-                />
-              </div>
-            </p>
+          <p>
+            <a class="ui small header"> Approved Credit Units </a>{' '}
+            {/* Can change to number? */}
+            <div class="ui input fluid mini focus">
+              <input type="number" onChange={this.handleApprovedCreditUnits} />
+            </div>
+          </p>
 
-            <table class="ui unstackable table" style={{ border: 0 }}>
-              <tr>
-                <td>
-                  <p class="ui segment">
-                    Total Load Credits: {this.state.totalAdminLoadCredits}
-                  </p>
-                </td>
-                <td class="right aligned">
-                  <button class="ui blue button">Upload Attachment</button>
-                  <button class="ui blue button" onClick={this.startAdd}>
-                    Edit Administrative Work
-                  </button>
-                </td>
-              </tr>
-            </table>
+          <p>
+            <a class="ui small header"> Total Administrative Load Credits </a>{' '}
+            {/* Can change to dropdown? */}
+            <div class="ui input fluid mini focus">
+              <input type="number" onChange={this.handleTotalAdminCredits} />
+            </div>
+          </p>
+
+          <div class="ui center aligned container">
+            <button class="ui blue button">Upload Attachment</button>
+            <button class="ui blue button" onClick={this.startAdd}>
+              Add Administrative Work
+            </button>
           </div>
         </div>
         <Divider hidden="true" />

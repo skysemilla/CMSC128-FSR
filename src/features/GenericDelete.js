@@ -60,6 +60,16 @@ export default class GenericDelete extends Component {
         })
         .catch(e => alert('Error deleting row!'));
         this.close();
+    }else if(this.props.label === 'Administrative Work'){
+      console.log(this.props);
+    Api.deletePosition({ id: this.props.id});
+    this.close();
+    }else if(this.props.label === 'Consultation Hours'){
+      Api.deleteConsultation({ id: this.props.id})
+      .then(result => {
+        console.log(result);
+      });
+    this.close();
     }
   }
 
