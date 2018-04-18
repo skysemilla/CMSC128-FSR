@@ -28,6 +28,7 @@ const errorTexts = [
 
 const nameRegex = /^[A-Za-z0-9\-']+$/;
 const alphanumRegex = /^[A-Za-z0-9]+$/;
+const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
 const empIdRegex = /^[0-9]{9}$/;
 const emailRegex = /^.+\@up.edu.ph$/;
 
@@ -38,6 +39,7 @@ var formError = {
     lname: '',
     empId: '',
     empType: '',
+    empTypeNo: '',
     fullTime: '',
     col: '',
     dept: '',
@@ -52,6 +54,7 @@ var formError = {
     lname: false,
     empId: false,
     empType: false,
+    empTypeNo: false,
     fullTime: false,
     col: false,
     dept: false,
@@ -204,6 +207,7 @@ export default class EditProfile extends Component {
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangePassword2 = this.handleChangePassword2.bind(this);
     this.startEdit = this.startEdit.bind(this);
+    this.checkEdit = this.checkEdit.bind(this);
   }
 
   componentDidMount() {
@@ -213,31 +217,20 @@ export default class EditProfile extends Component {
           if (result.data.data.is_studying === 0) var is_fulltime = 1;
           else var is_fulltime = 0;
 
-          // emp_type
-          var employee_type = '';
-          var i;
-          for (i = 0; i < result.data.data.emp_type.split('').length - 1; i++) {
-            if (result.data.data.emp_type.split(' ')[i] !== undefined) {
-              employee_type += result.data.data.emp_type.split(' ')[i] + ' ';
-            }
-          }
-
           this.setState({
+            ...this.state,
             fname: result.data.data.f_name,
             mname: result.data.data.m_name,
             lname: result.data.data.l_name,
             empid: result.data.data.emp_id,
             college: result.data.data.college,
             dept: result.data.data.department,
-            emptype: employee_type,
-            emptypeno: parseInt(
-              result.data.data.emp_type.split(' ')[
-                result.data.data.emp_type.split(' ').length - 1
-              ]
-            ),
+            emptype: result.data.data.emp_type,
+            emptypeno: result.data.data.emp_type_no,
             email: result.data.data.email,
             username: result.data.data.username,
-            isfulltime: is_fulltime
+            isfulltime: is_fulltime,
+            password: result.data.data.password
           });
         });
       }
@@ -296,8 +289,187 @@ export default class EditProfile extends Component {
     this.setState({ password2: e.target.value });
   }
 
-  startEdit(e) {
+  checkEdit(e) {
     e.preventDefault();
+    // check emp id
+    if (!this.state.empid) {
+      formError.text.empId = errorTexts[0];
+      formError.bool.empId = false;
+    } else if (!this.state.empid.match(empIdRegex)) {
+      formError.text.empId = errorTexts[4];
+      formError.bool.empId = false;
+    } else {
+      formError.text.empId = '';
+      formError.bool.empId = true;
+    }
+
+    // check username
+    if (!this.state.username) {
+      formError.text.user = errorTexts[0];
+      formError.bool.user = false;
+    } else if (!this.state.username.match(alphanumRegex)) {
+      formError.text.user = errorTexts[7];
+      formError.bool.user = false;
+    } else {
+      formError.text.user = '';
+      formError.bool.user = true;
+    }
+
+    // check pass
+    if (!this.state.password) {
+      formError.text.pass = errorTexts[0];
+      formError.bool.pass = false;
+    } else if (this.state.password.length < 6) {
+      formError.text.pass = errorTexts[2];
+      formError.bool.pass = false;
+    } else if (this.state.password.length > 16) {
+      formError.text.pass = errorTexts[3];
+      formError.bool.pass = false;
+    } else if (this.state.password !== this.state.password2) {
+      formError.text.pass = errorTexts[5];
+      formError.bool.pass = false;
+    } else if (!this.state.password.match(passRegex)) {
+      formError.text.pass = errorTexts[7];
+      formError.bool.pass = false;
+    } else {
+      formError.text.pass = '';
+      formError.bool.pass = true;
+    }
+
+    // check repeat pass
+    if (!this.state.password2) {
+      formError.text.repPass = errorTexts[0];
+      formError.bool.repPass = false;
+    } else if (this.state.password2.length < 6) {
+      formError.text.repPass = errorTexts[2];
+      formError.bool.repPass = false;
+    } else if (this.state.password2.length > 16) {
+      formError.text.repPass = errorTexts[3];
+      formError.bool.repPass = false;
+    } else if (this.state.password2 !== this.state.password) {
+      formError.text.repPass = errorTexts[5];
+      formError.bool.repPass = false;
+    } else if (!this.state.password2.match(passRegex)) {
+      formError.text.repPass = errorTexts[7];
+      formError.bool.repPass = false;
+    } else {
+      formError.text.repPass = '';
+      formError.bool.repPass = true;
+    }
+
+    // check fname
+    if (!this.state.fname) {
+      formError.text.fname = errorTexts[0];
+      formError.bool.fname = false;
+    } else if (!this.state.fname.match(nameRegex)) {
+      formError.text.fname = errorTexts[6];
+      formError.bool.fname = false;
+    } else {
+      formError.text.fname = '';
+      formError.bool.fname = true;
+    }
+
+    // check mname
+    if (!this.state.mname) {
+      formError.text.mname = errorTexts[0];
+      formError.bool.mname = false;
+    } else if (!this.state.mname.match(nameRegex)) {
+      formError.text.mname = errorTexts[6];
+      formError.bool.mname = false;
+    } else {
+      formError.text.mname = '';
+      formError.bool.mname = true;
+    }
+
+    // check lname
+    if (!this.state.lname) {
+      formError.text.lname = errorTexts[0];
+      formError.bool.lname = false;
+    } else if (!this.state.lname.match(nameRegex)) {
+      formError.text.lname = errorTexts[6];
+      formError.bool.lname = false;
+    } else {
+      formError.text.lname = '';
+      formError.bool.lname = true;
+    }
+
+    // check emptype
+    if (!this.state.emptype) {
+      formError.text.empType = errorTexts[0];
+      formError.bool.empType = false;
+    } else {
+      formError.text.empType = '';
+      formError.bool.empType = true;
+    }
+
+    // check emptypeno
+    if (!this.state.emptypeno) {
+      formError.text.empTypeNo = errorTexts[0];
+      formError.bool.empTypeNo = false;
+    } else {
+      formError.text.empTypeNo = '';
+      formError.bool.empTypeNo = true;
+    }
+
+    // check email
+    if (!this.state.email) {
+      formError.text.email = errorTexts[0];
+      formError.bool.email = false;
+    } else if (!this.state.email.match(emailRegex)) {
+      formError.text.email = errorTexts[7];
+      formError.bool.email = false;
+    } else {
+      formError.text.email = '';
+      formError.bool.email = true;
+    }
+
+    // check is full time
+    if (!this.state.fulltime) {
+      formError.text.fullTime = errorTexts[8];
+      formError.bool.fullTime = false;
+    } else {
+      formError.text.fullTime = '';
+      formError.bool.fullTime = true;
+    }
+
+    // check college
+    if (!this.state.college) {
+      formError.text.col = errorTexts[0];
+      formError.bool.col = false;
+    } else {
+      formError.text.col = '';
+      formError.bool.col = true;
+    }
+
+    // check department
+    if (!this.state.dept) {
+      formError.text.dept = errorTexts[0];
+      formError.bool.dept = false;
+    } else {
+      formError.text.dept = '';
+      formError.bool.dept = true;
+    }
+
+    if (
+      formError.bool.user &&
+      formError.bool.pass &&
+      formError.bool.repPass &&
+      formError.bool.fname &&
+      formError.bool.mname &&
+      formError.bool.lname &&
+      formError.bool.col &&
+      formError.bool.dept &&
+      formError.bool.email &&
+      formError.bool.empId &&
+      formError.bool.empType &&
+      formError.bool.empTypeNo
+    ) {
+      this.startEdit(e);
+    } else this.forceUpdate();
+  }
+
+  startEdit(e) {
+    console.log(this.state.isfulltime);
     Api.editProfile({
       empid: this.state.empid,
       username: this.state.username,
@@ -307,197 +479,217 @@ export default class EditProfile extends Component {
       lname: this.state.lname,
       dept: this.state.dept,
       college: this.state.college,
-      emptype: this.state.emptype + ' ' + this.state.emptypeno,
+      emptype: this.state.emptype,
+      emptypeno: this.state.emptypeno,
       email: this.state.email,
       is_full_time: this.state.isfulltime
     }).then(result => {
-      this.props.history.push('../profile');
+      this.props.history.push('/profile');
     });
   }
 
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="profile" subLabel="" />
-        <div
-          class="ui piled very padded text left aligned container segment"
-          color="teal">
-          <div>
-            <h2 class="ui blue header">EDIT PROFILE</h2>
-          </div>
-          <Divider hidden="true" />
-          <p>
-            <a class="ui small header">First name</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.fname}
-                onChange={this.handleChangeFname}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Middle name</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.mname}
-                onChange={this.handleChangeMname}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Last name</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.lname}
-                onChange={this.handleChangeLname}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Employee ID</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="number"
-                value={this.state.empid}
-                onChange={this.handleChangeEmpid}
-              />
-            </div>
-          </p>
-          <p>
+        <div>
+          <NavBar {...this.props} Label="profile" subLabel="" />
+        </div>
+        <div className="bodyNav">
+          <div
+            class="ui piled very padded text left aligned container segment"
+            color="teal">
             <div>
-              <div class="flex-container dropDown">
-                <label>
-                  <span>
-                    <b>College</b>
-                  </span>
-                </label>
-                <GenericDropdown
-                  labelProper="Select College"
-                  value={this.state.college}
-                  handler={this.handleChangeCollege}
-                  options={optionsMain3}
-                />
-              </div>
-
-              <DeptDropdown
-                value={this.state.dept}
-                handler={this.handleChangeDept}
-                options={optionsMain3}
-                college={this.state.college}
-              />
-
+              <h2 class="ui blue header">EDIT PROFILE</h2>
             </div>
-          </p>
-          <p>
-            <div class="flex-container dropDown">
-              <label>
-                <span>
-                  <b>Employee Type</b>
-                </span>
-              </label>
-              <GenericDropdown
-                labelProper="Select Type"
-                value={this.state.emptype}
-                handler={this.handleChangeEmptype}
-                options={optionsMain}
-              />
-            </div>
-            <div class="flex-container dropDown">
-              <label>
-                <span>
-                  <b>Number</b>
-                </span>
-              </label>
-              <GenericDropdown
-                labelProper="Select Number"
-                value={this.state.emptypeno}
-                handler={this.handleChangeEmptypeNo}
-                options={optionsMain2}
-              />
-            </div>
-
-            <div class="ui form flex-container">
-              <div class="grouped fields">
-                <div class="field">
+            <Divider hidden="true" />
+            <form onSubmit={this.checkEdit}>
+              <p>
+                <a class="ui small header">First name{formError.text.fname}</a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="text"
+                    value={this.state.fname}
+                    onChange={this.handleChangeFname}
+                  />
+                </div>
+              </p>
+              <p>
+                <a class="ui small header">Middle name{formError.text.mname}</a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="text"
+                    value={this.state.mname}
+                    onChange={this.handleChangeMname}
+                  />
+                </div>
+              </p>
+              <p>
+                <a class="ui small header">Last name{formError.text.lname}</a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="text"
+                    value={this.state.lname}
+                    onChange={this.handleChangeLname}
+                  />
+                </div>
+              </p>
+              <p>
+                <a class="ui small header">Employee ID{formError.text.empId}</a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="number"
+                    value={this.state.empid}
+                    onChange={this.handleChangeEmpid}
+                  />
+                </div>
+              </p>
+              <p>
+                <div>
+                  <div class="flex-container dropDown">
+                    <label>
+                      <span>
+                        <b>College{formError.text.col}</b>
+                      </span>
+                    </label>
+                    <GenericDropdown
+                      labelProper="Select College"
+                      value={this.state.college}
+                      handler={this.handleChangeCollege}
+                      options={optionsMain3}
+                    />
+                  </div>
                   <label>
-                    <span>Full Time Employee?</span>
+                    <span>
+                      <b>Department{formError.text.dept}</b>
+                    </span>
                   </label>
+                  <DeptDropdown
+                    value={this.state.dept}
+                    handler={this.handleChangeDept}
+                    options={optionsMain3}
+                    college={this.state.college}
+                  />
                 </div>
-                <div class="inline fields">
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input
-                        type="radio"
-                        name="fulltime"
-                        value={0}
-                        onClick={this.handleChangeFulltime}
-                      />
-                      <label>Yes</label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input
-                        type="radio"
-                        name="fulltime"
-                        value={1}
-                        onClick={this.handleChangeFulltime}
-                      />
-                      <label>No</label>
-                    </div>
-                  </div>
+              </p>
+              <p>
+                <div class="flex-container dropDown">
+                  <label>
+                    <span>
+                      <b>Employee Type{formError.text.empType}</b>
+                    </span>
+                  </label>
+                  <GenericDropdown
+                    labelProper="Select Type"
+                    value={this.state.emptype}
+                    handler={this.handleChangeEmptype}
+                    options={optionsMain}
+                  />
                 </div>
-              </div>
-            </div>
-          </p>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
-          <Divider hidden="true" />
-          <p>
-            <a class="ui small header">Email Address</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.email}
-                onChange={this.handleChangeEmail}
-              />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Username</a>
-            <div class="ui input fluid mini focus">
-              <input
-                type="text"
-                value={this.state.username}
-                onChange={this.handleChangeUsername}
-              />
-            </div>
-          </p>
+                <div class="flex-container dropDown">
+                  <label>
+                    <span>
+                      <b>Number{formError.text.empTypeNo}</b>
+                    </span>
+                  </label>
+                  <GenericDropdown
+                    labelProper="Select Number"
+                    value={this.state.emptypeno}
+                    handler={this.handleChangeEmptypeNo}
+                    options={optionsMain2}
+                  />
+                </div>
 
-          <p>
-            <a class="ui small header">New Password</a>
-            <div class="ui input fluid mini focus">
-              <input type="password" onChange={this.handleChangePassword} />
-            </div>
-          </p>
-          <p>
-            <a class="ui small header">Repeat Password</a>
-            <div class="ui input fluid mini focus">
-              <input type="password" onChange={this.handleChangePassword2} />
-            </div>
-          </p>
-          <div class="ui center aligned container">
-            <button
-              class="ui center aligned blue button"
-              onClick={this.startEdit}>
-              Edit Profile
-            </button>
+                <div class="ui form flex-container">
+                  <div class="grouped fields">
+                    <div class="field">
+                      <label>
+                        <span>
+                          Full Time Employee?{formError.text.fullTime}
+                        </span>
+                      </label>
+                    </div>
+                    <div class="inline fields">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input
+                            type="radio"
+                            name="fulltime"
+                            value={0}
+                            onClick={this.handleChangeFulltime}
+                          />
+                          <label>Yes</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input
+                            type="radio"
+                            name="fulltime"
+                            value={1}
+                            onClick={this.handleChangeFulltime}
+                          />
+                          <label>No</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p>
+              <Divider hidden="true" />
+              <Divider hidden="true" />
+              <Divider hidden="true" />
+              <Divider hidden="true" />
+              <Divider hidden="true" />
+              <Divider hidden="true" />
+              <p>
+                <a class="ui small header">
+                  Email Address{formError.text.email}
+                </a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="text"
+                    value={this.state.email}
+                    onChange={this.handleChangeEmail}
+                  />
+                </div>
+              </p>
+              <p>
+                <a class="ui small header">Username{formError.text.user}</a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="text"
+                    value={this.state.username}
+                    onChange={this.handleChangeUsername}
+                  />
+                </div>
+              </p>
+
+              <p>
+                <a class="ui small header">New Password{formError.text.pass}</a>
+                <div class="ui input fluid mini focus">
+                  <input type="password" onChange={this.handleChangePassword} />
+                </div>
+              </p>
+              <p>
+                <a class="ui small header">
+                  Repeat Password{formError.text.repPass}
+                </a>
+                <div class="ui input fluid mini focus">
+                  <input
+                    type="password"
+                    onChange={this.handleChangePassword2}
+                  />
+                </div>
+              </p>
+              <div class="ui center aligned container">
+                <button
+                  type="submit"
+                  class="ui center aligned blue button"
+                  onClick={this.checkEdit}>
+                  Edit Profile
+                </button>
+              </div>
+            </form>
           </div>
         </div>
         <Divider hidden="true" />

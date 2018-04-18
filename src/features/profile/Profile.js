@@ -111,7 +111,7 @@ export default class Profile extends Component {
                   <b>
                     <i class="users icon" />Employee Type:{' '}
                   </b>
-                  {this.state.data.emp_type}
+                  {this.state.data.emp_type} {this.state.data.emp_type_no}
                 </div>
               </div>
               <div class="item">
@@ -151,8 +151,8 @@ export default class Profile extends Component {
               </tbody>
             </table>
           </div>
+          <Divider hidden="true" />
         </div>
-        <Divider hidden="true" />
       </div>
     );
   }
