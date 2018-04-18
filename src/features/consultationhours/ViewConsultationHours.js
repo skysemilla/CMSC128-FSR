@@ -9,48 +9,37 @@ import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
 
-//Dummy data
-const dummySample = {
-  consultation_id: 1,
-  days: ['MON', 'TUE', 'WED'],
-  time: '2 P.M - 4 P.M',
-  place: 'ICSMH'
-};
-const dummySample2 = {
-  consultation_id: 2,
-  days: ['FRI', 'THU'],
-  time: '2 P.M - 4 P.M',
-  place: 'ICSLH2'
-};
-const dummySample3 = {
-  consultation_id: 3,
-  days: ['MON'],
-  time: '2 P.M - 4 P.M',
-  place: 'ICSLH3'
-};
-
 export default class ViewConsultationHours extends Component {
+  componentDidMount() {
+    // Api.viewAllConsultations()
+    //   .then(result => {
+    //     console.log(result);
+    //     this.setState({ data: result.data.data });
+    //   })
+    //   .catch(err => alert(err));
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      data: [dummySample, dummySample2, dummySample3] //dummmy data
+      data: []
     };
 
     this.startAdd = this.startAdd.bind(this);
   }
 
   startAdd(e) {
+    console.log('hi suckers');
     e.preventDefault();
     this.props.history.push('../consultationhours/add');
   }
 
   render() {
-    return (
-      <div className="App-header">
-        <div>
-          <NavBar {...this.props} Label="FSR" subLabel="consultation" />
-        </div>
-        <div className="bodyDiv">
+    if (typeof this.state.data !== 'undefined') {
+      return (
+        <div className="App-header">
+          <NavBar {...this.props} Label="FSR" subLabel="consultationhours" />
+
           <div
             class="ui compact piled very padded text left aligned container segment"
             color="teal">
@@ -69,19 +58,19 @@ export default class ViewConsultationHours extends Component {
                   <th class="center aligned"> Days </th>
                   <th class="center aligned"> Time </th>
                   <th class="center aligned"> Place </th>
-                  <th class="center aligned"> Attachments </th>
                   <th class="center aligned"> Edit/Delete </th>
+                  <th class="center aligned"> Attachments </th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.data.map(item => {
                   return (
                     <ViewConsultationHoursRow
-                      {...this.props}
-                      id={item.consultation_id}
-                      days={item.days}
-                      time={item.time}
-                      place={item.place}
+                      {...this.props.data}
+                      id={item.emp_id}
+                      day={item.day}
+                      time={item.consultation_start_time}
+                      place={item.consultation_place}
                       editURL="../consultationhours/edit"
                       label="Consultation Hours"
                       subLabel="Consultation Hours"
@@ -98,7 +87,7 @@ export default class ViewConsultationHours extends Component {
             <Divider hidden="true" />
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }

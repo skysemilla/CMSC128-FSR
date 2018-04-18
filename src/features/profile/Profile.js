@@ -23,15 +23,13 @@ export default class Profile extends Component {
       if (result.data.data !== null) {
         Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
           this.setState({ data: res.data.data });
-          console.log(res.data.data);
-          if (res.data.data.is_studying === 0){
-            console.log("Jeje si jasper");
+          if (res.data.data.is_studying === 0) {
             this.setState({
               data: { ...this.state.data, is_full_time: 'YES' }
-            });}
-          else{
-            console.log("bully si jasper");
-            this.setState({ data: { ...this.state.data, is_full_time: 'NO' } });}
+            });
+          } else {
+            this.setState({ data: { ...this.state.data, is_full_time: 'NO' } });
+          }
         });
       }
     });

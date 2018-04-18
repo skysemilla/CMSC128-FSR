@@ -52,7 +52,7 @@ export default class EditNav extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
-          this.setState({ username: result.data.data.username });
+          this.setState({ username: res.data.data.username });
         });
       } else {
         this.props.history.push('/');

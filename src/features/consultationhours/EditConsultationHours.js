@@ -6,17 +6,8 @@ import NavBar from './../ui/NavBar';
 import GenerateFSR from './../GenerateFSR';
 import SendtoAdmin from './../SendtoAdmin';
 import { Divider, Checkbox } from 'semantic-ui-react';
-import GenericDropdown from './../GenericDropdown';
-import ConsultationHourSubTypeDropdown from './ConsultationHourSubTypeDropdown';
 
 const timeIndex = 8;
-const optionsDays = [
-  { text: 'Monday' },
-  { text: 'Tuesday' },
-  { text: 'Wednesday' },
-  { text: 'Thursday' },
-  { text: 'Friday' }
-];
 
 const optionsTimeFrom = [
   { value: 0, text: '8:00 A.M' },
@@ -30,38 +21,57 @@ const optionsTimeFrom = [
   { value: 8, text: '4:00 P.M' }
 ];
 
-const optionsTimeTo = [
-  { value: 0, text: '9:00 A.M' },
-  { value: 1, text: '10:00 A.M' },
-  { value: 2, text: '11:00 A.M' },
-  { value: 3, text: '12:00 NN' },
-  { value: 4, text: '1:00 P.M' },
-  { value: 5, text: '2:00 P.M' },
-  { value: 6, text: '3:00 P.M' },
-  { value: 7, text: '4:00 P.M' },
-  { value: 8, text: '5:00 P.M' }
-];
-
 export default class EditConsultationHours extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      days: '',
-      timeFrom: '',
-      timeFromValue: '',
-      timeTo: '',
+      days: [],
+      time: '',
       place: '',
-      attachmentLink: ''
+      consultation_start_time: '',
+      consultation_end_time: '',
+      consultation_place: '',
+      day: '',
+      emp_id: '',
+      timeTo: ''
     };
 
     this.handleChangeDays = this.handleChangeDays.bind(this);
-    this.handleChangeTimeFrom = this.handleChangeTimeFrom.bind(this);
-    this.handleChangeTimeTo = this.handleChangeTimeTo.bind(this);
     this.handleChangePlace = this.handleChangePlace.bind(this);
-    this.uploadAttachment = this.uploadAttachment.bind(this);
-
+    this.handleChangeConsultation_start_time = this.handleChangeConsultation_start_time.bind(
+      this
+    );
+    this.handleChangeConsultation_end_time = this.handleChangeConsultation_end_time.bind(
+      this
+    );
+    this.handleChangeConsultation_place = this.handleChangeConsultation_place.bind(
+      this
+    );
+    this.handleChangeDay = this.handleChangeDay.bind(this);
     this.startAdd = this.startAdd.bind(this);
+  }
+
+  componentDidMount() {
+    Api.getSession().then(result => {
+      this.setState({ emp_id: result.data.data.emp_id });
+    });
+  }
+
+  handleChangeConsultation_start_time(e) {
+    this.setState({ consultation_start_time: e.target.value });
+  }
+
+  handleChangeConsultation_end_time(e) {
+    this.setState({ consultation_end_time: e.target.value });
+  }
+
+  handleChangeConsultation_place(e) {
+    this.setState({ consultation_place: e.target.value });
+  }
+
+  handleChangeDay(e) {
+    this.setState({ day: e.target.value });
   }
 
   handleChangeDays(e) {
@@ -86,81 +96,93 @@ export default class EditConsultationHours extends Component {
   handleChangePlace(e) {
     this.setState({ place: e.target.value });
   }
-
-  uploadAttachment(e) {
-    //this.setState({ attachmentLink: ???});
-  }
-
-  componentDidMount() {
-    if (typeof this.props.history !== 'undefined') {
-      console.log(this.props.history.location.state.id);
-    }
-  }
-
   startAdd(e) {
-    // e.preventDefault();
-    // Api.addteachingload({
-    //   subj: this.state.subj,
-    //   seccode: this.state.seccode,
-    //   room: this.state.room,
-    //   days: this.state.days,
-    //   time: this.state.time,
-    //   hours: this.state.hours,
-    //   studnum: this.state.studnum,
-    //   creditwo: this.state.creditwo,
-    //   studcred: this.state.studcred,
-    //   creditw: this.state.creditw
-    // })
-    //   .then(result => {
-    //     this.props.history.push('./publications/view');  //change to profile later!!
-    //     alert('Publication successfully added!');
-    //   })
-    //   .catch(e => alert('Error adding new Publication!'));
+    e.preventDefault();
+    Api.editConsultation({
+      consultation_start_time: this.state.consultation_start_time,
+      consultation_end_time: this.state.consultation_end_time,
+      consultation_place: this.state.consultation_place,
+      day: this.state.day,
+      emp_id: this.state.emp_id
+    })
+      .then(result => {
+        this.props.history.push('./publications/view'); //change to profile later!!
+        alert('Consultation successfully added!');
+      })
+      .catch(e => alert('Error adding new Consultation!'));
   }
 
   render() {
     return (
       <div className="App-header">
-        <div>
-          <NavBar {...this.props} />
-        </div>
-        <div className="bodyDiv">
-          <div
-            class="ui piled very padded text left aligned container segment"
-            color="teal">
+        <NavBar {...this.props} />
+        <div
+          class="ui piled very padded text left aligned container segment"
+          color="teal">
+          <div>
+            <h2 class="ui blue header">EDIT CONSULTATION HOURS</h2>
+          </div>
+          <Divider hidden="true" />
+          <div>
             <div>
-              <h2 class="ui blue header">EDIT CONSULTATION HOURS</h2>
+              <a class="ui small header"> Days </a>
+              <p>
+                <div class="ui checkbox">
+                  <input
+                    type="checkbox"
+                    value="MON"
+                    onClick={this.handleChangeDays.bind(this.state.days)}
+                  />
+                  <label> Monday </label>
+                </div>
+                <br />
+
+                <div class="ui checkbox">
+                  <input
+                    type="checkbox"
+                    value="TUE"
+                    onClick={this.handleChangeDays.bind(this.state.days)}
+                  />
+                  <label> Tuesday </label>
+                </div>
+                <br />
+
+                <div class="ui checkbox">
+                  <input
+                    type="checkbox"
+                    value="WED"
+                    onClick={this.handleChangeDays.bind(this.state.days)}
+                  />
+                  <label> Wednesday </label>
+                </div>
+
+                <br />
+                <div class="ui checkbox">
+                  <input
+                    type="checkbox"
+                    value="THU"
+                    onClick={this.handleChangeDays.bind(this.state.days)}
+                  />
+                  <label> Thursday </label>
+                </div>
+
+                <br />
+                <div class="ui checkbox">
+                  <input
+                    type="checkbox"
+                    value="FRI"
+                    onClick={this.handleChangeDays.bind(this.state.days)}
+                  />
+                  <label> Friday </label>
+                </div>
+              </p>
             </div>
 
-            <Divider hidden="true" />
-
             <p>
-              <GenericDropdown
-                labelHeader="Day"
-                labelProper="Choose Day of Consultation"
-                value={this.state.days}
-                handler={this.handleChangeDays}
-                options={optionsDays}
-              />
-            </p>
-
-            <p>
-              <GenericDropdown
-                labelHeader="Time From"
-                labelProper="Choose Start Time of Consultation"
-                value={this.state.timeFrom}
-                handler={this.handleChangeTimeFrom}
-                options={optionsTimeFrom}
-              />
-            </p>
-
-            <p>
-              <ConsultationHourSubTypeDropdown
-                value={this.state.timeTo}
-                handler={this.handleChangeTimeTo}
-                options={optionsTimeTo}
-                timeFromValue={this.state.timeFromValue}
-              />
+              <a class="ui small header"> Time </a>
+              <div class="ui input fluid mini focus">
+                <input type="time" onChange={this.handleChangePlace} />
+              </div>
             </p>
 
             <p>
@@ -170,14 +192,11 @@ export default class EditConsultationHours extends Component {
               </div>
             </p>
             <Divider hidden="true" />
-            <div class="ui center aligned container">
-              <button class="ui blue button" onClick={this.uploadAttachment}>
-                Upload Attachments
-              </button>
-              <button class="ui blue button" onClick={this.startAdd}>
-                Save Changes
-              </button>
-            </div>
+          </div>
+          <div class="ui center aligned container">
+            <button class="ui blue button" onClick={this.startAdd}>
+              Edit Consultation Hours
+            </button>
           </div>
         </div>
         <Divider hidden="true" />
