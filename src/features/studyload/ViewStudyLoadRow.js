@@ -20,10 +20,11 @@ export default class ViewStudyLoadRow extends Component{
 			<tr>
 				<td class = "center aligned"> {this.props.courseno} </td>
 				<td class = "center aligned"> {this.props.ccred} </td>
-				<td class = "center aligned"> {this.props.day} </td>
-				<td class = "center aligned"> {this.props.time} </td>
+				<td class = "center aligned"> {this.props.day1} </td>
+				<td class = "center aligned"> {this.props.day2} </td>
+				<td class = "center aligned"> {this.props.time1} </td>
+				<td class = "center aligned"> {this.props.time2} </td>
 				<td class = "center aligned"> {this.props.school} </td>
-				<td class = "center aligned"> {this.props.slcred} </td>
 				<td class = "center aligned">
         			<button class = "ui icon button" onClick = {this.startView}>
         				<i class = "eye icon"> </i>
