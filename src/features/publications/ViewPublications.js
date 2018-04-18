@@ -28,12 +28,10 @@ export default class ViewPublications extends Component {
         Api.viewPublications({ empid: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
             this.setState({ data: result.data.data[0] });
-            console.log(result.data.data[0]);
             this.state.data.map(item => {
               Api.getCoworkers({
                 id: item.publication_id
               }).then(result => {
-                console.log(result.data.data);
                 item.Coworkers = result.data.data;
                 this.setState({ hasData: true });
               });
@@ -92,12 +90,9 @@ export default class ViewPublications extends Component {
                       id: item.publication_id
                     })
                       .then(result => {
-                        console.log(result.data.data);
                         item.Coworkers = result.data.data;
                       })
                       .catch(err => alert('Error loading coworkers!!'));
-                    console.log('array');
-                    console.log(item.Coworkers);
                     return (
                       <ViewPublicationsRow
                         {...this.props}
@@ -132,3 +127,4 @@ export default class ViewPublications extends Component {
     );
   }
 }
+
