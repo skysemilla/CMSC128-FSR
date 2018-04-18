@@ -103,10 +103,11 @@ export default class AddConsultationHours extends Component {
       day: this.state.day,
       emp_id: this.state.emp_id
     })
-    .then(result => {
-      this.props.history.push('./view'); //change to profile later!!
-      alert('Consultation successfully added!');
-    });
+
+      .then(result => {
+        this.props.history.push('./view');
+      })
+      .catch(e => alert('Error adding new Consultation!'));
   }
 
   render() {

@@ -1,21 +1,21 @@
 import axios from 'axios';
 
 export const addPosition = positionInfo => {
-	return axios.post('/api/position/add', positionInfo);
+  return axios.post('/api/position/add', positionInfo);
 };
 
 export const deletePosition = positionInfo => {
-	return axios.post('/api/position/delete', positionInfo)
+  return axios.post('/api/position/delete', positionInfo);
 };
 
 export const editPosition = positionInfo => {
-	return axios.post('/api/position/edit', positionInfo)
+  return axios.post('/api/position/edit', positionInfo);
 };
 
 export const viewAllPositions = () => {
-	return axios.post('/api/position/viewAll')
+  return axios.get('/api/position/viewAll');
 };
 
 export const viewPosition = () => {
-	return axios.post('/api/position/view')
+  return axios.get('/api/position/view');
 };
