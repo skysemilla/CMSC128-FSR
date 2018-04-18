@@ -94,11 +94,11 @@ export default class AddExtension extends Component {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
         if (typeof this.props.history !== 'undefined') {
-          // console.log(this.props.history.location.state.id);
           Api.viewExtensionByID({
             id : this.props.history.location.state.id
           })
             .then(result => {
+              console.log(result.data.data);
               this.setState({
                 emp_id : result.data.data[0].emp_id,
                 type : result.data.data[0].extension_type,
@@ -323,7 +323,7 @@ export default class AddExtension extends Component {
               <a class="ui small header"><label><span>Title{formError.text.title}</span></label> </a>
               <div class="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeTitle} 
-                placeholder={this.state.title}/>
+                value={this.state.title}/>
               </div>
             </p>
             <p>
@@ -341,7 +341,7 @@ export default class AddExtension extends Component {
               <div class="ui input fluid mini focus">
                 <input type="number"
                   onChange={this.handleChangeNoOfParticipants}
-                  placeholder = {this.state.noOfParticipants}
+                  value = {this.state.noOfParticipants}
                 />
               </div>
             </p>
@@ -356,7 +356,7 @@ export default class AddExtension extends Component {
                       type="date"
                       onChange={this.handleChangeStartDate}
                       style={{ width: '100px' }}
-                      placeholder = {this.state.noOfHours}
+                      value = {this.state.startDate}
                     />
                   </div>
                 </div>
@@ -367,7 +367,7 @@ export default class AddExtension extends Component {
                       type="date"
                       onChange={this.handleChangeEndDate}
                       style={{ width: '100px' }}
-                      placeholder = {this.state.endDate}
+                      value = {this.state.endDate}
                     />
                   </div>
                 </div>
@@ -377,7 +377,7 @@ export default class AddExtension extends Component {
             <p>
               <a class="ui small header"><label><span>Role{formError.text.role}</span></label></a>
               <div class="ui input fluid mini focus">
-                <input type="text" onChange={this.handleChangeRole} placeholder = {this.state.role} />
+                <input type="text" onChange={this.handleChangeRole} value = {this.state.role} />
               </div>
             </p>
             <p>
@@ -385,8 +385,7 @@ export default class AddExtension extends Component {
               <div class="ui input fluid mini focus">
                 <input type="text" 
                 onChange={this.handleChangeFundingAgency} 
-                placeholder = {this.state.fundingAgency}/>
-      
+                value = {this.state.fundingAgency}/>     
               </div>
             </p>
             <p>
@@ -395,7 +394,7 @@ export default class AddExtension extends Component {
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
-                  placeholder = {this.state.approvedCreditUnits}
+                  value = {this.state.approvedCreditUnits}
                 />
               </div>
             </p>
