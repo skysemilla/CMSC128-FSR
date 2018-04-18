@@ -43,7 +43,6 @@ import ViewProfession from './../features/profession/ViewProfession';
 
 import RedirectToTeachingLoad from './../features/ADMIN/teachingload/RedirectToTeachingLoad';
 
-import ViewAllFSR from './../features/ADMIN/AllFSR/ViewAllFSR';
 import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
 import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
 import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';
@@ -85,6 +84,8 @@ import AddSubjects from './../features/subject/AddSubjects';
 import EditSubjects from './../features/subject/EditSubjects';
 
 import BeingApproved from './../features/ui/beingApproved';
+
+import sampleFSR from './../features/sampleFSR';
 
 class App extends Component {
   render() {
@@ -135,7 +136,6 @@ class App extends Component {
             <Route exact={true} path="/subjects/add" component={AddSubjects}/>
             <Route exact={true} path="/subjects/edit" component={EditSubjects}/>
       
-            <Route exact={true} path="/admin/viewAllFSR" component={ViewAllFSR}/>
             <Route exact={true} path="/admin/viewApprovedFSR" component={ViewApprovedFSR}/>
             <Route exact={true} path="/admin/viewPendingFSR" component={ViewPendingFSR}/>
             <Route exact={true} path="/admin/ViewAllFaculty" component={ViewAllFaculty}/>
@@ -171,6 +171,7 @@ class App extends Component {
             <Route exact={true} path="/admin/editFSR/adminWork/edit" component={AdminEditAdministrativeWork}/>
             <Route exact={true} path="/admin/editFSR/adminWork/view" component={AdminViewAdministrativeWork}/>
 
+            <Route exact={true} path="/AAA" component={sampleFSR}/>
           </div>
         </Router>
       </div>
