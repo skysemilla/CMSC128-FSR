@@ -48,7 +48,7 @@ export default class Profile extends Component {
     } else {
       return (
         <div classname="App-header">
-          <NavBar {...this.props} Label="beingapproved" subLabel=""/>
+          <NavBar {...this.props} Label="beingapproved" subLabel="" />
           <div
             class="ui piled very padded text left aligned container segment"
             color="teal">

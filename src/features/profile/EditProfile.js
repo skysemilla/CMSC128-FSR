@@ -218,6 +218,7 @@ export default class EditProfile extends Component {
           else var is_fulltime = 0;
 
           this.setState({
+            ...this.state,
             fname: result.data.data.f_name,
             mname: result.data.data.m_name,
             lname: result.data.data.l_name,
@@ -228,7 +229,8 @@ export default class EditProfile extends Component {
             emptypeno: result.data.data.emp_type_no,
             email: result.data.data.email,
             username: result.data.data.username,
-            isfulltime: is_fulltime
+            isfulltime: is_fulltime,
+            password: result.data.data.password
           });
         });
       }
@@ -467,6 +469,7 @@ export default class EditProfile extends Component {
   }
 
   startEdit(e) {
+    console.log(this.state.isfulltime);
     Api.editProfile({
       empid: this.state.empid,
       username: this.state.username,
