@@ -45,6 +45,8 @@ export default class GenericDelete extends Component {
         alert('Successfully deleted!');
       })
       .catch(e => alert('Error deleting row}!'));
+      // this.props.history.push(this.props.deleteURL);
+      this.close();
   }
 
   render() {
