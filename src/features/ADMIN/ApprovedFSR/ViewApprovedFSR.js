@@ -6,13 +6,20 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
+const nameRegex = /^[A-Za-z0-9\-']+$/;
+const empIdRegex = /^[0-9]{9}$/;
+
 export default class ViewApprovedFSR extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      search: ''
     };
+
+    this.searchApprovedFSR = this.searchApprovedFSR.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +28,32 @@ export default class ViewApprovedFSR extends Component {
         this.setState({ data: [result.data.data] });
       }
     });
+  }
+
+  searchApprovedFSR(e) {
+    e.preventDefault();
+    if (!this.state.search) {
+      Api.ViewApprovedFSR().then(result => {
+        this.setState({ data: result.data.data[0] });
+      });
+    } else if (this.state.search.match(empIdRegex)) {
+      console.log('USES ID');
+      Api.ViewApprovedFSRByID({ empid: this.state.search }).then(result => {
+        this.setState({ data: [result.data.data[0]] });
+      });
+    } else if (this.state.search.match(nameRegex)) {
+      console.log('USES NAME');
+      Api.ViewApprovedFSRByName({ name: this.state.search }).then(result => {
+        this.setState({ data: [result.data.data[0]] });
+      });
+    } else {
+      this.setState({ data: [] });
+    }
+    //this.forceUpdate();
+  }
+
+  handleSearch(e) {
+    this.setState({ search: e.target.value });
   }
 
   render() {
@@ -39,14 +72,17 @@ export default class ViewApprovedFSR extends Component {
             <div class="ui two column grid">
               <h1 class="ui blue header">VIEW APPROVED FSR</h1>
               <div class="ui right floated search">
-                <div class="ui icon input">
-                  <input
-                    class="prompt"
-                    type="text"
-                    placeholder="Search by Name or ID..."
-                  />
-                  <i class="search icon" />
-                </div>
+                <form onSubmit={this.searchApprovedFSR}>
+                  <div class="ui icon input">
+                    <input
+                      class="prompt"
+                      type="text"
+                      onChange={this.handleSearch}
+                      placeholder="Search by Name or ID..."
+                    />
+                    <i class="search icon" />
+                  </div>
+                </form>
                 <div class="results" />
               </div>
             </div>
@@ -78,7 +114,7 @@ export default class ViewApprovedFSR extends Component {
                         mname={item.m_name}
                         lname={item.l_name}
                         college={item.college}
-                        dept={item.deparment}
+                        dept={item.department}
                         semester={item.semester}
                         year={item.year}
                         editURL="/admin/editFSR"
