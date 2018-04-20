@@ -12,22 +12,14 @@ export default class AddAdministrativeWork extends Component {
     super(props);
 
     this.state = {
-      positionOfWork: '',
-      officeUnit: '',
-      approvedCreditUnits: '',
-      totalAdminLoadCredits: '',
+      nature_of_work: '',
       office: '',
       credit_units: '',
       emp_id: '',
-      nature_of_work: ''
     };
-
-    this.handlePositionOfWork = this.handlePositionOfWork.bind(this);
-    this.handleOfficeUnit = this.handleOfficeUnit.bind(this);
-    this.handleApprovedCreditUnits = this.handleApprovedCreditUnits.bind(this);
-    this.handleTotalAdminCredits = this.handleTotalAdminCredits.bind(this);
-    this.handleOffice = this.handleOffice.bind(this);
-    this.handleCreditUnits = this.handleCreditUnits.bind(this);
+    this.handleChangeNature_of_work = this.handleChangeNature_of_work.bind(this);
+    this.handleChangeOffice = this.handleChangeOffice.bind(this);
+    this.handleChangeCreditUnits = this.handleChangeCreditUnits.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
 
@@ -38,47 +30,26 @@ export default class AddAdministrativeWork extends Component {
     });
   }
 
+  handleChangeNature_of_work(e) {
+    this.setState({ nature_of_work: e.target.value });
+  }
   handleChangeOffice(e) {
     this.setState({ office: e.target.value });
   }
-
   handleChangeCreditUnits(e) {
-    this.setState({ credit_units: e.target.value });
-  }
-
-  handlePositionOfWork(e) {
-    this.setState({ positionOfWork: e.target.value });
-  }
-
-  handleOfficeUnit(e) {
-    this.setState({ officeUnit: e.target.value });
-  }
-
-  handleApprovedCreditUnits(e) {
-    this.setState({ approvedCreditUnits: e.target.value });
-  }
-
-  handleTotalAdminCredits(e) {
-    this.setState({ totalAdminLoadCredits: e.target.value });
-  }
-
-  handleOffice(e) {
-    this.setState({ office: e.target.value });
-  }
-  handleCreditUnits(e) {
     this.setState({ credit_units: e.target.value });
   }
 
   startAdd(e) {
     e.preventDefault();
     Api.addPosition({
-      office: this.state.positionOfWork,
-      credit_units: this.state.officeUnit,
-      nature_of_work: ' ',
+      nature_of_work: this.state.nature_of_work,
+      office: this.state.office,
+      credit_units: this.state.credit_units,
       emp_id: this.state.emp_id
     })
       .then(result => {
-        this.props.history.push('./publications/view'); //change to profile later!!
+        this.props.history.push('./positions/view'); //change to profile later!!
         alert('Position successfully added!');
       })
       .catch(e => alert('Error adding new Position!'));
@@ -102,31 +73,23 @@ export default class AddAdministrativeWork extends Component {
               Position/Nature of Adminstrative Work{' '}
             </a>
             <div class="ui input fluid mini focus">
-              <input type="text" onChange={this.handlePositionOfWork} />
+              <input type="text" onChange={this.handleChangeNature_of_work} />
             </div>
           </p>
 
           <p>
-            <a class="ui small header"> Office Unit </a>{' '}
+            <a class="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
             <div class="ui input fluid mini focus">
-              <input type="text" onChange={this.handleOfficeUnit} />
+              <input type="text" onChange={this.handleChangeOffice} />
             </div>
           </p>
 
           <p>
-            <a class="ui small header"> Approved Credit Units </a>{' '}
+            <a class="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
             <div class="ui input fluid mini focus">
-              <input type="number" onChange={this.handleApprovedCreditUnits} />
-            </div>
-          </p>
-
-          <p>
-            <a class="ui small header"> Total Administrative Load Credits </a>{' '}
-            {/* Can change to dropdown? */}
-            <div class="ui input fluid mini focus">
-              <input type="number" onChange={this.handleTotalAdminCredits} />
+              <input type="number" onChange={this.handleChangeCreditUnits} />
             </div>
           </p>
 
