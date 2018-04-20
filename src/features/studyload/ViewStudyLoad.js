@@ -171,6 +171,7 @@ export default class ViewStudyLoad extends Component {
                       editURL="../studyload/edit"
                       label="Study Load"
                       subLabel="Study load"
+                      deleteURL="../studyload/view"
                     />
                   );
                 })}
