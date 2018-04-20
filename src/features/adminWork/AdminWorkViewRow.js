@@ -11,10 +11,9 @@ export default class ViewTeachingLoadRow extends Component {
     //Modal for Delete, fix this one
     return (
       <tr>
-        <td class="center aligned"> {this.props.positionOfWork} </td>
-        <td class="center aligned"> {this.props.officeUnit} </td>
-        <td class="center aligned"> {this.props.approvedCreditUnits} </td>
-        <td class="center aligned"> {this.props.totalAdminLoadCredits} </td>
+        <td class="center aligned"> {this.props.nature_of_work} </td>
+        <td class="center aligned"> {this.props.office} </td>
+        <td class="center aligned"> {this.props.credit_units} </td>
         <td class="center aligned">
           <ViewAttachments {...this.props} />
         </td>
