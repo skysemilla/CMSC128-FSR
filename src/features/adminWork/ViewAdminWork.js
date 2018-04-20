@@ -12,8 +12,6 @@ export default class ViewAdminWork extends Component {
   componentDidMount() {
     Api.viewAllPositions()
       .then(result => {
-        console.log('hi suckers at viewallpositions');
-        console.log(result);
         this.setState({ data: result.data.data });
       })
       .catch(err => alert(err));
@@ -53,10 +51,9 @@ export default class ViewAdminWork extends Component {
           <table class="ui celled table">
             <thead>
               <tr>
-                <th class="center aligned">Position Of Work</th>
-                <th class="center aligned">Office Unit</th>
-                <th class="center aligned">Approved Credit Units</th>
-                <th class="center aligned">Total Admin Load Credits</th>
+                <th class="center aligned">Nature Of Work</th>
+                <th class="center aligned">Office</th>
+                <th class="center aligned">Credit Units</th>
                 <th class="center aligned"> Attachments </th>
                 <th class="center aligned"> Edit/Delete </th>
               </tr>
@@ -67,10 +64,9 @@ export default class ViewAdminWork extends Component {
                   <ViewAdminWorkRow
                     {...this.props}
                     id={item.position_id}
-                    positionOfWork={item.emp_id}
-                    officeUnit={item.office}
-                    approvedCreditUnits={item.credit_units}
-                    totalAdminLoadCredits={item.totalAdminLoadCredits}
+                    nature_of_work={item.nature_of_work}
+                    office={item.office}
+                    credit_units={item.credit_units}
                     editURL="../adminwork/edit"
                     label="Administrative Work"
                     subLabel="administrative work"
