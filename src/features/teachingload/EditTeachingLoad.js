@@ -162,7 +162,7 @@ export default class EditTeachingLoad extends Component {
     }
 
     if(formError.bool.studnum){
-      this.startEdit();
+      this.startEdit(e);
     } else this.forceUpdate();
   }
 

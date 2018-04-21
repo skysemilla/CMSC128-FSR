@@ -59,7 +59,7 @@ export default class ViewTeachingLoad extends Component {
                     <th className="center aligned"> Subject Code </th>
                     <th className="center aligned"> Section Code </th>
                     <th className="center aligned"> Room </th>
-                    {/* <th className="center aligned"> Days </th> */}
+                    <th className="center aligned"> Days </th>
                     <th className="center aligned"> Start Time </th>
                     <th className="center aligned"> End Time </th>
                     {/*  <th className="center aligned"> Hours Per Week </th> */}
@@ -82,7 +82,7 @@ export default class ViewTeachingLoad extends Component {
                         subj={item.subject_code}
                         seccode={item.section_code}
                         room={item.room}
-                        days={item.days}
+                        days={item.day}
                         starttime={item.start_time}
                         endtime={item.end_time}
                         hours={item.hours}
