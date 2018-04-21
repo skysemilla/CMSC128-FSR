@@ -4,6 +4,20 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
+const errorTexts = [
+  <span style={{color: 'red'}}> {'  This field is required'}</span>,
+  <span style={{color: 'red'}}> {'  must be valid'}</span>
+]
+
+var formError = {
+  text: {
+    studnum: ''
+  },
+  bool: {
+    studnum: false
+  }
+};
+
 export default class EditTeachingLoad extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +52,7 @@ export default class EditTeachingLoad extends Component {
     // this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
+    this.checkInput = this.checkInput.bind(this);
   }
 
   componentDidMount(){
@@ -131,6 +146,24 @@ export default class EditTeachingLoad extends Component {
       })
       // .catch(e => alert(e));
       .catch(e => alert('Error editing Teaching Load!'));
+  }
+
+  checkInput(e) {
+    e.preventDefault();
+    if(!this.state.studnum){
+      formError.text.studnum = errorTexts[0];
+      formError.bool.studnum = false;
+    } else if(this.state.studnum <= 0 || this.state.studnum >= 200) {
+      formError.text.studnum = errorTexts[1];
+      formError.bool.studnum = false;
+    } else{
+      formError.text.studnum = '';
+      formError.bool.studnum = true;
+    }
+
+    if(formError.bool.studnum){
+      this.startEdit();
+    } else this.forceUpdate();
   }
 
   render() {
@@ -235,7 +268,7 @@ export default class EditTeachingLoad extends Component {
             </a>
           </p>
           <p>
-            <a className="ui small header">No. of Students </a>
+            <a className="ui small header">No. of Students {formError.text.studnum}</a>
             <div className="ui input fluid mini focus">
               <input
                 type="number"
@@ -247,7 +280,7 @@ export default class EditTeachingLoad extends Component {
           <div className="ui center aligned container">
             <button
               className="ui center aligned blue button"
-              onClick={this.startEdit}>
+              onClick={this.checkInput}>
               Edit Teaching Load
             </button>
           </div>
