@@ -15,3 +15,11 @@ export const editSubject = subjectInfo => {
 export const addSubject = () => {
 	return axios.post('/api/subject/add')
 };
+
+export const viewSubject = subjectInfo => {
+	return axios.post('/api/subject/viewsubject', subjectInfo);
+}
+
+export const getSubjectDay = () => {
+	return axios.post('/api/subject/getsubjectday');
+}
