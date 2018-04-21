@@ -132,8 +132,8 @@ export default class AddTeachingLoad extends Component {
 
     if(formError.bool.subj &&
         formError.bool.seccode &&
-        formError.bool.studNum) {
-      this.startAdd();
+        formError.bool.studnum) {
+      this.startAdd(e);
     } else this.forceUpdate();
   }
 
