@@ -535,6 +535,7 @@ export default class EditProfile extends Component {
                 <div className="ui input fluid mini focus">
                   <input
                     type="number"
+                    min="000000001"
                     value={this.state.empid}
                     onChange={this.handleChangeEmpid}
                   />

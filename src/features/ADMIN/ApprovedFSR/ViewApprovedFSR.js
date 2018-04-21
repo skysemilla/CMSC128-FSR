@@ -57,7 +57,7 @@ export default class ViewApprovedFSR extends Component {
 
   render() {
     return (
-      <div classNameName="App-header">
+      <div className="App-header">
         <div>
           <NavBar {...this.props} Label="approved" />
         </div>
@@ -90,7 +90,7 @@ export default class ViewApprovedFSR extends Component {
             <style>
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <div classNameName="scrollTable">
+            <div className="scrollTable">
               <table className="ui celled table">
                 <thead>
                   <tr>

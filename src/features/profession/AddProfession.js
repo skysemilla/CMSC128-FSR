@@ -39,18 +39,24 @@ export default class AddProfession extends Component {
   }
 
   startAdd(e) {
-    if(this.state.date === '') {this.state.date = 'null'}
-    e.preventDefault();
-    Api.addLimitedPractice({
-      haveApplied: this.state.permission,
-      date_submitted: this.state.date,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');  //change to profile later!!
-        alert('Teaching load successfully added!');
-      })
-      .catch(e => alert('Error adding new Teaching Load!'));
+    if ( ( this.state.permission === '0' ) ||
+    ( this.state.permission === '1' && this.state.date !== '' )
+    ) {
+        if(this.state.date === '') {this.state.date = 'null'}
+        e.preventDefault();
+        Api.addLimitedPractice({
+          haveApplied: this.state.permission,
+          date_submitted: this.state.date,
+          emp_id: this.state.emp_id
+        })
+          .then(result => {
+            this.props.history.push('./view');  //change to profile later!!
+            alert('Teaching load successfully added!');
+          })
+          .catch(e => alert('Error adding new Teaching Load!'));
+    }else { // else invalid date
+      alert('Invalid input!');
+    }
   }
 
   uploadAttachment(e) {
