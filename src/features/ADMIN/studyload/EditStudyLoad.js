@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 
 export default class EditStudyLoad extends Component {
   constructor(props) {
@@ -107,23 +104,23 @@ export default class EditStudyLoad extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="studyload"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               EDIT STUDY LOAD
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header">Degree Enrolled In </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Degree Enrolled In </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 value={this.state.degree}
@@ -133,8 +130,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> University Enrolled In </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> University Enrolled In </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 value={this.state.uni}
@@ -144,17 +141,17 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <div class="ui form" onChange={this.handleChangeStudyLeave}>
-              <div class="inline fields">
+            <div className="ui form" onChange={this.handleChangeStudyLeave}>
+              <div className="inline fields">
                 <label>On Full Study Leave w/ Pay?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="studyleave" />
                     <label>Yes</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="studyleave" />
                     <label>No</label>
                   </div>
@@ -163,17 +160,17 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <div class="ui form" onChange={this.handleChangeFellowship}>
-              <div class="inline fields">
+            <div className="ui form" onChange={this.handleChangeFellowship}>
+              <div className="inline fields">
                 <label>Recepient of Faculty Fellowship?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="fellowship" />
                     <label>Yes</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="fellowship" />
                     <label>No</label>
                   </div>
@@ -182,8 +179,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Course Number </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Course Number </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 value={this.state.courseno}
@@ -193,8 +190,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Course Credit </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Course Credit </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 value={this.state.ccred}
@@ -204,8 +201,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Days </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Days </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 value={this.state.day}
@@ -215,8 +212,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Time </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Time </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 value={this.state.time}
@@ -226,8 +223,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">School </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">School </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 value={this.state.school}
@@ -237,8 +234,8 @@ export default class EditStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Study Load Credits </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Study Load Credits </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 value={this.state.slcred}
@@ -247,9 +244,9 @@ export default class EditStudyLoad extends Component {
               />
             </div>
           </p>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startEdit}>
               Save changes
             </button>

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import GenericDropdown from './../GenericDropdown';
 import DeptDropdown from './DeptDropdown';
 
@@ -496,16 +493,16 @@ export default class EditProfile extends Component {
         </div>
         <div className="bodyNav">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT PROFILE</h2>
+              <h2 className="ui blue header">EDIT PROFILE</h2>
             </div>
             <Divider hidden="true" />
             <form onSubmit={this.checkEdit}>
               <p>
-                <a class="ui small header">First name{formError.text.fname}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">First name{formError.text.fname}</a>
+                <div className="ui input fluid mini focus">
                   <input
                     type="text"
                     value={this.state.fname}
@@ -514,8 +511,8 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a class="ui small header">Middle name{formError.text.mname}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Middle name{formError.text.mname}</a>
+                <div className="ui input fluid mini focus">
                   <input
                     type="text"
                     value={this.state.mname}
@@ -524,8 +521,8 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a class="ui small header">Last name{formError.text.lname}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Last name{formError.text.lname}</a>
+                <div className="ui input fluid mini focus">
                   <input
                     type="text"
                     value={this.state.lname}
@@ -534,8 +531,8 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a class="ui small header">Employee ID{formError.text.empId}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Employee ID{formError.text.empId}</a>
+                <div className="ui input fluid mini focus">
                   <input
                     type="number"
                     value={this.state.empid}
@@ -545,7 +542,7 @@ export default class EditProfile extends Component {
               </p>
               <p>
                 <div>
-                  <div class="flex-container dropDown">
+                  <div className="flex-container dropDown">
                     <label>
                       <span>
                         <b>College{formError.text.col}</b>
@@ -572,7 +569,7 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <div class="flex-container dropDown">
+                <div className="flex-container dropDown">
                   <label>
                     <span>
                       <b>Employee Type{formError.text.empType}</b>
@@ -585,7 +582,7 @@ export default class EditProfile extends Component {
                     options={optionsMain}
                   />
                 </div>
-                <div class="flex-container dropDown">
+                <div className="flex-container dropDown">
                   <label>
                     <span>
                       <b>Number{formError.text.empTypeNo}</b>
@@ -599,18 +596,18 @@ export default class EditProfile extends Component {
                   />
                 </div>
 
-                <div class="ui form flex-container">
-                  <div class="grouped fields">
-                    <div class="field">
+                <div className="ui form flex-container">
+                  <div className="grouped fields">
+                    <div className="field">
                       <label>
                         <span>
                           Full Time Employee?{formError.text.fullTime}
                         </span>
                       </label>
                     </div>
-                    <div class="inline fields">
-                      <div class="field">
-                        <div class="ui radio checkbox">
+                    <div className="inline fields">
+                      <div className="field">
+                        <div className="ui radio checkbox">
                           <input
                             type="radio"
                             name="fulltime"
@@ -620,8 +617,8 @@ export default class EditProfile extends Component {
                           <label>Yes</label>
                         </div>
                       </div>
-                      <div class="field">
-                        <div class="ui radio checkbox">
+                      <div className="field">
+                        <div className="ui radio checkbox">
                           <input
                             type="radio"
                             name="fulltime"
@@ -642,10 +639,10 @@ export default class EditProfile extends Component {
               <Divider hidden="true" />
               <Divider hidden="true" />
               <p>
-                <a class="ui small header">
+                <a className="ui small header">
                   Email Address{formError.text.email}
                 </a>
-                <div class="ui input fluid mini focus">
+                <div className="ui input fluid mini focus">
                   <input
                     type="text"
                     value={this.state.email}
@@ -654,8 +651,8 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a class="ui small header">Username{formError.text.user}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Username{formError.text.user}</a>
+                <div className="ui input fluid mini focus">
                   <input
                     type="text"
                     value={this.state.username}
@@ -665,26 +662,26 @@ export default class EditProfile extends Component {
               </p>
 
               <p>
-                <a class="ui small header">New Password{formError.text.pass}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">New Password{formError.text.pass}</a>
+                <div className="ui input fluid mini focus">
                   <input type="password" onChange={this.handleChangePassword} />
                 </div>
               </p>
               <p>
-                <a class="ui small header">
+                <a className="ui small header">
                   Repeat Password{formError.text.repPass}
                 </a>
-                <div class="ui input fluid mini focus">
+                <div className="ui input fluid mini focus">
                   <input
                     type="password"
                     onChange={this.handleChangePassword2}
                   />
                 </div>
               </p>
-              <div class="ui center aligned container">
+              <div className="ui center aligned container">
                 <button
                   type="submit"
-                  class="ui center aligned blue button"
+                  className="ui center aligned blue button"
                   onClick={this.checkEdit}>
                   Edit Profile
                 </button>

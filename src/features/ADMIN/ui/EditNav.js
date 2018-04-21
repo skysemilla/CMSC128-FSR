@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 
@@ -217,76 +215,76 @@ export default class EditNav extends Component {
   render() {
     return (
       <div onChange={this.initializeActiveItem}>
-        <div class="ui blue inverted huge menu div1">
-          <a class="item" id="all" onClick={this.handleChange}>
+        <div className="ui blue inverted huge menu div1">
+          <a className="item" id="all" onClick={this.handleChange}>
             All FSR
           </a>
-          <a class="item" id="pending" onClick={this.handleChange}>
+          <a className="item" id="pending" onClick={this.handleChange}>
             Pending FSR
           </a>
-          <a class="item" id="approved" onClick={this.handleChange}>
+          <a className="item" id="approved" onClick={this.handleChange}>
             Approved FSR
           </a>
-          <a class="item" id="faculty" onClick={this.handleChange}>
+          <a className="item" id="faculty" onClick={this.handleChange}>
             All Faculty
           </a>
-          <div class="right menu">
-            <label className="ui item">
+          <div className="right menu">
+            <label classNameName="ui item">
               Logged in as {this.state.username}
-              <i class="user circle icon" />
+              <i className="user circle icon" />
             </label>
-            <a class="ui item" onClick={this.handleLogout}>
+            <a className="ui item" onClick={this.handleLogout}>
               Logout
             </a>
           </div>
         </div>
 
-        <div class="ui large inverted blue vertical menu flex-container large navDiv">
+        <div className="ui large inverted blue vertical menu flex-container large navDiv">
           <a
             id="teachingload"
-            class={this.state.teachingLoadClass}
+            className={this.state.teachingLoadClass}
             onClick={this.handleChange.bind(this)}>
             Teaching Load
           </a>
           <a
             id="publications"
-            class={this.state.publicationsClass}
+            className={this.state.publicationsClass}
             onClick={this.handleChange}>
             Publications
           </a>
           <a
             id="studyload"
-            class={this.state.studyLoadClass}
+            className={this.state.studyLoadClass}
             onClick={this.handleChange}>
             Study Load
           </a>
           <a
             id="extension"
-            class={this.state.extensionClass}
+            className={this.state.extensionClass}
             onClick={this.handleChange}>
             Extension and Community Service
           </a>
           <a
             id="consultation"
-            class={this.state.consultationClass}
+            className={this.state.consultationClass}
             onClick={this.handleChange}>
             Consultation Hours
           </a>
           <a
             id="profession"
-            class={this.state.professionClass}
+            className={this.state.professionClass}
             onClick={this.handleChange}>
             Limited Practice of Profession
           </a>
           <a
             id="profchair"
-            class={this.state.profChairClass}
+            className={this.state.profChairClass}
             onClick={this.handleChange}>
             Professorial Chair
           </a>
           <a
             id="adminwork"
-            class={this.state.adminWorkClass}
+            className={this.state.adminWorkClass}
             onClick={this.handleChange}>
             Administrative Work
           </a>

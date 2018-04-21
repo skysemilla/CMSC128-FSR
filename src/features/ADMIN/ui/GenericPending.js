@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react'
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 
 export default class GenericPending extends Component {
   constructor(props) {
@@ -15,6 +12,7 @@ export default class GenericPending extends Component {
     };
 
     this.startEdit = this.startEdit.bind(this);
+    this.startGenerate = this.startGenerate.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.close = this.close.bind(this);
   }
@@ -29,7 +27,6 @@ export default class GenericPending extends Component {
   close(){ 
     this.setState({ open: false});
     //this.setState({activeButton: this.state.activeButton});
-
   }
 
   startEdit(e) {
@@ -38,27 +35,37 @@ export default class GenericPending extends Component {
     this.props.history.push('../../admin/editFSR/teachingload/view');
   }
 
+  startGenerate(){
+    this.close();
+    console.log(this.props.id);
+    var printWindow = window.open( "/AAA?empid="+this.props.id, 'print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
+    printWindow.addEventListener('load', function(){
+        printWindow.print();
+        printWindow.close();
+    }, true);
+  }
+
   render() {
     return (
-      <div class="ui horizontal list">
-        <div class="item">
-        <button class="ui large compact icon button" onClick={this.startEdit}>
-          <i class="pencil icon"> </i>
+      <div className="ui horizontal list">
+        <div className="item">
+        <button className="ui large compact icon button" onClick={this.startEdit}>
+          <i className="pencil icon"> </i>
         </button>
         </div>
-        <div class="item">
-          <button class = "ui large compact icon button" value="del" onClick={this.handleShow}>
-          <i class="trash alternate icon" value="del"/>
+        <div className="item">
+          <button className = "ui large compact icon button" value="del" onClick={this.handleShow}>
+          <i className="trash alternate icon" value="del"/>
           </button>
         </div>
-        <div class="item">
-          <button class = "ui large compact icon button" value="approve" onClick={this.handleShow}>
-          <i class="check icon" value="approve"/>
+        <div className="item">
+          <button className = "ui large compact icon button" value="approve" onClick={this.handleShow}>
+          <i className="check icon" value="approve"/>
           </button>
         </div>
-        <div class="item">
-          <button class = "ui large compact icon button" value="reject" onClick={this.handleShow}>
-          <i class="times icon" value="reject"/>
+        <div className="item">
+          <button className = "ui large compact icon button" value="reject" onClick={this.handleShow}>
+          <i className="times icon" value="reject"/>
           </button>
         </div>
         {this.state.activeButton === 'del' ?
@@ -88,7 +95,8 @@ export default class GenericPending extends Component {
               <Button negative onClick={this.close}>
                 No
               </Button>
-              <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+
+              <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.startGenerate}/>
             </Modal.Actions>
           </Modal> 
           :

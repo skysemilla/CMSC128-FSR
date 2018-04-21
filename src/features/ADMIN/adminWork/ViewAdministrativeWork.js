@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 import AdministrativeWorkRow from './ViewAdministrativeWork/AdministrativeWorkRow';
 import GenerateFSR from './../../GenerateFSR';
 import SendtoAdmin from './../../SendtoAdmin';
-import DeleteModal from './ViewAdministrativeWork/AdministrativeWorkRow';
 import NavBar from './../ui/NavBarAdmin';
 
 //Dummy data
@@ -53,14 +50,14 @@ export default class ViewAdministrativeWork extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
           <NavBar {...this.props} Label="edit" subLabel="adminwork" />
         </div>
-        <div className="bodydiv">
-          <div class="ui piled very padded container segment" color="teal">
+        <div classNameName="bodydiv">
+          <div className="ui piled very padded container segment" color="teal">
             <div>
-              <h1 class="ui blue header">
+              <h1 className="ui blue header">
                 ADMINISTRATIVE WORK
                 <GenerateFSR />
                 <SendtoAdmin />
@@ -74,20 +71,20 @@ export default class ViewAdministrativeWork extends Component {
               {' '}
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <table class="ui celled table">
+            <table className="ui celled table">
               <thead>
                 <tr>
-                  <th class="center aligned">
+                  <th className="center aligned">
                     {' '}
                     Position/Nature of Administrative Work{' '}
                   </th>
-                  <th class="center aligned"> Office Unit </th>
-                  <th class="center aligned"> Approved Credit Units </th>
-                  <th class="center aligned">
+                  <th className="center aligned"> Office Unit </th>
+                  <th className="center aligned"> Approved Credit Units </th>
+                  <th className="center aligned">
                     {' '}
                     Total Administrative Load Credits{' '}
                   </th>
-                  <th class="center aligned"> Edit/Delete </th>
+                  <th className="center aligned"> Edit/Delete </th>
                 </tr>
               </thead>
               <tbody>
@@ -106,8 +103,8 @@ export default class ViewAdministrativeWork extends Component {
               </tbody>
             </table>
             <div>
-              <h1 class="ui white header">
-                <button class="ui right floated button">
+              <h1 className="ui white header">
+                <button className="ui right floated button">
                   <a color="white" href="./add">
                     {' '}
                     Add Admin Work{' '}

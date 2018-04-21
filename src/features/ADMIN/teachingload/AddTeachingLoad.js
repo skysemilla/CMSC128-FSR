@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 
 export default class AddTeachingLoad extends Component {
   constructor(props) {
@@ -96,23 +93,23 @@ export default class AddTeachingLoad extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment mainDiv"
+          className="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               ADD TEACHING LOAD
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Subject</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeSubj}
@@ -120,8 +117,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Section Code </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Section Code </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeSeccode}
@@ -129,8 +126,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Room </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Room </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeRoom}
@@ -138,8 +135,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Days </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Days </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeDays}
@@ -147,15 +144,15 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Start Time </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Start Time </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeStartTime}
               />
             </div>
-            <a class="ui small header">End Time </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">End Time </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeEndTime}
@@ -163,8 +160,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Hours per Week </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Hours per Week </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeHours}
@@ -172,8 +169,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">No. of Students </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">No. of Students </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeStudnum}
@@ -181,8 +178,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Course Credit w/o Multiplier </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Course Credit w/o Multiplier </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeCreditwo}
@@ -190,8 +187,8 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Student Credit Units </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Student Credit Units </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeStudcred}
@@ -199,17 +196,17 @@ export default class AddTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Teaching Load Credits w/ Multiplier </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeCreditwith}
               />
             </div>
           </p>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startAdd}>
               Add Teaching Load
             </button>

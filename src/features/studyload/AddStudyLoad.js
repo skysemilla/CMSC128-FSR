@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 export default class AddStudyLoad extends Component {
   constructor(props) {
@@ -98,61 +95,61 @@ export default class AddStudyLoad extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">ADD STUDY LOAD</h2>
+              <h2 className="ui blue header">ADD STUDY LOAD</h2>
             </div>
             <Divider hidden="true" />
             <p>
-              <a class="ui small header">Course Number </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Course Number </a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeCourseno} />
               </div>
             </p>
             <p>
-              <a class="ui small header">Course Credit </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Course Credit </a>
+              <div className="ui input fluid mini focus">
                 <input type="number" onChange={this.handleChangeCcred} />
               </div>
             </p>
             <p>
-              <a class="ui small header">Day 1</a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Day 1</a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeDay} />
               </div>
             </p>
             <p>
-              <a class="ui small header">Day 2</a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Day 2</a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeDay2} />
               </div>
             </p>
             <p>
-              <a class="ui small header">Start time </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Start time </a>
+              <div className="ui input fluid mini focus">
                 <input type="time" onChange={this.handleChangeTime} />
               </div>
             </p>
             <p>
-              <a class="ui small header">End Time </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">End Time </a>
+              <div className="ui input fluid mini focus">
                 <input type="time" onChange={this.handleChangeTime2} />
               </div>
             </p>
 
             <p>
-              <a class="ui small header">School </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">School </a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeSchool} />
               </div>
             </p>
-            <div class="ui center aligned container">
-              <button class="ui blue button" onClick={this.uploadAttachment}>
+            <div className="ui center aligned container">
+              <button className="ui blue button" onClick={this.uploadAttachment}>
                 Upload Attachments
               </button>
               <button
-                class="ui center aligned blue button"
+                className="ui center aligned blue button"
                 onClick={this.startAdd}>
                 Add Study Load
               </button>

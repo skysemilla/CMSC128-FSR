@@ -1,44 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewStudyLoadRow from './ViewStudyLoadRow';
-import DeleteModal from '../GenericDelete';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
-
-//Dummy data
-const dummySample = {
-  study_id: 1,
-  courseno: '3',
-  ccred: '201',
-  day: 'TTh',
-  time: '3',
-  school: 'UPD',
-  slcred: ' 3'
-};
-
-const dummySample2 = {
-  study_id: 2,
-  courseno: '3',
-  ccred: '049',
-  day: '3',
-  time: 'MWF',
-  school: 'UPM',
-  slcred: ' 5'
-};
-
-const dummySample3 = {
-  study_id: 3,
-  courseno: '3',
-  ccred: '352',
-  day: '3',
-  time: 'TTh',
-  school: 'UPD',
-  slcred: ' 3'
-};
 
 export default class ViewStudyLoad extends Component {
   constructor(props) {
@@ -95,40 +60,40 @@ export default class ViewStudyLoad extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui compact piled very padded text left aligned container segment"
+            className="ui compact piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h1 class="ui blue header">STUDY LOAD</h1>
+              <h1 className="ui blue header">STUDY LOAD</h1>
             </div>
 
-            <div class="ui list">
-              <div class="item">
+            <div className="ui list">
+              <div className="item">
                 <b>
-                  <i class="right triangle icon" />Degree Enrolled In:{' '}
+                  <i className="right triangle icon" />Degree Enrolled In:{' '}
                 </b>
                 {this.state.degree}
               </div>
-              <div class="item">
+              <div className="item">
                 <b>
-                  <i class="right triangle icon" />University Enrolled In:{' '}
+                  <i className="right triangle icon" />University Enrolled In:{' '}
                 </b>
                 {this.state.uni}
               </div>
-              <div class="item">
+              <div className="item">
                 <b>
-                  <i class="right triangle icon" />On Full Study Leave with Pay?{' '}
+                  <i className="right triangle icon" />On Full Study Leave with Pay?{' '}
                 </b>
                 {this.state.studyleave}
               </div>
-              <div class="item">
+              <div className="item">
                 <b>
-                  <i class="right triangle icon" />Recepient of Faculty
+                  <i className="right triangle icon" />Recepient of Faculty
                   Fellowship?{' '}
                 </b>
                 {this.state.fellowship}
               </div>
               <button
-                class="ui blue right floated button"
+                className="ui blue right floated button"
                 onClick={this.startEdit}>
                 Edit
               </button>
@@ -141,18 +106,18 @@ export default class ViewStudyLoad extends Component {
               {' '}
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <table class="ui celled table">
+            <table className="ui celled table">
               <thead>
                 <tr>
-                  <th class="center aligned"> Course Number </th>
-                  <th class="center aligned"> Course Credit </th>
-                  <th class="center aligned"> Day1 </th>
-                  <th class="center aligned"> Day2 </th>
-                  <th class="center aligned"> Start Time </th>
-                  <th class="center aligned"> End Time </th>
-                  <th class="center aligned"> School </th>
-                  <th class="center aligned"> Attachments </th>
-                  <th class="center aligned"> Edit/Delete </th>
+                  <th className="center aligned"> Course Number </th>
+                  <th className="center aligned"> Course Credit </th>
+                  <th className="center aligned"> Day1 </th>
+                  <th className="center aligned"> Day2 </th>
+                  <th className="center aligned"> Start Time </th>
+                  <th className="center aligned"> End Time </th>
+                  <th className="center aligned"> School </th>
+                  <th className="center aligned"> Attachments </th>
+                  <th className="center aligned"> Edit/Delete </th>
                 </tr>
               </thead>
               <tbody>
@@ -178,7 +143,7 @@ export default class ViewStudyLoad extends Component {
               </tbody>
             </table>
             <button
-              class="ui blue right floated button"
+              className="ui blue right floated button"
               onClick={this.startAdd}>
               Add Study Load
             </button>

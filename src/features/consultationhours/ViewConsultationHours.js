@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewConsultationHoursRow from './ViewConsultationHoursRow';
-import DeleteModal from '../GenericDelete';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
 
 export default class ViewConsultationHours extends Component {
@@ -41,10 +37,10 @@ export default class ViewConsultationHours extends Component {
           <NavBar {...this.props} Label="FSR" subLabel="consultationhours" />
 
           <div
-            class="ui compact piled very padded text left aligned container segment"
+            className="ui compact piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h1 class="ui blue header">CONSULTATION HOURS</h1>
+              <h1 className="ui blue header">CONSULTATION HOURS</h1>
             </div>
             <Divider hidden="true" />
 
@@ -52,14 +48,14 @@ export default class ViewConsultationHours extends Component {
               {' '}
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <table class="ui celled table">
+            <table className="ui celled table">
               <thead>
                 <tr>
-                  <th class="center aligned"> Days </th>
-                  <th class="center aligned"> Time </th>
-                  <th class="center aligned"> Place </th>
-                  <th class="center aligned"> Edit/Delete </th>
-                  <th class="center aligned"> Attachments </th>
+                  <th className="center aligned"> Days </th>
+                  <th className="center aligned"> Time </th>
+                  <th className="center aligned"> Place </th>
+                  <th className="center aligned"> Edit/Delete </th>
+                  <th className="center aligned"> Attachments </th>
                 </tr>
               </thead>
               <tbody>
@@ -80,7 +76,7 @@ export default class ViewConsultationHours extends Component {
               </tbody>
             </table>
             <button
-              class="ui blue right floated button"
+              className="ui blue right floated button"
               onClick={this.startAdd}>
               Add Consultation Hours
             </button>

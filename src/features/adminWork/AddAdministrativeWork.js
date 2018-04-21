@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 export default class AddAdministrativeWork extends Component {
   constructor(props) {
@@ -59,46 +56,48 @@ export default class AddAdministrativeWork extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
+        <div><NavBar {...this.props} Label="FSR" subLabel="adminwork" /></div>
+        <div className="bodyDiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">ADD ADMINISTRATIVE WORK</h2>
+            <h2 className="ui blue header">ADD ADMINISTRATIVE WORK</h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header">
+            <a className="ui small header">
               {' '}
               Position/Nature of Adminstrative Work{' '}
             </a>
-            <div class="ui input fluid mini focus">
+            <div className="ui input fluid mini focus">
               <input type="text" onChange={this.handleChangeNature_of_work} />
             </div>
           </p>
 
           <p>
-            <a class="ui small header"> Office </a>{' '}
+            <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
-            <div class="ui input fluid mini focus">
+            <div className="ui input fluid mini focus">
               <input type="text" onChange={this.handleChangeOffice} />
             </div>
           </p>
 
           <p>
-            <a class="ui small header"> Credit Units </a>{' '}
+            <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
-            <div class="ui input fluid mini focus">
+            <div className="ui input fluid mini focus">
               <input type="number" onChange={this.handleChangeCreditUnits} />
             </div>
           </p>
 
-          <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachment</button>
-            <button class="ui blue button" onClick={this.startAdd}>
+          <div className="ui center aligned container">
+            <button className="ui blue button">Upload Attachment</button>
+            <button className="ui blue button" onClick={this.startAdd}>
               Add Administrative Work
             </button>
           </div>
+        </div>
         </div>
         <Divider hidden="true" />
       </div>

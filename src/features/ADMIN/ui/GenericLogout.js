@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 
@@ -28,7 +26,7 @@ export default class GenericLogout extends Component {
 
     return (
       <div>
-        <a class="ui item" onClick={this.show('mini')}>
+        <a className="ui item" onClick={this.show('mini')}>
           Logout
         </a>
 

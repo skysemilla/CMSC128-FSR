@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import GenericDropdown from './../GenericDropdown';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 const optionsMain = [
   { id: 0, text: 'Trainings' },
@@ -21,7 +18,6 @@ const error = {
   color: 'red'
 };
 const nameRegex = /^[A-Za-z0-9 ]+$/;
-var messageClass = 'ui negative message';
 
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
@@ -302,10 +298,10 @@ export default class AddExtension extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT EXTENSION</h2>
+              <h2 className="ui blue header">EDIT EXTENSION</h2>
             </div>
             <Divider hidden="true" />
             <p>
@@ -320,15 +316,15 @@ export default class AddExtension extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header"><label><span>Title{formError.text.title}</span></label> </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"><label><span>Title{formError.text.title}</span></label> </a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeTitle} 
                 value={this.state.title}/>
               </div>
             </p>
             <p>
-              <a class="ui small header"><label><span>No of Hours{formError.text.noOfHours}</span></label></a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"><label><span>No of Hours{formError.text.noOfHours}</span></label></a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleChangeNoOfHours}
@@ -337,8 +333,8 @@ export default class AddExtension extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header"><label><span>No of Participants{formError.text.noOfParticipants}</span></label></a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"><label><span>No of Participants{formError.text.noOfParticipants}</span></label></a>
+              <div className="ui input fluid mini focus">
                 <input type="number"
                   onChange={this.handleChangeNoOfParticipants}
                   value = {this.state.noOfParticipants}
@@ -347,11 +343,11 @@ export default class AddExtension extends Component {
             </p>
 
             <p>
-              <a class="ui small header"> Duration </a>
-              <div class="equal width fields">
-                <div class="field">
-                  <a class="ui small header"><label><span>Start Date{formError.text.startDate}</span></label></a>
-                  <div class="ui input fluid mini focus">
+              <a className="ui small header"> Duration </a>
+              <div className="equal width fields">
+                <div className="field">
+                  <a className="ui small header"><label><span>Start Date{formError.text.startDate}</span></label></a>
+                  <div className="ui input fluid mini focus">
                     <input
                       type="date"
                       onChange={this.handleChangeStartDate}
@@ -360,9 +356,9 @@ export default class AddExtension extends Component {
                     />
                   </div>
                 </div>
-                <div class="field">
-                  <a class="ui small header"><label><span>End Date{formError.text.endDate}</span></label></a>
-                  <div class="ui input fluid mini focus">
+                <div className="field">
+                  <a className="ui small header"><label><span>End Date{formError.text.endDate}</span></label></a>
+                  <div className="ui input fluid mini focus">
                     <input
                       type="date"
                       onChange={this.handleChangeEndDate}
@@ -375,22 +371,22 @@ export default class AddExtension extends Component {
             </p>
 
             <p>
-              <a class="ui small header"><label><span>Role{formError.text.role}</span></label></a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"><label><span>Role{formError.text.role}</span></label></a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeRole} value = {this.state.role} />
               </div>
             </p>
             <p>
-              <a class="ui small header"><label><span>Funding Agency{formError.text.fundingAgency}</span></label></a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"><label><span>Funding Agency{formError.text.fundingAgency}</span></label></a>
+              <div className="ui input fluid mini focus">
                 <input type="text" 
                 onChange={this.handleChangeFundingAgency} 
                 value = {this.state.fundingAgency}/>     
               </div>
             </p>
             <p>
-              <a class="ui small header"><label><span>Approved Credit Units{formError.text.approvedCreditUnits}</span></label></a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"><label><span>Approved Credit Units{formError.text.approvedCreditUnits}</span></label></a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
@@ -398,9 +394,9 @@ export default class AddExtension extends Component {
                 />
               </div>
             </p>
-            <div class="ui center aligned container">
+            <div className="ui center aligned container">
               <button
-                class="ui center aligned blue button"
+                className="ui center aligned blue button"
                 onClick={this.checkEdit}>
                 Edit Extension
               </button>

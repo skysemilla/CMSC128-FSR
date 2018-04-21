@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 
 export default class GenericApproved extends Component {
   constructor(props) {
@@ -26,17 +23,17 @@ export default class GenericApproved extends Component {
     const { open, size } = this.state;
 
     return (
-      <div class="ui horizontal list">
-        <div class="item">
-          <button class="ui large compact icon button" onClick={this.startView}>
-            <i class="eye icon"> </i>
+      <div className="ui horizontal list">
+        <div className="item">
+          <button className="ui large compact icon button" onClick={this.startView}>
+            <i className="eye icon"> </i>
           </button>
         </div>
-        <div class="item">
+        <div className="item">
           <button
-            class="ui large compact icon button"
+            className="ui large compact icon button"
             onClick={this.show('mini')}>
-            <i class="trash alternate icon" />
+            <i className="trash alternate icon" />
           </button>
           <Modal
             size={size}

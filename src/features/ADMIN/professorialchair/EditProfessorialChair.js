@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
-import ProfessorialChairViewRow from './ProfessorialChairViewRow';
-import GenerateFSR from './../../GenerateFSR';
-import SendtoAdmin from './../../SendtoAdmin';
 import NavBar from './../ui/NavBarAdmin';
 
 const dummySample = {
@@ -74,27 +69,25 @@ export default class EditProfessorialChair extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="profchair"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               EDIT PROFESSORIAL CHAIR
-              <GenerateFSR/>
-              <SendtoAdmin/>
             </h2>
           </div>
           <Divider hidden="true" />
           <Divider hidden="true" />
           <Divider hidden="true" />
           <p>
-            <a class="ui small header">Professorial Chair </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Professorial Chair </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeProfChair}
@@ -102,8 +95,8 @@ export default class EditProfessorialChair extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Grant </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Grant </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeGrant}
@@ -111,8 +104,8 @@ export default class EditProfessorialChair extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Grant Title </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Grant Title </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeGrantTitle}
@@ -120,8 +113,8 @@ export default class EditProfessorialChair extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Approve Start Date </a>
-            <div class="ui input mini focus">
+            <a className="ui small header">Approve Start Date </a>
+            <div className="ui input mini focus">
               <input
                 type="date"
                 style={{ width: '155px' }}
@@ -131,8 +124,8 @@ export default class EditProfessorialChair extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">End Date </a>
-            <div class="ui input mini focus">
+            <a className="ui small header">End Date </a>
+            <div className="ui input mini focus">
               <input
                 type="date"
                 style={{ width: '155px' }}
@@ -142,9 +135,9 @@ export default class EditProfessorialChair extends Component {
             </div>
           </p>
           
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startEdit}>
               Save changes
             </button>
