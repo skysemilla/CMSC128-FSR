@@ -55,7 +55,7 @@ componentDidMount = () => {
           <NavBar {...this.props} Label="FSR" subLabel="extension" />
         </div>
 
-        <div classNameName="bodyDiv">
+        <div className="bodyDiv">
           <div
             className="ui compact piled very padded text left aligned container segment"
             color="teal">

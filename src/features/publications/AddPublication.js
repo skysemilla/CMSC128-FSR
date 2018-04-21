@@ -449,6 +449,7 @@ export default class AddPublication extends Component {
               <div className="ui input fluid mini focus">
                 <input
                   type="number"
+                  min="0"
                   onChange={this.handleChangeApprovedCreditUnits}
                 />
               </div>
