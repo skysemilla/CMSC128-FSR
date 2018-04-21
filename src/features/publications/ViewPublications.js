@@ -66,6 +66,7 @@ export default class ViewPublications extends Component {
                 {' '}
                 {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
               </style>
+              <div className="scrollTable">
               <table className="ui celled table">
                 <thead>
                   <tr>
@@ -110,6 +111,7 @@ export default class ViewPublications extends Component {
                   })}
                 </tbody>
               </table>
+              </div>
               <button
                 className="ui right floated blue button"
                 onClick={this.startAdd}>
