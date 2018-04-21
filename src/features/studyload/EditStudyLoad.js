@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 export default class EditStudyLoad extends Component {
   constructor(props) {
@@ -15,16 +12,19 @@ export default class EditStudyLoad extends Component {
       courseno: '',
       credits: 0,
       start_time: '',
+      end_time: '',
       school: '',
-      no_of_days: 0
+      day1: '',
+      day2: ''
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
     this.handleChangeCcred = this.handleChangeCcred.bind(this);
     this.handleChangeDay = this.handleChangeDay.bind(this);
     this.handleChangeTime = this.handleChangeTime.bind(this);
+    this.handleChangeDay2 = this.handleChangeDay2.bind(this);
+    this.handleChangeTime2 = this.handleChangeTime2.bind(this);
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
-    this.handleChangeSlcred = this.handleChangeSlcred.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -40,20 +40,26 @@ export default class EditStudyLoad extends Component {
   }
 
   handleChangeDay(e) {
-    this.setState({ no_of_days: e.target.value });
+    this.setState({ day1: e.target.value });
   }
 
   handleChangeTime(e) {
     this.setState({ start_time: e.target.value });
+  }
+  
+  handleChangeDay2(e) {
+    this.setState({ day2: e.target.value });
+  }
+
+  handleChangeTime2(e) {
+    this.setState({ end_time: e.target.value });
   }
 
   handleChangeSchool(e) {
     this.setState({ school: e.target.value });
   }
 
-  handleChangeSlcred(e) {
-    this.setState({ slcred: e.target.value });
-  }
+
 
   uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
@@ -63,17 +69,20 @@ export default class EditStudyLoad extends Component {
     if (typeof this.props.history !== 'undefined') {
       console.log(this.props.history.location.state.id);
     }
-    Api.viewByStudyloadId(this.state.id)
+    Api.viewByStudyloadId(this.props.history.location.state.id)
       .then(response => {
         this.setState(
-          { courseno: response.course_no },
-          { credits: response.credits },
-          { start_time: response.start_time },
-          { school: response.school },
-          { no_of_days: response.no_of_days }
-        );
-      })
-      .then(console.log(this.state));
+          { courseno: response.data.data[0].course_no ,
+           credits: response.data.data[0].credits ,
+           start_time: response.data.data[0].start_time ,
+           end_time: response.data.data[0].end_time ,
+           school: response.data.data[0].school ,
+           day1: response.data.data[0].day1 ,
+           day2: response.data.data[0].day2}
+        ,
+        console.log(response.data.data));
+      }
+    )
   }
 
   handleLogout(e) {
@@ -90,8 +99,10 @@ export default class EditStudyLoad extends Component {
       courseno: this.state.courseno,
       credits: this.state.credits,
       start_time: this.state.start_time,
+      end_time:this.state.end_time,
       school: this.state.school,
-      no_of_days: this.state.no_of_days
+      day1: this.state.day1,
+      day2: this.state.day2
     })
       .then(result => {
         this.props.history.push('./view'); //change to profile later!!
@@ -108,15 +119,15 @@ export default class EditStudyLoad extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT STUDY LOAD</h2>
+              <h2 className="ui blue header">EDIT STUDY LOAD</h2>
             </div>
             <Divider hidden="true" />
             <p>
-              <a class="ui small header">Course Number </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Course Number </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
                   value={this.state.courseno}
@@ -126,8 +137,8 @@ export default class EditStudyLoad extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header">Course Credit </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Course Credit </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   value={this.state.credits}
@@ -137,19 +148,31 @@ export default class EditStudyLoad extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header">Days </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Days 1 </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
-                  value={this.state.no_of_days}
-                  placeholder={this.state.no_of_days}
+                  value={this.state.day1}
+                  placeholder={this.state.day1}
                   onChange={this.handleChangeDay}
                 />
               </div>
             </p>
             <p>
-              <a class="ui small header">Time </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Day 2 </a>
+              <div className="ui input fluid mini focus">
+                <input
+                  type="text"
+                  value={this.state.day2}
+                  placeholder={this.state.day2}
+                  onChange={this.handleChangeDay2}
+                />
+              </div>
+            </p>
+
+            <p>
+              <a className="ui small header">Start Time </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="time"
                   value={this.state.start_time}
@@ -159,8 +182,20 @@ export default class EditStudyLoad extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header">School </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">End Time </a>
+              <div className="ui input fluid mini focus">
+                <input
+                  type="time"
+                  value={this.state.end_time}
+                  placeholder={this.state.end_time}
+                  onChange={this.handleChangeTime2}
+                />
+              </div>
+            </p>
+
+            <p>
+              <a className="ui small header">School </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
                   value={this.state.school}
@@ -169,23 +204,12 @@ export default class EditStudyLoad extends Component {
                 />
               </div>
             </p>
-            <p>
-              <a class="ui small header">Study Load Credits </a>
-              <div class="ui input fluid mini focus">
-                <input
-                  type="number"
-                  value={this.state.slcred}
-                  placeholder={this.state.slcred}
-                  onChange={this.handleChangeSlcred}
-                />
-              </div>
-            </p>
-            <div class="ui center aligned container">
-              <button class="ui blue button" onClick={this.uploadAttachment}>
+            <div className="ui center aligned container">
+              <button className="ui blue button" onClick={this.uploadAttachment}>
                 Upload Attachments
               </button>
               <button
-                class="ui center aligned blue button"
+                className="ui center aligned blue button"
                 onClick={this.startEdit}>
                 Save changes
               </button>

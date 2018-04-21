@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 import ViewStudyLoadRow from './ViewStudyLoadRow'
-import DeleteModal from '../../GenericDelete';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 import NavBar from './../ui/NavBarAdmin'
 
 //Dummy data
@@ -37,34 +32,34 @@ export default class ViewStudyLoad extends Component {
   render() {
 
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="studyload"/>
         </div>
-        <div className="bodydiv">
-        <div class = "ui compact piled very padded text left aligned container segment" color = "teal">
+        <div classNameName="bodydiv">
+        <div className = "ui compact piled very padded text left aligned container segment" color = "teal">
           <div>
-            <h1 class = "ui blue header">
+            <h1 className = "ui blue header">
               STUDY LOAD
             </h1>
           </div>
           <Divider hidden="true" />
 
           <style> {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`} </style>
-          <table class = "ui celled table">
+          <table className = "ui celled table">
             <thead>
               <tr>
-                <th class = "center aligned"> Degree enrolled in </th>
-                <th class = "center aligned"> University enrolled in </th>
-                <th class = "center aligned"> On Full-Study Leave w/ pay? </th>
-                <th class = "center aligned"> Recepient of Faculty Fellowship </th>
-                <th class = "center aligned"> Course Number </th>
-                <th class = "center aligned"> Course Credit </th>
-                <th class = "center aligned"> Days </th>
-                <th class = "center aligned"> Time </th>
-                <th class = "center aligned"> School </th>
-                <th class = "center aligned"> Study load credits </th>
-                <th class = "center aligned"> Edit/Delete </th>
+                <th className = "center aligned"> Degree enrolled in </th>
+                <th className = "center aligned"> University enrolled in </th>
+                <th className = "center aligned"> On Full-Study Leave w/ pay? </th>
+                <th className = "center aligned"> Recepient of Faculty Fellowship </th>
+                <th className = "center aligned"> Course Number </th>
+                <th className = "center aligned"> Course Credit </th>
+                <th className = "center aligned"> Days </th>
+                <th className = "center aligned"> Time </th>
+                <th className = "center aligned"> School </th>
+                <th className = "center aligned"> Study load credits </th>
+                <th className = "center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
@@ -89,7 +84,7 @@ export default class ViewStudyLoad extends Component {
               }
             </tbody>
           </table>
-          <button class="ui blue right floated button" onClick={this.startAdd}>Add Study Load</button>
+          <button className="ui blue right floated button" onClick={this.startAdd}>Add Study Load</button>
           <Divider hidden="true" />
         </div>
         </div>

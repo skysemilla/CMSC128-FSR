@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import GenericDropdown from './../../GenericDropdown';
 import PublicationSubTypeDropdown from './PublicationSubTypeDropdown';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR';
-import SendtoAdmin from './../../SendtoAdmin';
 import GenericDisabledInput from './../../GenericDisabledInput';
 
 const optionsMain = [
@@ -129,16 +126,16 @@ export default class EditPublication extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
           <NavBar {...this.props} Label="edit" subLabel="publications" />
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
           <div
-            class="ui piled very padded text left aligned container segment mainDiv"
+            className="ui piled very padded text left aligned container segment mainDiv"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT PUBLICATION</h2>
+              <h2 className="ui blue header">EDIT PUBLICATION</h2>
             </div>
             <Divider hidden="true" />
             <div>
@@ -159,8 +156,8 @@ export default class EditPublication extends Component {
               />
             </div>
             <p>
-              <a class="ui small header"> Complete Title </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Complete Title </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
                   onChange={this.handleChangeTitle}
@@ -177,8 +174,8 @@ export default class EditPublication extends Component {
               handler={this.handleChangeRole}
             />
             <p>
-              <a class="ui small header"> Co-workers / Co-authors </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Co-workers / Co-authors </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
                   onChange={this.handleChangeCoworkers}
@@ -217,8 +214,8 @@ export default class EditPublication extends Component {
             />
 
             <p>
-              <a class="ui small header"> Approved Credit Units </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Approved Credit Units </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
@@ -228,8 +225,8 @@ export default class EditPublication extends Component {
             </p>
 
             <p>
-              <a class="ui small header"> Total Work Load Units </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Total Work Load Units </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleChangeTotalWorkLoadUnits}
@@ -238,9 +235,9 @@ export default class EditPublication extends Component {
               </div>
             </p>
 
-            <div class="ui center aligned container">
-              <button class="ui blue button">Upload Attachments</button>
-              <button class="ui blue button" onClick={this.startAdd}>
+            <div className="ui center aligned container">
+              <button className="ui blue button">Upload Attachments</button>
+              <button className="ui blue button" onClick={this.startAdd}>
                 Save changes
               </button>
             </div>

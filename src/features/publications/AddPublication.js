@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import GenericDropdown from './../GenericDropdown';
 import PublicationSubTypeDropdown from './PublicationSubTypeDropdown';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 const optionsMain = [
   {
@@ -34,8 +31,6 @@ const optionsMain = [
 const error = {
   color: 'red'
 };
-
-var messageClass = 'ui negative message';
 
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
@@ -190,10 +185,10 @@ export default class AddPublication extends Component {
   	}
 
   	// check role
-  	if(!this.state.Role && this.state.researchType == 'Research'){
+  	if(!this.state.Role && this.state.researchType === 'Research'){
   		formError.text.Role = errorTexts[0];
   		formError.bool.Role = false;
-  	} else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
+  	} else if(!this.state.Role.match(alphanumRegex) && this.state.researchType === 'Research'){
   		formError.text.Role = errorTexts[6];
   		formError.bool.Role = false;
   	} else{
@@ -202,10 +197,10 @@ export default class AddPublication extends Component {
   	}
 
   	// check funding
-  	if(!this.state.Funding && this.state.researchSubtype == 'Research Proposal'){
+  	if(!this.state.Funding && this.state.researchSubtype === 'Research Proposal'){
   		formError.text.Funding = errorTexts[0];
   		formError.bool.Funding = false;
-  	} else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype == 'Research Proposal'){
+  	} else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype === 'Research Proposal'){
   		formError.text.Funding = errorTexts[6];
   		formError.bool.Funding = false;
   	} else{
@@ -214,7 +209,7 @@ export default class AddPublication extends Component {
   	}
 
   	// check start date
-  	if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
+  	if(!this.state.StartDate && this.state.researchSubtype !== 'Research Proposal'){
   		formError.text.StartDate = errorTexts[0];
   		formError.bool.StartDate = false;
   	}else{
@@ -223,7 +218,7 @@ export default class AddPublication extends Component {
   	}
 
   	// check end date
-  	if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
+  	if(!this.state.EndDate && this.state.researchSubtype !== 'Research Proposal'){
   		formError.text.EndDate = errorTexts[0];
   		formError.bool.EndDate = false;
   	}else{
@@ -317,10 +312,10 @@ export default class AddPublication extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment mainDiv"
+            className="ui piled very padded text left aligned container segment mainDiv"
             color="teal">
             <div>
-              <h2 class="ui blue header">ADD PUBLICATION</h2>
+              <h2 className="ui blue header">ADD PUBLICATION</h2>
             </div>
             <Divider hidden="true" />
             <div>
@@ -344,15 +339,15 @@ export default class AddPublication extends Component {
               />
             </div>
             <p>
-              <a class="ui small header"> Complete Title{formError.text.completeTitle} </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Complete Title{formError.text.completeTitle} </a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangeTitle} />
               </div>
             </p>
             {this.state.researchType !== 'Research' ? (
               <p>
-                <a class="ui small header"> Role </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> Role </a>
+                <div className="ui input fluid mini focus">
                   <input
                     disabled
                     type="text"
@@ -362,19 +357,19 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Role{formError.text.Role} </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> Role{formError.text.Role} </a>
+                <div className="ui input fluid mini focus">
                   <input type="text" onChange={this.handleChangeRole} />
                 </div>
               </p>
             )}
 
-            <a class="ui small header"> Co-workers </a>
-            <div class="scrollable">
+            <a className="ui small header"> Co-workers </a>
+            <div className="scrollable">
               {this.state.posCoworkers.map(item => {
                 return (
                   <div>
-                    <div class="ui checked checkbox">
+                    <div className="ui checked checkbox">
                       <input
                         type="checkbox"
                         value={item.emp_id}
@@ -391,8 +386,8 @@ export default class AddPublication extends Component {
 
             {this.state.researchSubtype !== 'Research Proposal' ? (
               <p>
-                <a class="ui small header"> Funding </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> Funding </a>
+                <div className="ui input fluid mini focus">
                   <input
                     disabled
                     type="text"
@@ -402,8 +397,8 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Funding{formError.text.Funding} </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> Funding{formError.text.Funding} </a>
+                <div className="ui input fluid mini focus">
                   <input type="text" onChange={this.handleChangeFunding} />
                 </div>
               </p>
@@ -411,8 +406,8 @@ export default class AddPublication extends Component {
 
             {this.state.researchSubtype === 'Research Proposal' ? (
               <p>
-                <a class="ui small header"> Start Date </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> Start Date </a>
+                <div className="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
@@ -422,8 +417,8 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> Start Date{formError.text.StartDate} </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> Start Date{formError.text.StartDate} </a>
+                <div className="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeStartDate} />
                 </div>
               </p>
@@ -431,8 +426,8 @@ export default class AddPublication extends Component {
 
             {this.state.researchSubtype === 'Research Proposal' ? (
               <p>
-                <a class="ui small header"> End Date </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> End Date </a>
+                <div className="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
@@ -442,16 +437,16 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header"> End Date{formError.text.EndDate} </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header"> End Date{formError.text.EndDate} </a>
+                <div className="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeEndDate} />
                 </div>
               </p>
             )}
 
             <p>
-              <a class="ui small header"> Approved Credit Units{formError.text.ApprovedCreditUnits} </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Approved Credit Units{formError.text.ApprovedCreditUnits} </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
@@ -459,9 +454,9 @@ export default class AddPublication extends Component {
               </div>
             </p>
 
-            <div class="ui center aligned container">
-              <button class="ui blue button">Upload Attachments</button>
-              <button class="ui blue button" onClick={this.validateAdd}>
+            <div className="ui center aligned container">
+              <button className="ui blue button">Upload Attachments</button>
+              <button className="ui blue button" onClick={this.validateAdd}>
                 Add Publication
               </button>
             </div>

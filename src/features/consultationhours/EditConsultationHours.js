@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
-import { Divider, Checkbox } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 
 const timeIndex = 8;
 
@@ -117,17 +114,17 @@ export default class EditConsultationHours extends Component {
       <div className="App-header">
         <NavBar {...this.props} />
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">EDIT CONSULTATION HOURS</h2>
+            <h2 className="ui blue header">EDIT CONSULTATION HOURS</h2>
           </div>
           <Divider hidden="true" />
           <div>
             <div>
-              <a class="ui small header"> Days </a>
+              <a className="ui small header"> Days </a>
               <p>
-                <div class="ui checkbox">
+                <div className="ui checkbox">
                   <input
                     type="checkbox"
                     value="MON"
@@ -137,7 +134,7 @@ export default class EditConsultationHours extends Component {
                 </div>
                 <br />
 
-                <div class="ui checkbox">
+                <div className="ui checkbox">
                   <input
                     type="checkbox"
                     value="TUE"
@@ -147,7 +144,7 @@ export default class EditConsultationHours extends Component {
                 </div>
                 <br />
 
-                <div class="ui checkbox">
+                <div className="ui checkbox">
                   <input
                     type="checkbox"
                     value="WED"
@@ -157,7 +154,7 @@ export default class EditConsultationHours extends Component {
                 </div>
 
                 <br />
-                <div class="ui checkbox">
+                <div className="ui checkbox">
                   <input
                     type="checkbox"
                     value="THU"
@@ -167,7 +164,7 @@ export default class EditConsultationHours extends Component {
                 </div>
 
                 <br />
-                <div class="ui checkbox">
+                <div className="ui checkbox">
                   <input
                     type="checkbox"
                     value="FRI"
@@ -179,22 +176,22 @@ export default class EditConsultationHours extends Component {
             </div>
 
             <p>
-              <a class="ui small header"> Time </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Time </a>
+              <div className="ui input fluid mini focus">
                 <input type="time" onChange={this.handleChangePlace} />
               </div>
             </p>
 
             <p>
-              <a class="ui small header"> Place </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> Place </a>
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleChangePlace} />
               </div>
             </p>
             <Divider hidden="true" />
           </div>
-          <div class="ui center aligned container">
-            <button class="ui blue button" onClick={this.startAdd}>
+          <div className="ui center aligned container">
+            <button className="ui blue button" onClick={this.startAdd}>
               Edit Consultation Hours
             </button>
           </div>

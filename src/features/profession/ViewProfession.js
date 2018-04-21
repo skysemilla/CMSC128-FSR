@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import DeleteModal from './../GenericDelete';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import ViewProfessionsRow from './ProfessionsViewRow';
 import NavBar from './../ui/NavBar';
-
-const dummySample = { id: 1, permission: 'YES', date: '03/26/18' };
-const dummySample2 = { id: 2, permission: 'NO', date: '' };
 
 export default class ViewProfession extends Component {
   constructor(props) {
@@ -50,10 +43,10 @@ export default class ViewProfession extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui compact piled very padded text left aligned container segment"
+            className="ui compact piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h1 class="ui blue header">LIMITED PRACTICE OF PROFESSION</h1>
+              <h1 className="ui blue header">LIMITED PRACTICE OF PROFESSION</h1>
             </div>
             <Divider hidden="true" />
             <div>
@@ -61,13 +54,13 @@ export default class ViewProfession extends Component {
                 {' '}
                 {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
               </style>
-              <table class="ui celled table">
+              <table className="ui celled table">
                 <thead>
                   <tr>
-                    <th class="center aligned">Official permission?</th>
-                    <th class="center aligned">Date</th>
-                    <th class="center aligned">Attachments</th>
-                    <th class="center aligned">Edit/Delete</th>
+                    <th className="center aligned">Official permission?</th>
+                    <th className="center aligned">Date</th>
+                    <th className="center aligned">Attachments</th>
+                    <th className="center aligned">Edit/Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -87,7 +80,7 @@ export default class ViewProfession extends Component {
                 </tbody>
               </table>
               <button
-                class="ui right floated blue button"
+                className="ui right floated blue button"
                 onClick={this.startAdd}>
                 Add new Profession
               </button>

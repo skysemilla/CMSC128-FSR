@@ -6,10 +6,12 @@
 
 th.thtable {
    border: 1px solid black;
+   text-align: center;
 }
 
 td.tdtable {
    border: 1px solid black;
+   text-align: center;
 }
 
 table.fsrtable {

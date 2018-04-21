@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Button, Modal } from 'semantic-ui-react';
-import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import GenericLogout from './GenericLogout';
@@ -106,17 +104,17 @@ export default class NavBar extends Component {
     if (this.state.activeMenu === 'profile') {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="active item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="active item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="item" id="FSR" onClick={this.handleChange}>
+            <a className="item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
               <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -126,17 +124,17 @@ export default class NavBar extends Component {
     } else if (this.state.activeMenu === 'beingapproved') {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
@@ -149,54 +147,54 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
             <a
               id="teachingload"
-              class="item active"
+              className="item active"
               onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
@@ -207,54 +205,54 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
             <a
               id="publications"
-              class="item active"
+              className="item active"
               onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
@@ -265,51 +263,51 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item active" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item active" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
@@ -320,51 +318,51 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item active" onClick={this.handleSubmenus}>
+            <a id="extension" className="item active" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
@@ -375,51 +373,51 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item active" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item active" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
@@ -430,54 +428,54 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
             <a
               id="profession"
-              class="item active"
+              className="item active"
               onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
@@ -488,109 +486,109 @@ export default class NavBar extends Component {
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item active" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item active" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>
       );
     } else if (
       this.state.activeMenu === 'FSR' &&
-      this.state.subMenu === 'consultation'
+      this.state.subMenu === 'consultationhours'
     ) {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
             <a
               id="consultation"
-              class="item active"
+              className="item active"
               onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
           <Modal
@@ -619,51 +617,51 @@ export default class NavBar extends Component {
     } else {
       return (
         <div>
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="profile" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="profile" onClick={this.handleChange}>
               Profile
             </a>
-            <a class="active item" id="FSR" onClick={this.handleChange}>
+            <a className="active item" id="FSR" onClick={this.handleChange}>
               FSR
             </a>
-            <div class="right menu">
+            <div className="right menu">
             <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
-          <div class="ui large inverted blue vertical menu flex-container large navDiv">
-            <a id="teachingload" class="item" onClick={this.handleSubmenus}>
+          <div className="ui large inverted blue vertical menu flex-container large navDiv">
+            <a id="teachingload" className="item" onClick={this.handleSubmenus}>
               Teaching Load
             </a>
-            <a id="publications" class="item" onClick={this.handleSubmenus}>
+            <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" class="item" onClick={this.handleSubmenus}>
+            <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" class="item" onClick={this.handleSubmenus}>
+            <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" class="item" onClick={this.handleSubmenus}>
+            <a id="studyload" className="item" onClick={this.handleSubmenus}>
               Study Load
             </a>
-            <a id="profession" class="item" onClick={this.handleSubmenus}>
+            <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" class="item" onClick={this.handleSubmenus}>
+            <a id="profchair" className="item" onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
-            <a id="consultation" class="item" onClick={this.handleSubmenus}>
+            <a id="consultation" className="item" onClick={this.handleSubmenus}>
               Consultation Hours
             </a>
-            <div class="ui inverted horizontal divider" />
-            <a id="subjects" class="item active" onClick={this.handleSubmenus}>
+            <div className="ui inverted horizontal divider" />
+            <a id="subjects" className="item active" onClick={this.handleSubmenus}>
               Subjects
             </a>
-            <div class="ui inverted horizontal divider" />
+            <div className="ui inverted horizontal divider" />
             <SendtoAdmin />
           </div>
         </div>

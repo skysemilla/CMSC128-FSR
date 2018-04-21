@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GenericDropdown from './../GenericDropdown';
 import DeptDropdown from './DeptDropdown';
 import {
-  Form,
-  Button,
   Container,
-  Tab,
-  Segment,
   Image,
-  Label,
-  Icon,
-  Divider,
-  Grid,
-  Menu
+  Divider
 } from 'semantic-ui-react';
 import * as Api from '../../api';
 
@@ -22,8 +13,6 @@ import * as Api from '../../api';
 const error = {
   color: 'red'
 };
-
-var messageClass = 'ui negative message';
 
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
@@ -467,10 +456,10 @@ export default class Signup extends Component {
 
   render() {
     return (
-      <div classname="App-header">
-        <div class="ui blue inverted menu">
-          <a class="item">
-            <h1 class="ui white inverted header">
+      <div className="App-header">
+        <div className="ui blue inverted menu">
+          <a className="item">
+            <h1 className="ui white inverted header">
               <Image src={require('./sample-logo-2.jpg')} />
               STAFS
             </h1>
@@ -478,19 +467,19 @@ export default class Signup extends Component {
         </div>
         <Container style={{ marginTop: '3%' }}>
           <div>
-            <div class="ui attached message">
-              <div class="content">
-                <div class="header">Welcome to our site!</div>
+            <div className="ui attached message">
+              <div className="content">
+                <div className="header">Welcome to our site!</div>
                 <p>Fill out the form below to sign-up for a new account</p>
               </div>
             </div>
-            <form class="ui form attached fluid segment">
-              <div class="equal width fields">
-                <div class="field">
+            <form className="ui form attached fluid segment">
+              <div className="equal width fields">
+                <div className="field">
                   <label>
                     <span>First Name{formError.text.fname}</span>
                   </label>
-                  <div class="ui fluid input">
+                  <div className="ui fluid input">
                     <input
                       type="text"
                       placeholder="First Name"
@@ -498,11 +487,11 @@ export default class Signup extends Component {
                     />
                   </div>
                 </div>
-                <div class="field">
+                <div className="field">
                   <label>
                     <span>Middle Name{formError.text.mname}</span>
                   </label>
-                  <div class="ui fluid input">
+                  <div className="ui fluid input">
                     <input
                       type="text"
                       placeholder="Middle Name"
@@ -510,11 +499,11 @@ export default class Signup extends Component {
                     />
                   </div>
                 </div>
-                <div class="field">
+                <div className="field">
                   <label>
                     <span>Last Name{formError.text.lname}</span>
                   </label>
-                  <div class="ui fluid input">
+                  <div className="ui fluid input">
                     <input
                       type="text"
                       placeholder="Last Name"
@@ -524,12 +513,12 @@ export default class Signup extends Component {
                 </div>
               </div>
 
-              <div class="equal width fields">
-                <div class="field">
+              <div className="equal width fields">
+                <div className="field">
                   <label>
                     <span>Employee Id{formError.text.empId}</span>
                   </label>
-                  <div class="ui input">
+                  <div className="ui input">
                     <input
                       type="text"
                       placeholder="Employee Id"
@@ -538,11 +527,11 @@ export default class Signup extends Component {
                   </div>
                 </div>
 
-                <div class="field">
+                <div className="field">
                   <label>
                     <span>Employee Type{formError.text.empType}</span>
                   </label>
-                  <div class="equal width fields">
+                  <div className="equal width fields">
                     <GenericDropdown
                       labelProper="Type"
                       value={this.state.emptype}
@@ -558,19 +547,19 @@ export default class Signup extends Component {
                   </div>
                 </div>
 
-                <div class="div1">
-                  <div class="ui form">
-                    <div class="grouped fields">
-                      <div class="field">
+                <div className="div1">
+                  <div className="ui form">
+                    <div className="grouped fields">
+                      <div className="field">
                         <label>
                           <span>
                             Full Time Employee?{formError.text.fullTime}
                           </span>
                         </label>
                       </div>
-                      <div class="inline fields">
-                        <div class="field">
-                          <div class="ui radio checkbox">
+                      <div className="inline fields">
+                        <div className="field">
+                          <div className="ui radio checkbox">
                             <input
                               type="radio"
                               name="fulltime"
@@ -579,7 +568,7 @@ export default class Signup extends Component {
                             />
                             <label>Yes</label>
                           </div>
-                          <div class="ui radio checkbox">
+                          <div className="ui radio checkbox">
                             <input
                               type="radio"
                               name="fulltime"
@@ -595,8 +584,8 @@ export default class Signup extends Component {
                 </div>
               </div>
 
-              <div class="equal width fields">
-                <div class="field">
+              <div className="equal width fields">
+                <div className="field">
                   <label>
                     <span>College{formError.text.col}</span>
                   </label>
@@ -607,7 +596,7 @@ export default class Signup extends Component {
                     options={optionsMain3}
                   />
                 </div>
-                <div class="field">
+                <div className="field">
                   <label>
                     <span>Department{formError.text.dept}</span>
                   </label>
@@ -619,11 +608,11 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
                   <span>Email Address{formError.text.email}</span>
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="text"
                     placeholder="Email Address"
@@ -631,11 +620,11 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
                   <span>Username{formError.text.user}</span>
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="text"
                     placeholder="Username"
@@ -643,11 +632,11 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
                   <span>Password{formError.text.pass}</span>
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="password"
                     placeholder="Password"
@@ -655,11 +644,11 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
                   <span>Repeat Password{formError.text.repPass}</span>
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="password"
                     placeholder="Password"
@@ -668,14 +657,14 @@ export default class Signup extends Component {
                 </div>
               </div>
               <button
-                class="ui blue button"
+                className="ui blue button"
                 role="button"
                 onClick={this.checkSignup}>
                 Create an Account
               </button>
             </form>
-            <div class="ui warning bottom attached message">
-              <i aria-hidden="true" class="help icon" />Already have an account?{' '}
+            <div className="ui warning bottom attached message">
+              <i aria-hidden="true" className="help icon" />Already have an account?{' '}
               <a href="/">Click here to Login</a> instead.
             </div>
           </div>

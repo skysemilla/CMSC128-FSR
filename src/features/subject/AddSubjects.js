@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
 
 export default class AddSubject extends Component {
   constructor(props) {
@@ -107,18 +103,18 @@ export default class AddSubject extends Component {
         </div>
         <div className="bodyDiv">
         <div
-          class="ui piled very padded text left aligned container segment mainDiv"
+          className="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               ADD SUBJECT
             </h2>
           </div>
           <Divider hidden="true" />
 
           <p>
-            <a class="ui small header"> Subject ID</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Subject ID</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeSubjid}
@@ -126,8 +122,8 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Subject Code</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Subject Code</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeSubjcode}
@@ -135,8 +131,8 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Section Code</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Section Code</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeSeccode}
@@ -144,17 +140,17 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <div class="ui form" onChange={this.handleChangeType}>
-              <div class="inline fields">
+            <div className="ui form" onChange={this.handleChangeType}>
+              <div className="inline fields">
                 <label>Type</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="type" value="Lecture"/>
                     <label>Lecture</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="type" value="Laboratory"/>
                     <label>Laboratory</label>
                   </div>
@@ -163,17 +159,17 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <div class="ui form" onChange={this.handleChangeGradcourse}>
-              <div class="inline fields">
+            <div className="ui form" onChange={this.handleChangeGradcourse}>
+              <div className="inline fields">
                 <label>Graduate Course?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="gradcourse" value="Yes"/>
                     <label>Yes</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input type="radio" name="gradcourse" value="No"/>
                     <label>No</label>
                   </div>
@@ -182,8 +178,8 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Units</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Units</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeUnits}
@@ -191,8 +187,8 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Room</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Room</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeRoom}
@@ -200,8 +196,8 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Start Time</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Start Time</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeStarttime}
@@ -209,8 +205,8 @@ export default class AddSubject extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">End Time</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">End Time</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeEndtime}
@@ -218,9 +214,9 @@ export default class AddSubject extends Component {
             </div>
           </p>
           
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startAdd}>
               Add Subject
             </button>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 
@@ -45,6 +43,8 @@ export default class GenericDelete extends Component {
         alert('Successfully deleted!');
       })
       .catch(e => alert('Error deleting row}!'));
+      // this.props.history.push(this.props.deleteURL);
+      this.close();
   }
 
   render() {
@@ -53,15 +53,15 @@ export default class GenericDelete extends Component {
     return (
       <div>
         <button
-          class="ui left attached compact icon button"
+          className="ui left attached compact icon button"
           onClick={this.startEdit}>
-          <i class="edit icon"> </i>
+          <i className="edit icon"> </i>
         </button>
 
         <button
-          class="ui right attached compact icon button"
+          className="ui right attached compact icon button"
           onClick={this.show('mini')}>
-          <i class="trash alternate icon" />
+          <i className="trash alternate icon" />
         </button>
         <Modal
           size={size}

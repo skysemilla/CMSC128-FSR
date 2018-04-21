@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import {css} from './../style.css'
+import {css} from './../style.css';
 
 export default class sampleFSR extends Component  {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: this.props.empid
+    };
+
+    console.log(this.state.id);
+  }
+
+  componentDidUpdate(){
+    console.log("HELLO");
+  }
+
   render() {
     return (
       <div class="generate">

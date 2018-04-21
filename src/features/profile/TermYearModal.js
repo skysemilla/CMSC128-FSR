@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import GenericDropdown from './../GenericDropdown';
 import * as Api from '../../api';
@@ -99,7 +97,7 @@ export default class TermYearModal extends Component {
                   options={optionsMain}
                 />
                 <label>Year:</label>
-                <div class="ui input fluid mini focus">
+                <div className="ui input fluid mini focus">
                   <GenericDropdown
                     labelProper="Select Year"
                     value={this.state.handleChangeYear}
