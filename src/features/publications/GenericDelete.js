@@ -41,15 +41,15 @@ export default class GenericDelete extends Component {
     return (
       <div>
         <button
-          class="ui left attached compact icon button"
+          className="ui left attached compact icon button"
           onClick={this.startEdit}>
-          <i class="edit icon"> </i>
+          <i className="edit icon"> </i>
         </button>
 
         <button
-          class="ui right attached compact icon button"
+          className="ui right attached compact icon button"
           onClick={this.show('mini')}>
-          <i class="trash alternate icon" />
+          <i className="trash alternate icon" />
         </button>
         <Modal
           size={size}

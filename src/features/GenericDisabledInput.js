@@ -7,7 +7,6 @@ export default class GenericDisabledInput extends Component{
     const state = this.props.compareState
     const string = this.props.compareString
     const operation = this.props.operation
-    const length = this.props.length
 
     return(
       <p>
@@ -16,8 +15,8 @@ export default class GenericDisabledInput extends Component{
 
           state === string ?
           <p>
-            <a class="ui small header"> {this.props.label} </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> {this.props.label} </a>
+            <div className="ui input fluid mini focus">
             <input
               disabled
               type={this.props.type}
@@ -26,8 +25,8 @@ export default class GenericDisabledInput extends Component{
           </p>
           :
           <p>
-            <a class="ui small header"> {this.props.label} </a>
-              <div class="ui input fluid mini focus">
+            <a className="ui small header"> {this.props.label} </a>
+              <div className="ui input fluid mini focus">
               <input
                 type={this.props.type}
                 onChange={this.props.handler}/>
@@ -36,8 +35,8 @@ export default class GenericDisabledInput extends Component{
           :
           state !== string ?
           <p>
-            <a class="ui small header"> {this.props.label} </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> {this.props.label} </a>
+            <div className="ui input fluid mini focus">
             <input
               disabled
               type={this.props.type}
@@ -46,8 +45,8 @@ export default class GenericDisabledInput extends Component{
           </p>
           :
           <p>
-            <a class="ui small header"> {this.props.label} </a>
-              <div class="ui input fluid mini focus">
+            <a className="ui small header"> {this.props.label} </a>
+              <div className="ui input fluid mini focus">
               <input
                 type={this.props.type}
                 onChange={this.props.handler}/>

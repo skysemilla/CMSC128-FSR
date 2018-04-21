@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 
 export default class AddStudyLoad extends Component {
   constructor(props) {
@@ -107,23 +104,23 @@ export default class AddStudyLoad extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="studyload"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
             ADD STUDY LOAD
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header">Degree Enrolled In </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Degree Enrolled In </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeDegree}
@@ -131,8 +128,8 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> University Enrolled In </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> University Enrolled In </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeUni}
@@ -140,11 +137,11 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <div class="ui form">
-              <div class="inline fields">
+            <div className="ui form">
+              <div className="inline fields">
                 <label>On Full Study Leave w/ Pay?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input
                       type="radio"
                       name="studyleave"
@@ -154,8 +151,8 @@ export default class AddStudyLoad extends Component {
                     <label>Yes</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input
                       type="radio"
                       name="studyleave"
@@ -169,11 +166,11 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <div class="ui form">
-              <div class="inline fields">
+            <div className="ui form">
+              <div className="inline fields">
                 <label>Recepient of Faculty Fellowship?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input
                       type="radio"
                       name="fellowship"
@@ -183,8 +180,8 @@ export default class AddStudyLoad extends Component {
                     <label>Yes</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input
                       type="radio"
                       name="fellowship"
@@ -197,8 +194,8 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Course Number </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Course Number </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeCourseno}
@@ -206,8 +203,8 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Course Credit </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Course Credit </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeCcred}
@@ -215,8 +212,8 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Days </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Days </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeDay}
@@ -224,8 +221,8 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Time </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Time </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeTime}
@@ -233,8 +230,8 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">School </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">School </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 onChange={this.handleChangeSchool}
@@ -242,17 +239,17 @@ export default class AddStudyLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Study Load Credits </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Study Load Credits </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 onChange={this.handleChangeSlcred}
               />
             </div>
           </p>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startAdd}>
               Add Study Load
             </button>

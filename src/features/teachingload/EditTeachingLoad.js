@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR'
-import SendtoAdmin from './../SendtoAdmin'
 
 export default class EditTeachingLoad extends Component {
   constructor(props) {
@@ -178,16 +175,16 @@ export default class EditTeachingLoad extends Component {
       <div className="App-header">
         <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
         <div
-          class="ui piled very padded text left aligned container segment mainDiv"
+          className="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               EDIT TEACHING LOAD
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject
+            <a className="ui small header"> Subject
              <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
               <select 
                 class = "dropdown"
@@ -217,7 +214,7 @@ export default class EditTeachingLoad extends Component {
                 }
               }
             )}
-            <a class="ui small header"> Section
+            <a className="ui small header"> Section
               <select 
                 class = "dropdown"
                 value = {this.state.seccode} 
@@ -238,8 +235,8 @@ export default class EditTeachingLoad extends Component {
             </a>
           </p>
           <p>
-            <a class="ui small header">No. of Students </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">No. of Students </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 placeholder={this.state.studnum}
@@ -247,9 +244,9 @@ export default class EditTeachingLoad extends Component {
               />
             </div>
           </p>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startEdit}>
               Edit Teaching Load
             </button>

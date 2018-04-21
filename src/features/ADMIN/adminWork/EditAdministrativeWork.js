@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR';
-import SendtoAdmin from './../../SendtoAdmin';
 
 export default class EditAdministrativeWork extends Component {
   constructor(props) {
@@ -65,40 +61,40 @@ export default class EditAdministrativeWork extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
           <NavBar {...this.props} Label="edit" subLabel="adminwork" />
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT ADMINISTRATIVE WORK</h2>
+              <h2 className="ui blue header">EDIT ADMINISTRATIVE WORK</h2>
             </div>
             <Divider hidden="true" />
             <p>
-              <a class="ui small header">
+              <a className="ui small header">
                 {' '}
                 Position/Nature of Adminstrative Work{' '}
               </a>
-              <div class="ui input fluid mini focus">
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handlePositionOfWork} />
               </div>
             </p>
 
             <p>
-              <a class="ui small header"> Office Unit </a>{' '}
+              <a className="ui small header"> Office Unit </a>{' '}
               {/* Can change to dropdown? */}
-              <div class="ui input fluid mini focus">
+              <div className="ui input fluid mini focus">
                 <input type="text" onChange={this.handleOfficeUnit} />
               </div>
             </p>
 
             <p>
-              <a class="ui small header"> Approved Credit Units </a>{' '}
+              <a className="ui small header"> Approved Credit Units </a>{' '}
               {/* Can change to number? */}
-              <div class="ui input fluid mini focus">
+              <div className="ui input fluid mini focus">
                 <input
                   type="number"
                   onChange={this.handleApprovedCreditUnits}
@@ -107,15 +103,15 @@ export default class EditAdministrativeWork extends Component {
             </p>
 
             <p>
-              <a class="ui small header"> Total Administrative Load Credits </a>{' '}
+              <a className="ui small header"> Total Administrative Load Credits </a>{' '}
               {/* Can change to dropdown? */}
-              <div class="ui input fluid mini focus">
+              <div className="ui input fluid mini focus">
                 <input type="number" onChange={this.handleTotalAdminCredits} />
               </div>
             </p>
 
-            <div class="ui center aligned container">
-              <button class="ui blue button" onClick={this.startAdd}>
+            <div className="ui center aligned container">
+              <button className="ui blue button" onClick={this.startAdd}>
                 Edit Administrative Work
               </button>
             </div>

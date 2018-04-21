@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 import ProfessorialChairViewRow from './ProfessorialChairViewRow';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 import NavBar from './../ui/NavBarAdmin'
 
 //Dummy data
@@ -51,14 +47,14 @@ export default class ViewProfessorialChair extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="profchair"/>
         </div>
-        <div className="bodydiv">
-        <div class="ui compact piled very padded text left aligned container segment" color="teal">
+        <div classNameName="bodydiv">
+        <div className="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
-            <h1 class="ui blue header">
+            <h1 className="ui blue header">
               PROFESSORIAL CHAIR
             </h1>
           </div>
@@ -67,15 +63,15 @@ export default class ViewProfessorialChair extends Component {
           <style>
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
-          <table class="ui celled table">
+          <table className="ui celled table">
             <thead>
               <tr>
-                <th class="center aligned"> Professorial Chair </th>
-                <th class="center aligned"> Grant </th>
-                <th class="center aligned"> Grant Title </th>
-                <th class="center aligned"> Approve Start Date </th>
-                <th class="center aligned"> End Date </th>
-                <th class="center aligned"> Edit/Delete </th>
+                <th className="center aligned"> Professorial Chair </th>
+                <th className="center aligned"> Grant </th>
+                <th className="center aligned"> Grant Title </th>
+                <th className="center aligned"> Approve Start Date </th>
+                <th className="center aligned"> End Date </th>
+                <th className="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
@@ -95,7 +91,7 @@ export default class ViewProfessorialChair extends Component {
               })}
             </tbody>
           </table>
-          <button class="ui blue right floated button" onClick={this.startAdd}>Add Professorial Chair</button>
+          <button className="ui blue right floated button" onClick={this.startAdd}>Add Professorial Chair</button>
           <Divider hidden="true" />
         </div>
         </div>

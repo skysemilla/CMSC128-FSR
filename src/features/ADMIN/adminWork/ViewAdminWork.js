@@ -45,14 +45,14 @@ export default class ViewAdminWork extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="adminwork"/>
         </div>
-        <div className="bodydiv">
-        <div class="ui compact piled very padded text left aligned container segment" color="teal">
+        <div classNameName="bodydiv">
+        <div className="ui compact piled very padded text left aligned container segment" color="teal">
           <div>
-            <h1 class="ui blue header">
+            <h1 className="ui blue header">
               VIEW ADMINISTRATIVE WORK
             </h1>
           </div>
@@ -61,14 +61,14 @@ export default class ViewAdminWork extends Component {
           <style>
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
-          <table class="ui celled table">
+          <table className="ui celled table">
             <thead>
               <tr>
-                <th class="center aligned">Position Of Work</th>
-                <th class="center aligned">Office Unit</th>
-                <th class="center aligned">Approved Credit Units</th>
-                <th class="center aligned">Total Admin Load Credits</th>
-                <th class="center aligned"> Edit/Delete </th>
+                <th className="center aligned">Position Of Work</th>
+                <th className="center aligned">Office Unit</th>
+                <th className="center aligned">Approved Credit Units</th>
+                <th className="center aligned">Total Admin Load Credits</th>
+                <th className="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@ export default class ViewAdminWork extends Component {
               })}
             </tbody>
           </table>
-          <button class="ui blue right floated button" onClick={this.startAdd}>Add Administrative Work</button>
+          <button className="ui blue right floated button" onClick={this.startAdd}>Add Administrative Work</button>
           <Divider hidden="true" />
           </div>
         </div>

@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
-import DeleteModal from '../../GenericDelete'
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 import ViewPublicationsRow from './PublicationsViewRow'
 import NavBar from './../ui/NavBarAdmin'
 
@@ -58,16 +54,16 @@ export default class ViewPublications extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="publications"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui compact piled very padded text left aligned container segment mainDiv"
+          className="ui compact piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               PUBLICATIONS
             </h2>
           </div>
@@ -75,19 +71,19 @@ export default class ViewPublications extends Component {
           <div>
 
           <style> {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`} </style>
-          <table class = "ui celled table">
+          <table className = "ui celled table">
               <thead>
                 <tr>
-                  <th class = "center aligned">Title</th>
-                  <th class = "center aligned">Type</th>
-                  <th class = "center aligned">Role</th>
-                  <th class = "center aligned">Co-workers</th>
-                  <th class = "center aligned">Funding</th>
-                  <th class = "center aligned">Start Date</th>
-                  <th class = "center aligned">End Date</th>
-                  <th class = "center aligned">Approved Credit Units</th>
-                  <th class = "center aligned">Total Workload Units</th>
-                  <th class = "center aligned">Edit/Delete</th>
+                  <th className = "center aligned">Title</th>
+                  <th className = "center aligned">Type</th>
+                  <th className = "center aligned">Role</th>
+                  <th className = "center aligned">Co-workers</th>
+                  <th className = "center aligned">Funding</th>
+                  <th className = "center aligned">Start Date</th>
+                  <th className = "center aligned">End Date</th>
+                  <th className = "center aligned">Approved Credit Units</th>
+                  <th className = "center aligned">Total Workload Units</th>
+                  <th className = "center aligned">Edit/Delete</th>
                 </tr>
               </thead>
             <tbody>
@@ -111,7 +107,7 @@ export default class ViewPublications extends Component {
               }
             </tbody>
           </table>
-            <button class="ui right floated blue button" onClick={this.startAdd}>
+            <button className="ui right floated blue button" onClick={this.startAdd}>
               Add Publication
             </button>
           </div>

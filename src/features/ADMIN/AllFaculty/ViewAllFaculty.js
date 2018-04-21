@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
@@ -58,32 +57,32 @@ export default class ViewApprovedFSR extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
           <NavBar {...this.props} Label="faculty" />
         </div>
         <Divider hidden="true" />
         <Divider hidden="true" />
         <Divider hidden="true" />
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
           <div
-            class="ui compact piled very padded container segment"
+            className="ui compact piled very padded container segment"
             color="teal">
-            <div class="ui two column grid">
-              <h1 class="ui blue header">VIEW ALL FACULTY</h1>
-              <div class="ui right floated search">
+            <div className="ui two column grid">
+              <h1 className="ui blue header">VIEW ALL FACULTY</h1>
+              <div className="ui right floated search">
                 <form onSubmit={this.searchFaculty}>
-                  <div class="ui icon input">
+                  <div className="ui icon input">
                     <input
-                      class="prompt"
+                      className="prompt"
                       type="text"
                       placeholder="Search by Name or ID..."
                       onChange={this.handleSearch}
                     />
-                    <i class="search icon" />
+                    <i className="search icon" />
                   </div>
                 </form>
-                <div class="results" />
+                <div className="results" />
               </div>
             </div>
             <Divider hidden="true" />
@@ -91,15 +90,15 @@ export default class ViewApprovedFSR extends Component {
             <style>
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <div className="scrollTable">
-              <table class="ui celled table">
+            <div classNameName="scrollTable">
+              <table className="ui celled table">
                 <thead>
                   <tr>
-                    <th class="center aligned"> Employee ID </th>
-                    <th class="center aligned"> Full Name </th>
-                    <th class="center aligned"> College </th>
-                    <th class="center aligned"> Department </th>
-                    <th class="center aligned"> Disable </th>
+                    <th className="center aligned"> Employee ID </th>
+                    <th className="center aligned"> Full Name </th>
+                    <th className="center aligned"> College </th>
+                    <th className="center aligned"> Department </th>
+                    <th className="center aligned"> Disable </th>
                   </tr>
                 </thead>
                 <tbody>

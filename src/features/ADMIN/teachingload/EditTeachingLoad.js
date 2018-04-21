@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 
 export default class EditTeachingLoad extends Component {
   constructor(props) {
@@ -124,17 +121,17 @@ export default class EditTeachingLoad extends Component {
         </div>
         <div>
         <div
-          class="ui piled very padded text left aligned container segment mainDiv"
+          className="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               EDIT TEACHING LOAD
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject</a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Subject</a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 placeholder={this.state.subj}
@@ -143,8 +140,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Section Code </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Section Code </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 placeholder={this.state.seccode}
@@ -153,8 +150,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Room </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Room </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 placeholder={this.state.room}
@@ -163,8 +160,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Days </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Days </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="text"
                 placeholder={this.state.days}
@@ -173,15 +170,15 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Start Time </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Start Time </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeStartTime}
               />
             </div>
-            <a class="ui small header">End Time </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">End Time </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="time"
                 onChange={this.handleChangeEndTime}
@@ -189,8 +186,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Hours per Week </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Hours per Week </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 placeholder={this.state.hours}
@@ -199,8 +196,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">No. of Students </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">No. of Students </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 placeholder={this.state.studnum}
@@ -209,8 +206,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Course Credit w/o Multiplier </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Course Credit w/o Multiplier </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 placeholder={this.state.creditwo}
@@ -219,8 +216,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Student Credit Units </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Student Credit Units </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 placeholder={this.state.studcred}
@@ -229,8 +226,8 @@ export default class EditTeachingLoad extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Teaching Load Credits w/ Multiplier </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header">Teaching Load Credits w/ Multiplier </a>
+            <div className="ui input fluid mini focus">
               <input
                 type="number"
                 placeholder={this.state.creditw}
@@ -238,9 +235,9 @@ export default class EditTeachingLoad extends Component {
               />
             </div>
           </p>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startEdit}>
               Edit Teaching Load
             </button>

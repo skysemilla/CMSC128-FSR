@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ProfessorialChairViewRow from './ProfessorialChairViewRow';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
 
 
@@ -98,18 +94,18 @@ export default class EditProfessorialChair extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT PROFESSORIAL CHAIR</h2>
+              <h2 className="ui blue header">EDIT PROFESSORIAL CHAIR</h2>
             </div>
             <Divider hidden="true" />
             <p>
-              <div class="ui form">
-                <div class="inline fields">
+              <div className="ui form">
+                <div className="inline fields">
                   <label>Are you a receipient or a nominee?</label>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input
                         type="radio"
                         name="nominee"
@@ -119,8 +115,8 @@ export default class EditProfessorialChair extends Component {
                       <label>Yes</label>
                     </div>
                   </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input
                         type="radio"
                         name="nominee"
@@ -137,13 +133,13 @@ export default class EditProfessorialChair extends Component {
             {this.state.nominee === 'Yes' ? (
               <div>
                 <p>
-                  <div class="ui form">
-                    <div class="inline fields">
+                  <div className="ui form">
+                    <div className="inline fields">
                       <label>
                         College has already nominated without appointment?
                       </label>
-                      <div class="field">
-                        <div class="ui radio checkbox">
+                      <div className="field">
+                        <div className="ui radio checkbox">
                           <input
                             type="radio"
                             name="nominated"
@@ -153,8 +149,8 @@ export default class EditProfessorialChair extends Component {
                           <label>Yes</label>
                         </div>
                       </div>
-                      <div class="field">
-                        <div class="ui radio checkbox">
+                      <div className="field">
+                        <div className="ui radio checkbox">
                           <input
                             type="radio"
                             name="nominated"
@@ -168,8 +164,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Professorial Chair </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Professorial Chair </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       type="text"
                       onChange={this.handleChangeProfChair}
@@ -178,8 +174,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Grant </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Grant </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       type="text"
                       onChange={this.handleChangeGrant}
@@ -188,8 +184,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Grant Title </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Grant Title </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       type="text"
                       onChange={this.handleChangeGrantTitle}
@@ -198,14 +194,14 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Start Date </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Start Date </a>
+                  <div className="ui input fluid mini focus">
                     <input type="date" onChange={this.handleChangeStartdate} />
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">End Date </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">End Date </a>
+                  <div className="ui input fluid mini focus">
                     <input type="date" onChange={this.handleChangeEndDate} />
                   </div>
                 </p>
@@ -214,13 +210,13 @@ export default class EditProfessorialChair extends Component {
             ) : (
               <div>
                 <p>
-                  <div class="ui form">
-                    <div class="inline fields">
+                  <div className="ui form">
+                    <div className="inline fields">
                       <label>
                         College has already nominated without appointment?
                       </label>
-                      <div class="field">
-                        <div class="ui radio checkbox">
+                      <div className="field">
+                        <div className="ui radio checkbox">
                           <input
                             disabled="disabled"
                             type="radio"
@@ -231,8 +227,8 @@ export default class EditProfessorialChair extends Component {
                           <label>Yes</label>
                         </div>
                       </div>
-                      <div class="field">
-                        <div class="ui radio checkbox">
+                      <div className="field">
+                        <div className="ui radio checkbox">
                           <input
                             disabled="disabled"
                             type="radio"
@@ -247,8 +243,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Professorial Chair </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Professorial Chair </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       disabled
                       type="text"
@@ -258,8 +254,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Grant </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Grant </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       disabled
                       type="text"
@@ -269,8 +265,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Grant Title </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Grant Title </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       disabled
                       type="text"
@@ -280,8 +276,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">Start Date </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">Start Date </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       disabled
                       type="date"
@@ -290,8 +286,8 @@ export default class EditProfessorialChair extends Component {
                   </div>
                 </p>
                 <p>
-                  <a class="ui small header">End Date </a>
-                  <div class="ui input fluid mini focus">
+                  <a className="ui small header">End Date </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       disabled
                       type="date"
@@ -303,10 +299,10 @@ export default class EditProfessorialChair extends Component {
               </div>
             )}
 
-            <div class="ui center aligned container">
-              <button class="ui blue button">Upload Attachment</button>
+            <div className="ui center aligned container">
+              <button className="ui blue button">Upload Attachment</button>
               <button
-                class="ui center aligned blue button"
+                className="ui center aligned blue button"
                 onClick={this.startAdd}>
                 Edit Professorial Chair
               </button>

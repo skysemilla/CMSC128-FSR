@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {
   Header,
   Button,
@@ -26,7 +25,7 @@ const errorTexts = [
   <span style={error}> {' <= 16 characters'}</span>,
   <span style={error}> {' must be alphanumeric'}</span>,
   <span style={error}> {' must be valid'}</span>,
-  <div class={messageClass}>
+  <div className={messageClass}>
     <p>
       <span style={error}>
         <center>{'Wrong Credentials!'}</center>
@@ -48,8 +47,8 @@ var formValid = {
 var errorCredMessage = <div />;
 var apiDidThen = false;
 var fetchDiv = (
-  <div class="ui active inverted dimmer">
-    <div class="ui indeterminate text loader">Loading Session Info</div>
+  <div className="ui active inverted dimmer">
+    <div className="ui indeterminate text loader">Loading Session Info</div>
   </div>
 );
 
@@ -160,10 +159,10 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="App-header">
-        <div class="ui blue inverted menu">
-          <a class="item">
-            <h1 class="ui white inverted header">
+      <div classNameName="App-header">
+        <div className="ui blue inverted menu">
+          <a className="item">
+            <h1 className="ui white inverted header">
               <Image src={require('./sample-logo-2.jpg')} />
               STAFS
             </h1>

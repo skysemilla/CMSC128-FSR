@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
-import { Divider, Checkbox } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import GenericDropdown from './../GenericDropdown';
 import ConsultationHourSubTypeDropdown from './ConsultationHourSubTypeDropdown';
 
@@ -112,13 +109,13 @@ export default class AddConsultationHours extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <NavBar {...this.props} />
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">ADD CONSULTATION HOURS</h2>
+            <h2 className="ui blue header">ADD CONSULTATION HOURS</h2>
           </div>
 
           <Divider hidden="true" />
@@ -153,15 +150,15 @@ export default class AddConsultationHours extends Component {
           </p>
 
           <p>
-            <a class="ui small header"> Place </a>
-            <div class="ui input fluid mini focus">
+            <a className="ui small header"> Place </a>
+            <div className="ui input fluid mini focus">
               <input type="text" onChange={this.handleChangePlace} />
             </div>
           </p>
           <Divider hidden="true" />
-          <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachments</button>
-            <button class="ui blue button" onClick={this.startAdd}>
+          <div className="ui center aligned container">
+            <button className="ui blue button">Upload Attachments</button>
+            <button className="ui blue button" onClick={this.startAdd}>
               Add Consultation Hours
             </button>
           </div>

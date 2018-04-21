@@ -41,8 +41,6 @@ import AddProfession from './../features/profession/AddProfession';
 import EditProfession from './../features/profession/EditProfession';
 import ViewProfession from './../features/profession/ViewProfession';
 
-import RedirectToTeachingLoad from './../features/ADMIN/teachingload/RedirectToTeachingLoad';
-
 import ViewApprovedFSR from './../features/ADMIN/ApprovedFSR/ViewApprovedFSR';
 import ViewPendingFSR from './../features/ADMIN/PendingFSR/ViewPendingFSR';
 import ViewAllFaculty from './../features/ADMIN/AllFaculty/ViewAllFaculty';

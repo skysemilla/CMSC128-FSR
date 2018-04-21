@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 // form validation
 const error = {
@@ -88,7 +85,7 @@ export default class AddProfession extends Component {
     ) {
       this.startAdd(e);
     }else if (
-      this.state.permission == 0 &&
+      this.state.permission === 0 &&
       !this.state.date
     ){
       this.startAdd(e);
@@ -96,7 +93,7 @@ export default class AddProfession extends Component {
   }
 
   startAdd(e) {
-    if(this.state.date === '') {this.state.date = 'null'}
+    if(this.state.date === '') {this.setState({date: 'null'})}
     e.preventDefault();
     Api.addLimitedPractice({
       haveApplied: this.state.permission,
@@ -122,21 +119,21 @@ export default class AddProfession extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">ADD LIMITED PRACTICE OF PROFESSION</h2>
+              <h2 className="ui blue header">ADD LIMITED PRACTICE OF PROFESSION</h2>
             </div>
             <Divider hidden="true" />
             <p>
-              <div class="ui form">
-                <div class="inline fields">
+              <div className="ui form">
+                <div className="inline fields">
                   <label>
                     Have you applied for official permission for limited
                     practice of profession?{formError.text.permission}
                   </label>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input
                         type="radio"
                         name="studyleave"
@@ -146,8 +143,8 @@ export default class AddProfession extends Component {
                       <label>Yes</label>
                     </div>
                   </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input
                         type="radio"
                         name="studyleave"
@@ -162,8 +159,8 @@ export default class AddProfession extends Component {
             </p>
             {this.state.permission !== "1" ? (
               <p>
-                <a class="ui small header">Date submitted </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Date submitted </a>
+                <div className="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
@@ -173,18 +170,18 @@ export default class AddProfession extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header">Date submitted{formError.text.date}</a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Date submitted{formError.text.date}</a>
+                <div className="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeDate} />
                 </div>
               </p>
             )}
-            <div class="ui center aligned container">
-              <button class="ui blue button" onClick={this.uploadAttachment}>
+            <div className="ui center aligned container">
+              <button className="ui blue button" onClick={this.uploadAttachment}>
                 Upload Attachments
               </button>
               <button
-                class="ui center aligned blue button"
+                className="ui center aligned blue button"
                 onClick={this.checkAdd}>
                 Add Profession
               </button>

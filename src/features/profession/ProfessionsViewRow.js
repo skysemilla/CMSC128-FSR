@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import { Modal } from 'semantic-ui-react';
 import DeleteModal from '../GenericDelete';
 
 export default class ViewPublicationsRow extends Component {
@@ -17,14 +16,14 @@ export default class ViewPublicationsRow extends Component {
   render() {
     return (
       <tr>
-        <td class="center aligned">{this.props.haveApplied == 1? "Yes":"No"}</td>
-        <td class="center aligned">{this.props.date_submitted === null? "N/A":this.props.date_submitted }</td>
-        <td class="center aligned">
-          <button class="ui large compact icon button" onClick={this.startView}>
-            <i class="eye icon"> </i>
+        <td className="center aligned">{this.props.haveApplied === 1? "Yes":"No"}</td>
+        <td className="center aligned">{this.props.date_submitted === null? "N/A":this.props.date_submitted }</td>
+        <td className="center aligned">
+          <button className="ui large compact icon button" onClick={this.startView}>
+            <i className="eye icon"> </i>
           </button>
         </td>
-        <td class="center aligned">
+        <td className="center aligned">
           <DeleteModal {...this.props} />
         </td>
       </tr>

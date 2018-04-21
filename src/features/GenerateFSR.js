@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react'
 import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../api';
 
 export default class GenerateFSR extends Component {
     constructor(props) {

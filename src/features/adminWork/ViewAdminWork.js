@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ViewAdminWorkRow from './AdminWorkViewRow';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
+import ViewAdminWorkRow from './AdminWorkViewRow'
 import NavBar from './../ui/NavBar';
 
 export default class ViewAdminWork extends Component {
@@ -35,27 +32,27 @@ export default class ViewAdminWork extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
-
+        <div><NavBar {...this.props} Label="FSR" subLabel="adminwork" /></div>
+        <div className="bodyDiv">
         <div
-          class="ui compact piled very padded text left aligned container segment"
+          className="ui compact piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h1 class="ui blue header">ADMINISTRATIVE WORK</h1>
+            <h1 className="ui blue header">ADMINISTRATIVE WORK</h1>
           </div>
           <Divider hidden="true" />
 
           <style>
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
-          <table class="ui celled table">
+          <table className="ui celled table">
             <thead>
               <tr>
-                <th class="center aligned">Nature Of Work</th>
-                <th class="center aligned">Office</th>
-                <th class="center aligned">Credit Units</th>
-                <th class="center aligned"> Attachments </th>
-                <th class="center aligned"> Edit/Delete </th>
+                <th className="center aligned">Nature Of Work</th>
+                <th className="center aligned">Office</th>
+                <th className="center aligned">Credit Units</th>
+                <th className="center aligned"> Attachments </th>
+                <th className="center aligned"> Edit/Delete </th>
               </tr>
             </thead>
             <tbody>
@@ -75,10 +72,11 @@ export default class ViewAdminWork extends Component {
               })}
             </tbody>
           </table>
-          <button class="ui blue right floated button" onClick={this.startAdd}>
+          <button className="ui blue right floated button" onClick={this.startAdd}>
             Add Administrative Work
           </button>
           <Divider hidden="true" />
+        </div>
         </div>
       </div>
     );

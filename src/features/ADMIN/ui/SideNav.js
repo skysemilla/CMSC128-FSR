@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from './../../../api';
 
 const activated = {
   value: 'item active'
@@ -121,52 +119,52 @@ export default class SideNav extends Component {
     return (
       <div>
         <Divider hidden="true" />
-        <div class="ui large inverted blue vertical menu flex-container large navDiv">
+        <div className="ui large inverted blue vertical menu flex-container large navDiv">
           <a
             id="teachingload"
-            class={this.state.teachingLoadClass}
+            className={this.state.teachingLoadClass}
             onClick={this.activateTeachingLoad.bind(this)}>
             Teaching Load
           </a>
           <a
             id="publications"
-            class={this.state.publicationsClass}
+            className={this.state.publicationsClass}
             onClick={this.activatePublications.bind(this)}>
             Publications
           </a>
           <a
             id="studyload"
-            class={this.state.studyLoadClass}
+            className={this.state.studyLoadClass}
             onClick={this.activateStudyLoad}>
             Study Load
           </a>
           <a
             id="extension"
-            class={this.state.extensionClass}
+            className={this.state.extensionClass}
             onClick={this.activateExtension}>
             Extension and Community Service
           </a>
           <a
             id="consultation"
-            class={this.state.consultationClass}
+            className={this.state.consultationClass}
             onClick={this.activateConsultation}>
             Consultation Hours
           </a>
           <a
             id="profession"
-            class={this.state.professionClass}
+            className={this.state.professionClass}
             onClick={this.activateProfession}>
             Limited Practice of Profession
           </a>
           <a
             id="profchair"
-            class={this.state.profChairClass}
+            className={this.state.profChairClass}
             onClick={this.activateProfChair}>
             Professorial Chair
           </a>
           <a
             id="adminwork"
-            class={this.state.adminWorkClass}
+            className={this.state.adminWorkClass}
             onClick={this.activateAdminWork}>
             Administrative Work
           </a>

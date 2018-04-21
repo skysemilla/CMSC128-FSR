@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 
 export default class EditAdministrativeWork extends Component {
@@ -40,7 +37,7 @@ export default class EditAdministrativeWork extends Component {
                 prev_office: result.data.data.office,
                 prev_credit_units: result.data.data.credit_units,
               });
-
+            })
             /*  console.log(result.data.data.emp_id );
               if(result.data.data.emp_id == "000000003")
               {
@@ -82,7 +79,8 @@ export default class EditAdministrativeWork extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
+        <div><NavBar {...this.props} Label="FSR" subLabel="adminwork" /></div>
+        <div className="bodyDiv">
         <div
           class="ui piled very padded text left aligned container segment"
           color="teal">
@@ -122,6 +120,7 @@ export default class EditAdministrativeWork extends Component {
               Edit Administrative Work
             </button>
           </div>
+        </div>
         </div>
         <Divider hidden="true" />
       </div>
