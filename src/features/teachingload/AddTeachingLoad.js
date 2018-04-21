@@ -8,6 +8,24 @@ import GenerateFSR from './../GenerateFSR'
 import SendtoAdmin from './../SendtoAdmin'
 import GenericDropdown from './../GenericDropdown'
 
+const errorTexts = [
+  <span style={{color: 'red'}}> {'This field is required'}</span>,
+  <span style={{color: 'red'}}> {'  must be valid'}</span>
+]
+
+var formError = {
+  text: {
+    subj: '',
+    seccode: '',
+    studnum: ''
+  },
+  bool: {
+    subj: false,
+    seccode: false,
+    studnum: false
+  }
+};
+
 export default class AddTeachingLoad extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +59,7 @@ export default class AddTeachingLoad extends Component {
     // this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
     // this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.startAdd = this.startAdd.bind(this);
+    this.checkInput = this.checkInput.bind(this); 
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -84,6 +103,42 @@ export default class AddTeachingLoad extends Component {
       })
       // .catch(e => alert(e));
       .catch(e => alert('Error adding new Teaching Load!'));
+  }
+
+  checkInput(e) {
+    e.preventDefault();
+    if(!this.state.subj){
+      formError.text.subj = errorTexts[0];
+      formError.bool.subj = false;
+    } else {
+      formError.text.subj = '';
+      formError.bool.subj = true;
+    }
+
+    if(!this.state.seccode){
+      formError.text.seccode = errorTexts[0];
+      formError.bool.seccode = false;
+    } else {
+      formError.text.seccode = '';
+      formError.bool.seccode = true;
+    }
+
+    if(!this.state.studnum){
+      formError.text.studnum = errorTexts[0];
+      formError.bool.studnum = false;
+    } else if (this.state.studnum <= 0 || this.state.studnum >= 200) {
+      formError.text.studnum = errorTexts[1];
+      formError.bool.studnum = false;
+    } else {
+      formError.text.studnum = '';
+      formError.bool.studnum = true;
+    }
+
+    if(formError.bool.subj &&
+        formError.bool.seccode &&
+        formError.bool.studNum) {
+      this.startAdd();
+    } else this.forceUpdate();
   }
 
   render() {
@@ -165,6 +220,7 @@ export default class AddTeachingLoad extends Component {
                   }
                 )}
               </select>
+              {formError.text.subj}
             </a>
           </p>
           <p>
@@ -194,10 +250,11 @@ export default class AddTeachingLoad extends Component {
                 }
               )}
               </select>
+              {formError.text.seccode}
             </a>
           </p>
           <p>
-            <a class="ui small header">No. of Students </a>
+            <a class="ui small header">No. of Students {formError.text.studnum}</a>
             <div class="ui input fluid mini focus">
               <input
                 type="number"
@@ -208,7 +265,7 @@ export default class AddTeachingLoad extends Component {
           <div class="ui center aligned container">
             <button
               class="ui center aligned blue button"
-              onClick={this.startAdd}>
+              onClick={this.checkInput}>
               Add Teaching Load
             </button>
           </div>

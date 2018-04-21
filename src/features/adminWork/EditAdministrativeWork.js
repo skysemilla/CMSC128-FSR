@@ -26,30 +26,30 @@ export default class EditAdministrativeWork extends Component {
   }
   
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({ emp_id: result.data.data.emp_id });
-        if (typeof this.props.history !== 'undefined') {
-          Api.viewPosition({
-            id : this.props.history.location.state.id
-          })
-            .then(result => {
-              this.setState({
-                emp_id : result.data.data.emp_id,
-                prev_nature_of_work: result.data.data.nature_of_work,
-                prev_office: result.data.data.office,
-                prev_credit_units: result.data.data.credit_units,
-              });
+    // Api.getSession().then(result => {
+    //   if (result.data.data !== null) {
+    //     this.setState({ emp_id: result.data.data.emp_id });
+    //     if (typeof this.props.history !== 'undefined') {
+    //       Api.viewPosition({
+    //         id : this.props.history.location.state.id
+    //       })
+    //         .then(result => {
+    //           this.setState({
+    //             emp_id : result.data.data.emp_id,
+    //             prev_nature_of_work: result.data.data.nature_of_work,
+    //             prev_office: result.data.data.office,
+    //             prev_credit_units: result.data.data.credit_units,
+    //           });
 
-            /*  console.log(result.data.data.emp_id );
-              if(result.data.data.emp_id == "000000003")
-              {
-                console.log("hi" );
-              }
-            })*/
-        }
-      }
-    });
+    //         /*  console.log(result.data.data.emp_id );
+    //           if(result.data.data.emp_id == "000000003")
+    //           {
+    //             console.log("hi" );
+    //           }
+    //         })*/
+    //     }
+    //   }
+    // });
   }
 
   handleChangeNature_of_work(e) {
