@@ -5,7 +5,7 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
-const nameRegex = /^[A-Za-z0-9\-']+$/;
+const nameRegex = /^[A-Za-z0-9\-'\s]+$/;
 const empIdRegex = /^[0-9]{9}$/;
 
 export default class ViewApprovedFSR extends Component {
@@ -23,8 +23,8 @@ export default class ViewApprovedFSR extends Component {
 
   componentDidMount() {
     Api.ViewApprovedFSR().then(result => {
-      if (result.data.data !== undefined) {
-        this.setState({ data: [result.data.data] });
+      if (result.data.data !== null) {
+        this.setState({ data: result.data.data });
       }
     });
   }
@@ -33,17 +33,27 @@ export default class ViewApprovedFSR extends Component {
     e.preventDefault();
     if (!this.state.search) {
       Api.ViewApprovedFSR().then(result => {
-        this.setState({ data: result.data.data[0] });
+        if (result.data.data !== null) {
+          this.setState({ data: result.data.data });
+        }
       });
     } else if (this.state.search.match(empIdRegex)) {
-      console.log('USES ID');
       Api.ViewApprovedFSRByID({ empid: this.state.search }).then(result => {
-        this.setState({ data: [result.data.data[0]] });
+        console.log(result.data.data);
+        if (result.data.data === null) {
+          alert('Search matches no result');
+        } else {
+          this.setState({ data: result.data.data });
+        }
       });
     } else if (this.state.search.match(nameRegex)) {
-      console.log('USES NAME');
       Api.ViewApprovedFSRByName({ name: this.state.search }).then(result => {
-        this.setState({ data: [result.data.data[0]] });
+        console.log(result.data.data);
+        if (result.data.data === null) {
+          alert('Search matches no result');
+        } else {
+          this.setState({ data: result.data.data });
+        }
       });
     } else {
       this.setState({ data: [] });
