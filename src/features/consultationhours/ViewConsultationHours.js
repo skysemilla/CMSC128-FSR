@@ -9,7 +9,6 @@ export default class ViewConsultationHours extends Component {
   componentDidMount() {
     Api.viewAllConsultations()
       .then(result => {
-        console.log(result);
         this.setState({ data: result.data.data });
       })
       .catch(err => alert(err));
@@ -63,7 +62,7 @@ export default class ViewConsultationHours extends Component {
                 {this.state.data.map(item => {
                   return (
                     <ViewConsultationHoursRow
-                      {...this.props.data}
+                      {...this.props}
                       id={item.emp_id}
                       day={item.day}
                       time={item.consultation_start_time}

@@ -28,9 +28,10 @@ export default class EditAdministrativeWork extends Component {
         this.setState({ emp_id: result.data.data.emp_id });
         if (typeof this.props.history !== 'undefined') {
           Api.viewPosition({
-            id : this.props.history.location.state.id
+            id : result.data.data.emp_id
           })
             .then(result => {
+              console.log(result);
               this.setState({
                 emp_id : result.data.data.emp_id,
                 prev_nature_of_work: result.data.data.nature_of_work,

@@ -23,40 +23,50 @@ export default class EditConsultationHours extends Component {
     super(props);
 
     this.state = {
-      days: [],
-      time: '',
-      place: '',
       consultation_start_time: '',
       consultation_end_time: '',
       consultation_place: '',
       day: '',
       emp_id: '',
-      timeTo: ''
+      consultation_id: ''
     };
 
-    this.handleChangeDays = this.handleChangeDays.bind(this);
     this.handleChangePlace = this.handleChangePlace.bind(this);
-    this.handleChangeConsultation_start_time = this.handleChangeConsultation_start_time.bind(
-      this
-    );
-    this.handleChangeConsultation_end_time = this.handleChangeConsultation_end_time.bind(
-      this
-    );
-    this.handleChangeConsultation_place = this.handleChangeConsultation_place.bind(
-      this
-    );
+    this.handleChangeConsultation_start_time = this.handleChangeConsultation_start_time.bind(this);
+    this.handleChangeConsultation_end_time = this.handleChangeConsultation_end_time.bind(this);
+    this.handleChangeConsultation_place = this.handleChangeConsultation_place.bind(this);
     this.handleChangeDay = this.handleChangeDay.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
 
   componentDidMount() {
     Api.getSession().then(result => {
-      this.setState({ emp_id: result.data.data.emp_id });
-    });
-  }
+      if (result.data.data !== null) {
+        this.setState({ emp_id: result.data.data.emp_id });
+        if (typeof this.props.history !== 'undefined') {
+          Api.viewConsultation({
+            id : result.data.data.emp_id
+          })
+            .then(result => {
+              console.log(result);
+              this.setState({
+                emp_id : result.data.data[0].emp_id,
+                prev_consultation_start_time: result.data.data[0].consultation_start_time,
+                prev_consultation_end_time: result.data.data[0].consultation_end_time,
+                prev_day: result.data.data[0].prev_day,
+                consultation_id: result.data.data[0].consultation_id
+              });
 
-  handleChangeConsultation_start_time(e) {
-    this.setState({ consultation_start_time: e.target.value });
+            /*  console.log(result.data.data.emp_id );
+              if(result.data.data.emp_id == "000000003")
+              {
+                console.log("hi" );
+              }
+            */
+            })
+        }
+      }
+    });
   }
 
   handleChangeConsultation_end_time(e) {
@@ -71,16 +81,8 @@ export default class EditConsultationHours extends Component {
     this.setState({ day: e.target.value });
   }
 
-  handleChangeDays(e) {
-    this.setState({ days: e.target.value });
-  }
-
-  handleChangeTimeTo(e) {
-    this.setState({ timeTo: e.target.value });
-  }
-
-  handleChangeTimeFrom(e) {
-    this.setState({ timeFrom: e.target.value });
+  handleChangeConsultation_start_time(e) {
+    this.setState({ consultation_start_time: e.target.value });
 
     var index;
     for (index = 0; index < timeIndex; index++) {
@@ -93,14 +95,16 @@ export default class EditConsultationHours extends Component {
   handleChangePlace(e) {
     this.setState({ place: e.target.value });
   }
+
   startAdd(e) {
     e.preventDefault();
     Api.editConsultation({
-      consultation_start_time: this.state.consultation_start_time,
-      consultation_end_time: this.state.consultation_end_time,
+      consultation_start_time: "10:00:00",
+      consultation_end_time: "11:00:00",
       consultation_place: this.state.consultation_place,
-      day: this.state.day,
-      emp_id: this.state.emp_id
+      day: "Tuesday",
+      emp_id: this.state.emp_id, 
+      consultation_id: this.state.consultation_id,
     })
       .then(result => {
         this.props.history.push('./publications/view'); //change to profile later!!
@@ -128,7 +132,7 @@ export default class EditConsultationHours extends Component {
                   <input
                     type="checkbox"
                     value="MON"
-                    onClick={this.handleChangeDays.bind(this.state.days)}
+                    onClick={this.handleChangeDay}
                   />
                   <label> Monday </label>
                 </div>
@@ -138,7 +142,7 @@ export default class EditConsultationHours extends Component {
                   <input
                     type="checkbox"
                     value="TUE"
-                    onClick={this.handleChangeDays.bind(this.state.days)}
+                    onClick={this.handleChangeDay}
                   />
                   <label> Tuesday </label>
                 </div>
@@ -148,7 +152,7 @@ export default class EditConsultationHours extends Component {
                   <input
                     type="checkbox"
                     value="WED"
-                    onClick={this.handleChangeDays.bind(this.state.days)}
+                    onClick={this.handleChangeDay}
                   />
                   <label> Wednesday </label>
                 </div>
@@ -158,7 +162,7 @@ export default class EditConsultationHours extends Component {
                   <input
                     type="checkbox"
                     value="THU"
-                    onClick={this.handleChangeDays.bind(this.state.days)}
+                    onClick={this.handleChangeDay}
                   />
                   <label> Thursday </label>
                 </div>
@@ -168,7 +172,7 @@ export default class EditConsultationHours extends Component {
                   <input
                     type="checkbox"
                     value="FRI"
-                    onClick={this.handleChangeDays.bind(this.state.days)}
+                    onClick={this.handleChangeDay}
                   />
                   <label> Friday </label>
                 </div>
@@ -178,7 +182,7 @@ export default class EditConsultationHours extends Component {
             <p>
               <a className="ui small header"> Time </a>
               <div className="ui input fluid mini focus">
-                <input type="time" onChange={this.handleChangePlace} />
+                <input type="time" />
               </div>
             </p>
 
