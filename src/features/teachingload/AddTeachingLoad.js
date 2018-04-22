@@ -4,23 +4,23 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
-const errorTexts = [
-  <span style={{ color: 'red' }}> {'This field is required'}</span>,
-  <span style={{ color: 'red' }}> {'  must be valid'}</span>
-];
+// const errorTexts = [
+//   <span style={{color: 'red'}}> {'This field is required'}</span>,
+//   <span style={{color: 'red'}}> {'  must be valid'}</span>
+// ]
 
-var formError = {
-  text: {
-    subj: '',
-    seccode: '',
-    studnum: ''
-  },
-  bool: {
-    subj: false,
-    seccode: false,
-    studnum: false
-  }
-};
+// var formError = {
+//   text: {
+//     subj: '',
+//     seccode: '',
+//     studnum: ''
+//   },
+//   bool: {
+//     subj: false,
+//     seccode: false,
+//     studnum: false
+//   }
+// };
 
 export default class AddTeachingLoad extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export default class AddTeachingLoad extends Component {
     // this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
     // this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.startAdd = this.startAdd.bind(this);
-    this.checkInput = this.checkInput.bind(this);
+    // this.checkInput = this.checkInput.bind(this); 
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -63,7 +63,6 @@ export default class AddTeachingLoad extends Component {
     Api.viewAllSubjects().then(response => {
       if (response.data.data[0] !== undefined) {
         this.setState({ data: response.data.data });
-        console.log(response.data.data);
       }
     });
   }
@@ -77,7 +76,7 @@ export default class AddTeachingLoad extends Component {
   }
 
   handleChangeStudnum(e) {
-    this.setState({ studnum: e.target.value });
+    this.setState({ studnum: e.target.value });         
   }
 
   handleLogout(e) {
@@ -101,43 +100,41 @@ export default class AddTeachingLoad extends Component {
       .catch(e => alert('Error adding new Teaching Load!'));
   }
 
-  checkInput(e) {
-    e.preventDefault();
-    if (!this.state.subj) {
-      formError.text.subj = errorTexts[0];
-      formError.bool.subj = false;
-    } else {
-      formError.text.subj = '';
-      formError.bool.subj = true;
-    }
+  // checkInput(e) {
+  //   e.preventDefault();
+  //   if(!this.state.subj){
+  //     formError.text.subj = errorTexts[0];
+  //     formError.bool.subj = false;
+  //   } else {
+  //     formError.text.subj = '';
+  //     formError.bool.subj = true;
+  //   }
 
-    if (!this.state.seccode) {
-      formError.text.seccode = errorTexts[0];
-      formError.bool.seccode = false;
-    } else {
-      formError.text.seccode = '';
-      formError.bool.seccode = true;
-    }
+  //   if(!this.state.seccode){
+  //     formError.text.seccode = errorTexts[0];
+  //     formError.bool.seccode = false;
+  //   } else {
+  //     formError.text.seccode = '';
+  //     formError.bool.seccode = true;
+  //   }
 
-    if (!this.state.studnum) {
-      formError.text.studnum = errorTexts[0];
-      formError.bool.studnum = false;
-    } else if (this.state.studnum <= 0 || this.state.studnum >= 200) {
-      formError.text.studnum = errorTexts[1];
-      formError.bool.studnum = false;
-    } else {
-      formError.text.studnum = '';
-      formError.bool.studnum = true;
-    }
+  //   if(!this.state.studnum){
+  //     formError.text.studnum = errorTexts[0];
+  //     formError.bool.studnum = false;
+  //   } else if (this.state.studnum <= 0 || this.state.studnum >= 200) {
+  //     formError.text.studnum = errorTexts[1];
+  //     formError.bool.studnum = false;
+  //   } else {
+  //     formError.text.studnum = '';
+  //     formError.bool.studnum = true;
+  //   }
 
-    if (
-      formError.bool.subj &&
-      formError.bool.seccode &&
-      formError.bool.studnum
-    ) {
-      this.startAdd(e);
-    } else this.forceUpdate();
-  }
+  //   if(formError.bool.subj &&
+  //       formError.bool.seccode &&
+  //       formError.bool.studnum) {
+  //     this.startAdd(e);
+  //   } else this.forceUpdate();
+  // }
 
   render() {
     var optionsArray = [];
@@ -168,88 +165,125 @@ export default class AddTeachingLoad extends Component {
       });
     });
 
-    optionsArray.map(data => {
-      console.log(data.section);
-    });
-
     return (
       <div className="App-header">
         <div>
           <NavBar {...this.props} Label="FSR" subLabel="teachingload" />
         </div>
         <div className="bodyDiv">
-          <div
-            className="ui piled very padded text left aligned container segment mainDiv"
-            color="teal">
-            <div>
-              <h2 className="ui blue header">ADD TEACHING LOAD</h2>
-            </div>
-            <Divider hidden="true" />
-            <p>
-              <a className="ui small header">
-                {' '}
-                Subject
-                <style>
-                  {' '}
-                  {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`}{' '}
-                </style>
-                <select
-                  class="dropdown"
-                  value={this.state.subj}
-                  onChange={this.handleChangeSubj}>
-                  <option value="" disabled selected hidden>
-                    {' '}
-                    Choose Subject{' '}
-                  </option>
-                  {optionsArray.map(item => {
-                    return <option value={item.subject}>{item.subject}</option>;
-                  })}
-                </select>
-                {formError.text.subj}
-              </a>
-            </p>
-            <p>
-              {optionsArray.map(item => {
-                if (this.state.subj === item.subject) {
-                  secArray = item.section;
+        <div
+          className="ui piled very padded text left aligned container segment mainDiv"
+          color="teal">
+          <div>
+            <h2 className="ui blue header">
+              ADD TEACHING LOAD
+            </h2>
+          </div>
+          <Divider hidden="true" />
+          <p>
+            <a className="ui small header"> Subject
+               <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
+              <select 
+                class = "dropdown"
+                value = {this.state.subj} 
+                onChange = {this.handleChangeSubj}>
+
+              <option value = "" disabled selected hidden> Choose Subject </option>
+              {
+                optionsArray.map(
+                  (item)=>{
+                    return(
+                      <option value = {item.subject}>
+                      {item.subject}
+                      </option>
+                    )
+                  }
+                )}
+              </select>
+            </a>
+            {
+              this.state.subj === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                <div>
+                </div>
+            }
+          </p>
+          <p>
+            {
+              optionsArray.map(
+                (item)=>{
+                  if(this.state.subj === item.subject){
+                    secArray = item.section;
                 }
-              })}
-              <a className="ui small header">
-                {' '}
-                Section
-                <select
-                  className="dropdown"
-                  value={this.state.seccode}
-                  onChange={this.handleChangeSeccode}>
-                  <option value="" disabled selected hidden>
-                    {' '}
-                    Choose Section{' '}
-                  </option>
-                  {secArray.map(item => {
-                    return <option value={item}>{item}</option>;
-                  })}
-                </select>
-                {formError.text.seccode}
-              </a>
-            </p>
-            <p>
-              <a className="ui small header">
-                No. of Students {formError.text.studnum}
-              </a>
-              <div className="ui input fluid mini focus">
-                <input type="number" onChange={this.handleChangeStudnum} />
-              </div>
-            </p>
-            <div className="ui center aligned container">
-              <button
-                className="ui center aligned blue button"
-                onClick={this.checkInput}>
-                Add Teaching Load
-              </button>
+              }
+            )}
+            <a className="ui small header"> Section
+              <select 
+                className = "dropdown"
+                value = {this.state.seccode} 
+                onChange = {this.handleChangeSeccode}>
+
+              <option value = "" disabled selected hidden> Choose Section </option>
+              {
+              secArray.map(
+                (item)=>{
+                  return(
+                    <option value = {item}>
+                      {item}
+                    </option>
+                  )
+                }
+              )}
+              </select>
+            </a>
+            {
+              this.state.seccode === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                <div>
+                </div>
+            }
+          </p>
+          <p>
+            <a className="ui small header">No. of Students</a>
+            <div className="ui input fluid mini focus">
+              <input
+                type="number"
+                onChange={this.handleChangeStudnum}
+              />
+              {
+                this.state.studnum === '' ?
+                  <div className = "ui left pointing red basic label">
+                    Required
+                  </div>
+                  :
+                  [
+                    (this.state.studnum <= 0 || this.state.studnum >= 200)?
+                    <div className = "ui left pointing red basic label">
+                      Invalid input
+                    </div>
+                    :
+                    <div>
+                    </div>
+                  ]
+              }
             </div>
+          </p>
+          <div className="ui center aligned container">
+            <button
+              className="ui center aligned blue button"
+              onClick={this.startAdd}>
+              Add Teaching Load
+            </button>
           </div>
         </div>
         <Divider hidden="true" />
+      </div>
       </div>
     );
   }
