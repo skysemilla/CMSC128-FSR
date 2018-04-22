@@ -21,16 +21,17 @@ export default class EditAdministrativeWork extends Component {
     this.handleChangeCreditUnits = this.handleChangeCreditUnits.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
-
+  
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
         if (typeof this.props.history !== 'undefined') {
           Api.viewPosition({
-            id : this.props.history.location.state.id
+            id : result.data.data.emp_id
           })
             .then(result => {
+              console.log(result);
               this.setState({
                 emp_id : result.data.data.emp_id,
                 prev_nature_of_work: result.data.data.nature_of_work,
@@ -70,7 +71,7 @@ export default class EditAdministrativeWork extends Component {
       credit_units: this.state.credit_units,
     })
       .then(result => {
-        this.props.history.push('./view'); //change to profile later!!
+        this.props.history.push('./positions/view'); //change to profile later!!
         alert('Position successfully added!');
       })
       .catch(e => alert('Edited Position!'));
@@ -94,17 +95,7 @@ export default class EditAdministrativeWork extends Component {
               Nature of Adminstrative Work{' '}
             </a>
             <div className="ui input fluid mini focus">
-              <input type="text"
-                value={this.state.nature_of_work}
-                onChange={this.handleChangeNature_of_work}
-              />
-              {this.state.nature_of_work === '' ?
-                (
-                  <div className="ui left pointing red basic label">
-                  Required
-                  </div>
-                ) : (<div></div>)
-              }
+              <input type="text" placeholder={this.state.prev_nature_of_work} onChange={this.handleChangeNature_of_work} />
             </div>
           </p>
 
@@ -112,17 +103,7 @@ export default class EditAdministrativeWork extends Component {
             <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
             <div className="ui input fluid mini focus">
-              <input type="text"
-                value={this.state.office}
-                onChange={this.handleChangeOffice}
-              />
-              {this.state.office === '' ?
-                (
-                  <div className="ui left pointing red basic label">
-                  Required
-                  </div>
-                ) : (<div></div>)
-              }
+              <input type="text" placeholder={this.state.prev_office} onChange={this.handleChangeOffice} />
             </div>
           </p>
 
@@ -130,17 +111,7 @@ export default class EditAdministrativeWork extends Component {
             <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
             <div className="ui input fluid mini focus">
-              <input type="number"
-                value={this.state.credit_units}
-                onChange={this.handleChangeCreditUnits}
-              />
-              {this.state.credit_units === '' ?
-                (
-                  <div className="ui left pointing red basic label">
-                  Required
-                  </div>
-                ) : (<div></div>)
-              }
+              <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
             </div>
           </p>
 

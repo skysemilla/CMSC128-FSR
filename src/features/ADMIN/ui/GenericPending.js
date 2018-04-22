@@ -37,12 +37,13 @@ export default class GenericPending extends Component {
 
   startGenerate(){
     this.close();
-    console.log(this.props.id);
-    var printWindow = window.open( "/AAA?empid="+this.props.id, 'print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
-    printWindow.addEventListener('load', function(){
-        printWindow.print();
-        printWindow.close();
-    }, true);
+    this.props.history.push('../../AAA', { id: this.props.id });
+    // console.log(this.props.id);
+    // var printWindow = window.open( "/AAA", 'print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
+    // printWindow.addEventListener('load', function(){
+    //     printWindow.print();
+    //     printWindow.close();
+    // }, true);
   }
 
   render() {
