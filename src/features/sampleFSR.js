@@ -10,34 +10,19 @@ export default class myApp extends Component {
 
     this.state = {
       //id: this.props.id
-      id: '000000001',
+      id: this.props.location.state.id,
       pubs: [],
       profile: '',
       adminwork: [],
       extension: [],
       profchair: [],
       profession: [],
-      teachload: []
+      teachingload: []
     };
   }
 
   componentDidMount() {
-    console.log(this.state.id);
-    //Publications
-    Api.viewPublications({ empid: this.state.id }).then(result => {
-      if (result.data.data !== null) {
-        this.setState({ pubs: result.data.data[0] });
-        this.state.pubs.map(item => {
-          Api.getCoworkers({
-            id: item.publication_id
-          }).then(result => {
-            item.Coworkers = result.data.data;
-          });
-        });
-      }
-    });
-
-    //Profile
+        //Profile
     Api.getEmployeeData({ empid: this.state.id }).then(res => {
       this.setState({ profile: res.data.data });
       if (res.data.data.is_studying === 0) {
@@ -47,43 +32,39 @@ export default class myApp extends Component {
       } else {
         this.setState({ profile: { ...this.state.profile, is_full_time: 'NO' } });
       }
+      //extension
+      Api.viewExtension({ id: this.state.id }).then(result => {
+        console.log(result.data.data);
+        if (result.data.data !== null) {
+          this.setState({ extension: result.data.data });
+        }
+          //professorial chair
+          Api.viewFacultyGrant({id: this.state.id }).then(result => {
+            if (result.data.data !== null) {
+              this.setState({ profchair: result.data.data[0] });
+            }
+              //practice of profession
+              Api.viewLimitedPractice({ emp_id: this.state.id }).then(result => {
+                if (result.data.data !== null) {
+                  this.setState({ profession: result.data.data[0]});
+                }
+                window.print();
+              });
+          });
+      }); 
     });
+
+    //publications
 
     //adminWork
-    Api.viewAllPositions()
-    .then(result => {
-      this.setState({ adminwork: result.data.data });
-    })
 
-    //extension
-    Api.viewExtension({ id: this.state.id }).then(result => {
-      console.log(result.data.data);
-      if (result.data.data !== null) {
-        this.setState({ extension: result.data.data });
-      }
-    }); 
-
-    //professorial chair
-    Api.viewFacultyGrant({id: this.state.id }).then(result => {
-      if (result.data.data !== null) {
-        this.setState({ profchair: result.data.data[0] });
-      }
-    });
-
-    //practice of profession
-    Api.viewLimitedPractice({ emp_id: this.state.id }).then(result => {
-      if (result.data.data !== null) {
-        this.setState({ profession: result.data.data[0]});
-      }
-    });
 
     //teaching load
-    Api.viewTeachLoad({ emp_id: this.state.id }).then(result => {
-      if (result.data.data !== null) {
-        console.log(result.data.data[0]);
-        this.setState({ profession: result.data.data[0]});
-      }
-    });
+
+    //study load
+
+    //consultation hours
+
     //window.print();
   }
 
