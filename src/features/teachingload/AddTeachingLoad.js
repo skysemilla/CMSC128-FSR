@@ -63,7 +63,6 @@ export default class AddTeachingLoad extends Component {
     Api.viewAllSubjects().then(response => {
       if (response.data.data[0] !== undefined) {
         this.setState({ data: response.data.data });
-        console.log(response.data.data);
       }
     });
   }
@@ -173,12 +172,6 @@ export default class AddTeachingLoad extends Component {
           }
         });
       });
-    }
-
-    {
-      optionsArray.map(data=>{
-        console.log(data.section);
-      })
     }
 
     return (
