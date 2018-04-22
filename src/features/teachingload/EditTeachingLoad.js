@@ -261,6 +261,22 @@ export default class EditTeachingLoad extends Component {
                 placeholder={this.state.studnum}
                 onChange={this.handleChangeStudnum}
               />
+              {
+                this.state.studnum === '' ?
+                  <div className = "ui left pointing red basic label">
+                    Required
+                  </div>
+                  :
+                  [
+                    (this.state.studnum <= 0 || this.state.studnum >= 200)?
+                    <div className = "ui left pointing red basic label">
+                      Invalid input
+                    </div>
+                    :
+                    <div>
+                    </div>
+                  ]
+              }
             </div>
           </p>
           <div className="ui center aligned container">
