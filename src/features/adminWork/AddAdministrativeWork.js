@@ -71,7 +71,16 @@ export default class AddAdministrativeWork extends Component {
               Position/Nature of Adminstrative Work{' '}
             </a>
             <div className="ui input fluid mini focus">
-              <input type="text" onChange={this.handleChangeNature_of_work} />
+              <input type="text"
+                onChange={this.handleChangeNature_of_work}
+              />
+              {this.state.nature_of_work === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
+              }
             </div>
           </p>
 
@@ -79,7 +88,16 @@ export default class AddAdministrativeWork extends Component {
             <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
             <div className="ui input fluid mini focus">
-              <input type="text" onChange={this.handleChangeOffice} />
+              <input type="text"
+                onChange={this.handleChangeOffice}
+              />
+              {this.state.office === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
+              }
             </div>
           </p>
 
@@ -87,7 +105,16 @@ export default class AddAdministrativeWork extends Component {
             <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
             <div className="ui input fluid mini focus">
-              <input type="number" onChange={this.handleChangeCreditUnits} />
+              <input type="number"
+                onChange={this.handleChangeCreditUnits}
+              />
+              {this.state.credit_units === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
+              }
             </div>
           </p>
 
