@@ -59,7 +59,7 @@ export default class AddTeachingLoad extends Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     Api.viewAllSubjects().then(response => {
       if (response.data.data[0] !== undefined) {
         this.setState({ data: response.data.data });
@@ -92,7 +92,7 @@ export default class AddTeachingLoad extends Component {
       section_code: this.state.seccode,
       no_of_students: this.state.studnum
     })
-      .then(result =>{
+      .then(result => {
         this.props.history.push('./view'); //change to profile later!!
         alert('Teachingload successfully added!');
       })
@@ -142,42 +142,33 @@ export default class AddTeachingLoad extends Component {
     var suppDup = [];
     var suppDup2 = [];
 
-    {
-      this.state.data.map(item=>{
-        suppDup.push(item.subject_code);
-      });
+    this.state.data.map(item => {
+      suppDup.push(item.subject_code);
+    });
+
+    for (var count = 0; count < suppDup.length; count++) {
+      if (suppDup2.includes(suppDup[count]) !== true) {
+        suppDup2.push(suppDup[count]);
+      }
     }
 
-    {
-      for(var count = 0; count < suppDup.length; count++){
-        if(suppDup2.includes(suppDup[count]) !== true){
-          suppDup2.push(suppDup[count]);
+    for (count = 0; count < suppDup2.length; count++) {
+      var values = { subject: suppDup2[count], section: [] };
+      optionsArray.push(values);
+    }
+
+    this.state.data.map(item => {
+      optionsArray.map(data => {
+        if (data.subject === item.subject_code) {
+          data.section.push(item.section_code);
         }
-      }
-    }
-
-    {
-      for(count = 0; count < suppDup2.length; count++){
-        var values = {subject : suppDup2[count], section : []}
-        optionsArray.push(values);
-      }
-    }
-
-    {
-      this.state.data.map(item=>{
-      
-        optionsArray.map(data=>{
-          if(data.subject === item.subject_code){
-            data.section.push(item.section_code);
-          }
-        });
       });
-    }
+    });
 
     return (
       <div className="App-header">
-      <div>
-        <NavBar {...this.props} Label="FSR" subLabel="teachingload"/>
+        <div>
+          <NavBar {...this.props} Label="FSR" subLabel="teachingload" />
         </div>
         <div className="bodyDiv">
         <div
@@ -290,7 +281,6 @@ export default class AddTeachingLoad extends Component {
               Add Teaching Load
             </button>
           </div>
-        </div>
         </div>
         <Divider hidden="true" />
       </div>

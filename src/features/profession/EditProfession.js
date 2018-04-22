@@ -50,8 +50,8 @@ export default class EditProfession extends Component {
     ) {
       e.preventDefault();
       this.state.permission === 'YES'
-        ? (this.state.permission = 1)
-        : (this.state.permission = 0);
+        ? this.setState({ ...this.state, permission: 1 })
+        : this.setState({ ...this.state, permission: 0 });
       Api.editLimitedPractice({
         haveApplied: this.state.permission,
         date_submitted: this.state.date,
