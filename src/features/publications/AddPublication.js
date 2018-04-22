@@ -45,7 +45,7 @@ const errorTexts = [
   <span style={error}> {' *required'}</span> //8
 ];
 
-const alphanumRegex = /^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/;
+const alphanumRegex = /^[a-zA-Z0-9 ]*[a-zA-Z ][a-zA-Z0-9 ]*$/;
 const numRegex = /^[0-9]+$/;
 
 
