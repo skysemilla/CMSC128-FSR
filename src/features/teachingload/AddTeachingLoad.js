@@ -284,6 +284,7 @@ export default class AddTeachingLoad extends Component {
         </div>
         <Divider hidden="true" />
       </div>
+      </div>
     );
   }
 }
