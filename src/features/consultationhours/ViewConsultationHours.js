@@ -53,7 +53,8 @@ export default class ViewConsultationHours extends Component {
               <thead>
                 <tr>
                   <th className="center aligned"> Days </th>
-                  <th className="center aligned"> Time </th>
+                  <th className="center aligned"> Start Time </th>
+                  <th className="center aligned"> End Time </th>
                   <th className="center aligned"> Place </th>
                   <th className="center aligned"> Edit/Delete </th>
                   <th className="center aligned"> Attachments </th>
@@ -63,10 +64,11 @@ export default class ViewConsultationHours extends Component {
                 {this.state.data.map(item => {
                   return (
                     <ViewConsultationHoursRow
-                      {...this.props.data}
+                      {...this.props}
                       id={item.emp_id}
                       day={item.day}
-                      time={item.consultation_start_time}
+                      start_time={item.consultation_start_time}
+                      end_time={item.consultation_end_time}
                       place={item.consultation_place}
                       editURL="../consultationhours/edit"
                       label="Consultation Hours"

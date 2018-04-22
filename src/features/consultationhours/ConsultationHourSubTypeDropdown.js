@@ -8,8 +8,6 @@ export default class ConsultationHoursSubTypeDropdown extends Component {
         <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
         <p>
           <a className="ui small header">
-            {' '}
-            Time To
             <select
               className="dropdown"
               value={this.props.value}
