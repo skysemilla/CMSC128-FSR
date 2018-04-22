@@ -16,6 +16,10 @@ export const viewTeachLoad = () => {
 	return axios.post('/api/teachload/view')
 };
 
+export const viewTeachLoadEmpAdmin = emp_id => {
+	return axios.post('/api/teachload/viewempadmin', emp_id)
+};
+
 export const viewAllTeachLoad = () => {
 	return axios.post('/api/teachload/viewAll');
 };
