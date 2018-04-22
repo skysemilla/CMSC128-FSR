@@ -21,7 +21,7 @@ export default class EditAdministrativeWork extends Component {
     this.handleChangeCreditUnits = this.handleChangeCreditUnits.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
-  
+
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
@@ -94,7 +94,17 @@ export default class EditAdministrativeWork extends Component {
               Nature of Adminstrative Work{' '}
             </a>
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_nature_of_work} onChange={this.handleChangeNature_of_work} />
+              <input type="text"
+                value={this.state.nature_of_work}
+                onChange={this.handleChangeNature_of_work}
+              />
+              {this.state.nature_of_work === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
+              }
             </div>
           </p>
 
@@ -102,7 +112,17 @@ export default class EditAdministrativeWork extends Component {
             <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_office} onChange={this.handleChangeOffice} />
+              <input type="text"
+                value={this.state.office}
+                onChange={this.handleChangeOffice}
+              />
+              {this.state.office === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
+              }
             </div>
           </p>
 
@@ -110,7 +130,17 @@ export default class EditAdministrativeWork extends Component {
             <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
             <div className="ui input fluid mini focus">
-              <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
+              <input type="number"
+                value={this.state.credit_units}
+                onChange={this.handleChangeCreditUnits}
+              />
+              {this.state.credit_units === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
+              }
             </div>
           </p>
 
