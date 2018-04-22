@@ -35,9 +35,9 @@ export default class ViewConsultationHours extends Component {
       return (
         <div className="App-header">
           <NavBar {...this.props} Label="FSR" subLabel="consultationhours" />
-
+          <div className="bodyDiv">
           <div
-            className="ui compact piled very padded text left aligned container segment"
+            className="ui compact piled very padded text left aligned container segment mainDiv"
             color="teal">
             <div>
               <h1 className="ui blue header">CONSULTATION HOURS</h1>
@@ -83,6 +83,7 @@ export default class ViewConsultationHours extends Component {
               onClick={this.startAdd}>
               Add Consultation Hours
             </button>
+            </div>
             <Divider hidden="true" />
           </div>
         </div>

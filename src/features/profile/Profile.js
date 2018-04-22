@@ -58,6 +58,7 @@ export default class Profile extends Component {
           subLabel=""
           is_being_approved={this.state.data.is_being_approved}
         />
+        <div className="bodyDiv"/>
         <div
           className="ui piled very padded text left aligned container segment"
           color="teal">

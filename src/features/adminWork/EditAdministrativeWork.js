@@ -70,7 +70,7 @@ export default class EditAdministrativeWork extends Component {
       credit_units: this.state.credit_units,
     })
       .then(result => {
-        this.props.history.push('./positions/view'); //change to profile later!!
+        this.props.history.push('./view'); //change to profile later!!
         alert('Position successfully added!');
       })
       .catch(e => alert('Edited Position!'));
