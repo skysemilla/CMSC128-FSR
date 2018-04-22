@@ -31,6 +31,13 @@ const errorTexts = [
         <center>{'Wrong Credentials!'}</center>
       </span>
     </p>
+  </div>,
+  <div className={messageClass}>
+    <p>
+      <span style={error}>
+        <center>{'This account is disabled'}</center>
+      </span>
+    </p>
   </div>
 ];
 
@@ -38,8 +45,6 @@ const alphanumRegex = /^[A-Za-z0-9]+$/;
 const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
 
 var formValid = {
-  userError: '',
-  passError: '',
   userValid: false,
   passValid: false
 };
@@ -70,15 +75,23 @@ export default class Login extends Component {
 
   componentDidMount() {
     errorCredMessage = <div />;
+    this.forceUpdate();
     setTimeout(
       Api.getSession().then(result => {
         if (result.data.data !== null) {
-          this.setState({ type: result.data.data.type });
-          if (this.state.type === 'ADMIN') {
-            this.props.history.push('/admin/ViewAllFaculty');
-          } else if (this.state.type === 'FACULTY') {
-            this.props.history.push('/profile');
-          }
+          Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
+            if (res.data.data.is_active === 1) {
+              this.setState({ type: res.data.data.type });
+              if (this.state.type === 'ADMIN') {
+                this.props.history.push('/admin/ViewAllFaculty');
+              } else if (this.state.type === 'FACULTY') {
+                this.props.history.push('/profile');
+              }
+            } else {
+              errorCredMessage = errorTexts[6];
+              this.forceUpdate();
+            }
+          });
         }
         fetchDiv = <div />;
         this.forceUpdate();
@@ -103,11 +116,16 @@ export default class Login extends Component {
     })
       .then(result => {
         apiDidThen = true;
-        this.setState({ type: result.data.data.type });
-        if (this.state.type === 'ADMIN') {
-          this.props.history.push('/admin/ViewAllFaculty');
-        } else if (this.state.type === 'FACULTY') {
-          this.props.history.push('/profile');
+        if (result.data.data.is_active === 1) {
+          this.setState({ type: result.data.data.type });
+          if (this.state.type === 'ADMIN') {
+            this.props.history.push('/admin/ViewAllFaculty');
+          } else if (this.state.type === 'FACULTY') {
+            this.props.history.push('/profile');
+          }
+        } else {
+          errorCredMessage = errorTexts[6];
+          this.forceUpdate();
         }
       })
       .catch(error => {
@@ -122,34 +140,17 @@ export default class Login extends Component {
     e.preventDefault();
     errorCredMessage = <div />;
     // username validate
-    if (!this.state.username) {
-      formValid.userError = errorTexts[0];
+    if (!this.state.username) formValid.userValid = false;
+    else if (!this.state.username.match(alphanumRegex))
       formValid.userValid = false;
-    } else if (!this.state.username.match(alphanumRegex)) {
-      formValid.userError = errorTexts[3];
-      formValid.userValid = false;
-    } else {
-      formValid.userError = '';
-      formValid.userValid = true;
-    }
+    else formValid.userValid = true;
 
     // password validate
-    if (!this.state.password) {
-      formValid.passError = errorTexts[0];
-      formValid.passValid = false;
-    } else if (this.state.password.length < 6) {
-      formValid.passError = errorTexts[1];
-      formValid.passValid = false;
-    } else if (this.state.password.length > 16) {
-      formValid.passError = errorTexts[2];
-      formValid.passValid = false;
-    } else if (!this.state.password.match(passRegex)) {
-      formValid.passError = errorTexts[4];
-      formValid.passValid = false;
-    } else {
-      formValid.passError = '';
-      formValid.passValid = true;
-    }
+    if (!this.state.password) formValid.passValid = false;
+    else if (this.state.password.length < 6) formValid.passValid = false;
+    else if (this.state.password.length > 16) formValid.passValid = false;
+    else if (!this.state.password.match(passRegex)) formValid.passValid = false;
+    else formValid.passValid = true;
 
     // check validataion
     if (formValid.userValid && formValid.passValid) {
@@ -159,7 +160,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div classNameName="App-header">
+      <div className="App-header">
         <div className="ui blue inverted menu">
           <a className="item">
             <h1 className="ui white inverted header">
@@ -191,21 +192,58 @@ export default class Login extends Component {
             {fetchDiv}
             <Form size="large">
               <Segment stacked>
+                <div>
+                  <Header as="h3">
+                    {' '}
+                    <span>Username</span>{' '}
+                    {!this.state.username ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : !this.state.username.match(alphanumRegex) ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[3]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
+                  </Header>
+
+                  <Form.Input
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="Username"
+                    value={this.state.fname}
+                    onChange={this.handleChangeUsername}
+                  />
+                </div>
                 <Header as="h3">
                   {' '}
-                  <span>Username{formValid.userError}</span>{' '}
-                </Header>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  value={this.state.fname}
-                  onChange={this.handleChangeUsername}
-                />
-                <Header as="h3">
-                  {' '}
-                  <span>Password{formValid.passError}</span>{' '}
+                  <span>Password</span>{' '}
+                  {!this.state.password ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : this.state.password.length < 6 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[1]}
+                    </div>
+                  ) : this.state.password.length > 16 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[2]}
+                    </div>
+                  ) : !this.state.password.match(passRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[4]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </Header>
                 <Form.Input
                   fluid
@@ -216,6 +254,7 @@ export default class Login extends Component {
                   value={this.state.fname}
                   onChange={this.handleChangePassword}
                 />
+
                 <Button
                   color="blue"
                   fluid

@@ -67,7 +67,7 @@ export default class NavBarAdmin extends Component {
               All Faculty
             </a>
             <div className="right menu">
-              <label classNameName="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -79,14 +79,17 @@ export default class NavBarAdmin extends Component {
             <a className="item" id="pending" onClick={this.handleChange}>
               Pending FSR
             </a>
-            <a className="active item" id="approved" onClick={this.handleChange}>
+            <a
+              className="active item"
+              id="approved"
+              onClick={this.handleChange}>
               Approved FSR
             </a>
             <a className="item" id="faculty" onClick={this.handleChange}>
               All Faculty
             </a>
             <div className="right menu">
-              <label classNameName="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -105,7 +108,7 @@ export default class NavBarAdmin extends Component {
               All Faculty
             </a>
             <div className="right menu">
-              <label classNameName="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>

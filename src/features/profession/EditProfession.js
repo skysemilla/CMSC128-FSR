@@ -22,6 +22,13 @@ export default class EditProfession extends Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
+    Api.getSession().then(result => {
+      if (result.data.data !== null) {
+        this.setState({ emp_id: result.data.data.emp_id });
+      }
+    });
+=======
     // Api.getSession().then(result => {
     //   if (result.data.data !== null) {
     //     this.setState({emp_id: result.data.data.emp_id})
@@ -29,6 +36,7 @@ export default class EditProfession extends Component {
     //     this.setState({date: result.data.data.date})
     //   }
     // });
+>>>>>>> e678b4626118c76cc8e2c0be39d505dee12b5267
   }
 
   handleChangePermission(e) {
@@ -43,6 +51,46 @@ export default class EditProfession extends Component {
     this.setState({ date: e.target.value });
   }
 
+<<<<<<< HEAD
+  checkEdit(e) {
+    e.preventDefault();
+    if (!this.state.permission) {
+      formError.text.permission = errorTexts[1];
+      formError.bool.permission = false;
+    } else {
+      formError.text.permission = '';
+      formError.bool.permission = true;
+    }
+
+    // check date
+    if (!this.state.date) {
+      formError.text.date = errorTexts[0];
+      formError.bool.date = false;
+    } else {
+      formError.text.date = '';
+      formError.bool.date = true;
+    }
+
+    if (formError.bool.permission && formError.bool.date) {
+      this.startEdit();
+    } else this.forceUpdate();
+  }
+
+  startEdit(e) {
+    e.preventDefault();
+    this.state.permission === 'YES'
+      ? (this.state.permission = 1)
+      : (this.state.permission = 0);
+    Api.editLimitedPractice({
+      limited_practice_id: this.props.history.location.state.id,
+      haveApplied: this.state.permission,
+      date_submitted: this.state.date,
+      emp_id: this.state.emp_id
+    })
+      .then(result => {
+        this.props.history.push('./view'); //change to profile later!!
+        alert('Teaching load successfully edited!');
+=======
   startEdit(e) {
     if ( ( this.state.permission === '0' ) ||
     ( this.state.permission === '1' && this.state.date !== '' )
@@ -53,6 +101,7 @@ export default class EditProfession extends Component {
         haveApplied: this.state.permission,
         date_submitted: this.state.date,
         emp_id: this.state.emp_id
+>>>>>>> e678b4626118c76cc8e2c0be39d505dee12b5267
       })
         .then(result => {
           this.props.history.push('./view');  //change to profile later!!
@@ -177,9 +226,17 @@ export default class EditProfession extends Component {
               </p>
             ) : (
               <p>
+<<<<<<< HEAD
+                <a className="ui small header">
+                  Date submitted{formError.text.date}{' '}
+                </a>
+                <div className="ui input fluid mini focus">
+                  <input type="date" onChange={this.handleChangeDate} />
+=======
                 <a class="ui small header">Date submitted</a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeDate} value={this.state.date}/>
+>>>>>>> e678b4626118c76cc8e2c0be39d505dee12b5267
                 </div>
                 {this.state.date === '' ?
                       (
@@ -190,8 +247,15 @@ export default class EditProfession extends Component {
                     }
               </p>
             )}
+<<<<<<< HEAD
+            <div className="ui center aligned container">
+              <button
+                className="ui blue button"
+                onClick={this.uploadAttachment}>
+=======
             <div class="ui center aligned container">
               <button class="ui blue button" onClick={this.uploadAttachment}>
+>>>>>>> e678b4626118c76cc8e2c0be39d505dee12b5267
                 Upload Attachments
               </button>
               <button
