@@ -37,7 +37,9 @@ export default class AddTeachingLoad extends Component {
       // hours: '',
       studnum: '',
       data: [],
-      sectionArray: []
+      sectionArray: [],
+
+      validstudnum: false
       // creditwo: '',
       // studcred: '',
       // creditw: ''
@@ -76,7 +78,10 @@ export default class AddTeachingLoad extends Component {
   }
 
   handleChangeStudnum(e) {
-    this.setState({ studnum: e.target.value });         
+    this.setState({ studnum: e.target.value });  
+    if(e.target.value === '' || e.target.value >= 200 || e.target.value <= 0){
+      this.setState({ validstudnum: false });
+    } else this.setState({ validstudnum: true });
   }
 
   handleLogout(e) {
@@ -87,17 +92,24 @@ export default class AddTeachingLoad extends Component {
 
   startAdd(e) {
     e.preventDefault();
-    Api.addTeachLoad({
-      subject_code: this.state.subj,
-      section_code: this.state.seccode,
-      no_of_students: this.state.studnum
-    })
-      .then(result => {
-        this.props.history.push('./view'); //change to profile later!!
-        alert('Teachingload successfully added!');
+    if(this.state.subj !== '' &&
+       this.state.seccode !== '' &&
+       this.state.validstudnum === true){
+        Api.addTeachLoad({
+        subject_code: this.state.subj,
+        section_code: this.state.seccode,
+        no_of_students: this.state.studnum
       })
-      // .catch(e => alert(e));
-      .catch(e => alert('Error adding new Teaching Load!'));
+        .then(result => {
+          this.props.history.push('./view'); //change to profile later!!
+          alert('Teachingload successfully added!');
+        })
+        // .catch(e => alert(e));
+        .catch(e => alert('Error adding new Teaching Load!'));
+    }
+    else {
+      alert("Invalid input!");
+    }
   }
 
   // checkInput(e) {
