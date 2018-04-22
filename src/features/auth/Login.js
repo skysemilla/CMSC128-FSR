@@ -42,7 +42,7 @@ const errorTexts = [
 ];
 
 const alphanumRegex = /^[A-Za-z0-9]+$/;
-const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
+const passRegex = /^[A-Za-z0-9\-_.]+$/;
 
 var formValid = {
   userValid: false,
