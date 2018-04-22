@@ -9,7 +9,15 @@ export default class ViewTeachingLoadRow extends Component {
         <td className="center aligned"> {this.props.subj} </td>
         <td className="center aligned"> {this.props.seccode} </td>
         <td className="center aligned"> {this.props.room} </td>
-         <td className="center aligned"> {this.props.days} </td>
+        <td className="center aligned">
+        {
+          this.props.days.map(item=>{
+            return(
+              <span> {item} </span>
+            )
+          })
+        }
+        </td>
         <td className="center aligned"> {this.props.starttime} </td>
         <td className="center aligned"> {this.props.endtime} </td>
         {/*<td className="center aligned"> {this.props.hours} </td>*/}
