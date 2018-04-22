@@ -33,6 +33,7 @@ export default class ViewProfessorialChair extends Component {
         });
       }
     });
+    console.log(this.state.data);
   }
 
   render() {
