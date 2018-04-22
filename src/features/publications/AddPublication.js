@@ -5,7 +5,6 @@ import * as Api from '../../api';
 import GenericDropdown from './../GenericDropdown';
 import PublicationSubTypeDropdown from './PublicationSubTypeDropdown';
 import NavBar from './../ui/NavBar';
-
 const optionsMain = [
   {
     id: 0,
@@ -32,19 +31,21 @@ const error = {
   color: 'red'
 };
 
+var messageClass = 'ui negative message';
+
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
   <span style={error}> {' number is required'}</span>, //1
   <span style={error}> {' >= 6 characters'}</span>, //2
   <span style={error}> {' <= 16 characters'}</span>, //3
   <span style={error}> {' must be numbers'}</span>, //4
-  <span style={error}> {' must match'}</span>, //5
+  <span style={error}> {' must contain letters'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
   <span style={error}> {' must be valid'}</span>, //7
   <span style={error}> {' *required'}</span> //8
 ];
 
-const alphanumRegex = /^[A-Za-z0-9]+$/;
+const alphanumRegex = /^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/;
 const numRegex = /^[0-9]+$/;
 
 
@@ -153,105 +154,117 @@ export default class AddPublication extends Component {
   }
 
   validateAdd(){
-  	// e.preventDefault();
-  	// check research type
-  	if(!this.state.researchType){
-  		formError.text.researchType = errorTexts[8];
-  		formError.bool.researchType = false;
-  	}else{
-  		formError.text.researchType = '';
-  		formError.bool.researchType = true;
-  	}
+    // e.preventDefault();
+    // check research type
+    if(!this.state.researchType){
+      formError.text.researchType = errorTexts[8];
+      formError.bool.researchType = false;
+    }else{
+      formError.text.researchType = '';
+      formError.bool.researchType = true;
+    }
 
-  	// check research subtype
-  	if(!this.state.researchSubtype){
-  		formError.text.researchSubtype = errorTexts[8];
-  		formError.bool.researchSubtype = false;
-  	}else{
-  		formError.text.researchSubtype = '';
-  		formError.bool.researchSubtype = true;
-  	}
+    // check research subtype
+    if(!this.state.researchSubtype){
+      formError.text.researchSubtype = errorTexts[8];
+      formError.bool.researchSubtype = false;
+    }else{
+      formError.text.researchSubtype = '';
+      formError.bool.researchSubtype = true;
+    }
 
-  	// check title
-  	if(!this.state.completeTitle){
-  		formError.text.completeTitle = errorTexts[0];
-  		formError.bool.completeTitle = false;
-  	}else if(!this.state.completeTitle.match(alphanumRegex)){
-  		formError.text.completeTitle = errorTexts[6];
-  		formError.bool.completeTitle = false;
-  	}else{
-  		formError.text.completeTitle = '';
-  		formError.bool.completeTitle = true;
-  	}
+    // check title
+    if(!this.state.completeTitle){
+      formError.text.completeTitle = errorTexts[0];
+      formError.bool.completeTitle = false;
+    }else if(this.state.completeTitle.match(numRegex)){
+      formError.text.completeTitle = errorTexts[5];
+      formError.bool.completeTitle = false;
+    }else if(!this.state.completeTitle.match(alphanumRegex)){
+      formError.text.completeTitle = errorTexts[6];
+      formError.bool.completeTitle = false;
+    }else{
+      formError.text.completeTitle = '';
+      formError.bool.completeTitle = true;
+    }
 
-  	// check role
-  	if(!this.state.Role && this.state.researchType === 'Research'){
-  		formError.text.Role = errorTexts[0];
-  		formError.bool.Role = false;
-  	} else if(!this.state.Role.match(alphanumRegex) && this.state.researchType === 'Research'){
-  		formError.text.Role = errorTexts[6];
-  		formError.bool.Role = false;
-  	} else{
-  		formError.text.Role = '';
-  		formError.bool.Role = true;
-  	}
+    // check role
+    if(!this.state.Role && this.state.researchType == 'Research'){
+      formError.text.Role = errorTexts[0];
+      formError.bool.Role = false;
+    } else if(this.state.Role.match(numRegex) && this.state.researchType == 'Research'){
+      formError.text.Role = errorTexts[5];
+      formError.bool.Role = false;
+    } else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
+      formError.text.Role = errorTexts[6];
+      formError.bool.Role = false;
+    } else{
+      formError.text.Role = '';
+      formError.bool.Role = true;
+    }
 
-  	// check funding
-  	if(!this.state.Funding && this.state.researchSubtype === 'Research Proposal'){
-  		formError.text.Funding = errorTexts[0];
-  		formError.bool.Funding = false;
-  	} else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype === 'Research Proposal'){
-  		formError.text.Funding = errorTexts[6];
-  		formError.bool.Funding = false;
-  	} else{
-  		formError.text.Funding = '';
-  		formError.bool.Funding = true;
-  	}
+    // check funding
+    if(!this.state.Funding && this.state.researchSubtype == 'Research Proposal'){
+      formError.text.Funding = errorTexts[0];
+      formError.bool.Funding = false;
+    } else if(this.state.Funding.match(numRegex) && this.state.researchSubtype == 'Research'){
+      formError.text.Funding = errorTexts[5];
+      formError.bool.Funding = false;
+    } else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype == 'Research Proposal'){
+      formError.text.Funding = errorTexts[6];
+      formError.bool.Funding = false;
+    } else{
+      formError.text.Funding = '';
+      formError.bool.Funding = true;
+    }
 
-  	// check start date
-  	if(!this.state.StartDate && this.state.researchSubtype !== 'Research Proposal'){
-  		formError.text.StartDate = errorTexts[0];
-  		formError.bool.StartDate = false;
-  	}else{
-  		formError.text.StartDate = '';
-  		formError.bool.StartDate = true;
-  	}
+    // check start date
+    if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
+      formError.text.StartDate = errorTexts[0];
+      formError.bool.StartDate = false;
+    }else{
+      formError.text.StartDate = '';
+      formError.bool.StartDate = true;
+    }
 
-  	// check end date
-  	if(!this.state.EndDate && this.state.researchSubtype !== 'Research Proposal'){
-  		formError.text.EndDate = errorTexts[0];
-  		formError.bool.EndDate = false;
-  	}else{
-  		formError.text.EndDate = '';
-  		formError.bool.EndDate = true;
-  	}
+    // check end date
+    if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
+      formError.text.EndDate = errorTexts[0];
+      formError.bool.EndDate = false;
+    }else if(this.state.researchSubtype != 'Research Proposal' && this.state.EndDate <= this.state.StartDate){
+      formError.text.EndDate = errorTexts[7];
+      formError.bool.EndDate = false;
+    }else{
+      formError.text.EndDate = '';
+      formError.bool.EndDate = true;
+    }
 
-  	// check approved credit units
-  	if(!this.state.ApprovedCreditUnits){
-  		formError.text.ApprovedCreditUnits = errorTexts[0];
-  		formError.bool.ApprovedCreditUnits = false;
-  	} else if(!this.state.ApprovedCreditUnits.match(numRegex)){
-  		formError.text.ApprovedCreditUnits = errorTexts[4];
-  		formError.bool.ApprovedCreditUnits = false;
-  	}else{
-  		formError.text.ApprovedCreditUnits = '';
-  		formError.bool.ApprovedCreditUnits = true;
-  	}
+    // check approved credit units
+    if(!this.state.ApprovedCreditUnits){
+      formError.text.ApprovedCreditUnits = errorTexts[0];
+      formError.bool.ApprovedCreditUnits = false;
+    } else if(!this.state.ApprovedCreditUnits.match(numRegex)){
+      formError.text.ApprovedCreditUnits = errorTexts[4];
+      formError.bool.ApprovedCreditUnits = false;
+    }else{
+      formError.text.ApprovedCreditUnits = '';
+      formError.bool.ApprovedCreditUnits = true;
+    }
 
-  	if(
-  		formError.bool.researchType &&
-  		formError.bool.researchSubtype &&
-  		formError.bool.completeTitle &&
-  		formError.bool.Role &&
-  		formError.bool.Funding &&
-  		formError.bool.StartDate &&
-  		formError.bool.EndDate &&
-  		formError.bool.ApprovedCreditUnits
-  		){
-  		this.startAdd();
-  	}
+    if(
+      formError.bool.researchType &&
+      formError.bool.researchSubtype &&
+      formError.bool.completeTitle &&
+      formError.bool.Role &&
+      formError.bool.Funding &&
+      formError.bool.StartDate &&
+      formError.bool.EndDate &&
+      formError.bool.ApprovedCreditUnits
+      ){
+      this.startAdd();
+    }
 
-  	this.forceUpdate();
+    this.forceUpdate();
 
   }
 
@@ -386,7 +399,7 @@ export default class AddPublication extends Component {
 
             {this.state.researchSubtype !== 'Research Proposal' ? (
               <p>
-                <a className="ui small header"> Funding </a>
+                <a className="ui small header"> Funding Agency</a>
                 <div className="ui input fluid mini focus">
                   <input
                     disabled
@@ -397,7 +410,7 @@ export default class AddPublication extends Component {
               </p>
             ) : (
               <p>
-                <a className="ui small header"> Funding{formError.text.Funding} </a>
+                <a className="ui small header"> Funding Agency{formError.text.Funding} </a>
                 <div className="ui input fluid mini focus">
                   <input type="text" onChange={this.handleChangeFunding} />
                 </div>
