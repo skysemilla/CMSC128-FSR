@@ -173,11 +173,11 @@ export default class Login extends Component {
           {' '}
           {`body > div,body > div > div,body > div > div > div.login-form {height: 100%;}`}{' '}
         </style>
-        <Divider hidden="true" />
-        <Divider hidden="true" />
-        <Divider hidden="true" />
-        <Divider hidden="true" />
-        <Divider hidden="true" />
+        <Divider hidden={true} />
+        <Divider hidden={true} />
+        <Divider hidden={true} />
+        <Divider hidden={true} />
+        <Divider hidden={true} />
         <Grid
           container
           columns={2}

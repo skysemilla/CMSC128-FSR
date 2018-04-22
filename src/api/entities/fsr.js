@@ -23,3 +23,7 @@ export const ViewPendingFSRByID = empid => {
 export const ViewPendingFSRByName = name => {
   return axios.post('/api/fsr/viewPendingByName', name);
 };
+
+export const sendToAdmin = empid => {
+  return axios.post('/api/fsr/send', empid);
+};

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'semantic-ui-react'
-import ReactDOM from 'react-dom';
+import { Button, Modal } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../api';
 
@@ -12,82 +11,87 @@ export default class GenericDelete extends Component {
     this.startDelete = this.startDelete.bind(this);
   }
 
-  state = { open: false }
+  state = { open: false };
 
-  show = size => () => this.setState({ size, open: true })
-  close = () => this.setState({ open: false })
+  show = size => () => this.setState({ size, open: true });
+  close = () => this.setState({ open: false });
 
   startEdit(e) {
     e.preventDefault();
-    this.props.history.push(this.props.editURL, {id: this.props.id});
+    this.props.history.push(this.props.editURL, { id: this.props.id });
   }
 
-  startDelete(e){
+  startDelete(e) {
     // e.preventDefault();
-    console.log({Object: this.props})
-    console.log(this.props.id)
-    console.log(this.props)
-    if(this.props.label==='Publication'){
+    console.log({ Object: this.props });
+    console.log(this.props.id);
+    console.log(this.props);
+    if (this.props.label === 'Publication') {
       Api.removePublication({
-        id: this.props.id    
+        id: this.props.id
       })
         .then(result => {
           window.location.reload();
-          alert(this.props.label+' successfully deleted!');
+          alert(this.props.label + ' successfully deleted!');
         })
-        .catch(e => alert('Error deleting new'+this.props.label+'!'));
+        .catch(e => alert('Error deleting new' + this.props.label + '!'));
       this.close();
-    }else if(this.props.label === 'Profession'){
-      console.log("XD")
+    } else if (this.props.label === 'Profession') {
+      console.log('XD');
       Api.deleteLimitedPractice({
-        limited_practice_id: this.props.id   
+        limited_practice_id: this.props.id
       })
         .then(result => {
           window.location.reload();
-          alert(this.props.label+' successfully deleted!');
+          alert(this.props.label + ' successfully deleted!');
         })
-        .catch(e => alert('Error deleting '+this.props.label+'!'));
+        .catch(e => alert('Error deleting ' + this.props.label + '!'));
       this.close();
-    }else if(this.props.label === 'Extension and Community Services'){
-      console.log(":-)");
+    } else if (this.props.label === 'Extension and Community Services') {
+      console.log(':-)');
       Api.deleteExtension({
-        id: this.props.id 
+        id: this.props.id
       })
         .then(result => {
           window.location.reload();
           alert('extension successfully deleted');
         })
         .catch(e => alert('Error deleting row!'));
-        this.close();
-    }else if(this.props.label === 'Administrative Work'){
+      this.close();
+    } else if (this.props.label === 'Administrative Work') {
       console.log(this.props);
-    Api.deletePosition({ id: this.props.id});
-    this.close();
-    }else if(this.props.label === 'Consultation Hours'){
-      Api.deleteConsultation({ id: this.props.id})
-      .then(result => {
+      Api.deletePosition({ id: this.props.id });
+      this.close();
+    } else if (this.props.label === 'Consultation Hours') {
+      Api.deleteConsultation({ id: this.props.id }).then(result => {
         console.log(result);
       });
-    this.close();
+      this.close();
     }
   }
 
   render() {
-    const { open, size } = this.state
+    const { open, size } = this.state;
 
     return (
       <div>
-        <button class="ui left attached compact icon button" onClick={this.startEdit}>
-          <i class="edit icon"> </i>
+        <button
+          className="ui left attached compact icon button"
+          onClick={this.startEdit}>
+          <i className="edit icon"> </i>
         </button>
-          
-        <button class = "ui right attached compact icon button" onClick={this.show('mini')}>
-        <i class="trash alternate icon" />
+
+        <button
+          className="ui right attached compact icon button"
+          onClick={this.show('mini')}>
+          <i className="trash alternate icon" />
         </button>
-        <Modal size={size} open={open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
-          <Modal.Header>
-            {this.props.label}
-          </Modal.Header>
+        <Modal
+          size={size}
+          open={open}
+          onClose={this.close}
+          style={{ marginTop: '18%', marginLeft: '40%' }}>
+          <Modal.Header>{this.props.label}</Modal.Header>
           <Modal.Content>
             <p>Are you sure you want to delete this {this.props.subLabel}?</p>
           </Modal.Content>
@@ -95,13 +99,16 @@ export default class GenericDelete extends Component {
             <Button negative onClick={this.close}>
               No
             </Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.startDelete}/>
+            <Button
+              positive
+              icon="checkmark"
+              labelPosition="right"
+              content="Yes"
+              onClick={this.startDelete}
+            />
           </Modal.Actions>
         </Modal>
       </div>
-    )
+    );
   }
 }
-
-//=========================
-ReactDOM.render(<GenericDelete />, document.getElementById('root'));

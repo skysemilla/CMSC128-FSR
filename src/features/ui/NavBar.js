@@ -13,7 +13,7 @@ export default class NavBar extends Component {
       activeMenu: this.props.Label,
       subMenu: this.props.subLabel,
       emp_id: this.props.emp_id,
-      is_being_approved: this.props.is_being_approved,
+      is_being_approved: '',
       username: ''
     };
     this.handleLogout = this.handleLogout.bind(this);
@@ -25,7 +25,10 @@ export default class NavBar extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         Api.getEmployeeData({ empid: result.data.data.emp_id }).then(res => {
-          this.setState({ username: res.data.data.username });
+          this.setState({
+            username: res.data.data.username,
+            is_being_approved: res.data.data.is_being_approved
+          });
         });
       } else {
         this.props.history.push('/');
@@ -40,9 +43,6 @@ export default class NavBar extends Component {
   }
 
   handleChange(e) {
-    if (e.currentTarget.id === 'FSR') {
-      console.log('AAA');
-    }
     this.setState({ activeMenu: e.currentTarget.id });
     if (e.currentTarget.id === 'profile') {
       this.props.history.push('/profile');
@@ -132,7 +132,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -155,7 +155,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -195,7 +195,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -213,7 +213,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -253,7 +253,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -271,7 +271,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -285,7 +285,10 @@ export default class NavBar extends Component {
             <a id="publications" className="item" onClick={this.handleSubmenus}>
               Publications
             </a>
-            <a id="adminwork" className="item active" onClick={this.handleSubmenus}>
+            <a
+              id="adminwork"
+              className="item active"
+              onClick={this.handleSubmenus}>
               Administrative Work
             </a>
             <a id="extension" className="item" onClick={this.handleSubmenus}>
@@ -308,7 +311,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -326,7 +329,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -343,7 +346,10 @@ export default class NavBar extends Component {
             <a id="adminwork" className="item" onClick={this.handleSubmenus}>
               Administrative Work
             </a>
-            <a id="extension" className="item active" onClick={this.handleSubmenus}>
+            <a
+              id="extension"
+              className="item active"
+              onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
             <a id="studyload" className="item" onClick={this.handleSubmenus}>
@@ -363,7 +369,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -381,7 +387,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -401,7 +407,10 @@ export default class NavBar extends Component {
             <a id="extension" className="item" onClick={this.handleSubmenus}>
               Extension and Community Service
             </a>
-            <a id="studyload" className="item active" onClick={this.handleSubmenus}>
+            <a
+              id="studyload"
+              className="item active"
+              onClick={this.handleSubmenus}>
               Study Load
             </a>
             <a id="profession" className="item" onClick={this.handleSubmenus}>
@@ -418,7 +427,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -436,7 +445,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -476,7 +485,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -494,7 +503,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -520,7 +529,10 @@ export default class NavBar extends Component {
             <a id="profession" className="item" onClick={this.handleSubmenus}>
               Limited Practice of Profession
             </a>
-            <a id="profchair" className="item active" onClick={this.handleSubmenus}>
+            <a
+              id="profchair"
+              className="item active"
+              onClick={this.handleSubmenus}>
               Professorial Chair
             </a>
             <a id="consultation" className="item" onClick={this.handleSubmenus}>
@@ -531,7 +543,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
@@ -549,7 +561,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -589,7 +601,7 @@ export default class NavBar extends Component {
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
           <Modal
             size={this.state.size}
@@ -625,7 +637,7 @@ export default class NavBar extends Component {
               FSR
             </a>
             <div className="right menu">
-            <label className="ui item">
+              <label className="ui item">
                 Logged in as {this.state.username}
                 <i className="user circle icon" />
               </label>
@@ -658,11 +670,14 @@ export default class NavBar extends Component {
               Consultation Hours
             </a>
             <div className="ui inverted horizontal divider" />
-            <a id="subjects" className="item active" onClick={this.handleSubmenus}>
+            <a
+              id="subjects"
+              className="item active"
+              onClick={this.handleSubmenus}>
               Subjects
             </a>
             <div className="ui inverted horizontal divider" />
-            <SendtoAdmin />
+            <SendtoAdmin {...this.props} empid={this.state.emp_id} />
           </div>
         </div>
       );
