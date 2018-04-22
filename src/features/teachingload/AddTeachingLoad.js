@@ -145,7 +145,7 @@ export default class AddTeachingLoad extends Component {
           this.updateUnits();
         })
         // .catch(e => alert(e));
-        .catch(e => alert('Error adding new Teaching Load!'));
+        .catch(e => alert('Time overlap!'));
     }
     else {
       alert("Invalid input!");
@@ -232,6 +232,7 @@ export default class AddTeachingLoad extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
+
           <div className = "field">
             <style> {`select {margin:1vh 0vw 1vh 0vw;}`} </style>
             <label> <h3>Subject
