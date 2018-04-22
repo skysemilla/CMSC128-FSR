@@ -10,14 +10,14 @@ export default class EditTeachingLoad extends Component {
 
     this.state = {
       // emp_id: '',
-      subj: 'CMSC 128',
-      seccode: 'CMSC 128',
+      subj: '',
+      seccode: '',
       // room: 'CAS B04',
       // days: 'T-Th',
       // starttime: '4pm',
       // endtime: '7pm',
       // hours: '3',
-      studnum: '11',
+      studnum: '',
       data: [],
       sectionArray: [],
       validstudnum: false
@@ -87,7 +87,7 @@ export default class EditTeachingLoad extends Component {
           alert('Teachingload successfully edited!');
         })
         // .catch(e => alert(e));
-        .catch(e => alert('Time overlap!'));
+        .catch(e => alert('Error editing teaching load!'));
     }
     else {
       alert("Invalid input!");
@@ -173,7 +173,7 @@ export default class EditTeachingLoad extends Component {
                 value = {this.state.subj} 
                 onChange = {this.handleChangeSubj}>
 
-              <option value = {this.state.subj} selected> {this.state.subj} </option>
+              <option value = "" disabled selected hidden> Choose Subject</option>
               {
                 optionsArray.map(
                   (item)=>{
@@ -214,7 +214,7 @@ export default class EditTeachingLoad extends Component {
                 value = {this.state.seccode} 
                 onChange = {this.handleChangeSeccode}>
 
-              <option value = {this.state.secccode} selected> {this.state.seccode} </option>
+              <option value = "" disabled selected hidden> Choose Section </option>
               {
               secArray.map(
                 (item)=>{
