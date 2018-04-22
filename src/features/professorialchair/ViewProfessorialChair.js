@@ -18,7 +18,6 @@ export default class ViewProfessorialChair extends Component {
   }
 
   startEdit(e) {
-    e.preventDefault();
     this.props.history.push('../professorialchair/edit');
   }
   
@@ -33,7 +32,6 @@ export default class ViewProfessorialChair extends Component {
         });
       }
     });
-    console.log(this.state.data);
   }
 
   render() {

@@ -9,6 +9,7 @@ export default class EditProfession extends Component {
     super(props);
 
     this.state = {
+      limited_practice_id: '',
       permission: '',
       date: '',
       emp_id: ''
@@ -21,21 +22,30 @@ export default class EditProfession extends Component {
     this.startEdit = this.startEdit.bind(this);
   }
 
-  componentDidMount() {
-    // Api.getSession().then(result => {
-    //   if (result.data.data !== null) {
-    //     this.setState({emp_id: result.data.data.emp_id})
-    //     this.setState({permission: result.data.data.permission})
-    //     this.setState({date: result.data.data.date})
-    //   }
-    // });
-  }
+
+  
+  componentDidMount = () => {
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
+          if (result.data.data !== null) {
+            this.setState({ limited_practice_id: result.data.data[0].limited_practice_id});
+            this.setState({ emp_id: result.data.data[0].emp_id})
+            this.setState({ permission: result.data.data[0].haveApplied});
+            this.setState({ date: result.data.data[0].date_submitted});
+            
+            console.log(this.state)
+            console.log(this.props.history)
+          }
+        });
+      }
+    });
+};
 
   handleChangePermission(e) {
     this.setState({ permission: e.target.value });
-    console.log(e.currentTarget.value);
     if (e.currentTarget.value === '0') {
-      this.setState({ date: '' });
+      this.setState({ date: "null" });
     }
   }
 
@@ -45,14 +55,14 @@ export default class EditProfession extends Component {
 
   startEdit(e) {
     if (
-      this.state.permission === '0' ||
-      (this.state.permission === '1' && this.state.date !== '')
+      this.state.permission == 0 ||
+      (this.state.permission == '1' && this.state.date != '')
     ) {
+      
       e.preventDefault();
-      this.state.permission === 'YES'
-        ? this.setState({ ...this.state, permission: 1 })
-        : this.setState({ ...this.state, permission: 0 });
+       if (this.state.permission === 0) {this.setState({ date: "none" })}
       Api.editLimitedPractice({
+        limited_practice_id: this.state.limited_practice_id,
         haveApplied: this.state.permission,
         date_submitted: this.state.date,
         emp_id: this.state.emp_id
@@ -63,6 +73,7 @@ export default class EditProfession extends Component {
         })
         .catch(e => alert('Error editing Profession!'));
     } else {
+      console.log()
       alert('Invalid input!');
     }
   }
@@ -88,7 +99,7 @@ export default class EditProfession extends Component {
             </div>
             <Divider hidden="true" />
             <p>
-              {this.state.permission === '0' ? (
+              {this.state.permission === 1 ? (
                 <div class="ui form">
                   <div class="inline fields">
                     <label>
@@ -100,6 +111,7 @@ export default class EditProfession extends Component {
                         <input
                           type="radio"
                           name="permission"
+                          checked="checked"
                           value={1}
                           onClick={this.handleChangePermission}
                         />
@@ -112,13 +124,13 @@ export default class EditProfession extends Component {
                           type="radio"
                           name="permission"
                           value={0}
-                          checked="checked"
+                          
                           onClick={this.handleChangePermission}
                         />
                         <label>No</label>
                       </div>
                     </div>
-                    {this.state.permission === '' ? (
+                    {this.state.permission === 0 ? (
                       <div className="ui left pointing red basic label">
                         Required
                       </div>
@@ -140,7 +152,7 @@ export default class EditProfession extends Component {
                           type="radio"
                           name="permission"
                           value={1}
-                          checked="checked"
+                          
                           onClick={this.handleChangePermission}
                         />
                         <label>Yes</label>
@@ -152,6 +164,7 @@ export default class EditProfession extends Component {
                           type="radio"
                           name="permission"
                           value={0}
+                          checked="checked"
                           onClick={this.handleChangePermission}
                         />
                         <label>No</label>
