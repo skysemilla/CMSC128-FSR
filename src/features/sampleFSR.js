@@ -48,7 +48,19 @@ export default class myApp extends Component {
                 if (result.data.data !== null) {
                   this.setState({ profession: result.data.data[0]});
                 }
-                window.print();
+                  Api.viewPublications({ empid: this.state.id }).then(result => {
+                  if (result.data.data !== null) {
+                    this.setState({ pubs: result.data.data[0] });
+                    this.state.pubs.map(item => {
+                      Api.getCoworkers({
+                        id: item.publication_id
+                      }).then(result => {
+                        item.Coworkers = result.data.data;
+                      });
+                    });
+                  }
+                  window.print();
+                });
               });
           });
       }); 
