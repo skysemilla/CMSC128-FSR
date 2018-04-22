@@ -5,9 +5,9 @@ import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
 const errorTexts = [
-  <span style={{color: 'red'}}> {'  This field is required'}</span>,
-  <span style={{color: 'red'}}> {'  must be valid'}</span>
-]
+  <span style={{ color: 'red' }}> {'  This field is required'}</span>,
+  <span style={{ color: 'red' }}> {'  must be valid'}</span>
+];
 
 var formError = {
   text: {
@@ -55,7 +55,7 @@ export default class EditTeachingLoad extends Component {
     this.checkInput = this.checkInput.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     Api.viewAllSubjects().then(response => {
       if (response.data.data[0] !== undefined) {
         this.setState({ data: response.data.data });
@@ -128,7 +128,7 @@ export default class EditTeachingLoad extends Component {
   startEdit(e) {
     e.preventDefault();
     Api.editTeachLoad({
- //     emp_id: 11, //Temporary emp_id value
+      //     emp_id: 11, //Temporary emp_id value
       subject_code: this.state.subj,
       section_code: this.state.seccode,
       // room: this.state.room,
@@ -150,18 +150,18 @@ export default class EditTeachingLoad extends Component {
 
   checkInput(e) {
     e.preventDefault();
-    if(!this.state.studnum){
+    if (!this.state.studnum) {
       formError.text.studnum = errorTexts[0];
       formError.bool.studnum = false;
-    } else if(this.state.studnum <= 0 || this.state.studnum >= 200) {
+    } else if (this.state.studnum <= 0 || this.state.studnum >= 200) {
       formError.text.studnum = errorTexts[1];
       formError.bool.studnum = false;
-    } else{
+    } else {
       formError.text.studnum = '';
       formError.bool.studnum = true;
     }
 
-    if(formError.bool.studnum){
+    if (formError.bool.studnum) {
       this.startEdit(e);
     } else this.forceUpdate();
   }
@@ -171,104 +171,90 @@ export default class EditTeachingLoad extends Component {
     var secArray = [];
     var suppDup = [];
     var suppDup2 = [];
+    var count = 0;
 
-    {
-      this.state.data.map(item=>{
-        suppDup.push(item.subject_code);
-      });
+    this.state.data.map(item => {
+      suppDup.push(item.subject_code);
+    });
+
+    for (count = 0; count < suppDup.length; count++) {
+      if (suppDup2.includes(suppDup[count]) !== true) {
+        suppDup2.push(suppDup[count]);
+      }
     }
 
-    {
-      for(var count = 0; count < suppDup.length; count++){
-        if(suppDup2.includes(suppDup[count]) != true){
-          suppDup2.push(suppDup[count]);
+    for (count = 0; count < suppDup2.length; count++) {
+      var values = { subject: suppDup2[count], section: [] };
+      optionsArray.push(values);
+    }
+
+    this.state.data.map(item => {
+      optionsArray.map(data => {
+        if (data.subject === item.subject_code) {
+          data.section.push(item.section_code);
         }
-      }
-    }
-
-    {
-      for(var count = 0; count < suppDup2.length; count++){
-        var values = {subject : suppDup2[count], section : []}
-        optionsArray.push(values);
-      }
-    }
-
-    {
-      this.state.data.map(item=>{
-      
-        optionsArray.map(data=>{
-          if(data.subject === item.subject_code){
-            data.section.push(item.section_code);
-          }
-        });
       });
-    }
+    });
 
     return (
       <div className="App-header">
-        <NavBar {...this.props}  Label="FSR" subLabel="teachingload"/>
+        <NavBar {...this.props} Label="FSR" subLabel="teachingload" />
         <div
           className="ui piled very padded text left aligned container segment mainDiv"
           color="teal">
           <div>
-            <h2 className="ui blue header">
-              EDIT TEACHING LOAD
-            </h2>
+            <h2 className="ui blue header">EDIT TEACHING LOAD</h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a className="ui small header"> Subject
-             <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
-              <select 
-                class = "dropdown"
-                value = {this.state.subj} 
-                onChange = {this.handleChangeSubj}>
-
-              <option value = {this.state.subj} selected> {this.state.subj} </option>
-              {
-                optionsArray.map(
-                  (item)=>{
-                    return(
-                      <option value = {item.subject}>
-                      {item.subject}
-                      </option>
-                    )
-                  }
-                )}
+            <a className="ui small header">
+              {' '}
+              Subject
+              <style>
+                {' '}
+                {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`}{' '}
+              </style>
+              <select
+                class="dropdown"
+                value={this.state.subj}
+                onChange={this.handleChangeSubj}>
+                <option value={this.state.subj} selected>
+                  {' '}
+                  {this.state.subj}{' '}
+                </option>
+                {optionsArray.map(item => {
+                  return <option value={item.subject}>{item.subject}</option>;
+                })}
               </select>
             </a>
           </p>
           <p>
-            {
-              optionsArray.map(
-                (item)=>{
-                  if(this.state.subj === item.subject){
-                    secArray = item.section;
-                }
+            {optionsArray.map(item => {
+              if (this.state.subj === item.subject) {
+                secArray = item.section;
               }
-            )}
-            <a className="ui small header"> Section
-              <select 
-                class = "dropdown"
-                value = {this.state.seccode} 
-                onChange = {this.handleChangeSeccode}>
-
-              <option value = {this.state.seccode} selected> {this.state.seccode} </option>
-              {
-              secArray.map(
-                (item)=>{
-                  return(
-                    <option value = {item}>
-                      {item}
-                    </option>
-                  )
-                }
-              )}
+            })}
+            <a className="ui small header">
+              {' '}
+              Section
+              <select
+                class="dropdown"
+                value={this.state.seccode}
+                onChange={this.handleChangeSeccode}>
+                <option value={this.state.seccode} selected>
+                  {' '}
+                  {this.state.seccode}{' '}
+                </option>
+                {secArray.map(item => {
+                  return <option value={item}>{item}</option>;
+                })}
               </select>
             </a>
           </p>
           <p>
-            <a className="ui small header">No. of Students {formError.text.studnum}</a>
+            <a className="ui small header">
+              No. of Students {formError.text.studnum}
+            </a>
             <div className="ui input fluid mini focus">
               <input
                 type="number"

@@ -24,9 +24,9 @@ const errorTexts = [
 
 const nameRegex = /^[A-Za-z\-'\s]+$/;
 const alphanumRegex = /^[A-Za-z0-9]+$/;
-const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
+const passRegex = /^[A-Za-z0-9\-_.]+$/;
 const empIdRegex = /^[0-9]{9}$/;
-const emailRegex = /^[^;\"\']+\@up.edu.ph$/;
+const emailRegex = /^[^;"']+@up.edu.ph$/;
 
 var formError = {
   bool: {
