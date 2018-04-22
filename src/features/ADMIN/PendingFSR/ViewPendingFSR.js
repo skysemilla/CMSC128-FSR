@@ -5,7 +5,7 @@ import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
-const nameRegex = /^[A-Za-z0-9\-']+$/;
+const nameRegex = /^[A-Za-z0-9\-'\s]+$/;
 const empIdRegex = /^[0-9]{9}$/;
 
 export default class ViewPendingFSR extends Component {
@@ -16,12 +16,15 @@ export default class ViewPendingFSR extends Component {
       data: [],
       search: ''
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.searchPendingFSR = this.searchPendingFSR.bind(this);
   }
 
   componentDidMount() {
     Api.ViewPendingFSR().then(result => {
-      if (result.data.data !== undefined) {
-        this.setState({ data: [result.data.data] });
+      if (result.data.data !== null) {
+        this.setState({ data: result.data.data });
       }
     });
   }
@@ -30,17 +33,26 @@ export default class ViewPendingFSR extends Component {
     e.preventDefault();
     if (!this.state.search) {
       Api.ViewPendingFSR().then(result => {
-        this.setState({ data: result.data.data[0] });
+        if (result.data.data !== null) {
+          this.setState({ data: result.data.data });
+        }
       });
     } else if (this.state.search.match(empIdRegex)) {
-      console.log('USES ID');
+      console.log(this.state.search);
       Api.ViewPendingFSRByID({ empid: this.state.search }).then(result => {
-        this.setState({ data: [result.data.data[0]] });
+        if (result.data.data === null) {
+          alert('Search matches no result');
+        } else {
+          this.setState({ data: result.data.data });
+        }
       });
     } else if (this.state.search.match(nameRegex)) {
-      console.log('USES NAME');
       Api.ViewPendingFSRByName({ name: this.state.search }).then(result => {
-        this.setState({ data: [result.data.data[0]] });
+        if (result.data.data === null) {
+          alert('Search matches no result');
+        } else {
+          this.setState({ data: result.data.data });
+        }
       });
     } else {
       this.setState({ data: [] });
@@ -50,6 +62,7 @@ export default class ViewPendingFSR extends Component {
 
   handleSearch(e) {
     this.setState({ search: e.target.value });
+    console.log(this.state.search);
   }
 
   render() {
@@ -68,14 +81,17 @@ export default class ViewPendingFSR extends Component {
             <div className="ui two column grid">
               <h1 className="ui blue header">VIEW PENDING FSR</h1>
               <div className="ui right floated search">
-                <div className="ui icon input">
-                  <input
-                    className="prompt"
-                    type="text"
-                    placeholder="Search by Name or ID..."
-                  />
-                  <i className="search icon" />
-                </div>
+                <form onSubmit={this.searchPendingFSR}>
+                  <div className="ui icon input">
+                    <input
+                      className="prompt"
+                      type="text"
+                      placeholder="Search by Name or ID..."
+                      onChange={this.handleSearch}
+                    />
+                    <i className="search icon" />
+                  </div>
+                </form>
                 <div className="results" />
               </div>
             </div>
