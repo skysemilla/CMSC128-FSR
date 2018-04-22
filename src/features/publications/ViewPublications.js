@@ -74,7 +74,7 @@ export default class ViewPublications extends Component {
                     <th className="center aligned">Type</th>
                     <th className="center aligned">Role</th>
                     <th className="center aligned">Co-workers</th>
-                    <th className="center aligned">Funding</th>
+                    <th className="center aligned">Funding Agency</th>
                     <th className="center aligned">Start Date</th>
                     <th className="center aligned">End Date</th>
                     <th className="center aligned">Approved Credit Units</th>
