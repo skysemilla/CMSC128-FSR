@@ -9,7 +9,6 @@ export default class EditProfession extends Component {
     super(props);
 
     this.state = {
-      limited_practice_id: '',
       permission: '',
       date: '',
       emp_id: ''
@@ -29,13 +28,10 @@ export default class EditProfession extends Component {
       if (res.data.data !== null) {
         Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
-            this.setState({ limited_practice_id: result.data.data[0].limited_practice_id});
+            console.log(result.data.data)    
             this.setState({ emp_id: result.data.data[0].emp_id})
             this.setState({ permission: result.data.data[0].haveApplied});
             this.setState({ date: result.data.data[0].date_submitted});
-            
-            console.log(this.state)
-            console.log(this.props.history)
           }
         });
       }
@@ -43,10 +39,12 @@ export default class EditProfession extends Component {
 };
 
   handleChangePermission(e) {
+    console.log(e.target.value);
     this.setState({ permission: e.target.value });
     if (e.currentTarget.value === '0') {
       this.setState({ date: "null" });
     }
+    this.forceUpdate();
   }
 
   handleChangeDate(e) {
@@ -54,15 +52,14 @@ export default class EditProfession extends Component {
   }
 
   startEdit(e) {
+    
     if (
       this.state.permission == 0 ||
       (this.state.permission == '1' && this.state.date != '')
     ) {
-      
       e.preventDefault();
        if (this.state.permission === 0) {this.setState({ date: "none" })}
       Api.editLimitedPractice({
-        limited_practice_id: this.state.limited_practice_id,
         haveApplied: this.state.permission,
         date_submitted: this.state.date,
         emp_id: this.state.emp_id
@@ -99,7 +96,7 @@ export default class EditProfession extends Component {
             </div>
             <Divider hidden="true" />
             <p>
-              {this.state.permission === 1 ? (
+              {this.state.permission === '1' ? (
                 <div class="ui form">
                   <div class="inline fields">
                     <label>
@@ -130,7 +127,7 @@ export default class EditProfession extends Component {
                         <label>No</label>
                       </div>
                     </div>
-                    {this.state.permission === 0 ? (
+                    {this.state.permission === '' ? (
                       <div className="ui left pointing red basic label">
                         Required
                       </div>
