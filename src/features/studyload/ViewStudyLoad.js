@@ -111,8 +111,7 @@ export default class ViewStudyLoad extends Component {
                 <tr>
                   <th className="center aligned"> Course Number </th>
                   <th className="center aligned"> Course Credit </th>
-                  <th className="center aligned"> Day1 </th>
-                  <th className="center aligned"> Day2 </th>
+                  <th className="center aligned"> Day </th>
                   <th className="center aligned"> Start Time </th>
                   <th className="center aligned"> End Time </th>
                   <th className="center aligned"> School </th>

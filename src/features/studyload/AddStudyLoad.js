@@ -160,31 +160,7 @@ export default class AddStudyLoad extends Component {
               </div>
           </div>
 
-          <div className = "field">
-            <label> <h3>Course Credit
-              {
-              this.state.ccred === '' ?
-                <div className = "ui left pointing red basic label">
-                  Required
-                </div>
-                :
-                [
-                  this.state.ccred >= 0 && this.state.ccred <= 10 ?
-                  <div className = "ui left pointing green basic label">
-                    is valid!
-                  </div>
-                  :
-                  <div className = "ui left pointing red basic label">
-                  Invalid Input
-                  </div>
-                ]
-              }
-              </h3>
-              </label>
-              <div className="ui input fluid mini focus">
-                <input type="number" onChange={this.handleChangeCcred} />
-              </div>
-            </div>
+          
 
             <div className = "field">
             <label> <h3>Course Credit
