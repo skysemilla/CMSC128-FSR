@@ -40,6 +40,14 @@ export default class ViewProfession extends Component {
         <div>
           <NavBar {...this.props} Label="FSR" subLabel="profession" />
         </div>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
+        <Divider hidden="true"/>
         <div className="bodyDiv">
           <div
             className="ui compact piled very padded text left aligned container segment"
