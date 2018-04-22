@@ -45,8 +45,6 @@ const alphanumRegex = /^[A-Za-z0-9]+$/;
 const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
 
 var formValid = {
-  userError: '',
-  passError: '',
   userValid: false,
   passValid: false
 };
@@ -197,7 +195,7 @@ export default class Login extends Component {
                 <div>
                   <Header as="h3">
                     {' '}
-                    <span>Username{formValid.userError}</span>{' '}
+                    <span>Username</span>{' '}
                     {!this.state.username ? (
                       <div className="ui left pointing red basic label">
                         {errorTexts[0]}
@@ -224,7 +222,7 @@ export default class Login extends Component {
                 </div>
                 <Header as="h3">
                   {' '}
-                  <span>Password{formValid.passError}</span>{' '}
+                  <span>Password</span>{' '}
                   {!this.state.password ? (
                     <div className="ui left pointing red basic label">
                       {errorTexts[0]}
