@@ -16,18 +16,22 @@ export const signup = form => {
   return axios.post('/api/signup', form);
 };
 
+export const checkValid = form => {
+  return axios.post('/api/checkValid', form);
+};
+
 export const viewAllSubjects = () => {
-	return axios.post('/api/subject/viewAll');
+  return axios.post('/api/subject/viewAll');
 };
 
 export const deleteSubject = subjectInfo => {
-	return axios.post('/api/subject/remove', subjectInfo)
+  return axios.post('/api/subject/remove', subjectInfo);
 };
 
 export const editSubject = subjectInfo => {
-	return axios.post('/api/subject/edit', subjectInfo)
+  return axios.post('/api/subject/edit', subjectInfo);
 };
 
 export const addSubject = () => {
-	return axios.post('/api/subject/add')
+  return axios.post('/api/subject/add');
 };

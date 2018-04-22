@@ -19,32 +19,16 @@ const errorTexts = [
   <span style={error}> {' = 9 digits'}</span>, //4
   <span style={error}> {' must match'}</span>, //5
   <span style={error}> {' must be alphanumeric'}</span>, //6
-  <span style={error}> {' must be valid'}</span>, //7
-  <span style={error}> {' *'}</span> //8
+  <span style={error}> {' must be valid'}</span> //7
 ];
 
-const nameRegex = /^[A-Za-z0-9\-']+$/;
+const nameRegex = /^[A-Za-z\-'\s]+$/;
 const alphanumRegex = /^[A-Za-z0-9]+$/;
 const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
 const empIdRegex = /^[0-9]{9}$/;
-const emailRegex = /^.+\@up.edu.ph$/;
+const emailRegex = /^[^;\"\']+\@up.edu.ph$/;
 
 var formError = {
-  text: {
-    fname: '',
-    mname: '',
-    lname: '',
-    empId: '',
-    empType: '',
-    empTypeNo: '',
-    fullTime: '',
-    col: '',
-    dept: '',
-    email: '',
-    user: '',
-    pass: '',
-    repPass: ''
-  },
   bool: {
     fname: false,
     mname: false,
@@ -211,9 +195,6 @@ export default class EditProfile extends Component {
     Api.getSession().then(res => {
       if (res.data.data !== null) {
         Api.getEmployeeData({ empid: res.data.data.emp_id }).then(result => {
-          if (result.data.data.is_studying === 0) var is_fulltime = 1;
-          else var is_fulltime = 0;
-
           this.setState({
             ...this.state,
             fname: result.data.data.f_name,
@@ -226,8 +207,7 @@ export default class EditProfile extends Component {
             emptypeno: result.data.data.emp_type_no,
             email: result.data.data.email,
             username: result.data.data.username,
-            isfulltime: is_fulltime,
-            password: result.data.data.password
+            isfulltime: result.data.data.is_studying
           });
         });
       }
@@ -288,164 +268,76 @@ export default class EditProfile extends Component {
 
   checkEdit(e) {
     e.preventDefault();
+    e.preventDefault();
     // check emp id
-    if (!this.state.empid) {
-      formError.text.empId = errorTexts[0];
-      formError.bool.empId = false;
-    } else if (!this.state.empid.match(empIdRegex)) {
-      formError.text.empId = errorTexts[4];
-      formError.bool.empId = false;
-    } else {
-      formError.text.empId = '';
-      formError.bool.empId = true;
-    }
+    if (!this.state.empid) formError.bool.empId = false;
+    else if (!this.state.empid.match(empIdRegex)) formError.bool.empId = false;
+    else formError.bool.empId = true;
 
     // check username
-    if (!this.state.username) {
-      formError.text.user = errorTexts[0];
+    if (!this.state.username) formError.bool.user = false;
+    else if (!this.state.username.match(alphanumRegex))
       formError.bool.user = false;
-    } else if (!this.state.username.match(alphanumRegex)) {
-      formError.text.user = errorTexts[7];
-      formError.bool.user = false;
-    } else {
-      formError.text.user = '';
-      formError.bool.user = true;
-    }
+    else formError.bool.user = true;
 
     // check pass
-    if (!this.state.password) {
-      formError.text.pass = errorTexts[0];
+    if (!this.state.password) formError.bool.pass = false;
+    else if (this.state.password.length < 6) formError.bool.pass = false;
+    else if (this.state.password.length > 16) formError.bool.pass = false;
+    else if (this.state.password !== this.state.password2)
       formError.bool.pass = false;
-    } else if (this.state.password.length < 6) {
-      formError.text.pass = errorTexts[2];
-      formError.bool.pass = false;
-    } else if (this.state.password.length > 16) {
-      formError.text.pass = errorTexts[3];
-      formError.bool.pass = false;
-    } else if (this.state.password !== this.state.password2) {
-      formError.text.pass = errorTexts[5];
-      formError.bool.pass = false;
-    } else if (!this.state.password.match(passRegex)) {
-      formError.text.pass = errorTexts[7];
-      formError.bool.pass = false;
-    } else {
-      formError.text.pass = '';
-      formError.bool.pass = true;
-    }
+    else if (!this.state.password.match(passRegex)) formError.bool.pass = false;
+    else formError.bool.pass = true;
 
     // check repeat pass
-    if (!this.state.password2) {
-      formError.text.repPass = errorTexts[0];
+    if (!this.state.password2) formError.bool.repPass = false;
+    else if (this.state.password2.length < 6) formError.bool.repPass = false;
+    else if (this.state.password2.length > 16) formError.bool.repPass = false;
+    else if (this.state.password2 !== this.state.password)
       formError.bool.repPass = false;
-    } else if (this.state.password2.length < 6) {
-      formError.text.repPass = errorTexts[2];
+    else if (!this.state.password2.match(passRegex))
       formError.bool.repPass = false;
-    } else if (this.state.password2.length > 16) {
-      formError.text.repPass = errorTexts[3];
-      formError.bool.repPass = false;
-    } else if (this.state.password2 !== this.state.password) {
-      formError.text.repPass = errorTexts[5];
-      formError.bool.repPass = false;
-    } else if (!this.state.password2.match(passRegex)) {
-      formError.text.repPass = errorTexts[7];
-      formError.bool.repPass = false;
-    } else {
-      formError.text.repPass = '';
-      formError.bool.repPass = true;
-    }
+    else formError.bool.repPass = true;
 
     // check fname
-    if (!this.state.fname) {
-      formError.text.fname = errorTexts[0];
-      formError.bool.fname = false;
-    } else if (!this.state.fname.match(nameRegex)) {
-      formError.text.fname = errorTexts[6];
-      formError.bool.fname = false;
-    } else {
-      formError.text.fname = '';
-      formError.bool.fname = true;
-    }
+    if (!this.state.fname) formError.bool.fname = false;
+    else if (!this.state.fname.match(nameRegex)) formError.bool.fname = false;
+    else formError.bool.fname = true;
 
     // check mname
-    if (!this.state.mname) {
-      formError.text.mname = errorTexts[0];
-      formError.bool.mname = false;
-    } else if (!this.state.mname.match(nameRegex)) {
-      formError.text.mname = errorTexts[6];
-      formError.bool.mname = false;
-    } else {
-      formError.text.mname = '';
-      formError.bool.mname = true;
-    }
+    if (!this.state.mname) formError.bool.mname = false;
+    else if (!this.state.mname.match(nameRegex)) formError.bool.mname = false;
+    else formError.bool.mname = true;
 
     // check lname
-    if (!this.state.lname) {
-      formError.text.lname = errorTexts[0];
-      formError.bool.lname = false;
-    } else if (!this.state.lname.match(nameRegex)) {
-      formError.text.lname = errorTexts[6];
-      formError.bool.lname = false;
-    } else {
-      formError.text.lname = '';
-      formError.bool.lname = true;
-    }
+    if (!this.state.lname) formError.bool.lname = false;
+    else if (!this.state.lname.match(nameRegex)) formError.bool.lname = false;
+    else formError.bool.lname = true;
 
     // check emptype
-    if (!this.state.emptype) {
-      formError.text.empType = errorTexts[0];
-      formError.bool.empType = false;
-    } else {
-      formError.text.empType = '';
-      formError.bool.empType = true;
-    }
+    if (!this.state.emptype) formError.bool.empType = false;
+    else formError.bool.empType = true;
 
-    // check emptypeno
-    if (!this.state.emptypeno) {
-      formError.text.empTypeNo = errorTexts[0];
-      formError.bool.empTypeNo = false;
-    } else {
-      formError.text.empTypeNo = '';
-      formError.bool.empTypeNo = true;
-    }
+    // check emptypno
+    if (!this.state.emptypeno) formError.bool.empTypeNo = false;
+    else formError.bool.empTypeNo = true;
 
     // check email
-    if (!this.state.email) {
-      formError.text.email = errorTexts[0];
-      formError.bool.email = false;
-    } else if (!this.state.email.match(emailRegex)) {
-      formError.text.email = errorTexts[7];
-      formError.bool.email = false;
-    } else {
-      formError.text.email = '';
-      formError.bool.email = true;
-    }
+    if (!this.state.email) formError.bool.email = false;
+    else if (!this.state.email.match(emailRegex)) formError.bool.email = false;
+    else formError.bool.email = true;
 
     // check is full time
-    if (!this.state.fulltime) {
-      formError.text.fullTime = errorTexts[8];
-      formError.bool.fullTime = false;
-    } else {
-      formError.text.fullTime = '';
-      formError.bool.fullTime = true;
-    }
+    if (!this.state.isfulltime) formError.bool.fullTime = false;
+    else formError.bool.fullTime = true;
 
     // check college
-    if (!this.state.college) {
-      formError.text.col = errorTexts[0];
-      formError.bool.col = false;
-    } else {
-      formError.text.col = '';
-      formError.bool.col = true;
-    }
+    if (!this.state.college) formError.bool.col = false;
+    else formError.bool.col = true;
 
     // check department
-    if (!this.state.dept) {
-      formError.text.dept = errorTexts[0];
-      formError.bool.dept = false;
-    } else {
-      formError.text.dept = '';
-      formError.bool.dept = true;
-    }
+    if (!this.state.dept) formError.bool.dept = false;
+    else formError.bool.dept = true;
 
     if (
       formError.bool.user &&
@@ -501,7 +393,22 @@ export default class EditProfile extends Component {
             <Divider hidden="true" />
             <form onSubmit={this.checkEdit}>
               <p>
-                <a className="ui small header">First name{formError.text.fname}</a>
+                <a className="ui small header">
+                  First name
+                  {!this.state.fname ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.fname.match(nameRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
+                </a>
                 <div className="ui input fluid mini focus">
                   <input
                     type="text"
@@ -511,7 +418,22 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a className="ui small header">Middle name{formError.text.mname}</a>
+                <a className="ui small header">
+                  Middle name
+                  {!this.state.mname ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.mname.match(nameRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
+                </a>
                 <div className="ui input fluid mini focus">
                   <input
                     type="text"
@@ -521,7 +443,22 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a className="ui small header">Last name{formError.text.lname}</a>
+                <a className="ui small header">
+                  Last name
+                  {!this.state.lname ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.lname.match(nameRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
+                </a>
                 <div className="ui input fluid mini focus">
                   <input
                     type="text"
@@ -531,10 +468,26 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a className="ui small header">Employee ID{formError.text.empId}</a>
+                <a className="ui small header">
+                  Employee ID
+                  {!this.state.empid ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.empid.match(empIdRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[4]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
+                </a>
                 <div className="ui input fluid mini focus">
                   <input
                     type="number"
+                    min="000000001"
                     value={this.state.empid}
                     onChange={this.handleChangeEmpid}
                   />
@@ -545,7 +498,16 @@ export default class EditProfile extends Component {
                   <div className="flex-container dropDown">
                     <label>
                       <span>
-                        <b>College{formError.text.col}</b>
+                        <b>College</b>
+                        {!this.state.college ? (
+                          <div className="ui left pointing red basic label">
+                            {errorTexts[0]}
+                          </div>
+                        ) : (
+                          <div className="ui left pointing green basic label">
+                            {'is valid!'}
+                          </div>
+                        )}
                       </span>
                     </label>
                     <GenericDropdown
@@ -557,7 +519,16 @@ export default class EditProfile extends Component {
                   </div>
                   <label>
                     <span>
-                      <b>Department{formError.text.dept}</b>
+                      <b>Department</b>
+                      {!this.state.dept ? (
+                        <div className="ui left pointing red basic label">
+                          {errorTexts[0]}
+                        </div>
+                      ) : (
+                        <div className="ui left pointing green basic label">
+                          {'is valid!'}
+                        </div>
+                      )}
                     </span>
                   </label>
                   <DeptDropdown
@@ -568,12 +539,23 @@ export default class EditProfile extends Component {
                   />
                 </div>
               </p>
+              <label>
+                <h3>Employee</h3>
+                <Divider />
+              </label>
               <p>
                 <div className="flex-container dropDown">
                   <label>
-                    <span>
-                      <b>Employee Type{formError.text.empType}</b>
-                    </span>
+                    <b>Type</b>
+                    {!this.state.emptype ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
                   <GenericDropdown
                     labelProper="Select Type"
@@ -584,9 +566,16 @@ export default class EditProfile extends Component {
                 </div>
                 <div className="flex-container dropDown">
                   <label>
-                    <span>
-                      <b>Number{formError.text.empTypeNo}</b>
-                    </span>
+                    <b>Number</b>
+                    {!this.state.emptypeno ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
                   <GenericDropdown
                     labelProper="Select Number"
@@ -595,14 +584,20 @@ export default class EditProfile extends Component {
                     options={optionsMain2}
                   />
                 </div>
-
                 <div className="ui form flex-container">
                   <div className="grouped fields">
                     <div className="field">
                       <label>
-                        <span>
-                          Full Time Employee?{formError.text.fullTime}
-                        </span>
+                        <b>Full Time?</b>
+                        {!this.state.isfulltime ? (
+                          <div className="ui left pointing red basic label">
+                            {'X'}
+                          </div>
+                        ) : (
+                          <div className="ui left pointing green basic label">
+                            {'/'}
+                          </div>
+                        )}
                       </label>
                     </div>
                     <div className="inline fields">
@@ -640,7 +635,20 @@ export default class EditProfile extends Component {
               <Divider hidden="true" />
               <p>
                 <a className="ui small header">
-                  Email Address{formError.text.email}
+                  Email Address
+                  {!this.state.email ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.email.match(emailRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </a>
                 <div className="ui input fluid mini focus">
                   <input
@@ -651,7 +659,22 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <a className="ui small header">Username{formError.text.user}</a>
+                <a className="ui small header">
+                  Username
+                  {!this.state.username ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.username.match(alphanumRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
+                </a>
                 <div className="ui input fluid mini focus">
                   <input
                     type="text"
@@ -662,14 +685,66 @@ export default class EditProfile extends Component {
               </p>
 
               <p>
-                <a className="ui small header">New Password{formError.text.pass}</a>
+                <a className="ui small header">
+                  New Password
+                  {!this.state.password ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : this.state.password.length < 6 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[2]}
+                    </div>
+                  ) : this.state.password.length > 16 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[3]}
+                    </div>
+                  ) : this.state.password !== this.state.password2 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[5]}
+                    </div>
+                  ) : !this.state.password.match(passRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
+                </a>
                 <div className="ui input fluid mini focus">
                   <input type="password" onChange={this.handleChangePassword} />
                 </div>
               </p>
               <p>
                 <a className="ui small header">
-                  Repeat Password{formError.text.repPass}
+                  Repeat Password
+                  {!this.state.password2 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : this.state.password2 < 6 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[2]}
+                    </div>
+                  ) : this.state.password2 > 16 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[3]}
+                    </div>
+                  ) : this.state.password2 !== this.state.password ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[5]}
+                    </div>
+                  ) : !this.state.password2.match(passRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </a>
                 <div className="ui input fluid mini focus">
                   <input

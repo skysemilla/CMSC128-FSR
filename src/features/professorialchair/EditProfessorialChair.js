@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
-import ProfessorialChairViewRow from './ProfessorialChairViewRow';
 import NavBar from './../ui/NavBar';
 
 
@@ -68,7 +67,7 @@ export default class EditProfessorialChair extends Component {
     console.log('from ' + this.state.startdate + ' to ' + e.target.value);
 
     // input date validation
-    if (e.target.value == '' || ( this.state.enddate != '' && e.target.value > this.state.enddate) ) {
+    if (e.target.value === '' || ( this.state.enddate !== '' && e.target.value > this.state.enddate) ) {
       console.log('new start date is after end date');
       this.setState({ validStartDate: false });
       //this.setState({ validEndDate: false }); // and vice-versa
@@ -88,7 +87,7 @@ export default class EditProfessorialChair extends Component {
     console.log('from ' + this.state.enddate + ' to ' + e.target.value);
 
     // input date validation
-    if (e.target.value == '' || ( this.state.startdate != '' && e.target.value < this.state.startdate) ) {
+    if (e.target.value === '' || ( this.state.startdate !== '' && e.target.value < this.state.startdate) ) {
       console.log('new end date is before start date');
       this.setState({ validEndDate: false });
       //this.setState({ validStartDate: false }); // and vice-versa
