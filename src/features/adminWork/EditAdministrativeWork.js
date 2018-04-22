@@ -37,13 +37,14 @@ export default class EditAdministrativeWork extends Component {
                 prev_office: result.data.data.office,
                 prev_credit_units: result.data.data.credit_units,
               });
-            })
+
             /*  console.log(result.data.data.emp_id );
               if(result.data.data.emp_id == "000000003")
               {
                 console.log("hi" );
               }
-            })*/
+            */
+            })
         }
       }
     });
@@ -79,48 +80,46 @@ export default class EditAdministrativeWork extends Component {
   render() {
     return (
       <div className="App-header">
-        <div><NavBar {...this.props} Label="FSR" subLabel="adminwork" /></div>
-        <div className="bodyDiv">
+        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">EDIT ADMINISTRATIVE WORK</h2>
+            <h2 className="ui blue header">EDIT ADMINISTRATIVE WORK</h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <a class="ui small header">
+            <a className="ui small header">
               {' '}
               Nature of Adminstrative Work{' '}
             </a>
-            <div class="ui input fluid mini focus">
+            <div className="ui input fluid mini focus">
               <input type="text" placeholder={this.state.prev_nature_of_work} onChange={this.handleChangeNature_of_work} />
             </div>
           </p>
 
           <p>
-            <a class="ui small header"> Office </a>{' '}
+            <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
-            <div class="ui input fluid mini focus">
+            <div className="ui input fluid mini focus">
               <input type="text" placeholder={this.state.prev_office} onChange={this.handleChangeOffice} />
             </div>
           </p>
 
           <p>
-            <a class="ui small header"> Credit Units </a>{' '}
+            <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
-            <div class="ui input fluid mini focus">
+            <div className="ui input fluid mini focus">
               <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
             </div>
           </p>
 
-          <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachment</button>
-            <button class="ui blue button" onClick={this.startAdd}>
+          <div className="ui center aligned container">
+            <button className="ui blue button">Upload Attachment</button>
+            <button className="ui blue button" onClick={this.startAdd}>
               Edit Administrative Work
             </button>
           </div>
-        </div>
         </div>
         <Divider hidden="true" />
       </div>
