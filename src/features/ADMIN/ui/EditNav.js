@@ -229,7 +229,7 @@ export default class EditNav extends Component {
             All Faculty
           </a>
           <div className="right menu">
-            <label classNameName="ui item">
+            <label className="ui item">
               Logged in as {this.state.username}
               <i className="user circle icon" />
             </label>

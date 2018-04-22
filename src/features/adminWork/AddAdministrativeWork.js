@@ -46,7 +46,7 @@ export default class AddAdministrativeWork extends Component {
       emp_id: this.state.emp_id
     })
       .then(result => {
-        this.props.history.push('./positions/view'); //change to profile later!!
+        this.props.history.push('./view'); //change to profile later!!
         alert('Position successfully added!');
       })
       .catch(e => alert('Error adding new Position!'));
