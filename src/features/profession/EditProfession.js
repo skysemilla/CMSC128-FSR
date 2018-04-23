@@ -171,7 +171,7 @@ export default class EditProfession extends Component {
               <button
                 class="ui center aligned blue button"
                 onClick={this.startEdit}>
-                Add Profession
+                Edit Profession
               </button>
             </div>
           </div>

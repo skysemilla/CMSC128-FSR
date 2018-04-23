@@ -62,7 +62,7 @@ export default class ViewProfession extends Component {
                 <b>
                   <i className="right triangle icon" />Have you applied for official permission for limited practice of profession?{' '}
                 </b>
-                {this.state.permission === '1'?
+                {this.state.permission == '1'?
                     "Yes"
                 :
                     "No"
