@@ -40,10 +40,10 @@ export default class EditAdministrativeWork extends Component {
             .then(result => {
               console.log(result);
               this.setState({
-                emp_id : result.data.data.emp_id,
-                prev_nature_of_work: result.data.data.nature_of_work,
-                prev_office: result.data.data.office,
-                prev_credit_units: result.data.data.credit_units,
+                prev_nature_of_work: result.data.data[0].nature_of_work,
+                prev_office: result.data.data[0].office,
+                prev_credit_units: result.data.data[0].credit_units,
+                prev_position: result.data.data[0].work_position
               });
 
             /*  console.log(result.data.data.emp_id );
@@ -100,9 +100,10 @@ export default class EditAdministrativeWork extends Component {
     this.setState({ edit_trial_count: 1 });
     if(this.state.nature_of_work_is_valid && this.state.office_is_valid && this.state.credit_units_is_valid) {
       e.preventDefault();
+      console.log(this.state.emp_id);
       Api.editPosition({
-        // position_id: this.props.history.location.state.id,
-        position: this.state.position,
+        position_id: this.props.history.location.state.id,
+        work_position: this.state.position,
         emp_id: this.state.emp_id,
         nature_of_work: this.state.nature_of_work,
         office: this.state.office,

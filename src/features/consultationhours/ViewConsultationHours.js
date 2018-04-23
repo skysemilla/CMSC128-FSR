@@ -9,7 +9,6 @@ export default class ViewConsultationHours extends Component {
   componentDidMount() {
     Api.viewAllConsultations()
       .then(result => {
-        console.log(result);
         this.setState({ data: result.data.data });
       })
       .catch(err => alert(err));

@@ -22,10 +22,7 @@ export default class GenericDelete extends Component {
   }
 
   startDelete(e) {
-    // e.preventDefault();
-    console.log({ Object: this.props });
-    console.log(this.props.id);
-    console.log(this.props);
+    e.preventDefault();
     if (this.props.label === 'Publication') {
       Api.removePublication({
         id: this.props.id
@@ -63,6 +60,7 @@ export default class GenericDelete extends Component {
       Api.deletePosition({ id: this.props.id });
       this.close();
     } else if (this.props.label === 'Consultation Hours') {
+      console.log(this.props);
       Api.deleteConsultation({ id: this.props.id }).then(result => {
         })
         .then(result => {
