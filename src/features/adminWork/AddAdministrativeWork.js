@@ -78,7 +78,7 @@ export default class AddAdministrativeWork extends Component {
     if(this.state.nature_of_work_is_valid && this.state.office_is_valid && this.state.credit_units_is_valid) {
       e.preventDefault();
       Api.addPosition({
-        position: this.state.position,
+        work_position: this.state.position,
         nature_of_work: this.state.nature_of_work,
         office: this.state.office,
         credit_units: this.state.credit_units,
@@ -201,7 +201,7 @@ export default class AddAdministrativeWork extends Component {
           <div className="ui center aligned container">
             <button className="ui blue button">Upload Attachment</button>
             <button className="ui blue button" onClick={this.startAdd}>
-              Edit Administrative Work
+              Add Administrative Work
             </button>
           </div>
         </div>
