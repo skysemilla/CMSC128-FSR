@@ -25,7 +25,7 @@ export default class ViewProfession extends Component {
                 this.setState({ permission: result.data.data[0].haveApplied});
                 this.setState({ date: result.data.data[0].date_submitted});
                 this.setState({emp_id: res.data.data.emp_id})
-                console.log(this.state)
+
               }
             });
           }
@@ -62,7 +62,7 @@ export default class ViewProfession extends Component {
                 <b>
                   <i className="right triangle icon" />Have you applied for official permission for limited practice of profession?{' '}
                 </b>
-                {this.state.permission === '1'?
+                {this.state.permission == '1'?
                     "Yes"
                 :
                     "No"

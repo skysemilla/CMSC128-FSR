@@ -28,7 +28,6 @@ export default class EditProfession extends Component {
       if (res.data.data !== null) {
         Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
-            console.log(result.data.data);
             this.setState({ emp_id: result.data.data[0].emp_id});
           }
         });
@@ -37,7 +36,6 @@ export default class EditProfession extends Component {
 };
 
   handleChangePermission(e) {
-    console.log(e.target.value);
     this.setState({ permission: e.target.value });
     if (e.currentTarget.value === '0') {
       this.setState({ date: "null" });
@@ -68,7 +66,6 @@ export default class EditProfession extends Component {
         })
         .catch(e => alert('Error editing Profession!'));
     } else {
-      console.log()
       alert('Invalid input!');
     }
   }
@@ -171,7 +168,7 @@ export default class EditProfession extends Component {
               <button
                 class="ui center aligned blue button"
                 onClick={this.startEdit}>
-                Add Profession
+                Edit Profession
               </button>
             </div>
           </div>
