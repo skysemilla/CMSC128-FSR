@@ -94,7 +94,9 @@ export default class EditProfessorialChair extends Component {
     } else {
       console.log('new end date is after start date');
       this.setState({ validEndDate: true });
-      //this.setState({ validStartDate: true }); // and so both are valid
+      if (this.state.startdate !== '') {
+        this.setState({ validStartDate: true }); // and so both are valid?
+      }
     }
 
     console.log('e.target.value: ');
