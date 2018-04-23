@@ -115,7 +115,7 @@ export default class AddExtension extends Component {
   }
 
   handleChangeStartDate(e) {
-    if (e.target.value === '' || ( this.state.enddate !== '' && e.target.value > this.state.enddate) ) {
+    if (e.target.value > this.state.enddate) {
       this.setState({ validStartDate: false });
     } else {
       this.setState({ validStartDate: true });
@@ -124,7 +124,7 @@ export default class AddExtension extends Component {
   }
 
   handleChangeEndDate(e) {
-    if (e.target.value === '' || ( this.state.startdate !== '' && e.target.value < this.state.startdate) ) {
+    if (e.target.value < this.state.startdate) {
       this.setState({ validEndDate: false });
     } else {
       this.setState({ validEndDate: true });
@@ -326,9 +326,9 @@ export default class AddExtension extends Component {
             </p>
             <div className="ui center aligned container">
               <button
-                className="ui center aligned blue button"
+                className="ui center aligned blue button" onClick={this.startEdit}>
                 Edit Extension
-              >
+            
               </button>
             </div>
           </div>
