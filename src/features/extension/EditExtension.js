@@ -13,7 +13,6 @@ const optionsMain = [
   { id: 4, text: 'Others' }
 ];
 
-
 export default class AddExtension extends Component {
   constructor(props) {
     super(props);
@@ -49,34 +48,36 @@ export default class AddExtension extends Component {
     this.startEdit = this.startEdit.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
-
   }
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({ emp_id: result.data.data.emp_id });
-        if (typeof this.props.history !== 'undefined') {
-          Api.viewExtensionByID({
-            id : this.props.history.location.state.id
-          })
-            .then(result => {
+    if (this.props.history.location.state === undefined)
+      this.props.history.push('/extension/view');
+    else {
+      Api.getSession().then(result => {
+        if (result.data.data !== null) {
+          this.setState({ emp_id: result.data.data.emp_id });
+          if (typeof this.props.history !== 'undefined') {
+            Api.viewExtensionByID({
+              id: this.props.history.location.state.id
+            }).then(result => {
               console.log(result.data.data);
               this.setState({
-                emp_id : result.data.data[0].emp_id,
-                type : result.data.data[0].extension_type,
-                title : result.data.data[0].extension_name,
-                noOfHours : result.data.data[0].no_of_hours,
-                noOfParticipants : result.data.data[0].no_of_participants,
-                startDate : result.data.data[0].start_time,
-                endDate : result.data.data[0].end_time,
-                role : result.data.data[0].extension_role,
-                fundingAgency : result.data.data[0].funding_agency,
-                approvedCreditUnits : result.data.data[0].credit_unit
+                emp_id: result.data.data[0].emp_id,
+                type: result.data.data[0].extension_type,
+                title: result.data.data[0].extension_name,
+                noOfHours: result.data.data[0].no_of_hours,
+                noOfParticipants: result.data.data[0].no_of_participants,
+                startDate: result.data.data[0].start_time,
+                endDate: result.data.data[0].end_time,
+                role: result.data.data[0].extension_role,
+                fundingAgency: result.data.data[0].funding_agency,
+                approvedCreditUnits: result.data.data[0].credit_unit
               });
-            })
+            });
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   handleChangeType(e) {
@@ -115,7 +116,10 @@ export default class AddExtension extends Component {
   }
 
   handleChangeStartDate(e) {
-    if (e.target.value > this.state.enddate) {
+    if (
+      e.target.value === '' ||
+      (this.state.enddate !== '' && e.target.value > this.state.enddate)
+    ) {
       this.setState({ validStartDate: false });
     } else {
       this.setState({ validStartDate: true });
@@ -124,7 +128,10 @@ export default class AddExtension extends Component {
   }
 
   handleChangeEndDate(e) {
-    if (e.target.value < this.state.startdate) {
+    if (
+      e.target.value === '' ||
+      (this.state.startdate !== '' && e.target.value < this.state.startdate)
+    ) {
       this.setState({ validEndDate: false });
     } else {
       this.setState({ validEndDate: true });
@@ -177,29 +184,30 @@ export default class AddExtension extends Component {
                   handler={this.handleChangeType}
                   options={optionsMain}
                 />
-                {this.state.type === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                {this.state.type === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <p>
               <a className="ui small header">Title</a>
               <div className="ui input fluid mini focus">
-                <input type="text"
+                <input
+                  type="text"
                   onChange={this.handleChangeTitle}
                   value={this.state.title}
                 />
-                {this.state.title === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                {this.state.title === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <p>
@@ -210,29 +218,30 @@ export default class AddExtension extends Component {
                   onChange={this.handleChangeNoOfHours}
                   value={this.state.noOfHours}
                 />
-                {this.state.noOfHours === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                {this.state.noOfHours === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <p>
               <a className="ui small header">No of Participants</a>
               <div className="ui input fluid mini focus">
-                <input type="number"
+                <input
+                  type="number"
                   onChange={this.handleChangeNoOfParticipants}
-                  value = {this.state.noOfParticipants}
+                  value={this.state.noOfParticipants}
                 />
-                {this.state.noOfParticipants === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                {this.state.noOfParticipants === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <p>
@@ -245,15 +254,15 @@ export default class AddExtension extends Component {
                       type="date"
                       onChange={this.handleChangeStartDate}
                       style={{ width: '100px' }}
-                      value = {this.state.startDate}
+                      value={this.state.startDate}
                     />
-                    {this.state.startDate === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
+                    {this.state.startDate === '' ? (
+                      <div className="ui left pointing red basic label">
                         Required
-                        </div>
-                      ) : (<div></div>)
-                    }
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 </div>
                 <div className="field">
@@ -263,15 +272,15 @@ export default class AddExtension extends Component {
                       type="date"
                       onChange={this.handleChangeEndDate}
                       style={{ width: '100px' }}
-                      value = {this.state.endDate}
+                      value={this.state.endDate}
                     />
-                    {this.state.endDate === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
+                    {this.state.endDate === '' ? (
+                      <div className="ui left pointing red basic label">
                         Required
-                        </div>
-                      ) : (<div></div>)
-                    }
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 </div>
               </div>
@@ -279,32 +288,35 @@ export default class AddExtension extends Component {
             <p>
               <a className="ui small header">Role</a>
               <div className="ui input fluid mini focus">
-                <input type="text"
+                <input
+                  type="text"
                   onChange={this.handleChangeRole}
-                  value = {this.state.role}
+                  value={this.state.role}
                 />
-                {this.state.role === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                {this.state.role === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <p>
               <a className="ui small header">Funding Agency</a>
               <div className="ui input fluid mini focus">
-                <input type="text"
-                onChange={this.handleChangeFundingAgency}
-                value = {this.state.fundingAgency}/>
-                {this.state.fundingAgency === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                <input
+                  type="text"
+                  onChange={this.handleChangeFundingAgency}
+                  value={this.state.fundingAgency}
+                />
+                {this.state.fundingAgency === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <p>
@@ -313,23 +325,23 @@ export default class AddExtension extends Component {
                 <input
                   type="number"
                   onChange={this.handleChangeApprovedCreditUnits}
-                  value = {this.state.approvedCreditUnits}
+                  value={this.state.approvedCreditUnits}
                 />
-                {this.state.approvedCreditUnits === '' ?
-                  (
-                    <div className="ui left pointing red basic label">
+                {this.state.approvedCreditUnits === '' ? (
+                  <div className="ui left pointing red basic label">
                     Required
-                    </div>
-                  ) : (<div></div>)
-                }
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
             </p>
             <div className="ui center aligned container">
               <button
-                className="ui center aligned blue button" onClick={this.startEdit}>
-                Edit Extension
-            
-              </button>
+                className="ui center aligned blue button"
+                Edit
+                Extension
+              />
             </div>
           </div>
         </div>

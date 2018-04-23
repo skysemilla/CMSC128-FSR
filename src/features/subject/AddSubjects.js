@@ -32,7 +32,7 @@ export default class AddSubject extends Component {
     this.startAdd = this.startAdd.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     console.log(this.props.history);
     // if(typeof this.props.history!=='undefined'){
     //   this.setState({emp_id: this.props.history.location.state.emp_id});
@@ -105,121 +105,106 @@ export default class AddSubject extends Component {
   render() {
     return (
       <div className="App-header">
-      <div>
-        <NavBar {...this.props} Label="FSR" subLabel="Subjects"/>
+        <div>
+          <NavBar {...this.props} Label="FSR" subLabel="Subjects" />
         </div>
         <div className="bodyDiv">
-        <div
-          className="ui piled very padded text left aligned container segment mainDiv"
-          color="teal">
-          <div>
-            <h2 className="ui blue header">
-              ADD SUBJECT
-            </h2>
-          </div>
-          <Divider hidden="true" />
+          <div
+            className="ui piled very padded text left aligned container segment mainDiv"
+            color="teal">
+            <div>
+              <h2 className="ui blue header">ADD SUBJECT</h2>
+            </div>
+            <Divider hidden="true" />
+            <p>
+              <a className="ui small header"> Subject ID</a>
+              <div className="ui input fluid mini focus">
+                <input type="number" onChange={this.handleChangeSubjid} />
+              </div>
+            </p>
+            <p>
+              <a className="ui small header"> Subject Code</a>
+              <div className="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeSubjcode} />
+              </div>
+            </p>
+            <p>
+              <a className="ui small header"> Section Code</a>
+              <div className="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeSeccode} />
+              </div>
+            </p>
+            <p>
+              <div className="ui form" onChange={this.handleChangeType}>
+                <div className="inline fields">
+                  <label>Type</label>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="type" value="Lecture" />
+                      <label>Lecture</label>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="type" value="Laboratory" />
+                      <label>Laboratory</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p>
+            <p>
+              <div className="ui form" onChange={this.handleChangeGradcourse}>
+                <div className="inline fields">
+                  <label>Graduate Course?</label>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="gradcourse" value="Yes" />
+                      <label>Yes</label>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="gradcourse" value="No" />
+                      <label>No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p>
+            <p>
+              <a className="ui small header">Units</a>
+              <div className="ui input fluid mini focus">
+                <input type="number" onChange={this.handleChangeUnits} />
+              </div>
+            </p>
+            <p>
+              <a className="ui small header">Room</a>
+              <div className="ui input fluid mini focus">
+                <input type="text" onChange={this.handleChangeRoom} />
+              </div>
+            </p>
+            <p>
+              <a className="ui small header">Start Time</a>
+              <div className="ui input fluid mini focus">
+                <input type="time" onChange={this.handleChangeStarttime} />
+              </div>
+            </p>
+            <p>
+              <a className="ui small header">End Time</a>
+              <div className="ui input fluid mini focus">
+                <input type="time" onChange={this.handleChangeEndtime} />
+              </div>
+            </p>
 
-          <p>
-            <a className="ui small header"> Subject Code</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeSubjcode}
-              />
+            <div className="ui center aligned container">
+              <button
+                className="ui center aligned blue button"
+                onClick={this.startAdd}>
+                Add Subject
+              </button>
             </div>
-          </p>
-          <p>
-            <a className="ui small header"> Section Code</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeSeccode}
-              />
-            </div>
-          </p>
-          <p>
-            <div className="ui form" onChange={this.handleChangeType}>
-              <div className="inline fields">
-                <label>Type</label>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="type" value="Lecture"/>
-                    <label>Lecture</label>
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="type" value="Laboratory"/>
-                    <label>Laboratory</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p>
-          <p>
-            <div className="ui form" onChange={this.handleChangeGradcourse}>
-              <div className="inline fields">
-                <label>Graduate Course?</label>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="gradcourse" value="Yes"/>
-                    <label>Yes</label>
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="gradcourse" value="No"/>
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p>
-          <p>
-            <a className="ui small header">Units</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeUnits}
-              />
-            </div>
-          </p>
-          <p>
-            <a className="ui small header">Room</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="text"
-                onChange={this.handleChangeRoom}
-              />
-            </div>
-          </p>
-          <p>
-            <a className="ui small header">Start Time</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="time"
-                onChange={this.handleChangeStarttime}
-              />
-            </div>
-          </p>
-          <p>
-            <a className="ui small header">End Time</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="time"
-                onChange={this.handleChangeEndtime}
-              />
-            </div>
-          </p>
-          
-          <div className="ui center aligned container">
-            <button
-              className="ui center aligned blue button"
-              onClick={this.startAdd}>
-              Add Subject
-            </button>
           </div>
-        </div>
         </div>
         <Divider hidden="true" />
       </div>
