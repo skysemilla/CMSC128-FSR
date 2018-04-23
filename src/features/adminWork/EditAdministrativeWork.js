@@ -13,7 +13,11 @@ export default class EditAdministrativeWork extends Component {
       nature_of_work: '',
       office: '',
       credit_units: 0,
-      emp_id: ''
+      emp_id: '',
+
+      nature_of_work_is_valid: true,
+      office_is_valid: true,
+      credit_units_is_valid: true
     };
 
     this.handleChangeNature_of_work = this.handleChangeNature_of_work.bind(this);
@@ -53,28 +57,51 @@ export default class EditAdministrativeWork extends Component {
 
   handleChangeNature_of_work(e) {
     this.setState({ nature_of_work: e.target.value });
+
+    if (e.target.value === '') {
+      this.setState({ nature_of_work_is_valid: false });
+    } else {
+      this.setState({ nature_of_work_is_valid: true });
+    }
   }
   handleChangeOffice(e) {
     this.setState({ office: e.target.value });
+
+    if (e.target.value === '') {
+      this.setState({ office_is_valid: false });
+    } else {
+      this.setState({ office_is_valid: true });
+    }
   }
   handleChangeCreditUnits(e) {
     this.setState({ credit_units: e.target.value });
+
+    this.setState({ credit_units_is_valid: e.target.value });
+    if (e.target.value === '' || e.target.value < 0 ) {
+      this.setState({ credit_units_is_valid: false });
+    } else {
+      this.setState({ credit_units_is_valid: true });
+    }
   }
 
   startAdd(e) {
-    e.preventDefault();
-    Api.editPosition({
-      position_id: this.props.history.location.state.id,
-      emp_id: this.state.emp_id,
-      nature_of_work: this.state.nature_of_work,
-      office: this.state.office,
-      credit_units: this.state.credit_units,
-    })
-      .then(result => {
-        this.props.history.push('./positions/view'); //change to profile later!!
-        alert('Position successfully added!');
+    if(this.state.nature_of_work_is_valid && this.state.office_is_valid && this.state.credit_units_is_valid) {
+      e.preventDefault();
+      Api.editPosition({
+        // position_id: this.props.history.location.state.id,
+        emp_id: this.state.emp_id,
+        nature_of_work: this.state.nature_of_work,
+        office: this.state.office,
+        credit_units: this.state.credit_units,
       })
-      .catch(e => alert('Edited Position!'));
+        .then(result => {
+          this.props.history.push('./positions/view'); //change to profile later!!
+          alert('Position successfully added!');
+        })
+        .catch(e => alert('Edited Position!'));
+    } else {
+      alert('Invalid inputs!');
+    }
   }
 
 //save in state
@@ -94,6 +121,13 @@ export default class EditAdministrativeWork extends Component {
               {' '}
               Nature of Adminstrative Work{' '}
             </a>
+            {this.state.nature_of_work === '' ?
+              (
+                <div className="ui left pointing red basic label">
+                Required
+                </div>
+              ) : (<div></div>)
+            }
             <div className="ui input fluid mini focus">
               <input type="text" placeholder={this.state.prev_nature_of_work} onChange={this.handleChangeNature_of_work} />
             </div>
@@ -102,6 +136,13 @@ export default class EditAdministrativeWork extends Component {
           <p>
             <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
+            {this.state.office === '' ?
+              (
+                <div className="ui left pointing red basic label">
+                Required
+                </div>
+              ) : (<div></div>)
+            }
             <div className="ui input fluid mini focus">
               <input type="text" placeholder={this.state.prev_office} onChange={this.handleChangeOffice} />
             </div>
@@ -110,6 +151,20 @@ export default class EditAdministrativeWork extends Component {
           <p>
             <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
+            {this.state.credit_units === '' ?
+              (
+                <div className="ui left pointing red basic label">
+                Required
+                </div>
+              ) : (
+                this.state.credit_units < 0 ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Credits must not be negative!
+                  </div>
+                ) : (<div></div>)
+              )
+            }
             <div className="ui input fluid mini focus">
               <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
             </div>
