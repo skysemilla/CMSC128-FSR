@@ -6,13 +6,22 @@ import ViewAdminWorkRow from './AdminWorkViewRow'
 import NavBar from './../ui/NavBar';
 
 export default class ViewAdminWork extends Component {
-  componentDidMount() {
-    Api.viewAllPositions()
+
+componentDidMount(){
+  Api.getSession().then(result => {
+    if (result.data.data !== null) {
+      this.setState({ emp_id: result.data.data.emp_id });
+      Api.viewHisPosition({ id: "000000001" })
       .then(result => {
+        console.log(result);
         this.setState({ data: result.data.data });
       })
       .catch(err => alert(err));
-  }
+    }
+  });
+}
+
+
 
   constructor(props) {
     super(props);

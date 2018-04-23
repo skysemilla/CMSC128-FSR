@@ -19,3 +19,7 @@ export const viewAllPositions = () => {
 export const viewPosition = id => {
   return axios.post('/api/position/view', id);
 };
+
+export const viewHisPosition = id => {
+  return axios.post('/api/position/viewHis', id);
+};
