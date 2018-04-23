@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
 export default class AddSubject extends Component {
@@ -19,7 +20,7 @@ export default class AddSubject extends Component {
       endtime: ''
     };
 
-    this.handleChangeSubjid = this.handleChangeSubjid.bind(this);
+    // this.handleChangeSubjid = this.handleChangeSubjid.bind(this);
     this.handleChangeSubjcode = this.handleChangeSubjcode.bind(this);
     this.handleChangeSeccode = this.handleChangeSeccode.bind(this);
     this.handleChangeType = this.handleChangeType.bind(this);
@@ -38,9 +39,9 @@ export default class AddSubject extends Component {
     // }
   }
 
-  handleChangeSubjid(e) {
-    this.setState({ subjid: e.target.value });
-  }
+  // handleChangeSubjid(e) {
+  //   this.setState({ subjid: e.target.value });
+  // }
 
   handleChangeSubjcode(e) {
     this.setState({ subjcode: e.target.value });
@@ -52,10 +53,12 @@ export default class AddSubject extends Component {
 
   handleChangeType(e) {
     this.setState({ type: e.target.value });
+    console.log(this.state.type);
   }
 
   handleChangeGradcourse(e) {
     this.setState({ gradcourse: e.target.value });
+    console.log(this.state.gradcourse);
   }
 
   handleChangeUnits(e) {
@@ -76,23 +79,27 @@ export default class AddSubject extends Component {
 
   startAdd(e) {
     e.preventDefault();
-    // Api.addSubject({
-    //     subjid: this.state.subjid,
-    //     subjcode: this.state.subjcode,
-    //     seccode: this.state.seccode,
-    //     type: this.state.type,
-    //     gradcourse: this.state.gradcourse,
-    //     units: this.state.units,
-    //     room: this.state.room,
-    //     starttime: this.state.starttime,
-    //     endtime: this.state.endtime
-    // })
-    //   .then(result =>{
-    //     this.props.history.push('./Subjects/view');
-    //     alert('Subject successfully added!');
-    //   })
-    //   // .catch(e => alert(e));
-    //   .catch(e => alert('Error adding new Subject!'));
+    var isLec='0';
+    var isGrad='0';
+    if(this.state.type == "Lecture") isLec='1'; //fix radio button
+    if(this.state.gradcourse == "Yes") isGrad='1'; //fix radio button
+
+    Api.addSubjects({
+        subject_code: this.state.subjcode,
+        section_code: this.state.seccode,
+        isLecture: isLec,
+        isGraduate: isGrad,
+        units: this.state.units,
+        room: this.state.room,
+        start_time: this.state.starttime,
+        end_time: this.state.endtime
+    })
+      .then(result =>{
+        this.props.history.push('./view');
+        alert('Subject successfully added!');
+      })
+      // .catch(e => alert(e));
+      .catch(e => alert('Error adding new Subject!'));
   }
 
   render() {
@@ -112,15 +119,6 @@ export default class AddSubject extends Component {
           </div>
           <Divider hidden="true" />
 
-          <p>
-            <a className="ui small header"> Subject ID</a>
-            <div className="ui input fluid mini focus">
-              <input
-                type="number"
-                onChange={this.handleChangeSubjid}
-              />
-            </div>
-          </p>
           <p>
             <a className="ui small header"> Subject Code</a>
             <div className="ui input fluid mini focus">

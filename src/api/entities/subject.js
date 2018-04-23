@@ -4,16 +4,16 @@ export const viewAllSubjects = () => {
 	return axios.post('/api/subject/viewAll');
 };
 
-export const deleteSubject = subjectInfo => {
-	return axios.post('/api/subject/remove', subjectInfo)
+export const deleteSubjectId = subjectInfo => {
+	return axios.post('/api/subject/delete', subjectInfo)
 };
 
-export const editSubject = subjectInfo => {
+export const editSubjects = subjectInfo => {
 	return axios.post('/api/subject/edit', subjectInfo)
 };
 
-export const addSubject = () => {
-	return axios.post('/api/subject/add')
+export const addSubjects = subjectInfo => {
+	return axios.post('/api/subject/add', subjectInfo);
 };
 
 export const viewSubject = subjectInfo => {
@@ -22,4 +22,8 @@ export const viewSubject = subjectInfo => {
 
 export const getSubjectDay = () => {
 	return axios.post('/api/subject/getsubjectday');
+}
+
+export const getSubjectByID = () => {
+	return axios.post('/api/subject/getsubjectid');
 }
