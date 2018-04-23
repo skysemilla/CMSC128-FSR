@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
@@ -59,66 +58,67 @@ export default class Profile extends Component {
           subLabel=""
           is_being_approved={this.state.data.is_being_approved}
         />
+        <div className="bodyDiv"/>
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               <button
-                class="ui blue right floated button"
+                className="ui blue right floated button"
                 onClick={this.handleEdit}>
                 Edit Profile
               </button>
               PROFILE
             </h2>
           </div>
-          <div class="ui large list">
+          <div className="ui large list">
             <div>
-              <div class="item">
-                <div class="content">
+              <div className="item">
+                <div className="content">
                   <b>
-                    <i class="user circle icon" />Full Name:{' '}
+                    <i className="user circle icon" />Full Name:{' '}
                   </b>
                   {this.state.data.f_name} {this.state.data.m_name}{' '}
                   {this.state.data.l_name}
                 </div>
               </div>
-              <div class="item">
-                <div class="content">
+              <div className="item">
+                <div className="content">
                   <b>
-                    <i class="id card outline icon" />Employee ID:{' '}
+                    <i className="id card outline icon" />Employee ID:{' '}
                   </b>
                   {this.state.data.emp_id}
                 </div>
               </div>
-              <div class="item">
-                <div class="content">
+              <div className="item">
+                <div className="content">
                   <b>
-                    <i class="building icon" />Department and College:{' '}
+                    <i className="building icon" />Department and College:{' '}
                   </b>
                   {this.state.data.department}, {this.state.data.college}
                 </div>
               </div>
-              <div class="item">
-                <div class="content">
+              <div className="item">
+                <div className="content">
                   <b>
-                    <i class="male icon" />Full-time Employee?{' '}
+                    <i className="male icon" />Full-time Employee?{' '}
                   </b>
                   {this.state.data.is_full_time}
                 </div>
               </div>
-              <div class="item">
-                <div class="content">
+              <div className="item">
+                <div className="content">
                   <b>
-                    <i class="users icon" />Employee Type:{' '}
+                    <i className="users icon" />Employee Type:{' '}
                   </b>
                   {this.state.data.emp_type} {this.state.data.emp_type_no}
                 </div>
               </div>
-              <div class="item">
-                <div class="content">
+              <div className="item">
+                <div className="content">
                   <b>
-                    <i class="mail outline icon" />Email Address:{' '}
+                    <i className="mail outline icon" />Email Address:{' '}
                   </b>
                   {this.state.data.email}
                 </div>
@@ -128,8 +128,8 @@ export default class Profile extends Component {
           <Divider hidden="true" />
           <Divider hidden="true" />
           <div>
-            <h2 class="ui blue header">Past FSRs</h2>
-            <table class="ui blue table">
+            <h2 className="ui blue header">Past FSRs</h2>
+            <table className="ui blue table">
               <thead>
                 <tr>
                   <th>School Year</th>
@@ -143,9 +143,9 @@ export default class Profile extends Component {
                   <td>2nd</td>
                   <td>
                     <button
-                      class="ui large compact icon button"
+                      className="ui large compact icon button"
                       onClick={this.startView}>
-                      <i class="eye icon"> </i>
+                      <i className="eye icon"> </i>
                     </button>
                   </td>
                 </tr>

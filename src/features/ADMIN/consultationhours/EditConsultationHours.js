@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
@@ -63,16 +62,16 @@ export default class EditConsultationHours extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="consultation"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               Edit Consultation Hours
               <GenerateFSR/>
               <SendtoAdmin/>
@@ -82,8 +81,8 @@ export default class EditConsultationHours extends Component {
           <Divider hidden="true" />
           <Divider hidden="true" />
           <p>
-            <a class="ui small header"> Subject </a>
-            <div class="ui input mini focus">
+            <a className="ui small header"> Subject </a>
+            <div className="ui input mini focus">
               <input
                 type="text"
                 style={{ width: '540px' }}
@@ -93,8 +92,8 @@ export default class EditConsultationHours extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header"> Section Code </a>
-            <div class="ui input mini focus">
+            <a className="ui small header"> Section Code </a>
+            <div className="ui input mini focus">
               <input
                 type="text"
                 style={{ width: '497px' }}
@@ -104,8 +103,8 @@ export default class EditConsultationHours extends Component {
             </div>
           </p>
           <p>
-            <a class="ui small header">Room </a>
-            <div class="ui input mini focus">
+            <a className="ui small header">Room </a>
+            <div className="ui input mini focus">
               <input
                 type="text"
                 style={{ width: '552px' }}
@@ -114,9 +113,9 @@ export default class EditConsultationHours extends Component {
               />
             </div>
           </p>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startEdit}>
               Save changes
             </button>

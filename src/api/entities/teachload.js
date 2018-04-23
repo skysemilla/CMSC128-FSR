@@ -16,6 +16,26 @@ export const viewTeachLoad = () => {
 	return axios.post('/api/teachload/view')
 };
 
+export const viewTeachLoadEmpAdmin = emp_id => {
+	return axios.post('/api/teachload/viewempadmin', emp_id)
+};
+
 export const viewAllTeachLoad = () => {
 	return axios.post('/api/teachload/viewAll');
+};
+
+export const editAddTeachLoadUnits = teachLoadInfo => {
+	return axios.post('/api/teachload/editAddTeachLoadUnits/', teachLoadInfo)
+};
+
+export const editRemoveTeachLoadUnits = teachLoadInfo => {
+	return axios.post('/api/teachload/editRemoveTeachLoadUnits/', teachLoadInfo)
+};
+
+export const getTeachLoad = teachLoadInfo => {
+	return axios.post('/api/teachload/viewByTeachloadId/', teachLoadInfo)
+};
+
+export const getSubjectByTeachId = teachLoadInfo => {
+	return axios.post('/api/teachload/subjectByTeachId', teachLoadInfo)
 };

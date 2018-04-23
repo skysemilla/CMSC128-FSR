@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import ViewExtensionRow from './ExtensionViewRow';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
-import DeleteModal from '../GenericDelete';
 
 //Dummy data
 const dummySample = {
@@ -54,36 +50,37 @@ componentDidMount = () => {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
           <NavBar {...this.props} Label="FSR" subLabel="extension" />
         </div>
 
         <div className="bodyDiv">
           <div
-            class="ui compact piled very padded text left aligned container segment"
+            className="ui compact piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h1 class="ui blue header">EXTENSION</h1>
+              <h1 className="ui blue header">EXTENSION</h1>
             </div>
             <Divider hidden="true" />
 
             <style>
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <table class="ui celled table">
+            <div className="scrollTable">
+            <table className="ui celled table">
               <thead>
                 <tr>
-                  <th class="center aligned">Type</th>
-                  <th class="center aligned">Title</th>
-                  <th class="center aligned">No. of Hours </th>
-                  <th class="center aligned">No. of Participants</th>
-                  <th class="center aligned">Start Date</th>
-                  <th class="center aligned">End Date</th>
-                  <th class="center aligned">Role</th>
-                  <th class="center aligned">Funding Agency</th>
-                  <th class="center aligned">Approved Course Credits </th>
-                  <th class="center aligned"> Edit/Delete </th>
+                  <th className="center aligned">Type</th>
+                  <th className="center aligned">Title</th>
+                  <th className="center aligned">No. of Hours </th>
+                  <th className="center aligned">No. of Participants</th>
+                  <th className="center aligned">Start Date</th>
+                  <th className="center aligned">End Date</th>
+                  <th className="center aligned">Role</th>
+                  <th className="center aligned">Funding Agency</th>
+                  <th className="center aligned">Approved Course Credits </th>
+                  <th className="center aligned"> Edit/Delete </th>
                 </tr> 
               </thead>
               <tbody>
@@ -109,8 +106,9 @@ componentDidMount = () => {
                 })}
               </tbody>
             </table>
+            </div>
             <button
-              class="ui blue right floated button"
+              className="ui blue right floated button"
               onClick={this.startAdd}>
               Add Extension
             </button>

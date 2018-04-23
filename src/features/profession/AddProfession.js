@@ -1,32 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
-
-// form validation
-const error = {
-  color: 'red'
-};
-
-const errorTexts = [
-  <span style={error}> {' is required'}</span>, //0
-  <span style={error}> {' *'}</span> //1
-];
-
-var formError = {
-  text: {
-    permission: '',
-    date: ''
-  },
-  bool: {
-    permission: false,
-    date: false
-  }
-};
 
 export default class AddProfession extends Component {
   constructor(props) {
@@ -43,14 +19,12 @@ export default class AddProfession extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.startAdd = this.startAdd.bind(this);
-    this.checkAdd = this.checkAdd.bind(this);
   }
-
 
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
-        this.setState({emp_id: result.data.data.emp_id})
+        this.setState({ emp_id: result.data.data.emp_id });
       }
     });
   }
@@ -63,51 +37,29 @@ export default class AddProfession extends Component {
     this.setState({ date: e.target.value });
   }
 
-  checkAdd(e) {
-    e.preventDefault();
-    if (!this.state.permission) {
-      formError.text.permission = errorTexts[1];
-      formError.bool.permission = false;
-    } else {
-      formError.text.permission = '';
-      formError.bool.permission = true;
-    }
-
-    // check date
-    if (!this.state.date) {
-      formError.text.date = errorTexts[0];
-      formError.bool.date = false;
-    } else {
-      formError.text.date = '';
-      formError.bool.date = true;
-    }
-
-    if (
-      formError.bool.permission &&
-      formError.bool.date 
-    ) {
-      this.startAdd(e);
-    }else if (
-      this.state.permission == 0 &&
-      !this.state.date
-    ){
-      this.startAdd(e);
-    } else this.forceUpdate();
-  }
-
   startAdd(e) {
-    if(this.state.date === '') {this.state.date = 'null'}
-    e.preventDefault();
-    Api.addLimitedPractice({
-      haveApplied: this.state.permission,
-      date_submitted: this.state.date,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');  //change to profile later!!
-        alert('Teaching load successfully added!');
+    if (
+      this.state.permission === '0' ||
+      (this.state.permission === '1' && this.state.date !== '')
+    ) {
+      if (this.state.date === '') {
+        this.setState({ ...this.state, data: 'null' });
+      }
+      e.preventDefault();
+      Api.addLimitedPractice({
+        haveApplied: this.state.permission,
+        date_submitted: this.state.date,
+        emp_id: this.state.emp_id
       })
-      .catch(e => alert('Error adding new Teaching Load!'));
+        .then(result => {
+          this.props.history.push('./view'); //change to profile later!!
+          alert('Teaching load successfully added!');
+        })
+        .catch(e => alert('Error adding new Teaching Load!'));
+    } else {
+      // else invalid date
+      alert('Invalid input!');
+    }
   }
 
   uploadAttachment(e) {
@@ -133,13 +85,13 @@ export default class AddProfession extends Component {
                 <div class="inline fields">
                   <label>
                     Have you applied for official permission for limited
-                    practice of profession?{formError.text.permission}
+                    practice of profession?
                   </label>
                   <div class="field">
                     <div class="ui radio checkbox">
                       <input
                         type="radio"
-                        name="studyleave"
+                        name="permission"
                         value={1}
                         onClick={this.handleChangePermission}
                       />
@@ -150,17 +102,24 @@ export default class AddProfession extends Component {
                     <div class="ui radio checkbox">
                       <input
                         type="radio"
-                        name="studyleave"
+                        name="permission"
                         value={0}
                         onClick={this.handleChangePermission}
                       />
                       <label>No</label>
                     </div>
                   </div>
+                  {this.state.permission === '' ? (
+                    <div className="ui left pointing red basic label">
+                      Required
+                    </div>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               </div>
             </p>
-            {this.state.permission !== "1" ? (
+            {this.state.permission !== '1' ? (
               <p>
                 <a class="ui small header">Date submitted </a>
                 <div class="ui input fluid mini focus">
@@ -173,10 +132,17 @@ export default class AddProfession extends Component {
               </p>
             ) : (
               <p>
-                <a class="ui small header">Date submitted{formError.text.date}</a>
+                <a class="ui small header">Date submitted</a>
                 <div class="ui input fluid mini focus">
                   <input type="date" onChange={this.handleChangeDate} />
                 </div>
+                {this.state.date === '' ? (
+                  <div className="ui pointing red basic label">
+                    Invalid date
+                  </div>
+                ) : (
+                  <div />
+                )}
               </p>
             )}
             <div class="ui center aligned container">
@@ -185,7 +151,7 @@ export default class AddProfession extends Component {
               </button>
               <button
                 class="ui center aligned blue button"
-                onClick={this.checkAdd}>
+                onClick={this.startAdd}>
                 Add Profession
               </button>
             </div>

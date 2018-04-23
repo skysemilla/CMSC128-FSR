@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import EditNav from './EditNav';
-import SideNav from './SideNav';
 import GenericLogout from './GenericLogout';
 
 export default class NavBarAdmin extends Component {
@@ -59,58 +56,61 @@ export default class NavBarAdmin extends Component {
     return (
       <div>
         {this.state.activeMenu === 'pending' ? (
-          <div class="ui blue inverted huge menu div1">
-            <a class="active item" id="pending" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="active item" id="pending" onClick={this.handleChange}>
               Pending FSR
             </a>
-            <a class="item" id="approved" onClick={this.handleChange}>
+            <a className="item" id="approved" onClick={this.handleChange}>
               Approved FSR
             </a>
-            <a class="item" id="faculty" onClick={this.handleChange}>
+            <a className="item" id="faculty" onClick={this.handleChange}>
               All Faculty
             </a>
-            <div class="right menu">
+            <div className="right menu">
               <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
         ) : this.state.activeMenu === 'approved' ? (
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="pending" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="pending" onClick={this.handleChange}>
               Pending FSR
             </a>
-            <a class="active item" id="approved" onClick={this.handleChange}>
+            <a
+              className="active item"
+              id="approved"
+              onClick={this.handleChange}>
               Approved FSR
             </a>
-            <a class="item" id="faculty" onClick={this.handleChange}>
+            <a className="item" id="faculty" onClick={this.handleChange}>
               All Faculty
             </a>
-            <div class="right menu">
+            <div className="right menu">
               <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>
           </div>
         ) : this.state.activeMenu === 'faculty' ? (
-          <div class="ui blue inverted huge menu div1">
-            <a class="item" id="pending" onClick={this.handleChange}>
+          <div className="ui blue inverted huge menu div1">
+            <a className="item" id="pending" onClick={this.handleChange}>
               Pending FSR
             </a>
-            <a class="item" id="approved" onClick={this.handleChange}>
+            <a className="item" id="approved" onClick={this.handleChange}>
               Approved FSR
             </a>
-            <a class="active item" id="faculty" onClick={this.handleChange}>
+            <a className="active item" id="faculty" onClick={this.handleChange}>
               All Faculty
             </a>
-            <div class="right menu">
+            <div className="right menu">
               <label className="ui item">
                 Logged in as {this.state.username}
-                <i class="user circle icon" />
+                <i className="user circle icon" />
               </label>
               <GenericLogout {...this.props} />
             </div>

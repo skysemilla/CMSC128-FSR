@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
-import GenerateFSR from './../../GenerateFSR'
-import SendtoAdmin from './../../SendtoAdmin'
 
 export default class AddProfession extends Component {
   constructor(props) {
@@ -33,26 +29,26 @@ export default class AddProfession extends Component {
 
   render() {
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="profession"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               ADD LIMITED PRACTICE OF PROFESSION
             </h2>
           </div>
           <Divider hidden="true" />
           <p>
-            <div class="ui form">
-              <div class="inline fields">
+            <div className="ui form">
+              <div className="inline fields">
                 <label>Have you applied for official permission for limited practice of profession?</label>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input
                       type="radio"
                       name="studyleave"
@@ -62,8 +58,8 @@ export default class AddProfession extends Component {
                     <label>Yes</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui radio checkbox">
+                <div className="field">
+                  <div className="ui radio checkbox">
                     <input
                       type="radio"
                       name="studyleave"
@@ -79,8 +75,8 @@ export default class AddProfession extends Component {
           {
             this.state.permission !== 'YES' ?
               <p>
-                <a class="ui small header">Date submitted </a>
-                <div class="ui input fluid mini focus">
+                <a className="ui small header">Date submitted </a>
+                <div className="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
@@ -90,8 +86,8 @@ export default class AddProfession extends Component {
               </p>
                :
               <p>
-                <a class="ui small header">Date submitted </a>
-                  <div class="ui input fluid mini focus">
+                <a className="ui small header">Date submitted </a>
+                  <div className="ui input fluid mini focus">
                     <input
                       type="date"
                       onChange={this.handleChangeDate}
@@ -99,9 +95,9 @@ export default class AddProfession extends Component {
                 </div>
               </p>
           }
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui center aligned blue button"
+              className="ui center aligned blue button"
               onClick={this.startAdd}>
               Add Profession
             </button>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 
@@ -51,7 +49,7 @@ export default class GenericPending extends Component {
       <div>
         {this.state.disabled === 0 ? (
           <div>
-            <button class="ui large green button" onClick={this.handleShow}>
+            <button className="ui large green button" onClick={this.handleShow}>
               Enable
             </button>
             <Modal
@@ -79,7 +77,7 @@ export default class GenericPending extends Component {
           </div>
         ) : (
           <div>
-            <button class="ui large red button" onClick={this.handleShow}>
+            <button className="ui large red button" onClick={this.handleShow}>
               Disable
             </button>
             <Modal

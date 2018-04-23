@@ -16,6 +16,6 @@ export const viewAllPositions = () => {
   return axios.get('/api/position/viewAll');
 };
 
-export const viewPosition = () => {
-  return axios.get('/api/position/view');
+export const viewPosition = id => {
+  return axios.post('/api/position/view', id);
 };

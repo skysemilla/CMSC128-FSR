@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
-import { Divider, Checkbox } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import GenericDropdown from './../GenericDropdown';
 import ConsultationHourSubTypeDropdown from './ConsultationHourSubTypeDropdown';
 
@@ -42,6 +39,8 @@ const optionsTimeTo = [
   { value: 8, text: '5:00:00' }
 ];
 
+const placeRegex = /^[A-Za-z0-9][A-Za-z0-9\.-\s]+$/;
+
 export default class AddConsultationHours extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +50,8 @@ export default class AddConsultationHours extends Component {
       consultation_start_time: '',
       consultation_end_time: '',
       consultation_place: '',
-      emp_id: ''
+      emp_id: '',
+      validPlace: false
     };
 
     this.handleChangeTimeFrom = this.handleChangeTimeFrom.bind(this);
@@ -91,23 +91,33 @@ export default class AddConsultationHours extends Component {
 
   handleChangePlace(e) {
     this.setState({ consultation_place: e.target.value });
+    if(e.target.value === '' || !e.target.value.match(placeRegex)){
+      this.setState({ validPlace : false });
+    } else this.setState({ validPlace: true });
   }
 
   startAdd(e) {
     e.preventDefault();
     console.log(this.state);
-    Api.addConsultation({
-      consultation_start_time: this.state.consultation_start_time,
-      consultation_end_time: this.state.consultation_end_time,
-      consultation_place: this.state.consultation_place,
-      day: this.state.day,
-      emp_id: this.state.emp_id
-    })
+    if(this.state.day !== '' &&
+       this.state.consultation_start_time !== '' &&
+       this.state.consultation_end_time !== '' &&
+       this.state.validPlace === true){
+        Api.addConsultation({
+          consultation_start_time: this.state.consultation_start_time,
+          consultation_end_time: this.state.consultation_end_time,
+          consultation_place: this.state.consultation_place,
+          day: this.state.day,
+          emp_id: this.state.emp_id
+        })
 
-      .then(result => {
-        this.props.history.push('./view');
-      })
-      .catch(e => alert('Error adding new Consultation!'));
+        .then(result => {
+          this.props.history.push('./view');
+          alert('Successfully added Consultation Hours');
+        })
+        .catch(e => alert('Error adding new Consultation!'));
+      }
+    else alert('Invalid Input');
   }
 
   render() {
@@ -115,53 +125,113 @@ export default class AddConsultationHours extends Component {
       <div className="App-header">
         <NavBar {...this.props} />
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">ADD CONSULTATION HOURS</h2>
+            <h2 className="ui blue header">ADD CONSULTATION HOURS</h2>
           </div>
 
           <Divider hidden="true" />
-
-          <p>
+          <div className = "field">
+            <label> 
+              <h3> Day
+              {
+              this.state.day === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required  
+                </div>
+                :
+                <div className = "ui left pointing green basic label">
+                  is valid!
+                </div>
+              } 
+              </h3>
+            </label>
             <GenericDropdown
-              labelHeader="Day"
               labelProper="Choose Day of Consultation"
               value={this.state.day}
               handler={this.handleChangeDay}
               options={optionsDays}
             />
-          </p>
+          </div>
 
-          <p>
+          <div className = "field">
+            <label>
+              <h3> Time From
+              {
+              this.state.consultation_start_time === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required  
+                </div>
+                :
+                <div className = "ui left pointing green basic label">
+                  is valid!
+                </div>
+              } 
             <GenericDropdown
-              labelHeader="Time From"
               labelProper="Choose Start Time of Consultation"
-              value={this.state.timeFrom}
+              value={this.state.consultation_start_time}
               handler={this.handleChangeTimeFrom}
               options={optionsTimeFrom}
             />
-          </p>
+              </h3>
+            </label>
+          </div>
 
-          <p>
+          <div className = "field">
+            <label>
+              <h3> Time To
+              {
+              this.state.consultation_end_time === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required  
+                </div>
+                :
+                <div className = "ui left pointing green basic label">
+                  is valid!
+                </div>
+              } 
             <ConsultationHourSubTypeDropdown
-              value={this.state.timeTo}
+              value={this.state.consultation_end_time}
               handler={this.handleChangeTimeTo}
               options={optionsTimeTo}
               timeFromValue={this.state.timeFromValue}
             />
-          </p>
+            </h3>
+            </label>
+          </div>
 
-          <p>
-            <a class="ui small header"> Place </a>
-            <div class="ui input fluid mini focus">
-              <input type="text" onChange={this.handleChangePlace} />
+          <div className = "field">
+            <label>
+            <h3> Place
+              {
+              this.state.consultation_place === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required  
+                </div>
+                :
+                [
+                  this.state.consultation_place.match(placeRegex) ?
+                  <div className = "ui left pointing green basic label">
+                  is valid!
+                  </div>
+                  :
+                  <div className = "ui left pointing red basic label">
+                  Invalid Input!
+                  </div>
+                ]
+              } 
+            </h3>
+            </label>
+            <div className="ui input fluid mini">
+              <input type="text" onChange={this.handleChangePlace}/>
             </div>
-          </p>
+          </div>
+
           <Divider hidden="true" />
-          <div class="ui center aligned container">
-            <button class="ui blue button">Upload Attachments</button>
-            <button class="ui blue button" onClick={this.startAdd}>
+          <div className="ui center aligned container">
+            <button className="ui blue button">Upload Attachments</button>
+            <button className="ui blue button" onClick={this.startAdd}>
               Add Consultation Hours
             </button>
           </div>

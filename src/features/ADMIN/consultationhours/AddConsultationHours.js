@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Divider, Dropdown } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin'
 import GenerateFSR from './../../GenerateFSR'
 import SendtoAdmin from './../../SendtoAdmin'
@@ -68,16 +66,16 @@ export default class AddConsultationHours extends Component {
   render() {
 
     return (
-      <div className="App-header">
+      <div classNameName="App-header">
         <div>
         <NavBar {...this.props} Label="edit" subLabel="consultation"/>
         </div>
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
         <div
-          class="ui piled very padded text left aligned container segment"
+          className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 class="ui blue header">
+            <h2 className="ui blue header">
               Consultation Hours
               <GenerateFSR/>
               <SendtoAdmin/>
@@ -93,9 +91,9 @@ export default class AddConsultationHours extends Component {
               options = {options}
               />
           </div>
-          <div class="ui center aligned container">
+          <div className="ui center aligned container">
             <button
-              class="ui blue button"
+              className="ui blue button"
               onClick={this.startAdd}>
               Add Publication
             </button>

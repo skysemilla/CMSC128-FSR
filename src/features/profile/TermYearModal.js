@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import ReactDOM from 'react-dom';
-import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import GenericDropdown from './../GenericDropdown';
 import * as Api from '../../api';
@@ -62,15 +60,19 @@ export default class TermYearModal extends Component {
   }
 
   updateProfile(e) {
-    e.preventDefault();
-    Api.editTerm({
-      empid: this.props.empid,
-      year: this.state.year,
-      term: this.state.term,
-      isnew: this.props.is_new + 1
-    }).then(result => {
-      this.close();
-    });
+    if (this.state.year!=='' && this.state.term!=='') {
+      e.preventDefault();
+      Api.editTerm({
+        empid: this.props.empid,
+        year: this.state.year,
+        term: this.state.term,
+        isnew: this.props.is_new + 1
+      }).then(result => {
+        this.close();
+      });
+    }else{
+      alert('Invalid input!');
+    }
   }
 
   render() {
@@ -92,6 +94,13 @@ export default class TermYearModal extends Component {
               </div>
               <div>
                 <label>Term:</label>
+                    {this.state.term === '' ?
+                      (
+                        <div className="ui left pointing red basic label">
+                          Required
+                        </div>
+                      ) : (<div></div>)
+                    }
                 <GenericDropdown
                   labelProper="Select Term"
                   value={this.state.handleChangeTerm}
@@ -99,7 +108,14 @@ export default class TermYearModal extends Component {
                   options={optionsMain}
                 />
                 <label>Year:</label>
-                <div class="ui input fluid mini focus">
+                {this.state.year === '' ?
+                      (
+                        <div className="ui left pointing red basic label">
+                          Required
+                        </div>
+                      ) : (<div></div>)
+                    }
+                <div className="ui input fluid mini focus">
                   <GenericDropdown
                     labelProper="Select Year"
                     value={this.state.handleChangeYear}

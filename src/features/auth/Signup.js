@@ -1,29 +1,21 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GenericDropdown from './../GenericDropdown';
 import DeptDropdown from './DeptDropdown';
-import {
-  Form,
-  Button,
-  Container,
-  Tab,
-  Segment,
-  Image,
-  Label,
-  Icon,
-  Divider,
-  Grid,
-  Menu
-} from 'semantic-ui-react';
+import { Container, Image, Divider } from 'semantic-ui-react';
 import * as Api from '../../api';
+import Skydev from '../../assets/skydev2.png';
 
 // form validation
 const error = {
   color: 'red'
 };
 
-var messageClass = 'ui negative message';
+const full = {
+  margin: '0px auto',
+  height: '50px',
+  width: 'auto'
+};
 
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
@@ -36,27 +28,13 @@ const errorTexts = [
   <span style={error}> {' must be valid'}</span> //7
 ];
 
-const nameRegex = /^[A-Za-z0-9\-']+$/;
+const nameRegex = /^[A-Za-z\-'\s]+$/;
 const alphanumRegex = /^[A-Za-z0-9]+$/;
-const passRegex = /^[A-Za-z0-9\-\_\.]+$/;
+const passRegex = /^[A-Za-z0-9\-_.]+$/;
 const empIdRegex = /^[0-9]{9}$/;
-const emailRegex = /^.+\@up.edu.ph$/;
+const emailRegex = /^[^;"']+@up.edu.ph$/;
 
 var formError = {
-  text: {
-    fname: '',
-    mname: '',
-    lname: '',
-    empId: '',
-    empType: '',
-    fullTime: '',
-    col: '',
-    dept: '',
-    email: '',
-    user: '',
-    pass: '',
-    repPass: ''
-  },
   bool: {
     fname: false,
     mname: false,
@@ -197,7 +175,8 @@ export default class Signup extends Component {
       emptype: '',
       emptypeno: '',
       email: '',
-      fulltime: null
+      fulltime: null,
+      errorExist: false
     };
 
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
@@ -272,181 +251,110 @@ export default class Signup extends Component {
   }
 
   startSignup() {
-    Api.signup({
-      emp_id: this.state.empid,
+    this.setState({ ...this.state, errorExist: false });
+    Api.checkValid({
+      empid: this.state.empid,
       username: this.state.username,
-      password: this.state.password,
-      type: 'FACULTY',
-      f_name: this.state.fname,
-      m_name: this.state.mname,
-      l_name: this.state.lname,
-      department: this.state.dept,
-      college: this.state.college,
-      emp_type: this.state.emptype,
-      emp_type_no: this.state.emptypeno,
-      is_full_time: this.state.fulltime,
       email: this.state.email
-    }).then(result => {
-      Api.login({
-        username: this.state.username,
-        password: this.state.password
-      }).then(result => {
-        this.props.history.push('../profile');
-      });
+    }).then(res => {
+      if (res.data.data === null) {
+        Api.signup({
+          emp_id: this.state.empid,
+          username: this.state.username,
+          password: this.state.password,
+          type: 'FACULTY',
+          f_name: this.state.fname,
+          m_name: this.state.mname,
+          l_name: this.state.lname,
+          department: this.state.dept,
+          college: this.state.college,
+          emp_type: this.state.emptype,
+          emp_type_no: this.state.emptypeno,
+          is_full_time: this.state.fulltime,
+          email: this.state.email
+        }).then(result => {
+          Api.login({
+            username: this.state.username,
+            password: this.state.password
+          }).then(result => {
+            this.props.history.push('/profile');
+          });
+        });
+      } else {
+        this.setState({ ...this.state, errorExist: true });
+        this.forceUpdate();
+      }
     });
   }
 
   checkSignup(e) {
     e.preventDefault();
     // check emp id
-    if (!this.state.empid) {
-      formError.text.empId = errorTexts[0];
-      formError.bool.empId = false;
-    } else if (!this.state.empid.match(empIdRegex)) {
-      formError.text.empId = errorTexts[4];
-      formError.bool.empId = false;
-    } else {
-      formError.text.empId = '';
-      formError.bool.empId = true;
-    }
+    if (!this.state.empid) formError.bool.empId = false;
+    else if (!this.state.empid.match(empIdRegex)) formError.bool.empId = false;
+    else formError.bool.empId = true;
 
     // check username
-    if (!this.state.username) {
-      formError.text.user = errorTexts[0];
+    if (!this.state.username) formError.bool.user = false;
+    else if (!this.state.username.match(alphanumRegex))
       formError.bool.user = false;
-    } else if (!this.state.username.match(alphanumRegex)) {
-      formError.text.user = errorTexts[7];
-      formError.bool.user = false;
-    } else {
-      formError.text.user = '';
-      formError.bool.user = true;
-    }
+    else formError.bool.user = true;
 
     // check pass
-    if (!this.state.password) {
-      formError.text.pass = errorTexts[0];
+    if (!this.state.password) formError.bool.pass = false;
+    else if (this.state.password.length < 6) formError.bool.pass = false;
+    else if (this.state.password.length > 16) formError.bool.pass = false;
+    else if (this.state.password !== this.state.repPassword)
       formError.bool.pass = false;
-    } else if (this.state.password.length < 6) {
-      formError.text.pass = errorTexts[2];
-      formError.bool.pass = false;
-    } else if (this.state.password.length > 16) {
-      formError.text.pass = errorTexts[3];
-      formError.bool.pass = false;
-    } else if (this.state.password !== this.state.repPassword) {
-      formError.text.pass = errorTexts[5];
-      formError.bool.pass = false;
-    } else if (!this.state.password.match(passRegex)) {
-      formError.text.pass = errorTexts[7];
-      formError.bool.pass = false;
-    } else {
-      formError.text.pass = '';
-      formError.bool.pass = true;
-    }
+    else if (!this.state.password.match(passRegex)) formError.bool.pass = false;
+    else formError.bool.pass = true;
 
     // check repeat pass
-    if (!this.state.repPassword) {
-      formError.text.repPass = errorTexts[0];
+    if (!this.state.repPassword) formError.bool.repPass = false;
+    else if (this.state.repPassword.length < 6) formError.bool.repPass = false;
+    else if (this.state.repPassword.length > 16) formError.bool.repPass = false;
+    else if (this.state.repPassword !== this.state.password)
       formError.bool.repPass = false;
-    } else if (this.state.repPassword.length < 6) {
-      formError.text.repPass = errorTexts[2];
+    else if (!this.state.repPassword.match(passRegex))
       formError.bool.repPass = false;
-    } else if (this.state.repPassword.length > 16) {
-      formError.text.repPass = errorTexts[3];
-      formError.bool.repPass = false;
-    } else if (this.state.repPassword !== this.state.password) {
-      formError.text.repPass = errorTexts[5];
-      formError.bool.repPass = false;
-    } else if (!this.state.repPassword.match(passRegex)) {
-      formError.text.repPass = errorTexts[7];
-      formError.bool.repPass = false;
-    } else {
-      formError.text.repPass = '';
-      formError.bool.repPass = true;
-    }
+    else formError.bool.repPass = true;
 
     // check fname
-    if (!this.state.fname) {
-      formError.text.fname = errorTexts[0];
-      formError.bool.fname = false;
-    } else if (!this.state.fname.match(nameRegex)) {
-      formError.text.fname = errorTexts[6];
-      formError.bool.fname = false;
-    } else {
-      formError.text.fname = '';
-      formError.bool.fname = true;
-    }
+    if (!this.state.fname) formError.bool.fname = false;
+    else if (!this.state.fname.match(nameRegex)) formError.bool.fname = false;
+    else formError.bool.fname = true;
 
     // check mname
-    if (!this.state.mname) {
-      formError.text.mname = errorTexts[0];
-      formError.bool.mname = false;
-    } else if (!this.state.mname.match(nameRegex)) {
-      formError.text.mname = errorTexts[6];
-      formError.bool.mname = false;
-    } else {
-      formError.text.mname = '';
-      formError.bool.mname = true;
-    }
+    if (!this.state.mname) formError.bool.mname = false;
+    else if (!this.state.mname.match(nameRegex)) formError.bool.mname = false;
+    else formError.bool.mname = true;
 
     // check lname
-    if (!this.state.lname) {
-      formError.text.lname = errorTexts[0];
-      formError.bool.lname = false;
-    } else if (!this.state.lname.match(nameRegex)) {
-      formError.text.lname = errorTexts[6];
-      formError.bool.lname = false;
-    } else {
-      formError.text.lname = '';
-      formError.bool.lname = true;
-    }
+    if (!this.state.lname) formError.bool.lname = false;
+    else if (!this.state.lname.match(nameRegex)) formError.bool.lname = false;
+    else formError.bool.lname = true;
 
     // check emptype
-    if (!this.state.emptype || !this.state.emptypeno) {
-      formError.text.empType = errorTexts[0];
+    if (!this.state.emptype || !this.state.emptypeno)
       formError.bool.empType = false;
-    } else {
-      formError.text.empType = '';
-      formError.bool.empType = true;
-    }
+    else formError.bool.empType = true;
 
     // check email
-    if (!this.state.email) {
-      formError.text.email = errorTexts[0];
-      formError.bool.email = false;
-    } else if (!this.state.email.match(emailRegex)) {
-      formError.text.email = errorTexts[7];
-      formError.bool.email = false;
-    } else {
-      formError.text.email = '';
-      formError.bool.email = true;
-    }
+    if (!this.state.email) formError.bool.email = false;
+    else if (!this.state.email.match(emailRegex)) formError.bool.email = false;
+    else formError.bool.email = true;
 
     // check is full time
-    if (!this.state.fulltime) {
-      formError.text.fullTime = errorTexts[0];
-      formError.bool.fullTime = false;
-    } else {
-      formError.text.fullTime = '';
-      formError.bool.fullTime = true;
-    }
+    if (!this.state.fulltime) formError.bool.fullTime = false;
+    else formError.bool.fullTime = true;
 
     // check college
-    if (!this.state.college) {
-      formError.text.col = errorTexts[0];
-      formError.bool.col = false;
-    } else {
-      formError.text.col = '';
-      formError.bool.col = true;
-    }
+    if (!this.state.college) formError.bool.col = false;
+    else formError.bool.col = true;
 
     // check department
-    if (!this.state.dept) {
-      formError.text.dept = errorTexts[0];
-      formError.bool.dept = false;
-    } else {
-      formError.text.dept = '';
-      formError.bool.dept = true;
-    }
+    if (!this.state.dept) formError.bool.dept = false;
+    else formError.bool.dept = true;
 
     if (
       formError.bool.user &&
@@ -467,30 +375,44 @@ export default class Signup extends Component {
 
   render() {
     return (
-      <div classname="App-header">
-        <div class="ui blue inverted menu">
-          <a class="item">
-            <h1 class="ui white inverted header">
-              <Image src={require('./sample-logo-2.jpg')} />
-              STAFS
-            </h1>
-          </a>
+      <div className="App-header">
+        <div className="ui blue inverted menu">
+          <center>
+            <a className="item">
+              <h1 className="ui white inverted header">
+                <Image src={Skydev} style={full} />
+              </h1>
+            </a>
+          </center>
         </div>
         <Container style={{ marginTop: '3%' }}>
           <div>
-            <div class="ui attached message">
-              <div class="content">
-                <div class="header">Welcome to our site!</div>
+            <div className="ui attached message">
+              <div className="content">
+                <div className="header">Welcome to our site!</div>
                 <p>Fill out the form below to sign-up for a new account</p>
               </div>
             </div>
-            <form class="ui form attached fluid segment">
-              <div class="equal width fields">
-                <div class="field">
+            <form className="ui form attached fluid segment">
+              <div className="equal width fields">
+                <div className="field">
                   <label>
-                    <span>First Name{formError.text.fname}</span>
+                    <span>First Name</span>
+                    {!this.state.fname ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : !this.state.fname.match(nameRegex) ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[7]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
-                  <div class="ui fluid input">
+                  <div className="ui fluid input">
                     <input
                       type="text"
                       placeholder="First Name"
@@ -498,11 +420,24 @@ export default class Signup extends Component {
                     />
                   </div>
                 </div>
-                <div class="field">
+                <div className="field">
                   <label>
-                    <span>Middle Name{formError.text.mname}</span>
+                    <span>Middle Name</span>
+                    {!this.state.mname ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : !this.state.mname.match(nameRegex) ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[7]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
-                  <div class="ui fluid input">
+                  <div className="ui fluid input">
                     <input
                       type="text"
                       placeholder="Middle Name"
@@ -510,11 +445,24 @@ export default class Signup extends Component {
                     />
                   </div>
                 </div>
-                <div class="field">
+                <div className="field">
                   <label>
-                    <span>Last Name{formError.text.lname}</span>
+                    <span>Last Name</span>
+                    {!this.state.lname ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : !this.state.lname.match(nameRegex) ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[7]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
-                  <div class="ui fluid input">
+                  <div className="ui fluid input">
                     <input
                       type="text"
                       placeholder="Last Name"
@@ -524,12 +472,25 @@ export default class Signup extends Component {
                 </div>
               </div>
 
-              <div class="equal width fields">
-                <div class="field">
+              <div className="equal width fields">
+                <div className="field">
                   <label>
-                    <span>Employee Id{formError.text.empId}</span>
+                    <span>Employee Id</span>
+                    {!this.state.empid ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : !this.state.empid.match(empIdRegex) ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[4]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
-                  <div class="ui input">
+                  <div className="ui input">
                     <input
                       type="text"
                       placeholder="Employee Id"
@@ -537,12 +498,20 @@ export default class Signup extends Component {
                     />
                   </div>
                 </div>
-
-                <div class="field">
+                <div className="field">
                   <label>
-                    <span>Employee Type{formError.text.empType}</span>
+                    <span>Employee Type</span>
+                    {!this.state.emptype || !this.state.emptypeno ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
-                  <div class="equal width fields">
+                  <div className="equal width fields">
                     <GenericDropdown
                       labelProper="Type"
                       value={this.state.emptype}
@@ -558,19 +527,26 @@ export default class Signup extends Component {
                   </div>
                 </div>
 
-                <div class="div1">
-                  <div class="ui form">
-                    <div class="grouped fields">
-                      <div class="field">
+                <div className="div1">
+                  <div className="ui form">
+                    <div className="grouped fields">
+                      <div className="field">
                         <label>
-                          <span>
-                            Full Time Employee?{formError.text.fullTime}
-                          </span>
+                          <span>Full Time Employee?</span>
+                          {!this.state.fulltime ? (
+                            <div className="ui left pointing red basic label">
+                              {errorTexts[0]}
+                            </div>
+                          ) : (
+                            <div className="ui left pointing green basic label">
+                              {'is valid!'}
+                            </div>
+                          )}
                         </label>
                       </div>
-                      <div class="inline fields">
-                        <div class="field">
-                          <div class="ui radio checkbox">
+                      <div className="inline fields">
+                        <div className="field">
+                          <div className="ui radio checkbox">
                             <input
                               type="radio"
                               name="fulltime"
@@ -579,7 +555,7 @@ export default class Signup extends Component {
                             />
                             <label>Yes</label>
                           </div>
-                          <div class="ui radio checkbox">
+                          <div className="ui radio checkbox">
                             <input
                               type="radio"
                               name="fulltime"
@@ -595,10 +571,19 @@ export default class Signup extends Component {
                 </div>
               </div>
 
-              <div class="equal width fields">
-                <div class="field">
+              <div className="equal width fields">
+                <div className="field">
                   <label>
-                    <span>College{formError.text.col}</span>
+                    <span>College</span>
+                    {!this.state.college ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
                   <GenericDropdown
                     labelProper="Select College"
@@ -607,9 +592,18 @@ export default class Signup extends Component {
                     options={optionsMain3}
                   />
                 </div>
-                <div class="field">
+                <div className="field">
                   <label>
-                    <span>Department{formError.text.dept}</span>
+                    <span>Department</span>
+                    {!this.state.dept ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
                   <DeptDropdown
                     value={this.state.dept}
@@ -619,11 +613,24 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
-                  <span>Email Address{formError.text.email}</span>
+                  <span>Email Address</span>
+                  {!this.state.email ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.email.match(emailRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="text"
                     placeholder="Email Address"
@@ -631,11 +638,24 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
-                  <span>Username{formError.text.user}</span>
+                  <span>Username</span>
+                  {!this.state.username ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : !this.state.username.match(alphanumRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="text"
                     placeholder="Username"
@@ -643,11 +663,36 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
-                  <span>Password{formError.text.pass}</span>
+                  <span>Password</span>
+                  {!this.state.password ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : this.state.password.length < 6 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[2]}
+                    </div>
+                  ) : this.state.password.length > 16 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[3]}
+                    </div>
+                  ) : this.state.password !== this.state.repPassword ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[5]}
+                    </div>
+                  ) : !this.state.password.match(passRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="password"
                     placeholder="Password"
@@ -655,11 +700,36 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <div class="field">
+              <div className="field">
                 <label>
-                  <span>Repeat Password{formError.text.repPass}</span>
+                  <span>Repeat Password</span>
+                  {!this.state.repPassword ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[0]}
+                    </div>
+                  ) : this.state.repPassword < 6 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[2]}
+                    </div>
+                  ) : this.state.repPassword > 16 ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[3]}
+                    </div>
+                  ) : this.state.repPassword !== this.state.password ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[5]}
+                    </div>
+                  ) : !this.state.repPassword.match(passRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      {errorTexts[7]}
+                    </div>
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      {'is valid!'}
+                    </div>
+                  )}
                 </label>
-                <div class="ui input">
+                <div className="ui input">
                   <input
                     type="password"
                     placeholder="Password"
@@ -667,16 +737,20 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <button
-                class="ui blue button"
-                role="button"
-                onClick={this.checkSignup}>
+              <button className="ui blue button" onClick={this.checkSignup}>
                 Create an Account
               </button>
+              {this.state.errorExist ? (
+                <div className="ui left pointing red basic label">
+                  {'User already exists'}
+                </div>
+              ) : (
+                <div />
+              )}
             </form>
-            <div class="ui warning bottom attached message">
-              <i aria-hidden="true" class="help icon" />Already have an account?{' '}
-              <a href="/">Click here to Login</a> instead.
+            <div className="ui warning bottom attached message">
+              <i aria-hidden="true" className="help icon" />Already have an
+              account? <a href="/">Click here to Login</a> instead.
             </div>
           </div>
           <Divider hidden="true" />

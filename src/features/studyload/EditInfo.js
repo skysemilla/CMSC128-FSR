@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 
 export default class EditInfo extends Component {
   constructor(props) {
@@ -52,10 +49,10 @@ export default class EditInfo extends Component {
         degree: response.data.data.degree,
         uni: response.data.data.university
       });
-      if (response.data.data.full_studyleave == true) {
+      if (response.data.data.full_studyleave === true) {
         this.setState({ studyleave: 'Yes' });
       }
-      if (response.data.data.faculty_fellowship == true) {
+      if (response.data.data.faculty_fellowship === true) {
         this.setState({ fellowship: 'Yes' });
       }
     });
@@ -83,15 +80,15 @@ export default class EditInfo extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui piled very padded text left aligned container segment"
+            className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 class="ui blue header">EDIT STUDY LOAD</h2>
+              <h2 className="ui blue header">EDIT STUDY LOAD</h2>
             </div>
             <Divider hidden="true" />
             <p>
-              <a class="ui small header">Degree Enrolled In </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header">Degree Enrolled In </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
                   value={this.state.degree}
@@ -101,8 +98,8 @@ export default class EditInfo extends Component {
               </div>
             </p>
             <p>
-              <a class="ui small header"> University Enrolled In </a>
-              <div class="ui input fluid mini focus">
+              <a className="ui small header"> University Enrolled In </a>
+              <div className="ui input fluid mini focus">
                 <input
                   type="text"
                   value={this.state.uni}
@@ -112,17 +109,17 @@ export default class EditInfo extends Component {
               </div>
             </p>
             <p>
-              <div class="ui form" onChange={this.handleChangeStudyLeave}>
-                <div class="inline fields">
+              <div className="ui form" onChange={this.handleChangeStudyLeave}>
+                <div className="inline fields">
                   <label>On Full Study Leave w/ Pay?</label>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input type="radio" name="studyleave" value="Yes"/>
                       <label>Yes</label>
                     </div>
                   </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input type="radio" name="studyleave" value="No"/>
                       <label>No</label>
                     </div>
@@ -131,17 +128,17 @@ export default class EditInfo extends Component {
               </div>
             </p>
             <p>
-              <div class="ui form" onChange={this.handleChangeFellowship}>
-                <div class="inline fields">
+              <div className="ui form" onChange={this.handleChangeFellowship}>
+                <div className="inline fields">
                   <label>Recepient of Faculty Fellowship?</label>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input type="radio" name="fellowship" value="Yes"/>
                       <label>Yes</label>
                     </div>
                   </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
+                  <div className="field">
+                    <div className="ui radio checkbox">
                       <input type="radio" name="fellowship" value="No"/>
                       <label>No</label>
                     </div>
@@ -149,9 +146,9 @@ export default class EditInfo extends Component {
                 </div>
               </div>
             </p>
-            <div class="ui center aligned container">
+            <div className="ui center aligned container">
               <button
-                class="ui center aligned blue button"
+                className="ui center aligned blue button"
                 onClick={this.startEdit}>
                 Save changes
               </button>

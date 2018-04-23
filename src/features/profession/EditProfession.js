@@ -1,39 +1,14 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
-
-// form validation
-const error = {
-  color: 'red'
-};
-
-const errorTexts = [
-  <span style={error}> {' is required'}</span>, //0
-  <span style={error}> {' *'}</span> //1
-];
-
-var formError = {
-  text: {
-    permission: '',
-    date: ''
-  },
-  bool: {
-    permission: false,
-    date: false
-  }
-};
 
 export default class EditProfession extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      limited_practice_id: '',
       permission: '',
       date: '',
       emp_id: ''
@@ -44,66 +19,58 @@ export default class EditProfession extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.startEdit = this.startEdit.bind(this);
-    this.checkEdit = this.checkEdit.bind(this);
   }
 
-  componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({emp_id: result.data.data.emp_id})
+
+  
+  componentDidMount = () => {
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
+          if (result.data.data !== null) {
+            console.log(result.data.data);
+            this.setState({ emp_id: result.data.data[0].emp_id});
+          }
+        });
       }
     });
-  }
+};
 
   handleChangePermission(e) {
+    console.log(e.target.value);
     this.setState({ permission: e.target.value });
+    if (e.currentTarget.value === '0') {
+      this.setState({ date: "null" });
+    }
+    this.forceUpdate();
   }
 
   handleChangeDate(e) {
     this.setState({ date: e.target.value });
   }
 
-  checkEdit(e) {
-    e.preventDefault();
-    if (!this.state.permission) {
-      formError.text.permission = errorTexts[1];
-      formError.bool.permission = false;
-    } else {
-      formError.text.permission = '';
-      formError.bool.permission = true;
-    }
-
-    // check date
-    if (!this.state.date) {
-      formError.text.date = errorTexts[0];
-      formError.bool.date = false;
-    } else {
-      formError.text.date = '';
-      formError.bool.date = true;
-    }
-
-    if (
-      formError.bool.permission &&
-      formError.bool.date 
-    ) {
-      this.startEdit();
-    } else this.forceUpdate();
-  }
-
   startEdit(e) {
-    e.preventDefault();
-    (this.state.permission == "YES")? this.state.permission = 1 : this.state.permission = 0;
-    Api.editLimitedPractice({
-      limited_practice_id: this.props.history.location.state.id,
-      haveApplied: this.state.permission,
-      date_submitted: this.state.date,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');  //change to profile later!!
-        alert('Teaching load successfully edited!');
+    
+    if (
+      this.state.permission === '0' ||
+      (this.state.permission === '1' && this.state.date !== '')
+    ) {
+      e.preventDefault();
+       if (this.state.permission === 0) {this.setState({ date: "none" })}
+      Api.editLimitedPractice({
+        haveApplied: this.state.permission,
+        date_submitted: this.state.date,
+        emp_id: this.state.emp_id
       })
-      .catch(e => alert('Error editing Teaching Load!'));
+        .then(result => {
+          this.props.history.push('./view'); //change to profile later!!
+          alert('Profession successfully edited!');
+        })
+        .catch(e => alert('Error editing Profession!'));
+    } else {
+      console.log()
+      alert('Invalid input!');
+    }
   }
 
   uploadAttachment(e) {
@@ -127,54 +94,74 @@ export default class EditProfession extends Component {
             </div>
             <Divider hidden="true" />
             <p>
-              <div class="ui form">
-                <div class="inline fields">
-                  <label>
-                    Have you applied for official permission for limited
-                    practice of profession?{formError.text.permission}
-                  </label>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input
-                        type="radio"
-                        name="studyleave"
-                        value="YES"
-                        onClick={this.handleChangePermission}
-                      />
-                      <label>Yes</label>
+                <div class="ui form">
+                  <div class="inline fields">
+                    <label>
+                      Have you applied for official permission for limited
+                      practice of profession?
+                    </label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input
+                          type="radio"
+                          name="permission"
+                          value={1}
+                          onClick={this.handleChangePermission}
+                        />
+                        <label>Yes</label>
+                      </div>
                     </div>
-                  </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input
-                        type="radio"
-                        name="studyleave"
-                        value="NO"
-                        onClick={this.handleChangePermission}
-                      />
-                      <label>No</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input
+                          type="radio"
+                          name="permission"
+                          value={0}
+                          
+                          onClick={this.handleChangePermission}
+                        />
+                        <label>No</label>
+                      </div>
                     </div>
+                    {this.state.permission === '' ? (
+                      <div className="ui left pointing red basic label">
+                        Required
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 </div>
-              </div>
             </p>
-            {this.state.permission !== 'YES' ? (
+            {this.state.permission !== '1' ? (
               <p>
                 <a class="ui small header">Date submitted </a>
                 <div class="ui input fluid mini focus">
                   <input
                     disabled
                     type="date"
+                    value={this.state.date}
                     onChange={this.handleChangeDate}
                   />
                 </div>
               </p>
             ) : (
               <p>
-                <a class="ui small header">Date submitted{formError.text.date} </a>
+                <a class="ui small header">Date submitted</a>
                 <div class="ui input fluid mini focus">
-                  <input type="date" onChange={this.handleChangeDate} />
+                  <input
+                    type="date"
+                    onChange={this.handleChangeDate}
+                    value={this.state.date}
+                  />
                 </div>
+                {this.state.date === '' || this.state.date === 'null'? (
+                  <div className="ui pointing red basic label">
+                    Invalid date
+                  </div>
+                ) : (
+                  <div />
+                )}
               </p>
             )}
             <div class="ui center aligned container">
@@ -183,8 +170,8 @@ export default class EditProfession extends Component {
               </button>
               <button
                 class="ui center aligned blue button"
-                onClick={this.checkEdit}>
-                Edit Profession
+                onClick={this.startEdit}>
+                Add Profession
               </button>
             </div>
           </div>

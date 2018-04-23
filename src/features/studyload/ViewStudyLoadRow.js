@@ -1,35 +1,51 @@
 import React, {Component} from 'react'
 import 'semantic-ui-css/semantic.min.css';
-import {Modal} from 'semantic-ui-react';
 import DeleteModal from './GenericDelete';
+import * as Api from '../../api';
 
 export default class ViewStudyLoadRow extends Component{
 
 	constructor(props) {
         super(props);
-
-        this.startView=this.startView.bind(this);
+		this.state = {
+			days:""
+		};
+		this.startView=this.startView.bind(this);
+		this.getDays=this.getDays.bind(this);
       };
 
     startView(){
         this.props.history.push('./link/to/attached/file');
     }
-
+	getDays(id){
+		var stringday = "";
+		Api.getDays({studyload_id:id}).then((results)=>{
+			results.data.data.forEach(json=>{
+				stringday+=json.day+" "
+			})
+		}).then(()=>{
+			this.setState({days: stringday});
+		}
+		)
+	}
+	componentDidMount(){
+		this.getDays(this.props.id);
+	}
 	render(){
 		return(
 			<tr>
-				<td class = "center aligned"> {this.props.courseno} </td>
-				<td class = "center aligned"> {this.props.ccred} </td>
-				<td class = "center aligned"> {this.props.day} </td>
-				<td class = "center aligned"> {this.props.time} </td>
-				<td class = "center aligned"> {this.props.school} </td>
-				<td class = "center aligned"> {this.props.slcred} </td>
-				<td class = "center aligned">
-        			<button class = "ui icon button" onClick = {this.startView}>
-        				<i class = "eye icon"> </i>
+				<td className = "center aligned"> {this.props.courseno} </td>
+				<td className = "center aligned"> {this.props.ccred} </td>
+				<td className = "center aligned"> {this.state.days} </td>
+				<td className = "center aligned"> {this.props.time1} </td>
+				<td className = "center aligned"> {this.props.time2} </td>
+				<td className = "center aligned"> {this.props.school} </td>
+				<td className = "center aligned">
+        			<button className = "ui icon button" onClick = {this.startView}>
+        				<i className = "eye icon"> </i>
         			</button>
 		        </td>	
-		        <td class="center aligned">
+		        <td className="center aligned">
 		        <DeleteModal {...this.props}/>
         		</td>
 			</tr>

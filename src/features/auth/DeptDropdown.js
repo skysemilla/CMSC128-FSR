@@ -7,9 +7,9 @@ export default class PublicationSubTypeDropdown extends Component {
       <div>
         <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
         <p>
-          <a class="ui small header">
+          <a className="ui small header">
             <select
-              class="dropdown"
+              className="dropdown"
               value={this.props.value}
               onChange={this.props.handler}>
               <option value="" disabled selected hidden>

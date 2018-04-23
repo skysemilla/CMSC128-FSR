@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import * as Api from '../../api';
 import ViewSubjectsRow from './SubjectsViewRow';
-import GenerateFSR from './../GenerateFSR';
-import SendtoAdmin from './../SendtoAdmin';
 import NavBar from './../ui/NavBar';
 
 const dummySample = {
@@ -59,29 +55,30 @@ export default class ViewSubjects extends Component {
         </div>
         <div className="bodyDiv">
           <div
-            class="ui compact piled very padded text left aligned container segment mainDiv"
+            className="ui compact piled very padded text left aligned container segment mainDiv"
             color="teal">
             <div>
-              <h1 class="ui blue header">SUBJECTS</h1>
+              <h1 className="ui blue header">SUBJECTS</h1>
             </div>
             <Divider hidden="true" />
 
             <style>
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
-            <table class="ui celled table">
+            <div className="scrollTable">
+            <table className="ui celled table">
               <thead>
                 <tr>
-                  <th class="center aligned"> Subject ID </th>
-                  <th class="center aligned"> Subjcect Code </th>
-                  <th class="center aligned"> Section Code </th>
-                  <th class="center aligned"> Type </th>
-                  <th class="center aligned"> Graduate Course? </th>
-                  <th class="center aligned"> Units </th>
-                  <th class="center aligned"> Room </th>
-                  <th class="center aligned"> Start Time </th>
-                  <th class="center aligned"> End Time </th>
-                  <th class="center aligned"> Edit/Delete </th>
+                  <th className="center aligned"> Subject ID </th>
+                  <th className="center aligned"> Subjcect Code </th>
+                  <th className="center aligned"> Section Code </th>
+                  <th className="center aligned"> Type </th>
+                  <th className="center aligned"> Graduate Course? </th>
+                  <th className="center aligned"> Units </th>
+                  <th className="center aligned"> Room </th>
+                  <th className="center aligned"> Start Time </th>
+                  <th className="center aligned"> End Time </th>
+                  <th className="center aligned"> Edit/Delete </th>
                 </tr>
               </thead>
 
@@ -107,10 +104,10 @@ export default class ViewSubjects extends Component {
                   );
                 })}
               </tbody>
-
             </table>
+            </div>
             <button
-              class="ui blue right floated button"
+              className="ui blue right floated button"
               onClick={this.startAdd}>
               Add Subject
             </button>

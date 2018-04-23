@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
 import ViewFSRRow from './../ui/FSRViewRow';
 
-const nameRegex = /^[A-Za-z0-9\-']+$/;
+const nameRegex = /^[A-Za-z0-9\-'\s]+$/;
 const empIdRegex = /^[0-9]{9}$/;
 
 export default class ViewApprovedFSR extends Component {
@@ -24,8 +23,8 @@ export default class ViewApprovedFSR extends Component {
 
   componentDidMount() {
     Api.ViewApprovedFSR().then(result => {
-      if (result.data.data !== undefined) {
-        this.setState({ data: [result.data.data] });
+      if (result.data.data !== null) {
+        this.setState({ data: result.data.data });
       }
     });
   }
@@ -34,17 +33,27 @@ export default class ViewApprovedFSR extends Component {
     e.preventDefault();
     if (!this.state.search) {
       Api.ViewApprovedFSR().then(result => {
-        this.setState({ data: result.data.data[0] });
+        if (result.data.data !== null) {
+          this.setState({ data: result.data.data });
+        }
       });
     } else if (this.state.search.match(empIdRegex)) {
-      console.log('USES ID');
       Api.ViewApprovedFSRByID({ empid: this.state.search }).then(result => {
-        this.setState({ data: [result.data.data[0]] });
+        console.log(result.data.data);
+        if (result.data.data === null) {
+          alert('Search matches no result');
+        } else {
+          this.setState({ data: result.data.data });
+        }
       });
     } else if (this.state.search.match(nameRegex)) {
-      console.log('USES NAME');
       Api.ViewApprovedFSRByName({ name: this.state.search }).then(result => {
-        this.setState({ data: [result.data.data[0]] });
+        console.log(result.data.data);
+        if (result.data.data === null) {
+          alert('Search matches no result');
+        } else {
+          this.setState({ data: result.data.data });
+        }
       });
     } else {
       this.setState({ data: [] });
@@ -65,25 +74,25 @@ export default class ViewApprovedFSR extends Component {
         <Divider hidden="true" />
         <Divider hidden="true" />
         <Divider hidden="true" />
-        <div className="bodydiv">
+        <div classNameName="bodydiv">
           <div
-            class="ui compact piled very padded container segment"
+            className="ui compact piled very padded container segment"
             color="teal">
-            <div class="ui two column grid">
-              <h1 class="ui blue header">VIEW APPROVED FSR</h1>
-              <div class="ui right floated search">
+            <div className="ui two column grid">
+              <h1 className="ui blue header">VIEW APPROVED FSR</h1>
+              <div className="ui right floated search">
                 <form onSubmit={this.searchApprovedFSR}>
-                  <div class="ui icon input">
+                  <div className="ui icon input">
                     <input
-                      class="prompt"
+                      className="prompt"
                       type="text"
                       onChange={this.handleSearch}
                       placeholder="Search by Name or ID..."
                     />
-                    <i class="search icon" />
+                    <i className="search icon" />
                   </div>
                 </form>
-                <div class="results" />
+                <div className="results" />
               </div>
             </div>
             <Divider hidden="true" />
@@ -92,16 +101,16 @@ export default class ViewApprovedFSR extends Component {
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
             <div className="scrollTable">
-              <table class="ui celled table">
+              <table className="ui celled table">
                 <thead>
                   <tr>
-                    <th class="center aligned"> Employee ID </th>
-                    <th class="center aligned"> Full Name </th>
-                    <th class="center aligned"> College </th>
-                    <th class="center aligned"> Department </th>
-                    <th class="center aligned"> Semester </th>
-                    <th class="center aligned"> Year </th>
-                    <th class="center aligned"> FSR </th>
+                    <th className="center aligned"> Employee ID </th>
+                    <th className="center aligned"> Full Name </th>
+                    <th className="center aligned"> College </th>
+                    <th className="center aligned"> Department </th>
+                    <th className="center aligned"> Semester </th>
+                    <th className="center aligned"> Year </th>
+                    <th className="center aligned"> FSR </th>
                   </tr>
                 </thead>
                 <tbody>
