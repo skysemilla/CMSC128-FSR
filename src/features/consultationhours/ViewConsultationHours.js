@@ -34,9 +34,9 @@ export default class ViewConsultationHours extends Component {
       return (
         <div className="App-header">
           <NavBar {...this.props} Label="FSR" subLabel="consultationhours" />
-
+          <div className="bodyDiv">
           <div
-            className="ui compact piled very padded text left aligned container segment"
+            className="ui compact piled very padded text left aligned container segment mainDiv"
             color="teal">
             <div>
               <h1 className="ui blue header">CONSULTATION HOURS</h1>
@@ -52,7 +52,8 @@ export default class ViewConsultationHours extends Component {
               <thead>
                 <tr>
                   <th className="center aligned"> Days </th>
-                  <th className="center aligned"> Time </th>
+                  <th className="center aligned"> Start Time </th>
+                  <th className="center aligned"> End Time </th>
                   <th className="center aligned"> Place </th>
                   <th className="center aligned"> Edit/Delete </th>
                   <th className="center aligned"> Attachments </th>
@@ -65,7 +66,8 @@ export default class ViewConsultationHours extends Component {
                       {...this.props}
                       id={item.emp_id}
                       day={item.day}
-                      time={item.consultation_start_time}
+                      start_time={item.consultation_start_time}
+                      end_time={item.consultation_end_time}
                       place={item.consultation_place}
                       editURL="../consultationhours/edit"
                       label="Consultation Hours"
@@ -82,6 +84,7 @@ export default class ViewConsultationHours extends Component {
               onClick={this.startAdd}>
               Add Consultation Hours
             </button>
+            </div>
             <Divider hidden="true" />
           </div>
         </div>

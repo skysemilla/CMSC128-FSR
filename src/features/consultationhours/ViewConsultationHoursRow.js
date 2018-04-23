@@ -7,7 +7,8 @@ export default class ViewConsultationHoursRow extends Component {
     return (
       <tr>
         <td className="center aligned">{this.props.day}</td>
-        <td className="center aligned"> {this.props.time} </td>
+        <td className="center aligned"> {this.props.start_time} </td>
+        <td className="center aligned"> {this.props.end_time} </td>
         <td className="center aligned"> {this.props.place} </td>
         <td className="center aligned">
           <DeleteModal {...this.props} />

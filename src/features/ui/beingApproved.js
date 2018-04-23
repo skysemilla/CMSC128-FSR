@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Divider } from 'semantic-ui-react';
+import { Divider, Image } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
+import StafLogo from '../../assets/stafs-with-skydev2.png';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -40,10 +41,15 @@ export default class Profile extends Component {
             className="ui piled very padded text left aligned container segment"
             color="teal">
             <div>
-              <h2 className="ui blue header">
-                YOUR FSR IS CURRENTLY BEING APPROVED BY THE FACULTY.
-              </h2>
-              <h3>You cannot edit your FSR at this time.</h3>
+              <center>
+                <h2 className="ui blue header">
+                  YOUR FSR IS CURRENTLY BEING APPROVED BY THE FACULTY.
+                </h2>
+                <h3>You cannot edit your FSR at this time.</h3>
+              </center>
+            </div>
+            <div>
+              <Image src={StafLogo} />
             </div>
           </div>
           <Divider hidden="true" />

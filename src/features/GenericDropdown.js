@@ -5,7 +5,7 @@ export default class GenericDropdown extends Component{
 
 	render(){
 		return(
-			<div>
+			<span>
 				<style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
 				<p>
 					<a class="ui small header"> {this.props.labelHeader}
@@ -26,10 +26,10 @@ export default class GenericDropdown extends Component{
 								}
 							)}
 						</select>
-						{this.props.formError}
+
 					</a>
 				</p>
-			</div>
+			</span>
 		)
 	}
 }

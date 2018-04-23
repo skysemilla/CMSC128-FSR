@@ -45,6 +45,7 @@ export default class ViewAdminWork extends Component {
           <style>
             {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
           </style>
+          <div className="scrollTable">
           <table className="ui celled table">
             <thead>
               <tr>
@@ -72,6 +73,7 @@ export default class ViewAdminWork extends Component {
               })}
             </tbody>
           </table>
+          </div>
           <button className="ui blue right floated button" onClick={this.startAdd}>
             Add Administrative Work
           </button>

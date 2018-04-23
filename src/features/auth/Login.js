@@ -11,6 +11,21 @@ import {
 } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
+import Skydev from '../../assets/skydev2.png';
+import stafsLogo from '../../assets/stafs-final.png';
+
+const full = {
+  margin: '0px auto',
+  height: '50px',
+  width: 'auto'
+};
+
+const logo = {
+  height: '200px',
+  margin: '0px auto',
+  padding: '0px auto',
+  marginBottom: '-65px'
+};
 
 // form validation
 const error = {
@@ -162,22 +177,18 @@ export default class Login extends Component {
     return (
       <div className="App-header">
         <div className="ui blue inverted menu">
-          <a className="item">
-            <h1 className="ui white inverted header">
-              <Image src={require('./sample-logo-2.jpg')} />
-              STAFS
-            </h1>
-          </a>
+          <center>
+            <a className="item">
+              <h1 className="ui white inverted header">
+                <Image src={Skydev} style={full} />
+              </h1>
+            </a>
+          </center>
         </div>
         <style>
           {' '}
           {`body > div,body > div > div,body > div > div > div.login-form {height: 100%;}`}{' '}
         </style>
-        <Divider hidden={true} />
-        <Divider hidden={true} />
-        <Divider hidden={true} />
-        <Divider hidden={true} />
-        <Divider hidden={true} />
         <Grid
           container
           columns={2}
@@ -185,9 +196,10 @@ export default class Login extends Component {
           style={{ height: '70%' }}>
           <Grid.Column />
           <Grid.Column style={{ maxWidth: 450 }} floated="center">
+            <Image src={stafsLogo} style={logo} />
             <Header as="h2" color="blue" textAlign="center">
               {' '}
-              LOG IN
+              LOGIN
             </Header>
             {fetchDiv}
             <Form size="large">

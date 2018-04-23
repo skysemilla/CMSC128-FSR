@@ -192,9 +192,21 @@ export default class AddTeachingLoad extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
-          <p>
-            <a className="ui small header"> Subject
-               <style> {` select {margin: 1vh 1vw 1vh 1vh; font-size: 14px;}`} </style>
+          <div className = "field">
+            <style> {`select {margin:1vh 0vw 1vh 0vw;}`} </style>
+            <label> <h3>Subject
+              {
+              this.state.subj === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                <div className = "ui left pointing green basic label">
+                  is valid!
+                </div>
+              }
+              </h3>
+              </label>
               <select 
                 class = "dropdown"
                 value = {this.state.subj} 
@@ -212,18 +224,9 @@ export default class AddTeachingLoad extends Component {
                   }
                 )}
               </select>
-            </a>
-            {
-              this.state.subj === '' ?
-                <div className = "ui left pointing red basic label">
-                  Required
-                </div>
-                :
-                <div>
-                </div>
-            }
-          </p>
-          <p>
+          </div>
+
+          <div className = "field">
             {
               optionsArray.map(
                 (item)=>{
@@ -232,7 +235,19 @@ export default class AddTeachingLoad extends Component {
                 }
               }
             )}
-            <a className="ui small header"> Section
+           <label> <h3>Section
+              {
+              this.state.seccode === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                <div className = "ui left pointing green basic label">
+                  is valid!
+                </div>
+              }
+              </h3>
+              </label>
               <select 
                 className = "dropdown"
                 value = {this.state.seccode} 
@@ -250,17 +265,8 @@ export default class AddTeachingLoad extends Component {
                 }
               )}
               </select>
-            </a>
-            {
-              this.state.seccode === '' ?
-                <div className = "ui left pointing red basic label">
-                  Required
-                </div>
-                :
-                <div>
-                </div>
-            }
-          </p>
+          </div>
+
           <p>
             <a className="ui small header">No. of Students</a>
             <div className="ui input fluid mini focus">
@@ -280,7 +286,8 @@ export default class AddTeachingLoad extends Component {
                       Invalid input
                     </div>
                     :
-                    <div>
+                    <div className = "ui left pointing green basic label">
+                    is valid!
                     </div>
                   ]
               }
