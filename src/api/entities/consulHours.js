@@ -16,6 +16,6 @@ export const viewAllConsultations = () => {
   return axios.get('/api/consulHours/viewAll');
 };
 
-export const viewConsultation = () => {
-  return axios.get('/api/consulHours/view');
+export const viewConsultation = id => {
+  return axios.post('/api/consulHours/view', id);
 };
