@@ -52,8 +52,8 @@ export default class EditProfession extends Component {
   startEdit(e) {
     
     if (
-      this.state.permission == '0' ||
-      (this.state.permission == '1' && this.state.date != '')
+      this.state.permission === '0' ||
+      (this.state.permission === '1' && this.state.date !== '')
     ) {
       e.preventDefault();
        if (this.state.permission === 0) {this.setState({ date: "none" })}

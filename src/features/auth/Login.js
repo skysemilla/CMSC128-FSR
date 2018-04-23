@@ -6,8 +6,7 @@ import {
   Form,
   Image,
   Segment,
-  Message,
-  Divider
+  Message
 } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';

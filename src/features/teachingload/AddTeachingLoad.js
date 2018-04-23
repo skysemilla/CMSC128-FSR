@@ -102,17 +102,17 @@ export default class AddTeachingLoad extends Component {
       tlc=response.data.data.units;
       if (response.data.data !== undefined) {
         this.setState({ subjectData: response.data.data });
-        if(response.data.data.isLecture==0 && response.data.data.isGraduate==0){
+        if(response.data.data.isLecture===0 && response.data.data.isGraduate===0){
           tlcm=1.5;
-        } else if(response.data.data.isLecture==1 && response.data.data.isGraduate==0){
+        } else if(response.data.data.isLecture===1 && response.data.data.isGraduate===0){
           if(this.state.studnum<=40) tlcm=tlc;
           else if(this.state.studnum>40) tlcm=tlc*((this.state.studnum-40)/120 + 1);
           else if(this.state.studnum>160) tlcm=tlc*2;
-        } else if(this.state.subj.toLowerCase().replace(" ", "")=="cmsc190"){
+        } else if(this.state.subj.toLowerCase().replace(" ", "")==="cmsc190"){
           tlcm=tlc*(this.state.studnum)*(0.5/3);
-        } else if(this.state.subj.toLowerCase().replace(" ", "")=="it1" && this.state.studnum>=25){ //it1 && lecture && 25 or more studs
+        } else if(this.state.subj.toLowerCase().replace(" ", "")==="it1" && this.state.studnum>=25){ //it1 && lecture && 25 or more studs
           tlcm*=1.33
-        } else if(response.data.data.isGraduate==1){
+        } else if(response.data.data.isGraduate===1){
           if(this.state.studnum<=4) tlcm=tlc;
           else if (this.state.studnum>4 && this.state.studnum<=9) tlcm=tlc*1.25;
           else if(this.state.studnum>9) tlcm=tlc*1.5;
