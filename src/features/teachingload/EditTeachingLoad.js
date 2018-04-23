@@ -27,14 +27,19 @@ export default class EditTeachingLoad extends Component {
   }
 
   componentDidMount() {
-    Api.getTeachLoad({
-      teachingload_id: this.props.history.location.state.id
-      }).then(response =>{
-        this.setState({ 
-          subj: response.data.data.subject_code, 
-          seccode: response.data.data.section_code, 
-          studnum: response.data.data.no_of_students});
-         });
+    if (this.props.history.location.state === undefined) {
+      this.props.history.push('/teachingload/view');
+    } else {
+      Api.getTeachLoad({
+        teachingload_id: this.props.history.location.state.id
+      }).then(response => {
+        this.setState({
+          subj: response.data.data.subject_code,
+          seccode: response.data.data.section_code,
+          studnum: response.data.data.no_of_students
+        });
+      });
+    }
   }
 
   handleChangeSubj(e) {
@@ -46,8 +51,8 @@ export default class EditTeachingLoad extends Component {
   }
 
   handleChangeStudnum(e) {
-    this.setState({ studnum: e.target.value });  
-    if(e.target.value === '' || e.target.value >= 200 || e.target.value <= 0){
+    this.setState({ studnum: e.target.value });
+    if (e.target.value === '' || e.target.value >= 200 || e.target.value <= 0) {
       this.setState({ validstudnum: false });
     } else this.setState({ validstudnum: true });
   }
@@ -60,10 +65,12 @@ export default class EditTeachingLoad extends Component {
 
   startEdit(e) {
     e.preventDefault();
-    if(this.state.subj !== '' &&
-       this.state.seccode !== '' &&
-       this.state.validstudnum === true){
-        Api.editTeachLoad({
+    if (
+      this.state.subj !== '' &&
+      this.state.seccode !== '' &&
+      this.state.validstudnum === true
+    ) {
+      Api.editTeachLoad({
         teachingload_id: this.props.history.location.state.id,
         no_of_students: this.state.studnum
       })
@@ -73,9 +80,8 @@ export default class EditTeachingLoad extends Component {
         })
         // .catch(e => alert(e));
         .catch(e => alert('Time overlap!'));
-    }
-    else {
-      alert("Invalid input!");
+    } else {
+      alert('Invalid input!');
     }
   }
 
@@ -138,79 +144,70 @@ export default class EditTeachingLoad extends Component {
           </div>
           <Divider hidden="true" />
 
-           <div className = "field">
+          <div className="field">
             <style> {`select {margin:1vh 0vw 1vh 0vw;}`} </style>
-            <label> <h3>Subject
-              {
-              this.state.subj === '' ?
-                <div className = "ui left pointing red basic label">
-                  Required
-                </div>
-                :
-                <div className = "ui left pointing green basic label">
-                  is valid!
-                </div>
-              }
-              </h3>
-              </label>
-              <select 
-                class = "dropdown"
-                value = {this.state.subj} 
-                onChange = {this.handleChangeSubj}>
-
-              <option value = {this.state.subj} selected> {this.state.subj} </option>
-              {
-                optionsArray.map(
-                  (item)=>{
-                    return(
-                      <option value = {item.subject}>
-                      {item.subject}
-                      </option>
-                    )
-                  }
+            <label>
+              {' '}
+              <h3>
+                Subject
+                {this.state.subj === '' ? (
+                  <div className="ui left pointing red basic label">
+                    Required
+                  </div>
+                ) : (
+                  <div className="ui left pointing green basic label">
+                    is valid!
+                  </div>
                 )}
-              </select>
+              </h3>
+            </label>
+            <select
+              class="dropdown"
+              value={this.state.subj}
+              onChange={this.handleChangeSubj}>
+              <option value={this.state.subj} selected>
+                {' '}
+                {this.state.subj}{' '}
+              </option>
+              {optionsArray.map(item => {
+                return <option value={item.subject}>{item.subject}</option>;
+              })}
+            </select>
           </div>
 
-          <div className = "field">
-            {
-              optionsArray.map(
-                (item)=>{
-                  if(this.state.subj === item.subject){
-                    secArray = item.section;
-                }
+          <div className="field">
+            {optionsArray.map(item => {
+              if (this.state.subj === item.subject) {
+                secArray = item.section;
               }
-            )}
-           <label> <h3>Section
-              {
-              this.state.seccode === '' ?
-                <div className = "ui left pointing red basic label">
-                  Required
-                </div>
-                :
-                <div className = "ui left pointing green basic label">
-                  is valid!
-                </div>
-              }
+            })}
+            <label>
+              {' '}
+              <h3>
+                Section
+                {this.state.seccode === '' ? (
+                  <div className="ui left pointing red basic label">
+                    Required
+                  </div>
+                ) : (
+                  <div className="ui left pointing green basic label">
+                    is valid!
+                  </div>
+                )}
               </h3>
-              </label>
-              <select 
-                className = "dropdown"
-                value = {this.state.seccode} 
-                onChange = {this.handleChangeSeccode}>
-
-              <option value = {this.state.secccode} selected> {this.state.seccode} </option>
-              {
-              secArray.map(
-                (item)=>{
-                  return(
-                    <option value = {item}>
-                      {item}
-                    </option>
-                  )
-                }
-              )}
-              </select>
+            </label>
+            <select
+              className="dropdown"
+              value={this.state.seccode}
+              onChange={this.handleChangeSeccode}>
+              <option value={this.state.secccode} selected>
+                {' '}
+                {this.state.seccode}{' '}
+              </option>
+              {secArray.map(item => {
+                return <option value={item}>{item}</option>;
+              })}
+            </select>
           </div>
 
           <p>
@@ -221,23 +218,21 @@ export default class EditTeachingLoad extends Component {
                 onChange={this.handleChangeStudnum}
                 value={this.state.studnum}
               />
-              {
-                this.state.studnum === '' ?
-                  <div className = "ui left pointing red basic label">
-                    Required
-                  </div>
-                  :
-                  [
-                    (this.state.studnum <= 0 || this.state.studnum >= 200)?
-                    <div className = "ui left pointing red basic label">
+              {this.state.studnum === '' ? (
+                <div className="ui left pointing red basic label">Required</div>
+              ) : (
+                [
+                  this.state.studnum <= 0 || this.state.studnum >= 200 ? (
+                    <div className="ui left pointing red basic label">
                       Invalid input
                     </div>
-                    :
-                    <div className = "ui left pointing green basic label">
-                    is valid!
+                  ) : (
+                    <div className="ui left pointing green basic label">
+                      is valid!
                     </div>
-                  ]
-              }
+                  )
+                ]
+              )}
             </div>
           </p>
           <div className="ui center aligned container">
