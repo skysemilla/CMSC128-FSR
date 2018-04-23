@@ -4,10 +4,17 @@ import GenericDropdown from './../GenericDropdown';
 import DeptDropdown from './DeptDropdown';
 import { Container, Image, Divider } from 'semantic-ui-react';
 import * as Api from '../../api';
+import Skydev from '../../assets/skydev2.png';
 
 // form validation
 const error = {
   color: 'red'
+};
+
+const full = {
+  margin: '0px auto',
+  height: '50px',
+  width: 'auto'
 };
 
 const errorTexts = [
@@ -370,12 +377,13 @@ export default class Signup extends Component {
     return (
       <div className="App-header">
         <div className="ui blue inverted menu">
-          <a className="item">
-            <h1 className="ui white inverted header">
-              <Image src={require('./sample-logo-2.jpg')} />
-              STAFS
-            </h1>
-          </a>
+          <center>
+            <a className="item">
+              <h1 className="ui white inverted header">
+                <Image src={Skydev} style={full} />
+              </h1>
+            </a>
+          </center>
         </div>
         <Container style={{ marginTop: '3%' }}>
           <div>
@@ -729,9 +737,7 @@ export default class Signup extends Component {
                   />
                 </div>
               </div>
-              <button
-                className="ui blue button"
-                onClick={this.checkSignup}>
+              <button className="ui blue button" onClick={this.checkSignup}>
                 Create an Account
               </button>
               {this.state.errorExist ? (
