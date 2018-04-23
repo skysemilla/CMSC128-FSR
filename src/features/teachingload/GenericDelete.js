@@ -46,17 +46,17 @@ export default class GenericDelete extends Component {
     }).then(response => {
       if (response.data.data !== undefined) {
         this.setState({ data: response.data.data });
-         if(response.data.data.isLecture==0 && response.data.data.isGraduate==0){
+         if(response.data.data.isLecture===0 && response.data.data.isGraduate===0){
           tlcm=1.5;
-        } else if(response.data.data.isLecture==1 && response.data.data.isGraduate==0){
+        } else if(response.data.data.isLecture===1 && response.data.data.isGraduate===0){
           if(response.data.data.no_of_students<=40) tlcm=tlc;
           else if(response.data.data.no_of_students>40) tlcm=tlc*((response.data.data.no_of_students-40)/120 + 1);
           else if(response.data.data.no_of_students>160) tlcm=tlc*2;
-        } else if(response.data.data.subject_code.toLowerCase().replace(" ", "")=="cmsc190"){
+        } else if(response.data.data.subject_code.toLowerCase().replace(" ", "")==="cmsc190"){
           tlcm=tlc*(response.data.data.no_of_students)*(0.5/3);
-        } else if(response.data.data.subject_code.toLowerCase().replace(" ", "")=="it1" && response.data.data.no_of_students>=25){ //it1 && lecture && 25 or more studs
+        } else if(response.data.data.subject_code.toLowerCase().replace(" ", "")==="it1" && response.data.data.no_of_students>=25){ //it1 && lecture && 25 or more studs
           tlcm*=1.33
-        } else if(response.data.data.isGraduate==1){
+        } else if(response.data.data.isGraduate===1){
           if(response.data.data.no_of_students<=4) tlcm=tlc;
           else if (response.data.data.no_of_students>4 && response.data.data.no_of_students<=9) tlcm=tlc*1.25;
           else if(response.data.data.no_of_students>9) tlcm=tlc*1.5;

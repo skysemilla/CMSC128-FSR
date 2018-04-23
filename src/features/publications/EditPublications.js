@@ -138,13 +138,13 @@ export default class EditPublication extends Component {
     }
 
     // check role
-    if(!this.state.Role && this.state.researchType == 'Research'){
+    if(!this.state.Role && this.state.researchType === 'Research'){
       formError.text.Role = errorTexts[0];
       formError.bool.Role = false;
-    } else if(this.state.Role.match(numRegex) && this.state.researchType == 'Research'){
+    } else if(this.state.Role.match(numRegex) && this.state.researchType === 'Research'){
       formError.text.Role = errorTexts[5];
       formError.bool.Role = false;
-    } else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
+    } else if(!this.state.Role.match(alphanumRegex) && this.state.researchType === 'Research'){
       formError.text.Role = errorTexts[6];
       formError.bool.Role = false;
     } else{
@@ -153,13 +153,13 @@ export default class EditPublication extends Component {
     }
 
     // check funding
-    if(!this.state.Funding && this.state.researchSubtype == 'Research Proposal'){
+    if(!this.state.Funding && this.state.researchSubtype === 'Research Proposal'){
       formError.text.Funding = errorTexts[0];
       formError.bool.Funding = false;
-    } else if(this.state.Funding.match(numRegex) && this.state.researchSubtype == 'Research'){
+    } else if(this.state.Funding.match(numRegex) && this.state.researchSubtype === 'Research'){
       formError.text.Funding = errorTexts[5];
       formError.bool.Funding = false;
-    } else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype == 'Research Proposal'){
+    } else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype === 'Research Proposal'){
       formError.text.Funding = errorTexts[6];
       formError.bool.Funding = false;
     } else{
@@ -168,7 +168,7 @@ export default class EditPublication extends Component {
     }
 
     // check start date
-    if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
+    if(!this.state.StartDate && this.state.researchSubtype !== 'Research Proposal'){
       formError.text.StartDate = errorTexts[0];
       formError.bool.StartDate = false;
     }else{
@@ -177,10 +177,10 @@ export default class EditPublication extends Component {
     }
 
     // check end date
-    if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
+    if(!this.state.EndDate && this.state.researchSubtype !== 'Research Proposal'){
       formError.text.EndDate = errorTexts[0];
       formError.bool.EndDate = false;
-    }else if(this.state.researchSubtype != 'Research Proposal' && this.state.EndDate <= this.state.StartDate){
+    }else if(this.state.researchSubtype !== 'Research Proposal' && this.state.EndDate <= this.state.StartDate){
       formError.text.EndDate = errorTexts[7];
       formError.bool.EndDate = false;
     }else{

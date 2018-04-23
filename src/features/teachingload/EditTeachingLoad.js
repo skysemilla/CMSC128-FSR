@@ -9,46 +9,32 @@ export default class EditTeachingLoad extends Component {
     super(props);
 
     this.state = {
-      // emp_id: '',
-      subj: 'CMSC 128',
-      seccode: 'CMSC 128',
-      // room: 'CAS B04',
-      // days: 'T-Th',
-      // starttime: '4pm',
-      // endtime: '7pm',
-      // hours: '3',
-      studnum: '11',
+      subj: '',
+      seccode: '',
+      studnum: '',
       data: [],
       sectionArray: [],
-      validstudnum: false
-      // creditwo: '3',
-      // studcred: '3',
-      // creditw: '3'
+      validstudnum: false,
+      id: ''
     };
 
     this.handleChangeSubj = this.handleChangeSubj.bind(this);
     this.handleChangeSeccode = this.handleChangeSeccode.bind(this);
-    // this.handleChangeRoom = this.handleChangeRoom.bind(this);
-    // this.handleChangeDays = this.handleChangeDays.bind(this);
-    // this.handleChangeStartTime = this.handleChangeStartTime.bind(this);
-    // this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
-    // this.handleChangeHours = this.handleChangeHours.bind(this);
     this.handleChangeStudnum = this.handleChangeStudnum.bind(this);
-    // this.handleChangeCreditwo = this.handleChangeCreditwo.bind(this);
-    // this.handleChangeStudcred = this.handleChangeStudcred.bind(this);
-    // this.handleChangeCreditwith = this.handleChangeCreditwith.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
     //this.checkInput = this.checkInput.bind(this);
   }
 
   componentDidMount() {
-    Api.viewAllSubjects().then(response => {
-      if (response.data.data[0] !== undefined) {
-        this.setState({ data: response.data.data });
-        console.log(response.data.data);
-      }
-    });
+    Api.getTeachLoad({
+      teachingload_id: this.props.history.location.state.id
+      }).then(response =>{
+        this.setState({ 
+          subj: response.data.data.subject_code, 
+          seccode: response.data.data.section_code, 
+          studnum: response.data.data.no_of_students});
+         });
   }
 
   handleChangeSubj(e) {
@@ -78,8 +64,7 @@ export default class EditTeachingLoad extends Component {
        this.state.seccode !== '' &&
        this.state.validstudnum === true){
         Api.editTeachLoad({
-        subject_code: this.state.subj,
-        section_code: this.state.seccode,
+        teachingload_id: this.props.history.location.state.id,
         no_of_students: this.state.studnum
       })
         .then(result => {
