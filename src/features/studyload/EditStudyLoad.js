@@ -5,7 +5,7 @@ import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
 const numRegex = /^[A-Z]{1,}\s[0-9]{1,3}$/;
-const schoolRegex = /^[A-Za-z0-9][A-Za-z0-9\.-\s]+$/;
+const schoolRegex = /^[A-Za-z0-9][A-Za-z0-9.-\s]+$/;
 export default class EditStudyLoad extends Component {
   constructor(props) {
     super(props);
@@ -78,7 +78,7 @@ export default class EditStudyLoad extends Component {
     if (this.props.history.location.state === undefined) {
       this.props.history.push('/studyload/view');
     } else {
-      var temparr = [];
+      // var temparr = [];
       if (typeof this.props.history !== 'undefined') {
         console.log(this.props.history.location.state.id);
       }
