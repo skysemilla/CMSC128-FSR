@@ -59,11 +59,19 @@ export default class myApp extends Component {
                       });
                     });
                   }
-                  window.print();
+                  //window.print();
                 });
               });
           });
-      }); 
+      });
+
+      Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
+      if (result.data.data !== null) {
+        this.setState({ teachingload: result.data.data});
+        console.log(this.state.teachingload);
+        console.log("waoooo");
+      }
+      });
     });
 
     //publications
@@ -146,18 +154,24 @@ export default class myApp extends Component {
                 <th class="thtable">STUDENT CREDIT UNITS (A x B)</th>
                 <th class="thtable">TEACHING LOAD CREDITS WITH MULTIPLIERS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {
+                this.state.teachingload.map(item=>{
+                  return(
+                    <tr>
+                      <td class="tdtable">{item.subject_code}</td>
+                      <td class="tdtable">{item.section_code}</td>
+                      <td class="tdtable">{item.room}</td>
+                      <td class="tdtable">{item.day}</td>
+                      <td class="tdtable">{item.start_time}-{item.end_time}</td>
+                      <td class="tdtable"></td>
+                      <td class="tdtable">{item.no_of_students}</td>
+                      <td class="tdtable">a</td>
+                      <td class="tdtable">a</td>
+                      <td class="tdtable">a</td>
+                    </tr>
+                  )
+                })
+              }
               <tr>
                 <td colspan="7" class="total">
                   TOTAL Teaching Load Credits
