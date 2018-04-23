@@ -59,7 +59,8 @@ export default class myApp extends Component {
                       });
                     });
                   }
-                  //window.print();
+                  window.print();
+                  window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
                 });
               });
           });
@@ -87,6 +88,8 @@ export default class myApp extends Component {
 
     //window.print();
   }
+
+
 
   render() {
     return (
