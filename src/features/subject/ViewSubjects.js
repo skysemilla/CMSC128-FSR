@@ -3,6 +3,7 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import ViewSubjectsRow from './SubjectsViewRow';
 import NavBar from './../ui/NavBar';
+import * as Api from '../../api';
 
 const dummySample = {
   subjid: '1',
@@ -21,18 +22,18 @@ export default class ViewSubjects extends Component {
     super(props);
 
     this.state = {
-      data: [dummySample] //dummmy data
+      data: [] //dummmy data
     };
 
     this.startAdd = this.startAdd.bind(this);
   }
   componentDidMount() {
-    // Api.viewSubjects().then(response => {
-    //   if (response.data.data[0] !== undefined) {
-    //     this.setState({ data: response.data.data });
-    //   }
-    //   console.log(response.data.data);
-    // });
+    Api.viewAllSubjects().then(response => {
+      if (response.data.data[0] !== undefined) {
+        this.setState({ data: response.data.data });
+      }
+      console.log(response.data.data);
+    });
   }
 
   startAdd(e) {
@@ -69,10 +70,9 @@ export default class ViewSubjects extends Component {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th className="center aligned"> Subject ID </th>
-                  <th className="center aligned"> Subjcect Code </th>
+                  <th className="center aligned"> Subject Code </th>
                   <th className="center aligned"> Section Code </th>
-                  <th className="center aligned"> Type </th>
+                  <th className="center aligned"> isLecture </th>
                   <th className="center aligned"> Graduate Course? </th>
                   <th className="center aligned"> Units </th>
                   <th className="center aligned"> Room </th>
@@ -84,20 +84,29 @@ export default class ViewSubjects extends Component {
 
               <tbody>
                 {this.state.data.map(item => {
+                  var typeView="Lecture";
+                  var grad="Yes";
+                  if(item.isLecture==0){
+                    typeView="Lab";
+                  }
+
+                  if(item.isGraduate==0){
+                    grad="No";
+                  }
                   return (
                     <ViewSubjectsRow
                       {...this.props}
-                      id={this.state.emp_id}
-                      subjid={item.subjid}
-                      subjcode={item.subjcode}
-                      seccode={item.seccode}
-                      type={item.type}
-                      gradcourse={item.gradcourse}
+                      id={item.subject_id}
+                      subjcode={item.subject_code}
+                      seccode={item.section_code}
+                      type={typeView}
+                      gradcourse={grad}
                       units={item.units}
                       room={item.room}
-                      starttime={item.starttime}
-                      endtime={item.endtime}
+                      starttime={item.start_time}
+                      endtime={item.end_time}
                       editURL="../subjects/edit"
+                      deleteURL="../subjects/view"
                       label="Subject"
                       subLabel="subject"
                     />
