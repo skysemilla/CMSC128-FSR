@@ -21,7 +21,9 @@ export default class EditProfessorialChair extends Component {
       enddate: '',
 
       validStartDate: false,
-      validEndDate: false
+      validEndDate: false,
+
+      edit_trial_count: 0,
     };
 
     this.handleChangeNominee = this.handleChangeNominee.bind(this);
@@ -105,6 +107,7 @@ export default class EditProfessorialChair extends Component {
   }
 
   startAdd(e) {
+    this.setState({ edit_trial_count: 1 });
     // if date field is enabled
     if ( ( this.state.nominee === 'No' ) ||
     ( this.state.validGrantTitle !== false && this.state.validStartDate !== false && 
@@ -182,13 +185,14 @@ export default class EditProfessorialChair extends Component {
                       />
                       <label>No</label>
                     </div>
-                    {this.state.nominee === '' ?
+                    { this.state.edit_trial_count > 0 ?(  
+                      this.state.nominee === '' ?
                         (
                           <div className="ui left pointing red basic label">
                             Required
                           </div>
                         ) : (<div></div>)
-                      }
+                      ) : (<div></div>)  }
                   </div>
                 </div>
               </div>
@@ -224,12 +228,14 @@ export default class EditProfessorialChair extends Component {
                           <label>No</label>
                         </div>
                       </div>
-                      {this.state.nominated === '' ?
+                      {this.state.edit_trial_count > 0 ?(   
+                        this.state.nominated === '' ?
                         (
                           <div className="ui left pointing red basic label">
                             Required
                           </div>
                         ) : (<div></div>)
+                       ) : (<div></div>)
                       }
                     </div>
                   </div>
@@ -242,12 +248,14 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeProfChair}
                       placeholder={this.state.profchair}
                     />
-                    {this.state.profchair === '' ?
+                    {this.state.edit_trial_count > 0 ?(    
+                      this.state.profchair === '' ?
                       (
                         <div className="ui left pointing red basic label">
                           Required
                         </div>
                       ) : (<div></div>)
+                    ) : (<div></div>)
                     }
                   </div>
                 </p>
@@ -259,12 +267,14 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeGrant}
                       placeholder={this.state.grant}
                     />
-                    {this.state.grant === '' ?
+                    {this.state.edit_trial_count > 0 ?(   
+                      this.state.grant === '' ?
                       (
                         <div className="ui left pointing red basic label">
                           Required
                         </div>
                       ) : (<div></div>)
+                     ) : (<div></div>)
                     }
                   </div>
                 </p>
@@ -276,12 +286,14 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeGrantTitle}
                       placeholder={this.state.granttitle}
                     />
-                    {this.state.granttitle === '' ?
+                    {this.state.edit_trial_count > 0 ?(    
+                      this.state.granttitle === '' ?
                       (
                         <div className="ui left pointing red basic label">
                           Required
                         </div>
                       ) : (<div></div>)
+                    ) : (<div></div>)
                     }
                   </div>
                 </p>
@@ -290,12 +302,14 @@ export default class EditProfessorialChair extends Component {
                   <div className="ui input fluid mini focus">
                     <input type="date" onChange={this.handleChangeStartdate} />
                   </div>
-                  {this.state.validStartDate === false ?
+                  {this.state.edit_trial_count > 0 ?(    
+                    this.state.validStartDate === false ?
                     (
                       <div className="ui pointing red basic label">
                         Invalid start date!
                       </div>
                     ) : (<div></div>)
+                  ) : (<div></div>)
                   }
                 </p>
                 <p>
@@ -304,13 +318,15 @@ export default class EditProfessorialChair extends Component {
                     <input type="date" onChange={this.handleChangeEndDate} />
                   </div>
                 </p>
-                {this.state.validEndDate === false ?
+                {this.state.edit_trial_count > 0 ?(  
+                  this.state.validEndDate === false ?
                     (
                       <div className="ui pointing red basic label">
                         Invalid end date!
                       </div>
                     ) : (<div></div>)
-                  }
+                  ) : (<div></div>)
+                }
                 <Divider hidden="true" />
               </div>
             ) : (
