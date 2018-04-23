@@ -2,31 +2,105 @@ import React, { Component } from 'react';
 import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './../style.css';
+import * as Api from '../api';
 
-export default class sampleFSR extends Component {
+export default class myApp extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.empid
+      //id: this.props.id
+      id: this.props.location.state.id,
+      pubs: [],
+      profile: '',
+      adminwork: [],
+      extension: [],
+      profchair: [],
+      profession: [],
+      teachingload: []
     };
-
-    console.log(this.state.id);
   }
 
-  componentDidUpdate() {
-    console.log('HELLO');
+  componentDidMount() {
+        //Profile
+    Api.getEmployeeData({ empid: this.state.id }).then(res => {
+      this.setState({ profile: res.data.data });
+      if (res.data.data.is_studying === 0) {
+        this.setState({
+          profile: { ...this.state.profile, is_full_time: 'YES' }
+        });
+      } else {
+        this.setState({ profile: { ...this.state.profile, is_full_time: 'NO' } });
+      }
+      //extension
+      Api.viewExtension({ id: this.state.id }).then(result => {
+        console.log(result.data.data);
+        if (result.data.data !== null) {
+          this.setState({ extension: result.data.data });
+        }
+          //professorial chair
+          Api.viewFacultyGrant({id: this.state.id }).then(result => {
+            if (result.data.data !== null) {
+              this.setState({ profchair: result.data.data[0] });
+            }
+              //practice of profession
+              Api.viewLimitedPractice({ emp_id: this.state.id }).then(result => {
+                if (result.data.data !== null) {
+                  this.setState({ profession: result.data.data[0]});
+                }
+                  Api.viewPublications({ empid: this.state.id }).then(result => {
+                  if (result.data.data !== null) {
+                    this.setState({ pubs: result.data.data[0] });
+                    this.state.pubs.map(item => {
+                      Api.getCoworkers({
+                        id: item.publication_id
+                      }).then(result => {
+                        item.Coworkers = result.data.data;
+                      });
+                    });
+                  }
+                  window.print();
+                  window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
+                });
+              });
+          });
+      });
+
+      Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
+      if (result.data.data !== null) {
+        this.setState({ teachingload: result.data.data});
+        console.log(this.state.teachingload);
+        console.log("waoooo");
+      }
+      });
+    });
+
+    //publications
+
+    //adminWork
+
+
+    //teaching load
+
+    //study load
+
+    //consultation hours
+
+    //window.print();
   }
+
+
 
   render() {
     return (
+      <div>
       <div class="generate">
         <p>
           <center>
             <div>
               <b>FACULTY SERVICE RECORD</b>
             </div>
-            <div>__ Semester AY _____ – ____</div>
+            <div>{this.state.profile.semester} AY {this.state.profile.year} – {parseInt(this.state.profile.year)+1}</div>
           </center>
         </p>
 
@@ -35,25 +109,33 @@ export default class sampleFSR extends Component {
             <table class="inv">
               <tr>
                 <td class="inv2">PRINTED NAME:</td>
-                <td class="inv2">_________________________________</td>
+                <td class="inv2"><center><u>{this.state.profile.l_name}, {this.state.profile.f_name} {this.state.profile.m_name}</u></center></td>
                 <td class="inv2">RANK:</td>
-                <td class="inv2">_______________________________</td>
+                <td class="inv2"><center><u>{this.state.profile.emp_type} {this.state.profile.emp_type_no}</u></center></td>
               </tr>
               <tr>
                 <td class="inv2">&nbsp;</td>
-                <td class="inv2">(Family name, Given name, M.I.)</td>
+                <td class="inv2"><center>(Family name, Given name, M.I.)</center></td>
                 <td class="inv2">&nbsp;</td>
-                <td class="inv2">
-                  [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]
-                  Full-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]
-                  Part-time
-                </td>
+                {this.state.profile.is_full_time==='YES'?
+                  <td class="inv2">
+                    [&nbsp;&nbsp;X&nbsp;&nbsp;]
+                    Full-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]
+                    Part-time
+                  </td>
+                :
+                  <td class="inv2">
+                    [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]
+                    Full-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;X&nbsp;&nbsp;]
+                    Part-time
+                  </td>
+                }
               </tr>
               <tr>
                 <td class="inv2">HOME DEPARTMENT</td>
-                <td class="inv2">________________________________</td>
+                <td class="inv2"><center><u>{this.state.profile.department}</u></center></td>
                 <td class="inv2">HOME COLLEGE:</td>
-                <td class="inv2">________________________________</td>
+                <td class="inv2"><center><u>{this.state.profile.college}</u></center></td>
               </tr>
             </table>
           </div>
@@ -75,18 +157,24 @@ export default class sampleFSR extends Component {
                 <th class="thtable">STUDENT CREDIT UNITS (A x B)</th>
                 <th class="thtable">TEACHING LOAD CREDITS WITH MULTIPLIERS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {
+                this.state.teachingload.map(item=>{
+                  return(
+                    <tr>
+                      <td class="tdtable">{item.subject_code}</td>
+                      <td class="tdtable">{item.section_code}</td>
+                      <td class="tdtable">{item.room}</td>
+                      <td class="tdtable">{item.day}</td>
+                      <td class="tdtable">{item.start_time}-{item.end_time}</td>
+                      <td class="tdtable"></td>
+                      <td class="tdtable">{item.no_of_students}</td>
+                      <td class="tdtable">a</td>
+                      <td class="tdtable">a</td>
+                      <td class="tdtable">a</td>
+                    </tr>
+                  )
+                })
+              }
               <tr>
                 <td colspan="7" class="total">
                   TOTAL Teaching Load Credits
@@ -106,6 +194,7 @@ export default class sampleFSR extends Component {
             </center>
             <Divider hidden="true" />
             <table class="inv">
+              <center>
               <tr>
                 <td class="inv2">____________________________</td>
                 <td class="inv2">____________________________</td>
@@ -131,6 +220,7 @@ export default class sampleFSR extends Component {
                 <td class="inv2">NO. OF SUBJECTS </td>
                 <td class="inv2">NO. OF UNITS (W/O MULTIPLIERS)</td>
               </tr>
+              </center>
             </table>
             <sub>
               <b>
@@ -184,12 +274,25 @@ export default class sampleFSR extends Component {
                 <th class="thtable">FUNDING AGENCY</th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Research Proposal'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.funding}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Total Research Work Load Credits (RLC) _______________
@@ -211,14 +314,27 @@ export default class sampleFSR extends Component {
                 <th class="thtable">FUNDING AGENCY</th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Research Implementation'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.start_date}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.funding}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Total Research Work Load Credits (RLC) _______________
@@ -244,12 +360,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Oral/Poster Papers'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -270,12 +399,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Papers for Conferences'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -296,12 +438,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Monographs'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -322,12 +477,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Articles in referred journals'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -347,12 +515,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Chapters in a book'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -370,12 +551,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Books'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -396,12 +590,25 @@ export default class sampleFSR extends Component {
                 </th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+                  {this.state.pubs.map(item => {
+                    Api.getCoworkers({
+                      id: item.publication_id
+                    })
+                      .then(result => {
+                        item.Coworkers = result.data.data;
+                      })
+                      .catch(err => alert('Error loading coworkers!!'));
+                    if(item.subcategory==='Others'){
+                      return (
+                        <tr>
+                        <td class="tdtable">{item.title}</td>
+                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">{item.end_date}</td>
+                        <td class="tdtable">{item.credit_units}</td>
+                        </tr>
+                      );
+                    }
+                  })}
             </table>
             <div align="right">
               Creative Work Load Credits (CLC) _______________
@@ -425,11 +632,15 @@ export default class sampleFSR extends Component {
                 <th class="thtable">OFFICE/UNIT</th>
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.adminwork.map(item => {
+                return (
+                  <tr>
+                    <td class="tdtable">{item.position}/{item.nature_of_work}</td>
+                    <td class="tdtable">{item.office}</td>
+                    <td class="tdtable">{item.credit_units}</td>
+                  </tr>
+                );
+              })}
             </table>
             <div align="right">
               Total Administrative Load Credits (ALC) _______________
@@ -475,16 +686,22 @@ export default class sampleFSR extends Component {
                   APPROVED<br />CREDIT UNITS
                 </th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.extension.map(item => {
+                if(item.extension_type==='Trainings'){
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.extension_name}</td>
+                      <td class="tdtable">{item.no_of_hours}</td>
+                      <td class="tdtable">{item.no_of_participants}</td>
+                      <td class="tdtable">{item.start_time}</td>
+                      <td class="tdtable">{item.end_time}</td>
+                      <td class="tdtable">{item.extension_role}</td>
+                      <td class="tdtable">{item.funding_agency}</td>
+                      <td class="tdtable">{item.credit_unit}</td>
+                    </tr>
+                  );
+                }
+              })}
             </table>
             <div align="right">
               Total Extension and Community Credits (ELC) _______________
@@ -516,16 +733,22 @@ export default class sampleFSR extends Component {
                   APPROVED<br />CREDIT UNITS
                 </th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.extension.map(item => {
+                if(item.extension_type==='Information Dissemination'){
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.extension_name}</td>
+                      <td class="tdtable">{item.no_of_hours}</td>
+                      <td class="tdtable">{item.no_of_participants}</td>
+                      <td class="tdtable">{item.start_time}</td>
+                      <td class="tdtable">{item.end_time}</td>
+                      <td class="tdtable">{item.extension_role}</td>
+                      <td class="tdtable">{item.funding_agency}</td>
+                      <td class="tdtable">{item.credit_unit}</td>
+                    </tr>
+                  );
+                }
+              })}
             </table>
             <div align="right">
               Total Extension and Community Credits (ELC) _______________
@@ -554,16 +777,22 @@ export default class sampleFSR extends Component {
                   APPROVED<br />CREDIT UNITS
                 </th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.extension.map(item => {
+                if(item.extension_type==='Workshops'){
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.extension_name}</td>
+                      <td class="tdtable">{item.no_of_hours}</td>
+                      <td class="tdtable">{item.no_of_participants}</td>
+                      <td class="tdtable">{item.start_time}</td>
+                      <td class="tdtable">{item.end_time}</td>
+                      <td class="tdtable">{item.extension_role}</td>
+                      <td class="tdtable">{item.funding_agency}</td>
+                      <td class="tdtable">{item.credit_unit}</td>
+                    </tr>
+                  );
+                }
+              })}
             </table>
             <div align="right">
               Total Extension and Community Credits (ELC) _______________
@@ -592,16 +821,22 @@ export default class sampleFSR extends Component {
                   APPROVED<br />CREDIT UNITS
                 </th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.extension.map(item => {
+                if(item.extension_type==='Symposium'){
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.extension_name}</td>
+                      <td class="tdtable">{item.no_of_hours}</td>
+                      <td class="tdtable">{item.no_of_participants}</td>
+                      <td class="tdtable">{item.start_time}</td>
+                      <td class="tdtable">{item.end_time}</td>
+                      <td class="tdtable">{item.extension_role}</td>
+                      <td class="tdtable">{item.funding_agency}</td>
+                      <td class="tdtable">{item.credit_unit}</td>
+                    </tr>
+                  );
+                }
+              })}
             </table>
             <div align="right">
               Total Extension and Community Credits (ELC) _______________
@@ -630,16 +865,22 @@ export default class sampleFSR extends Component {
                   APPROVED<br />CREDIT UNITS
                 </th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.extension.map(item => {
+                if(item.extension_type==='Others'){
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.extension_name}</td>
+                      <td class="tdtable">{item.no_of_hours}</td>
+                      <td class="tdtable">{item.no_of_participants}</td>
+                      <td class="tdtable">{item.start_time}</td>
+                      <td class="tdtable">{item.end_time}</td>
+                      <td class="tdtable">{item.extension_role}</td>
+                      <td class="tdtable">{item.funding_agency}</td>
+                      <td class="tdtable">{item.credit_unit}</td>
+                    </tr>
+                  );
+                }
+              })}
             </table>
             <div align="right">
               Total Extension and Community Credits (ELC) _______________
@@ -716,15 +957,25 @@ export default class sampleFSR extends Component {
                   Have you applied for official permission for limited practice
                   of profession?
                 </td>
-                <td colspan="2" class="inv2">
-                  Yes _________ No ________
-                </td>
+                {this.state.profession.haveApplied===0?
+                  <td colspan="2" class="inv2">
+                    Yes _________ No ____X____
+                  </td>
+                  :
+                  <td colspan="2" class="inv2">
+                    Yes ____X____ No _________
+                  </td>
+                }
               </tr>
               <tr>
                 <td class="inv2">
                   If yes, indicate date (MM/DD/YY) permission was submitted:
                 </td>
+                {this.state.profession.haveApplied===0?
                 <td class="inv2">_______________</td>
+                :
+                <td class="inv2"><u>{this.state.profession.date_submitted}</u></td>
+                }
                 <td class="inv2">Or approved:</td>
                 <td class="inv2">_______________</td>
               </tr>
@@ -742,9 +993,15 @@ export default class sampleFSR extends Component {
                   Please write NA on the space on the right if neither a
                   recipient nor a nominee
                 </td>
-                <td colspan="2" class="inv2">
-                  _________________
-                </td>
+                {this.state.profchair.type==='Yes'?
+                  <td colspan="2" class="inv2">
+                    _________________
+                  </td>
+                :
+                  <td colspan="2" class="inv2">
+                    <u>_______NA________</u>
+                  </td>
+                }
               </tr>
               <tr>
                 <td colspan="4" class="inv2">
@@ -753,27 +1010,33 @@ export default class sampleFSR extends Component {
                     already nominated (Y/N):
                   </sub>
                 </td>
-                <td colspan="2" class="inv2">
-                  _________________
-                </td>
+                {this.state.profchair.is_approved==='1'?
+                  <td colspan="2" class="inv2">
+                    <u>_____Yes_______</u>
+                  </td>
+                :
+                  <td colspan="2" class="inv2">
+                    <u>_______No________</u>
+                  </td>
+                }
               </tr>
               <tr>
                 <td class="inv2">PROFESSORIAL CHAIR </td>
-                <td class="inv2">_________________</td>
+                <td class="inv2"><u>{this.state.profchair.professional_chair}</u></td>
                 <td class="inv2">GRANT</td>
-                <td class="inv2">_________________</td>
+                <td class="inv2"><u>{this.state.profchair.grants}</u></td>
                 <td class="inv2">CHAIR/GRANT TITLE</td>
-                <td class="inv2">_________________</td>
+                <td class="inv2"><u>{this.state.profchair.grant_title}</u></td>
               </tr>
               <tr>
                 <td colspan="2" class="inv2">
                   APPROVED START DATE (MM/DD/YY)
                 </td>
-                <td class="inv2">_________________</td>
+                <td class="inv2"><u>{this.state.profchair.start_date}</u></td>
                 <td colspan="2" class="inv2">
                   END DATE (MM/DD/YY)
                 </td>
-                <td class="inv2">_________________</td>
+                <td class="inv2"><u>{this.state.profchair.end_date}</u></td>
               </tr>
             </table>
           </div>
@@ -847,6 +1110,7 @@ export default class sampleFSR extends Component {
             </sub>
           </div>
         </p>
+      </div>
       </div>
     );
   }

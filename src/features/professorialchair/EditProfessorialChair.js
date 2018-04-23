@@ -21,7 +21,9 @@ export default class EditProfessorialChair extends Component {
       enddate: '',
 
       validStartDate: false,
-      validEndDate: false
+      validEndDate: false,
+
+      edit_trial_count: 0,
     };
 
     this.handleChangeNominee = this.handleChangeNominee.bind(this);
@@ -63,63 +65,54 @@ export default class EditProfessorialChair extends Component {
   }
 
   handleChangeStartdate(e) {
-    console.log("start date changed");
-    console.log('from ' + this.state.startdate + ' to ' + e.target.value);
 
     // input date validation
     if (e.target.value === '' || ( this.state.enddate !== '' && e.target.value > this.state.enddate) ) {
-      console.log('new start date is after end date');
       this.setState({ validStartDate: false });
       //this.setState({ validEndDate: false }); // and vice-versa
     } else {
-      console.log('new start date is before end date');
       this.setState({ validStartDate: true });
       //this.setState({ validEndDate: true }); // and so both are valid
     }
-
-    console.log('e.target.value: ');
-    console.log(e.target.value)
     this.setState({ startdate: e.target.value }); // still, apply changes
   }
 
   handleChangeEndDate(e) {
-    console.log("end date changed");
-    console.log('from ' + this.state.enddate + ' to ' + e.target.value);
 
     // input date validation
     if (e.target.value === '' || ( this.state.startdate !== '' && e.target.value < this.state.startdate) ) {
-      console.log('new end date is before start date');
+     
       this.setState({ validEndDate: false });
       //this.setState({ validStartDate: false }); // and vice-versa
     } else {
-      console.log('new end date is after start date');
+      
       this.setState({ validEndDate: true });
-      //this.setState({ validStartDate: true }); // and so both are valid
+      if (this.state.startdate !== '') {
+        this.setState({ validStartDate: true }); // and so both are valid?
+      }
     }
 
-    console.log('e.target.value: ');
-    console.log(e.target.value)
+   
     this.setState({ enddate: e.target.value }); // still, apply changes
   }
 
   startAdd(e) {
+    this.setState({ edit_trial_count: 1 });
+    
     // if date field is enabled
-    if ( ( this.state.nominee === 'No' ) ||
+    if ( ( this.state.nominee === "No" ) ||
     ( this.state.validGrantTitle !== false && this.state.validStartDate !== false && 
       this.state.nominated !== '' && this.state.profchair !== '' && 
-      this.state.grant !== '' && this.state.granttitle !== '' )
+      this.state.grant !== '' && this.state.granttitle !== '' &&
+      this.state.startdate < this.state.enddate &&
+      parseFloat(this.state.profchair) != this.state.profchair  &&
+      parseFloat(this.state.grant) != this.state.grant &&
+      parseFloat(this.state.granttitle) != this.state.granttitle
+     )
     ) {
     // other fields must have a valid input
 
         e.preventDefault();
-        console.log(this.state.emp_id)
-        console.log(this.state.nominee)
-        console.log(this.state.nominated)
-        console.log(this.state.profchair)
-        console.log(this.state.grant)
-        console.log(this.state.granttitle)
-        console.log(this.state.startdate)
-        console.log(this.state.enddate)
         Api.editProfessorialChair({
           emp_id: this.state.emp_id,
           type: this.state.nominee,
@@ -180,13 +173,14 @@ export default class EditProfessorialChair extends Component {
                       />
                       <label>No</label>
                     </div>
-                    {this.state.nominee === '' ?
+                    { this.state.edit_trial_count > 0 ?(  
+                      this.state.nominee === '' ?
                         (
                           <div className="ui left pointing red basic label">
                             Required
                           </div>
                         ) : (<div></div>)
-                      }
+                      ) : (<div></div>)  }
                   </div>
                 </div>
               </div>
@@ -222,12 +216,14 @@ export default class EditProfessorialChair extends Component {
                           <label>No</label>
                         </div>
                       </div>
-                      {this.state.nominated === '' ?
+                      {this.state.edit_trial_count > 0 ?(   
+                        this.state.nominated === '' ?
                         (
                           <div className="ui left pointing red basic label">
                             Required
                           </div>
                         ) : (<div></div>)
+                       ) : (<div></div>)
                       }
                     </div>
                   </div>
@@ -240,12 +236,14 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeProfChair}
                       placeholder={this.state.profchair}
                     />
-                    {this.state.profchair === '' ?
+                    {this.state.edit_trial_count > 0 ?(    
+                      this.state.profchair === '' ?
                       (
                         <div className="ui left pointing red basic label">
                           Required
                         </div>
                       ) : (<div></div>)
+                    ) : (<div></div>)
                     }
                   </div>
                 </p>
@@ -257,12 +255,14 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeGrant}
                       placeholder={this.state.grant}
                     />
-                    {this.state.grant === '' ?
+                    {this.state.edit_trial_count > 0 ?(   
+                      this.state.grant === '' ?
                       (
                         <div className="ui left pointing red basic label">
                           Required
                         </div>
                       ) : (<div></div>)
+                     ) : (<div></div>)
                     }
                   </div>
                 </p>
@@ -274,12 +274,14 @@ export default class EditProfessorialChair extends Component {
                       onChange={this.handleChangeGrantTitle}
                       placeholder={this.state.granttitle}
                     />
-                    {this.state.granttitle === '' ?
+                    {this.state.edit_trial_count > 0 ?(    
+                      this.state.granttitle === '' ?
                       (
                         <div className="ui left pointing red basic label">
                           Required
                         </div>
                       ) : (<div></div>)
+                    ) : (<div></div>)
                     }
                   </div>
                 </p>
@@ -288,12 +290,14 @@ export default class EditProfessorialChair extends Component {
                   <div className="ui input fluid mini focus">
                     <input type="date" onChange={this.handleChangeStartdate} />
                   </div>
-                  {this.state.validStartDate === false ?
+                  {this.state.edit_trial_count > 0 ?(    
+                    this.state.validStartDate === false ?
                     (
                       <div className="ui pointing red basic label">
                         Invalid start date!
                       </div>
                     ) : (<div></div>)
+                  ) : (<div></div>)
                   }
                 </p>
                 <p>
@@ -302,13 +306,15 @@ export default class EditProfessorialChair extends Component {
                     <input type="date" onChange={this.handleChangeEndDate} />
                   </div>
                 </p>
-                {this.state.validEndDate === false ?
+                {this.state.edit_trial_count > 0 ?(  
+                  this.state.validEndDate === false ?
                     (
                       <div className="ui pointing red basic label">
                         Invalid end date!
                       </div>
                     ) : (<div></div>)
-                  }
+                  ) : (<div></div>)
+                }
                 <Divider hidden="true" />
               </div>
             ) : (

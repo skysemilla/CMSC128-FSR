@@ -18,16 +18,18 @@ export default class ViewProfession extends Component {
   }
 
   componentDidMount = () => {
-        // Api.getSession().then(res => {
-        //   if (res.data.data !== null) {
-        //     Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
-        //       if (result.data.data !== null) {
-        //         console.log({data: result.data.data[0]})
-        //         this.setState({ data: result.data.data});
-        //       }
-        //     });
-        //   }
-        // });
+        Api.getSession().then(res => {
+          if (res.data.data !== null) {
+            Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
+              if (result.data.data !== null) {
+                this.setState({ permission: result.data.data[0].haveApplied});
+                this.setState({ date: result.data.data[0].date_submitted});
+                this.setState({emp_id: res.data.data.emp_id})
+
+              }
+            });
+          }
+        });
   };
 
   startEdit() {
@@ -60,7 +62,7 @@ export default class ViewProfession extends Component {
                 <b>
                   <i className="right triangle icon" />Have you applied for official permission for limited practice of profession?{' '}
                 </b>
-                {this.state.permission === '1'?
+                {this.state.permission == '1'?
                     "Yes"
                 :
                     "No"
@@ -70,7 +72,11 @@ export default class ViewProfession extends Component {
                 <b>
                   <i className="right triangle icon" />Date submitted:{' '}
                 </b>
-                {this.state.date}
+                {this.state.date === null?
+                    "N/A"
+                :
+                    this.state.date  
+                }
               </div>
             </div>
             <Divider hidden="true" />

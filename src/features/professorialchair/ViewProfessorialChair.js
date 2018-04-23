@@ -10,15 +10,18 @@ export default class ViewProfessorialChair extends Component {
     super(props);
 
     this.state = {
-      data: []
-      
+      professional_chair: '',
+      grants: '',
+      grant_title: '',
+      start_date: '',
+      end_date: ''    ,
+      attachment: ''  
     };
 
     this.startEdit = this.startEdit.bind(this);
   }
 
   startEdit(e) {
-    e.preventDefault();
     this.props.history.push('../professorialchair/edit');
   }
   
@@ -28,12 +31,15 @@ export default class ViewProfessorialChair extends Component {
       if (res.data.data !== null) {
         Api.viewFacultyGrant({id: res.data.data.emp_id }).then(result => {
           if (result.data.data !== null) {
-            this.setState({ data: result.data.data[0] });
+            this.setState({professional_chair:result.data.data[0].professional_chair})
+            this.setState({grants:result.data.data[0].grants})
+            this.setState({grant_title:result.data.data[0].grant_title})
+            this.setState({start_date:result.data.data[0].start_date})
+            this.setState({end_date:result.data.data[0].end_date})
           }
         });
       }
     });
-    console.log(this.state.data);
   }
 
   render() {
@@ -61,7 +67,7 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>Professorial Chair: </b>
-                      {this.state.data.professional_chair}
+                      {this.state.professional_chair!=null?this.state.professional_chair:"N/A"}
                     </p>
                   </div>
                 </div>
@@ -69,7 +75,7 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>Grant: </b>
-                      {this.state.data.grants}
+                      {this.state.grants!=null?this.state.grants:"N/A"}
                     </p>
                   </div>
                 </div>
@@ -77,7 +83,7 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>Grant title: </b>
-                      {this.state.data.grant_title}
+                      {this.state.grant_title!=null?this.state.grant_title:"N/A"}
                     </p>
                   </div>
                 </div>
@@ -85,7 +91,7 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>Start date: </b>
-                      {this.state.data.start_date}
+                      {this.state.start_date!=null?this.state.start_date:"N/A"}
                     </p>
                   </div>
                 </div>
@@ -93,7 +99,7 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>End date: </b>
-                      {this.state.data.end_date}
+                      {this.state.end_date!=null?this.state.end_date:"N/A"}
                     </p>
                   </div>
                 </div>
@@ -101,11 +107,12 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>Attachments: </b>
-                      {this.state.data.attachment === '' ? (
+                      {this.state.attachment === '' ? (
                         'None'
                       ) : (
                         <ViewAttachments
                           {...this.props}
+                          professional_chair = {this.state.professional_chair}
                           label="Professorial Chair"
                           subLabel="...this.props not working"
                         />

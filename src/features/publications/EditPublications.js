@@ -32,8 +32,6 @@ const error = {
   color: 'red'
 };
 
-var messageClass = 'ui negative message';
-
 const errorTexts = [
   <span style={error}> {' is required'}</span>, //0
   <span style={error}> {' number is required'}</span>, //1
@@ -46,20 +44,11 @@ const errorTexts = [
   <span style={error}> {' *required'}</span> //8
 ];
 
-const alphanumRegex =  /^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$/;
-const numRegex = /^[0-9]+$/;
+const alphanumRegex = /^[a-zA-Z0-9 ]*[a-zA-Z ][a-zA-Z0-9 ]*$/;
+const numRegex = /^[0-9\s\-']+$/;
+const creditRegex = /^[0-9]$/;
 
 var formError = {
-  text: {
-    researchType: '',
-    researchSubtype: '',
-    completeTitle: '',
-    Role: '',
-    Funding: '',
-    StartDate: '',
-    EndDate: '',
-    ApprovedCreditUnits: ''
-  },
   bool: {
     researchType: false,
     researchSubtype: false,
@@ -94,113 +83,96 @@ export default class EditPublication extends Component {
     this.handleChangeSubtype = this.handleChangeSubtype.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.addCoworker = this.addCoworker.bind(this); 
+    this.addCoworker = this.addCoworker.bind(this);
     this.handleChangeFunding = this.handleChangeFunding.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
-    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(this);
+    this.handleChangeApprovedCreditUnits = this.handleChangeApprovedCreditUnits.bind(
+      this
+    );
     this.validateEdit = this.validateEdit.bind(this);
     this.startEdit = this.startEdit.bind(this);
   }
 
   validateEdit() {
     // check research type
-    if(!this.state.researchType){
-      formError.text.researchType = errorTexts[8];
-      formError.bool.researchType = false;
-    }else{
-      formError.text.researchType = '';
-      formError.bool.researchType = true;
-    }
+    if (!this.state.researchType) formError.bool.researchType = false;
+    else formError.bool.researchType = true;
 
     // check research subtype
-    if(!this.state.researchSubtype){
-      formError.text.researchSubtype = errorTexts[8];
-      formError.bool.researchSubtype = false;
-    }else{
-      formError.text.researchSubtype = '';
-      formError.bool.researchSubtype = true;
-    }
+    if (!this.state.researchSubtype) formError.bool.researchSubtype = false;
+    else formError.bool.researchSubtype = true;
 
     // check title
-    if(!this.state.completeTitle){
-      formError.text.completeTitle = errorTexts[0];
+    if (!this.state.completeTitle) formError.bool.completeTitle = false;
+    else if (this.state.completeTitle.match(numRegex))
       formError.bool.completeTitle = false;
-    }else if(this.state.completeTitle.match(numRegex)){
-      formError.text.completeTitle = errorTexts[5];
+    else if (!this.state.completeTitle.match(alphanumRegex))
       formError.bool.completeTitle = false;
-    }else if(!this.state.completeTitle.match(alphanumRegex)){
-      formError.text.completeTitle = errorTexts[6];
-      formError.bool.completeTitle = false;
-    }else{
-      formError.text.completeTitle = '';
-      formError.bool.completeTitle = true;
-    }
+    else formError.bool.completeTitle = true;
 
     // check role
-    if(!this.state.Role && this.state.researchType == 'Research'){
-      formError.text.Role = errorTexts[0];
+    if (!this.state.Role && this.state.researchType === 'Research')
       formError.bool.Role = false;
-    } else if(this.state.Role.match(numRegex) && this.state.researchType == 'Research'){
-      formError.text.Role = errorTexts[5];
+    else if (
+      this.state.Role.match(numRegex) &&
+      this.state.researchType === 'Research'
+    )
       formError.bool.Role = false;
-    } else if(!this.state.Role.match(alphanumRegex) && this.state.researchType == 'Research'){
-      formError.text.Role = errorTexts[6];
+    else if (
+      !this.state.Role.match(alphanumRegex) &&
+      this.state.researchType === 'Research'
+    )
       formError.bool.Role = false;
-    } else{
-      formError.text.Role = '';
-      formError.bool.Role = true;
-    }
+    else formError.bool.Role = true;
 
     // check funding
-    if(!this.state.Funding && this.state.researchSubtype == 'Research Proposal'){
-      formError.text.Funding = errorTexts[0];
+    if (
+      !this.state.Funding &&
+      this.state.researchSubtype === 'Research Proposal'
+    )
       formError.bool.Funding = false;
-    } else if(this.state.Funding.match(numRegex) && this.state.researchSubtype == 'Research'){
-      formError.text.Funding = errorTexts[5];
+    else if (
+      this.state.Funding.match(numRegex) &&
+      this.state.researchSubtype === 'Research'
+    )
       formError.bool.Funding = false;
-    } else if(!this.state.Funding.match(alphanumRegex) && this.state.researchSubtype == 'Research Proposal'){
-      formError.text.Funding = errorTexts[6];
+    else if (
+      !this.state.Funding.match(alphanumRegex) &&
+      this.state.researchSubtype === 'Research Proposal'
+    )
       formError.bool.Funding = false;
-    } else{
-      formError.text.Funding = '';
-      formError.bool.Funding = true;
-    }
+    else formError.bool.Funding = true;
 
     // check start date
-    if(!this.state.StartDate && this.state.researchSubtype != 'Research Proposal'){
-      formError.text.StartDate = errorTexts[0];
+    if (
+      !this.state.StartDate &&
+      this.state.researchSubtype !== 'Research Proposal'
+    )
       formError.bool.StartDate = false;
-    }else{
-      formError.text.StartDate = '';
-      formError.bool.StartDate = true;
-    }
+    else formError.bool.StartDate = true;
 
     // check end date
-    if(!this.state.EndDate && this.state.researchSubtype != 'Research Proposal'){
-      formError.text.EndDate = errorTexts[0];
+    if (
+      !this.state.EndDate &&
+      this.state.researchSubtype !== 'Research Proposal'
+    )
       formError.bool.EndDate = false;
-    }else if(this.state.researchSubtype != 'Research Proposal' && this.state.EndDate <= this.state.StartDate){
-      formError.text.EndDate = errorTexts[7];
+    else if (
+      this.state.researchSubtype !== 'Research Proposal' &&
+      this.state.EndDate <= this.state.StartDate
+    )
       formError.bool.EndDate = false;
-    }else{
-      formError.text.EndDate = '';
-      formError.bool.EndDate = true;
-    }
+    else formError.bool.EndDate = true;
 
     // check approved credit units
-    if(!this.state.ApprovedCreditUnits){
-      formError.text.ApprovedCreditUnits = errorTexts[0];
+    if (!this.state.ApprovedCreditUnits)
       formError.bool.ApprovedCreditUnits = false;
-    } else if(!this.state.ApprovedCreditUnits.toString().match(numRegex)){
-      formError.text.ApprovedCreditUnits = errorTexts[4];
+    else if (!this.state.ApprovedCreditUnits.toString().match(numRegex))
       formError.bool.ApprovedCreditUnits = false;
-    }else{
-      formError.text.ApprovedCreditUnits = '';
-      formError.bool.ApprovedCreditUnits = true;
-    }
+    else formError.bool.ApprovedCreditUnits = true;
 
-    if(
+    if (
       formError.bool.researchType &&
       formError.bool.researchSubtype &&
       formError.bool.completeTitle &&
@@ -209,21 +181,24 @@ export default class EditPublication extends Component {
       formError.bool.StartDate &&
       formError.bool.EndDate &&
       formError.bool.ApprovedCreditUnits
-      ){
+    ) {
       this.startEdit();
     }
     this.forceUpdate();
   }
 
   componentDidMount() {
-    Api.getSession().then(res => {
-      if (res.data.data !== null) {
-        if (typeof this.props.history !== 'undefined') {
-          Api.viewOnePublication({
+    if (this.props.history.location.state === undefined)
+      this.props.history.push('/publications/view');
+    else {
+      Api.getSession().then(res => {
+        if (res.data.data !== null) {
+          if (typeof this.props.history !== 'undefined') {
+            Api.viewOnePublication({
               id: this.props.history.location.state.id
             })
               .then(result => {
-                  this.setState({
+                this.setState({
                   researchType: result.data.data[0].category,
                   researchSubtype: result.data.data[0].subcategory,
                   completeTitle: result.data.data[0].title,
@@ -232,27 +207,28 @@ export default class EditPublication extends Component {
                   StartDate: result.data.data[0].start_date,
                   EndDate: result.data.data[0].end_date,
                   ApprovedCreditUnits: result.data.data[0].credit_units
-              });
-               })
+                });
+              })
               .catch(err => alert('Error loading pub!'));
           }
 
           Api.viewEmployeeCoworkers({ empid: res.data.data.emp_id })
             .then(result => {
-                this.setState({ posCoworkers: result.data.data });
-              })
-              .catch(err => alert('Error loading Employees!!'));
-      }
-    });
+              this.setState({ posCoworkers: result.data.data });
+            })
+            .catch(err => alert('Error loading Employees!!'));
+        }
+      });
+    }
   }
 
   handleChangeType(e) {
     this.setState({ researchType: e.target.value });
-    if(e.target.value==='Research'){
+    if (e.target.value === 'Research') {
       this.setState({ researchSubtype: 'Research Proposal' });
       this.setState({ StartDate: '' });
       this.setState({ EndDate: '' });
-    }else{
+    } else {
       this.setState({ researchSubtype: 'Oral/Poster Papers' });
       this.setState({ Funding: '' });
       this.setState({ Role: '' });
@@ -261,11 +237,14 @@ export default class EditPublication extends Component {
 
   handleChangeSubtype(e) {
     this.setState({ researchSubtype: e.target.value });
-    if(e.target.value!=='Research Proposal' && e.target.value!=='Research Implementation'){
+    if (
+      e.target.value !== 'Research Proposal' &&
+      e.target.value !== 'Research Implementation'
+    ) {
       this.setState({ Funding: '' });
       this.setState({ Role: '' });
     }
-    if(e.target.value!=='Research Proposal'){
+    if (e.target.value !== 'Research Proposal') {
       this.setState({ Funding: '' });
     }
   }
@@ -338,7 +317,7 @@ export default class EditPublication extends Component {
             })
             .catch(err => alert('Error adding Coworker'));
         });
-        this.props.history.push('./view'); 
+        this.props.history.push('./view');
         console.log(result.data);
       })
       .catch(e => alert('Error editing Publication!'));
@@ -360,25 +339,73 @@ export default class EditPublication extends Component {
             <Divider hidden="true" />
             <div>
               <GenericDropdown
-                labelHeader="Publication Type"
+                labelHeader={
+                  !this.state.researchType ? (
+                    <div>
+                      <span>Publication Type</span>
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <span>Publication Type</span>
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    </div>
+                  )
+                }
                 labelProper="Choose Publication Type"
                 value={this.state.researchType}
                 handler={this.handleChangeType}
                 options={optionsMain}
-                formError={formError.text.researchType}
               />
             </div>
             <div>
               <PublicationSubTypeDropdown
+                labelHeader={
+                  !this.state.researchSubtype ? (
+                    <div>
+                      <span>Publication Subtype</span>
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <span>Publication Subtype</span>
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    </div>
+                  )
+                }
                 value={this.state.researchSubtype}
                 handler={this.handleChangeSubtype}
                 options={optionsMain}
                 research={this.state.researchType}
-                formError={formError.text.researchSubtype}
               />
             </div>
             <p>
-              <a className="ui small header"> Complete Title{formError.text.completeTitle} </a>
+              <a className="ui small header">Complete Title</a>
+              {!this.state.completeTitle ? (
+                <div className="ui left pointing red basic label">
+                  {errorTexts[0]}
+                </div>
+              ) : this.state.completeTitle.match(numRegex) ? (
+                <div className="ui left pointing red basic label">
+                  {errorTexts[5]}
+                </div>
+              ) : !this.state.completeTitle.match(alphanumRegex) ? (
+                <div className="ui left pointing red basic label">
+                  {errorTexts[6]}
+                </div>
+              ) : (
+                <div className="ui left pointing green basic label">
+                  {' is valid!'}
+                </div>
+              )}
               <div className="ui input fluid mini focus">
                 <input
                   type="text"
@@ -402,9 +429,30 @@ export default class EditPublication extends Component {
               </p>
             ) : (
               <p>
-                <a className="ui small header"> Role{formError.text.Role} </a>
+                <a className="ui small header"> Role </a>
+                {!this.state.Role ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[0]}
+                  </div>
+                ) : this.state.Role.match(numRegex) ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[5]}
+                  </div>
+                ) : !this.state.Role.match(alphanumRegex) ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[6]}
+                  </div>
+                ) : (
+                  <div className="ui left pointing green basic label">
+                    {'is valid!'}
+                  </div>
+                )}
                 <div className="ui input fluid mini focus">
-                  <input type="text" onChange={this.handleChangeRole} value={this.state.Role}/>
+                  <input
+                    type="text"
+                    onChange={this.handleChangeRole}
+                    value={this.state.Role}
+                  />
                 </div>
               </p>
             )}
@@ -443,9 +491,30 @@ export default class EditPublication extends Component {
               </p>
             ) : (
               <p>
-                <a className="ui small header"> Funding Agency{formError.text.Funding} </a>
+                <a className="ui small header">Funding Agency</a>
+                {!this.state.Funding ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[0]}
+                  </div>
+                ) : this.state.Funding.match(numRegex) ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[5]}
+                  </div>
+                ) : !this.state.Funding.match(alphanumRegex) ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[6]}
+                  </div>
+                ) : (
+                  <div className="ui left pointing green basic label">
+                    {'is valid!'}
+                  </div>
+                )}
                 <div className="ui input fluid mini focus">
-                  <input type="text" onChange={this.handleChangeFunding} value={this.state.Funding}/>
+                  <input
+                    type="text"
+                    onChange={this.handleChangeFunding}
+                    value={this.state.Funding}
+                  />
                 </div>
               </p>
             )}
@@ -464,9 +533,22 @@ export default class EditPublication extends Component {
               </p>
             ) : (
               <p>
-                <a className="ui small header"> Start Date{formError.text.StartDate} </a>
+                <a className="ui small header">Start Date</a>
+                {!this.state.StartDate ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[0]}
+                  </div>
+                ) : (
+                  <div className="ui left pointing green basic label">
+                    {'is valid!'}
+                  </div>
+                )}
                 <div className="ui input fluid mini focus">
-                  <input type="date" onChange={this.handleChangeStartDate} value={this.state.StartDate}/>
+                  <input
+                    type="date"
+                    onChange={this.handleChangeStartDate}
+                    value={this.state.StartDate}
+                  />
                 </div>
               </p>
             )}
@@ -485,15 +567,47 @@ export default class EditPublication extends Component {
               </p>
             ) : (
               <p>
-                <a className="ui small header"> End Date{formError.text.EndDate} </a>
+                <a className="ui small header">End Date</a>
+                {!this.state.EndDate ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[0]}
+                  </div>
+                ) : this.state.EndDate <= this.state.StartDate ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[7]}
+                  </div>
+                ) : (
+                  <div className="ui left pointing green basic label">
+                    {'is valid!'}
+                  </div>
+                )}
                 <div className="ui input fluid mini focus">
-                  <input type="date" onChange={this.handleChangeEndDate} value={this.state.EndDate}/>
+                  <input
+                    type="date"
+                    onChange={this.handleChangeEndDate}
+                    value={this.state.EndDate}
+                  />
                 </div>
               </p>
             )}
 
             <p>
-              <a className="ui small header"> Approved Credit Units{formError.text.ApprovedCreditUnits} </a>
+              <a className="ui small header">Approved Credit Units</a>
+              {!this.state.ApprovedCreditUnits ? (
+                <div className="ui left pointing red basic label">
+                  {errorTexts[0]}
+                </div>
+              ) : !this.state.ApprovedCreditUnits.toString().match(
+                creditRegex
+              ) ? (
+                <div className="ui left pointing red basic label">
+                  {errorTexts[4]}
+                </div>
+              ) : (
+                <div className="ui left pointing green basic label">
+                  {'is valid!'}
+                </div>
+              )}
               <div className="ui input fluid mini focus">
                 <input
                   type="number"

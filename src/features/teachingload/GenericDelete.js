@@ -7,10 +7,12 @@ export default class GenericDelete extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: ''
+      id: '',
+      data:[]
     };
     this.startDelete = this.startDelete.bind(this);
     this.startEdit = this.startEdit.bind(this);
+    this.updateUnits=this.updateUnits.bind(this);
   }
 
   state = { open: false };
@@ -34,7 +36,42 @@ export default class GenericDelete extends Component {
     }
   }
 
+  updateUnits(e){
+    var tlcm=0;
+    var tlc=0;
+    console.log(this.state.id);
+    console.log(this.props.id);
+    Api.getSubjectByTeachId({
+      teachingload_id:this.props.id
+    }).then(response => {
+      if (response.data.data !== undefined) {
+        this.setState({ data: response.data.data });
+         if(response.data.data.isLecture===0 && response.data.data.isGraduate===0){
+          tlcm=1.5;
+        } else if(response.data.data.isLecture===1 && response.data.data.isGraduate===0){
+          if(response.data.data.no_of_students<=40) tlcm=tlc;
+          else if(response.data.data.no_of_students>40) tlcm=tlc*((response.data.data.no_of_students-40)/120 + 1);
+          else if(response.data.data.no_of_students>160) tlcm=tlc*2;
+        } else if(response.data.data.subject_code.toLowerCase().replace(" ", "")==="cmsc190"){
+          tlcm=tlc*(response.data.data.no_of_students)*(0.5/3);
+        } else if(response.data.data.subject_code.toLowerCase().replace(" ", "")==="it1" && response.data.data.no_of_students>=25){ //it1 && lecture && 25 or more studs
+          tlcm*=1.33
+        } else if(response.data.data.isGraduate===1){
+          if(response.data.data.no_of_students<=4) tlcm=tlc;
+          else if (response.data.data.no_of_students>4 && response.data.data.no_of_students<=9) tlcm=tlc*1.25;
+          else if(response.data.data.no_of_students>9) tlcm=tlc*1.5;
+        }
+
+        Api.editRemoveTeachLoadUnits({
+          units:tlcm
+        }).catch(e=>alert('Error units'));
+        console.log("TLCM: "+tlcm);
+      } else console.log("WALA");
+    });
+  }//end of update units
+
   startDelete(e) {
+    this.updateUnits();
     Api.deleteTeachLoad({
       teachingload_id: this.props.id
     })

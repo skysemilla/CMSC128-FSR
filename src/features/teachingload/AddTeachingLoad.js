@@ -59,6 +59,7 @@ export default class AddTeachingLoad extends Component {
     this.startAdd = this.startAdd.bind(this);
     // this.checkInput = this.checkInput.bind(this); 
     this.handleLogout = this.handleLogout.bind(this);
+    this.updateUnits = this.updateUnits.bind(this);
   }
 
   componentDidMount() {
@@ -90,6 +91,44 @@ export default class AddTeachingLoad extends Component {
     this.props.history.push('../..');
   }
 
+  updateUnits(e){
+    var tlcm=0;
+    var tlc=0;
+    Api.viewSubject({
+      subject_code: this.state.subj,
+      section_code: this.state.seccode
+    })
+    .then(response => {
+      tlc=response.data.data.units;
+      if (response.data.data !== undefined) {
+        this.setState({ subjectData: response.data.data });
+        if(response.data.data.isLecture===0 && response.data.data.isGraduate===0){
+          tlcm=1.5;
+        } else if(response.data.data.isLecture===1 && response.data.data.isGraduate===0){
+          if(this.state.studnum<=40) tlcm=tlc;
+          else if(this.state.studnum>40) tlcm=tlc*((this.state.studnum-40)/120 + 1);
+          else if(this.state.studnum>160) tlcm=tlc*2;
+        } else if(this.state.subj.toLowerCase().replace(" ", "")==="cmsc190"){
+          tlcm=tlc*(this.state.studnum)*(0.5/3);
+        } else if(this.state.subj.toLowerCase().replace(" ", "")==="it1" && this.state.studnum>=25){ //it1 && lecture && 25 or more studs
+          tlcm*=1.33
+        } else if(response.data.data.isGraduate===1){
+          if(this.state.studnum<=4) tlcm=tlc;
+          else if (this.state.studnum>4 && this.state.studnum<=9) tlcm=tlc*1.25;
+          else if(this.state.studnum>9) tlcm=tlc*1.5;
+        }
+
+        Api.editAddTeachLoadUnits({
+          units:tlcm
+        }).catch(e=>alert('Error units'));
+        console.log("TLCM: "+tlcm);
+      } else console.log("WALA");
+      // console.log(response.data.data);
+      // console.log(this.state.subjectData);
+    })
+    .catch(e => alert('Error get subject'));
+  }//end of update units
+
   startAdd(e) {
     e.preventDefault();
     if(this.state.subj !== '' &&
@@ -103,9 +142,10 @@ export default class AddTeachingLoad extends Component {
         .then(result => {
           this.props.history.push('./view'); //change to profile later!!
           alert('Teachingload successfully added!');
+          this.updateUnits();
         })
         // .catch(e => alert(e));
-        .catch(e => alert('Error adding new Teaching Load!'));
+        .catch(e => alert('Time overlap!'));
     }
     else {
       alert("Invalid input!");
@@ -192,6 +232,7 @@ export default class AddTeachingLoad extends Component {
             </h2>
           </div>
           <Divider hidden="true" />
+
           <div className = "field">
             <style> {`select {margin:1vh 0vw 1vh 0vw;}`} </style>
             <label> <h3>Subject

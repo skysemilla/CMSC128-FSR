@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const ViewApprovedFSR = () => {
-  return axios.get('/api/fsr/viewApproved');
+  return axios.post('/api/fsr/viewApproved');
 };
 
 export const ViewPendingFSR = () => {
-  return axios.get('/api/fsr/viewPending');
+  return axios.post('/api/fsr/viewPending');
 };
 
 export const ViewApprovedFSRByID = empid => {
