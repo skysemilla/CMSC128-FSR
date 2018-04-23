@@ -13,11 +13,15 @@ export default class AddAdministrativeWork extends Component {
       office: '',
       credit_units: '',
       emp_id: '',
+      position: '',
 
+      position_is_valid: true,
       nature_of_work_is_valid: true,
       office_is_valid: true,
-      credit_units_is_valid: true
+      credit_units_is_valid: true,
+      edit_trial_count: 0,
     };
+    this.handleChangePosition = this.handleChangePosition.bind(this);
     this.handleChangeNature_of_work = this.handleChangeNature_of_work.bind(this);
     this.handleChangeOffice = this.handleChangeOffice.bind(this);
     this.handleChangeCreditUnits = this.handleChangeCreditUnits.bind(this);
@@ -31,6 +35,15 @@ export default class AddAdministrativeWork extends Component {
     });
   }
 
+  handleChangePosition(e) {
+    this.setState({ position: e.target.value });
+
+    if (e.target.value === '') {
+      this.setState({ position_is_valid: false });
+    } else {
+      this.setState({ position_is_valid: true });
+    }
+  }
   handleChangeNature_of_work(e) {
     this.setState({ nature_of_work: e.target.value });
 
@@ -61,9 +74,11 @@ export default class AddAdministrativeWork extends Component {
   }
 
   startAdd(e) {
+    this.setState({ edit_trial_count: 1 });
     if(this.state.nature_of_work_is_valid && this.state.office_is_valid && this.state.credit_units_is_valid) {
       e.preventDefault();
       Api.addPosition({
+        position: this.state.position,
         nature_of_work: this.state.nature_of_work,
         office: this.state.office,
         credit_units: this.state.credit_units,
@@ -88,19 +103,53 @@ export default class AddAdministrativeWork extends Component {
           className="ui piled very padded text left aligned container segment"
           color="teal">
           <div>
-            <h2 className="ui blue header">EDIT ADMINISTRATIVE WORK</h2>
+            <h2 className="ui blue header">ADD ADMINISTRATIVE WORK</h2>
           </div>
           <Divider hidden="true" />
           <p>
             <a className="ui small header">
               {' '}
+              Position{' '}
+            </a>
+            { this.state.edit_trial_count > 0 ?
+              ( this.state.position === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (
+                  this.state.credit_units < 0 ?
+                  (
+                    <div className="ui left pointing red basic label">
+                    Credits must not be negative!
+                    </div>
+                  ) : (<div></div>)
+                )
+              ) : (<div></div>)
+            }
+            <div className="ui input fluid mini focus">
+              <input type="text" placeholder={this.state.prev_position} onChange={this.handleChangePosition} />
+            </div>
+          </p>
+          <p>
+            <a className="ui small header">
+              {' '}
               Nature of Adminstrative Work{' '}
             </a>
-            {this.state.nature_of_work === '' ?
-              (
-                <div className="ui left pointing red basic label">
-                Required
-                </div>
+            { this.state.edit_trial_count > 0 ?
+              ( this.state.nature_of_work === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (
+                  this.state.credit_units < 0 ?
+                  (
+                    <div className="ui left pointing red basic label">
+                    Credits must not be negative!
+                    </div>
+                  ) : (<div></div>)
+                )
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
@@ -111,11 +160,13 @@ export default class AddAdministrativeWork extends Component {
           <p>
             <a className="ui small header"> Office </a>{' '}
             {/* Can change to dropdown? */}
-            {this.state.office === '' ?
-              (
-                <div className="ui left pointing red basic label">
-                Required
-                </div>
+            { this.state.edit_trial_count > 0 ?
+              ( this.state.office === '' ?
+                (
+                  <div className="ui left pointing red basic label">
+                  Required
+                  </div>
+                ) : (<div></div>)
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
@@ -126,19 +177,21 @@ export default class AddAdministrativeWork extends Component {
           <p>
             <a className="ui small header"> Credit Units </a>{' '}
             {/* Can change to number? */}
-            {this.state.credit_units === '' ?
-              (
-                <div className="ui left pointing red basic label">
-                Required
-                </div>
-              ) : (
-                this.state.credit_units < 0 ?
+            { this.state.edit_trial_count > 0 ?
+              ( this.state.credit_units === '' ?
                 (
                   <div className="ui left pointing red basic label">
-                  Credits must not be negative!
+                  Required
                   </div>
-                ) : (<div></div>)
-              )
+                ) : (
+                  this.state.credit_units < 0 ?
+                  (
+                    <div className="ui left pointing red basic label">
+                    Credits must not be negative!
+                    </div>
+                  ) : (<div></div>)
+                )
+              ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
               <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
