@@ -52,6 +52,7 @@ export default class AddExtension extends Component {
   }
   componentDidMount() {
     Api.getSession().then(result => {
+      console.log("here");
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
         console.log(this.state.emp_id)
@@ -94,7 +95,9 @@ export default class AddExtension extends Component {
   }
 
   handleChangeStartDate(e) {
+    console.log("Magbabago");
     if (e.target.value === '' || ( this.state.enddate !== '' && e.target.value > this.state.enddate) ) {
+      console.log("Mali")
       this.setState({ validStartDate: false });
     } else {
       this.setState({ validStartDate: true });
@@ -104,6 +107,7 @@ export default class AddExtension extends Component {
 
   handleChangeEndDate(e) {
     if (e.target.value === '' || ( this.state.startdate !== '' && e.target.value < this.state.startdate) ) {
+      console.log("Mali din")
       this.setState({ validEndDate: false });
     } else {
       this.setState({ validEndDate: true });
@@ -113,24 +117,26 @@ export default class AddExtension extends Component {
 
   startAdd(e) {
     e.preventDefault();
-    console.log("this")
-    Api.addExtension({
-      credit_unit: this.state.approvedCreditUnits,
-      extension_name: this.state.title,
-      extension_type: this.state.type,
-      no_of_hours: this.state.noOfHours,
-      no_of_participants: this.state.noOfParticipants,
-      extension_role: this.state.role,
-      start_time: this.state.startDate,
-      end_time: this.state.endDate,
-      funding_agency: this.state.fundingAgency,
-      emp_id: this.state.emp_id
-    })
-      .then(result => {
-        this.props.history.push('./view');
-        alert('Extension successfully added!');
+    console.log("this jnafn" + this.state.validStartDate + " " + this.state.validEndDate)
+    if(this.state.validStartDate === true && this.state.validEndDate === true){
+      Api.addExtension({
+        credit_unit: this.state.approvedCreditUnits,
+        extension_name: this.state.title,
+        extension_type: this.state.type,
+        no_of_hours: this.state.noOfHours,
+        no_of_participants: this.state.noOfParticipants,
+        extension_role: this.state.role,
+        start_time: this.state.startDate,
+        end_time: this.state.endDate,
+        funding_agency: this.state.fundingAgency,
+        emp_id: this.state.emp_id
       })
-      .catch(e => alert('Error adding new Extension!'));
+        .then(result => {
+          this.props.history.push('./view');
+          alert('Extension successfully added!');
+        })
+        .catch(e => alert('Error adding new Extension!'));
+    }
   }
 
   render() {
@@ -298,6 +304,7 @@ export default class AddExtension extends Component {
               </button>
               <button
                 className="ui center aligned blue button"
+                onClick={this.startAdd}
                 >
                 Add Extension
               </button>
