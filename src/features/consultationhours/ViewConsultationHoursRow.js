@@ -6,6 +6,7 @@ export default class ViewConsultationHoursRow extends Component {
   render() {
     return (
       <tr>
+        {console.log(this.props)}
         <td className="center aligned">{this.props.day}</td>
         <td className="center aligned"> {this.props.start_time} </td>
         <td className="center aligned"> {this.props.end_time} </td>

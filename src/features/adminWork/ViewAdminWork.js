@@ -11,7 +11,7 @@ componentDidMount(){
   Api.getSession().then(result => {
     if (result.data.data !== null) {
       this.setState({ emp_id: result.data.data.emp_id });
-      Api.viewHisPosition({ id: "000000001" })
+      Api.viewHisPosition({ id: result.data.data.emp_id })
       .then(result => {
         console.log(result);
         this.setState({ data: result.data.data });
