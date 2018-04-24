@@ -63,7 +63,7 @@ export default class ViewConsultationHours extends Component {
                       return (
                         <ViewConsultationHoursRow
                           {...this.props}
-                          id={item.emp_id}
+                          id={item.consultation_id}
                           day={item.day}
                           start_time={item.consultation_start_time}
                           end_time={item.consultation_end_time}

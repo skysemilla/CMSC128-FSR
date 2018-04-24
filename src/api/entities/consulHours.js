@@ -19,3 +19,7 @@ export const viewAllConsultations = () => {
 export const viewConsultation = id => {
   return axios.post('/api/consulHours/view', id);
 };
+
+export const viewSpecificConsultation = id => {
+  return axios.post('/api/consulHours/viewOne', id);
+};
