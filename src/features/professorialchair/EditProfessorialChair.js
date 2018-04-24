@@ -18,8 +18,11 @@ export default class EditProfessorialChair extends Component {
       startdate: '',
       enddate: '',
 
-      validStartDate: false,
-      validEndDate: false,
+      validProfChair: true,
+      validGrant: true,
+      validGrantTitle: true,
+      validStartDate: true,
+      validEndDate: true,
 
       edit_trial_count: 0
     };
@@ -37,11 +40,23 @@ export default class EditProfessorialChair extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
+
+        // this... 
+        Api.viewFacultyGrant({emp_id: result.data.data.emp_id }).then(result => {
+          if (result.data.data !== null) {
+            this.setState({professional_chair:result.data.data[0].professional_chair})
+            this.setState({grants:result.data.data[0].grants})
+            this.setState({grant_title:result.data.data[0].grant_title})
+            this.setState({start_date:result.data.data[0].start_date})
+            this.setState({end_date:result.data.data[0].end_date})
+          }
+        }); // ... is to populate the initial state variables, "sana"
       }
     });
   }
   handleChangeNominee(e) {
     this.setState({ nominee: e.target.value });
+
   }
 
   handleChangeNominated(e) {
@@ -50,14 +65,38 @@ export default class EditProfessorialChair extends Component {
 
   handleChangeProfChair(e) {
     this.setState({ profchair: e.target.value });
+    if (parseFloat(this.state.profchair) == this.state.profchair || // == not ===
+    	this.state.profchair === ''
+    ) {
+    	// if input is plain numbers or blank
+    	this.setState({ validProfChair: false }); // input is invalid
+    } else { // else valid
+    	this.setState({ validProfChair: true });
+    }
   }
 
   handleChangeGrant(e) {
     this.setState({ grant: e.target.value });
+    if (parseFloat(this.state.grant) == this.state.grant || // == not ===
+    	this.state.grant === ''
+    ) {
+    	// if input is plain numbers or blank
+    	this.setState({ validGrant: false }); // input is invalid
+    } else { // else valid
+    	this.setState({ validGrant: true });
+    }
   }
 
   handleChangeGrantTitle(e) {
     this.setState({ granttitle: e.target.value });
+    if (parseFloat(this.state.granttitle) == this.state.granttitle || // == not ===
+    	this.state.granttitle === ''
+    ) {
+    	// if input is plain numbers or bank
+    	this.setState({ validGrantTitle: false }); // input is invalid
+    } else { // else valid
+    	this.setState({ validGrantTitle: true });
+    }
   }
 
   handleChangeStartdate(e) {
@@ -67,10 +106,8 @@ export default class EditProfessorialChair extends Component {
       (this.state.enddate !== '' && e.target.value > this.state.enddate)
     ) {
       this.setState({ validStartDate: false });
-      //this.setState({ validEndDate: false }); // and vice-versa
     } else {
       this.setState({ validStartDate: true });
-      //this.setState({ validEndDate: true }); // and so both are valid
     }
     this.setState({ startdate: e.target.value }); // still, apply changes
   }
@@ -82,11 +119,10 @@ export default class EditProfessorialChair extends Component {
       (this.state.startdate !== '' && e.target.value < this.state.startdate)
     ) {
       this.setState({ validEndDate: false });
-      //this.setState({ validStartDate: false }); // and vice-versa
     } else {
       this.setState({ validEndDate: true });
       if (this.state.startdate !== '') {
-        this.setState({ validStartDate: true }); // and so both are valid?
+        this.setState({ validStartDate: true }); // and so both are validz
       }
     }
 
@@ -102,13 +138,21 @@ export default class EditProfessorialChair extends Component {
       (this.state.validGrantTitle !== false &&
         this.state.validStartDate !== false &&
         this.state.nominated !== '' &&
-        this.state.profchair !== '' &&
-        this.state.grant !== '' &&
-        this.state.granttitle !== '' &&
-        this.state.startdate < this.state.enddate &&
-        parseFloat(this.state.profchair) !== this.state.profchair &&
-        parseFloat(this.state.grant) !== this.state.grant &&
-        parseFloat(this.state.granttitle) !== this.state.granttitle)
+        // this.state.profchair !== '' &&
+        // parseFloat(this.state.profchair) != this.state.profchair && // if input is not purely numbers
+        // this.state.grant !== '' &&
+        // parseFloat(this.state.grant) != this.state.grant && // if input is not purely numbers
+        // this.state.granttitle !== '' &&
+        // parseFloat(this.state.granttitle) != this.state.granttitle && // if input is not purely numbers
+        this.state.validProfChair !== false &&
+        this.state.validGrant !== false &&
+        this.state.validGrantTitle !== false &&
+        this.state.startdate < this.state.enddate 
+        //&&
+        // parseFloat(this.state.profchair) !== this.state.profchair &&
+        // parseFloat(this.state.grant) !== this.state.grant &&
+        // parseFloat(this.state.granttitle) !== this.state.granttitle
+      )
     ) {
       // other fields must have a valid input
 
@@ -243,9 +287,9 @@ export default class EditProfessorialChair extends Component {
                       placeholder={this.state.profchair}
                     />
                     {this.state.edit_trial_count > 0 ? (
-                      this.state.profchair === '' ? (
+                      this.state.validProfChair === false ? (
                         <div className="ui left pointing red basic label">
-                          Required
+                          Invalid input
                         </div>
                       ) : (
                         <div />
@@ -264,9 +308,9 @@ export default class EditProfessorialChair extends Component {
                       placeholder={this.state.grant}
                     />
                     {this.state.edit_trial_count > 0 ? (
-                      this.state.grant === '' ? (
+                      this.state.validGrant === false ? (
                         <div className="ui left pointing red basic label">
-                          Required
+                          Invalid input
                         </div>
                       ) : (
                         <div />
@@ -285,9 +329,9 @@ export default class EditProfessorialChair extends Component {
                       placeholder={this.state.granttitle}
                     />
                     {this.state.edit_trial_count > 0 ? (
-                      this.state.granttitle === '' ? (
+                      this.state.validGrantTitle === false ? (
                         <div className="ui left pointing red basic label">
-                          Required
+                          Invalid input
                         </div>
                       ) : (
                         <div />
