@@ -78,22 +78,16 @@ export default class EditStudyLoad extends Component {
     if (this.props.history.location.state === undefined) {
       this.props.history.push('/studyload/view');
     } else {
-      // var temparr = [];
-      if (typeof this.props.history !== 'undefined') {
-        console.log(this.props.history.location.state.id);
-      }
-      Api.viewByStudyloadId(this.props.history.location.state.id).then(
+      Api.viewByStudyloadId({ id: this.props.history.location.state.id }).then(
         response => {
-          this.setState(
-            {
-              courseno: response.data.data[0].course_no,
-              credits: response.data.data[0].credits,
-              start_time: response.data.data[0].start_time,
-              end_time: response.data.data[0].end_time,
-              school: response.data.data[0].school
-            },
-            console.log(response.data.data)
-          );
+          console.log(response.data.data);
+          this.setState({
+            courseno: response.data.data[0].course_no,
+            credits: response.data.data[0].credits,
+            start_time: response.data.data[0].start_time,
+            end_time: response.data.data[0].end_time,
+            school: response.data.data[0].school
+          });
         }
       );
       // Api.getDays(this.props.history.location.state.id).then((results)=>{

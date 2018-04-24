@@ -63,10 +63,7 @@ export default class AddConsultationHours extends Component {
 
   componentDidMount() {
     Api.getSession().then(result => {
-      console.log(result.data.data.emp_id);
-      console.log('hi bitches');
       this.setState({ emp_id: result.data.data.emp_id });
-      console.log(result.data.data.emp_id);
     });
   }
 
@@ -98,7 +95,6 @@ export default class AddConsultationHours extends Component {
 
   startAdd(e) {
     e.preventDefault();
-    console.log(this.state);
     if (
       this.state.day !== '' &&
       this.state.consultation_start_time !== '' &&
