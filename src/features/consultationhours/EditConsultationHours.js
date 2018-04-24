@@ -39,7 +39,7 @@ const optionsTimeTo = [
   { value: 8, text: '5:00:00' }
 ];
 
-const placeRegex = /^[A-Za-z0-9][A-Za-z0-9.-\s]+$/;
+const placeRegex = /^[A-Za-z][A-Za-z0-9.-\s]+$/;
 
 export default class EditConsultationHours extends Component {
   constructor(props) {
@@ -73,28 +73,19 @@ export default class EditConsultationHours extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
-        if (typeof this.props.history !== 'undefined') {
+        if (typeof this.props.history !== undefined) {
           Api.viewConsultation({
             id: result.data.data.emp_id
           }).then(result => {
-            console.log(result);
             this.setState({
               emp_id: result.data.data[0].emp_id,
-              prev_consultation_start_time:
+              consultation_start_time:
                 result.data.data[0].consultation_start_time,
-              prev_consultation_end_time:
-                result.data.data[0].consultation_end_time,
-              prev_place: result.data.data[0].consultation_place,
-              prev_day: result.data.data[0].prev_day,
+              consultation_end_time: result.data.data[0].consultation_end_time,
+              consultation_place: result.data.data[0].consultation_place,
+              day: result.data.data[0].day,
               consultation_id: result.data.data[0].consultation_id
             });
-
-            /*  console.log(result.data.data.emp_id );
-              if(result.data.data.emp_id == "000000003")
-              {
-                console.log("hi" );
-              }
-            */
           });
         }
       }
@@ -150,20 +141,10 @@ export default class EditConsultationHours extends Component {
         day: this.state.day,
         emp_id: this.state.emp_id,
         consultation_id: this.state.consultation_id
-      })
-        .then(result => {
-          console.log(result);
-          this.setState({
-            consultation_end_time: result.data.data[0].consultation_end_time,
-            consultation_start_time:
-              result.data.data[0].consultation_start_time,
-            consultation_place: result.data.data[0].consultation_place,
-            day: result.data.data[0].day
-          });
-          this.props.history.push('./publications/view'); //change to profile later!!
-          alert('Consultation successfully added!');
-        })
-        .catch(e => alert('Error edit Consultation!'));
+      }).then(result => {
+        this.props.history.push('/consultationhours/view');
+        alert('Consultation successfully added!');
+      });
     } else alert('Invalid Input!');
   }
 
@@ -276,7 +257,11 @@ export default class EditConsultationHours extends Component {
                 </h3>
               </label>
               <div className="ui input fluid mini">
-                <input type="text" onChange={this.handleChangePlace} />
+                <input
+                  type="text"
+                  value={this.state.consultation_place}
+                  onChange={this.handleChangePlace}
+                />
               </div>
             </div>
 
