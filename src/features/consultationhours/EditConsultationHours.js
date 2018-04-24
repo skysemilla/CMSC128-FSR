@@ -50,9 +50,7 @@ export default class EditConsultationHours extends Component {
       consultation_end_time: '',
       consultation_place: '',
       day: '',
-      emp_id: '',
-      consultation_id: '',
-      validPlace: false
+      consultation_id: ''
     };
 
     this.handleChangePlace = this.handleChangePlace.bind(this);
@@ -70,26 +68,29 @@ export default class EditConsultationHours extends Component {
   }
 
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({ emp_id: result.data.data.emp_id });
-        if (typeof this.props.history !== undefined) {
-          Api.viewConsultation({
-            id: result.data.data.emp_id
-          }).then(result => {
-            this.setState({
-              emp_id: result.data.data[0].emp_id,
-              consultation_start_time:
-                result.data.data[0].consultation_start_time,
-              consultation_end_time: result.data.data[0].consultation_end_time,
-              consultation_place: result.data.data[0].consultation_place,
-              day: result.data.data[0].day,
-              consultation_id: result.data.data[0].consultation_id
+    if (this.props.history.location.state === undefined)
+      this.props.history.push('/consultationhours/view');
+    else {
+      Api.getSession().then(res => {
+        if (res.data.data !== null) {
+          if (typeof this.props.history !== undefined) {
+            Api.viewSpecificConsultation({
+              id: this.props.history.location.state.id
+            }).then(result => {
+              this.setState({
+                /*consultation_start_time:
+                  result.data.data[0].consultation_start_time,
+                consultation_end_time:
+                  result.data.data[0].consultation_end_time,*/
+                consultation_place: result.data.data[0].consultation_place,
+                day: result.data.data[0].day,
+                consultation_id: result.data.data[0].consultation_id
+              });
             });
-          });
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   handleChangeConsultation_start_time(e) {
@@ -121,18 +122,15 @@ export default class EditConsultationHours extends Component {
 
   handleChangePlace(e) {
     this.setState({ consultation_place: e.target.value });
-    if (e.target.value === '' || !e.target.value.match(placeRegex)) {
-      this.setState({ validPlace: false });
-    } else this.setState({ validPlace: true });
   }
 
   startEdit(e) {
     e.preventDefault();
     if (
-      this.state.day !== '' &&
+      this.state.day &&
       this.state.consultation_start_time !== '' &&
       this.state.consultation_end_time !== '' &&
-      this.state.validPlace === true
+      this.state.consultation_place
     ) {
       Api.editConsultation({
         consultation_start_time: this.state.consultation_start_time,
@@ -165,9 +163,9 @@ export default class EditConsultationHours extends Component {
                 <h3>
                   {' '}
                   Day
-                  {this.state.day === '' ? (
+                  {!this.state.day ? (
                     <div className="ui left pointing red basic label">
-                      Required
+                      is required!
                     </div>
                   ) : (
                     <div className="ui left pointing green basic label">
@@ -189,9 +187,9 @@ export default class EditConsultationHours extends Component {
                 <h3>
                   {' '}
                   Time From
-                  {this.state.consultation_start_time === '' ? (
+                  {!this.state.consultation_start_time ? (
                     <div className="ui left pointing red basic label">
-                      Required
+                      is required!
                     </div>
                   ) : (
                     <div className="ui left pointing green basic label">
@@ -213,9 +211,9 @@ export default class EditConsultationHours extends Component {
                 <h3>
                   {' '}
                   Time To
-                  {this.state.consultation_end_time === '' ? (
+                  {!this.state.consultation_end_time ? (
                     <div className="ui left pointing red basic label">
-                      Required
+                      is required!
                     </div>
                   ) : (
                     <div className="ui left pointing green basic label">
@@ -237,22 +235,18 @@ export default class EditConsultationHours extends Component {
                 <h3>
                   {' '}
                   Place
-                  {this.state.consultation_place === '' ? (
+                  {!this.state.consultation_place ? (
                     <div className="ui left pointing red basic label">
-                      Required
+                      is required!
+                    </div>
+                  ) : !this.state.consultation_place.match(placeRegex) ? (
+                    <div className="ui left pointing red basic label">
+                      should be valid!
                     </div>
                   ) : (
-                    [
-                      this.state.consultation_place.match(placeRegex) ? (
-                        <div className="ui left pointing green basic label">
-                          is valid!
-                        </div>
-                      ) : (
-                        <div className="ui left pointing red basic label">
-                          Invalid Input!
-                        </div>
-                      )
-                    ]
+                    <div className="ui left pointing green basic label">
+                      is valid!
+                    </div>
                   )}
                 </h3>
               </label>
