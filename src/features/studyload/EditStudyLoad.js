@@ -82,8 +82,9 @@ export default class EditStudyLoad extends Component {
       if (typeof this.props.history !== 'undefined') {
         console.log(this.props.history.location.state.id);
       }
-      Api.viewByStudyloadId(this.props.history.location.state.id).then(
+      Api.viewByStudyloadId({ studyload_id: this.props.history.location.state.id}).then(
         response => {
+          console.log(response.data.data);
           this.setState(
             {
               courseno: response.data.data[0].course_no,
@@ -92,7 +93,7 @@ export default class EditStudyLoad extends Component {
               end_time: response.data.data[0].end_time,
               school: response.data.data[0].school
             },
-            console.log(response.data.data)
+            // console.log(response.data.data)
           );
         }
       );
