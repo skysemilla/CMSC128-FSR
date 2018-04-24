@@ -143,7 +143,8 @@ export default class EditAdministrativeWork extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
+        <div><NavBar {...this.props} Label="FSR" subLabel="adminwork" /></div>
+        <div className="bodyDiv">
         <div
           className="ui piled very padded text left aligned container segment"
           color="teal">
@@ -313,6 +314,7 @@ export default class EditAdministrativeWork extends Component {
               Edit Administrative Work
             </button>
           </div>
+        </div>
         </div>
         <Divider hidden="true" />
       </div>

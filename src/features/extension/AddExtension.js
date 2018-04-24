@@ -96,23 +96,23 @@ export default class AddExtension extends Component {
 
   handleChangeStartDate(e) {
     console.log("Magbabago");
-    if (e.target.value === '' || ( this.state.enddate !== '' && e.target.value > this.state.enddate) ) {
+    if (e.currentTarget.value === '' || ( this.state.endDate !== '' && e.currentTarget.value < this.state.endDate) ) {
       console.log("Mali")
       this.setState({ validStartDate: false });
     } else {
       this.setState({ validStartDate: true });
     }
-    this.setState({ startDate: e.target.value });
+    this.setState({ startDate: e.currentTarget.value });
   }
 
   handleChangeEndDate(e) {
-    if (e.target.value === '' || ( this.state.startdate !== '' && e.target.value < this.state.startdate) ) {
+    if (e.currentTarget.value === '' || ( this.state.startDate !== '' && e.currentTarget.value > this.state.startDate) ) {
       console.log("Mali din")
       this.setState({ validEndDate: false });
     } else {
       this.setState({ validEndDate: true });
     }
-    this.setState({ endDate: e.target.value });
+    this.setState({ endDate: e.currentTarget.value });
   }
 
   startAdd(e) {
@@ -189,6 +189,7 @@ export default class AddExtension extends Component {
               <div className="ui input fluid mini focus">
                 <input
                   type="number"
+                  min="0"
                   onChange={this.handleChangeNoOfHours}
                 />
                 {this.state.noOfHours === '' ?
@@ -205,6 +206,7 @@ export default class AddExtension extends Component {
               <div className="ui input fluid mini focus">
                 <input
                   type="number"
+                  min="0"
                   onChange={this.handleChangeNoOfParticipants}
                 />
                 {this.state.noOfParticipants === '' ?
@@ -227,13 +229,6 @@ export default class AddExtension extends Component {
                       onChange={this.handleChangeStartDate}
                       style={{ width: '100px' }}
                     />
-                    {this.state.startDate === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
-                        Required
-                        </div>
-                      ) : (<div></div>)
-                    }
                   </div>
                 </div>
                 <div className="field">
@@ -244,13 +239,6 @@ export default class AddExtension extends Component {
                       onChange={this.handleChangeEndDate}
                       style={{ width: '100px' }}
                     />
-                    {this.state.endDate === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
-                        Required
-                        </div>
-                      ) : (<div></div>)
-                    }
                   </div>
                 </div>
               </div>
@@ -286,6 +274,7 @@ export default class AddExtension extends Component {
               <div className="ui input fluid mini focus">
                 <input
                   type="number"
+                  min="0"
                   onChange={this.handleChangeApprovedCreditUnits}
                 />
                 {this.state.approvedCreditUnits === '' ?
