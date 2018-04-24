@@ -90,21 +90,13 @@ export default class EditStudyLoad extends Component {
           });
         }
       );
-      // Api.getDays(this.props.history.location.state.id).then((results)=>{
-      //   results.data.data.forEach(json=>{
-      //     temparr.push(json.day);
-      //   })
-      // }).then(()=>{
-      //   this.setState({days: temparr});
-      // }
-      // )
     }
   }
 
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('../..');
+    this.props.history.push('/');
   }
 
   startEdit(e) {
