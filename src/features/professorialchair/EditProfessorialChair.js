@@ -49,6 +49,7 @@ export default class EditProfessorialChair extends Component {
             this.setState({grant_title:result.data.data[0].grant_title})
             this.setState({start_date:result.data.data[0].start_date})
             this.setState({end_date:result.data.data[0].end_date})
+            console.log('sup');
           }
         }); // ... is to populate the initial state variables, "sana"
       }
@@ -56,7 +57,6 @@ export default class EditProfessorialChair extends Component {
   }
   handleChangeNominee(e) {
     this.setState({ nominee: e.target.value });
-
   }
 
   handleChangeNominated(e) {
