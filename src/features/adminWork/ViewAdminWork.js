@@ -57,7 +57,8 @@ componentDidMount(){
           <div className="scrollTable">
           <table className="ui celled table">
             <thead>
-              <tr>
+              <tr> 
+                <th className="center aligned">Position</th>
                 <th className="center aligned">Nature Of Work</th>
                 <th className="center aligned">Office</th>
                 <th className="center aligned">Credit Units</th>
@@ -71,6 +72,7 @@ componentDidMount(){
                   <ViewAdminWorkRow
                     {...this.props}
                     id={item.position_id}
+                    position={item.position}
                     nature_of_work={item.nature_of_work}
                     office={item.office}
                     credit_units={item.credit_units}

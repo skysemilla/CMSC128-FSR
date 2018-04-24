@@ -9,11 +9,11 @@ export default class AddAdministrativeWork extends Component {
     super(props);
 
     this.state = {
+      position: '',
       nature_of_work: '',
       office: '',
       credit_units: '',
       emp_id: '',
-      position: '',
 
       position_is_valid: true,
       nature_of_work_is_valid: true,
@@ -39,7 +39,9 @@ export default class AddAdministrativeWork extends Component {
     this.setState({ position: e.target.value });
 
     if (e.target.value === '') {
-      this.setState({ position_is_valid: false });
+      this.setState({ position_is_valid: 'empty' });
+    } else if (parseFloat(e.target.value) == e.target.value) {
+      this.setState({ position_is_valid: 'number' });
     } else {
       this.setState({ position_is_valid: true });
     }
@@ -48,7 +50,9 @@ export default class AddAdministrativeWork extends Component {
     this.setState({ nature_of_work: e.target.value });
 
     if (e.target.value === '') {
-      this.setState({ nature_of_work_is_valid: false });
+      this.setState({ nature_of_work_is_valid: 'empty' });
+    } else if (parseFloat(e.target.value) == e.target.value) {
+      this.setState({ nature_of_work_is_valid: 'number' });
     } else {
       this.setState({ nature_of_work_is_valid: true });
     }
@@ -57,7 +61,9 @@ export default class AddAdministrativeWork extends Component {
     this.setState({ office: e.target.value });
 
     if (e.target.value === '') {
-      this.setState({ office_is_valid: false });
+      this.setState({ office_is_valid: 'empty' });
+    } else if (parseFloat(e.target.value) == e.target.value) {
+      this.setState({ office_is_valid: 'number' });
     } else {
       this.setState({ office_is_valid: true });
     }
@@ -66,16 +72,32 @@ export default class AddAdministrativeWork extends Component {
     this.setState({ credit_units: e.target.value });
 
     this.setState({ credit_units_is_valid: e.target.value });
-    if (e.target.value === '' || e.target.value < 0 ) {
-      this.setState({ credit_units_is_valid: false });
+    if (e.target.value === '' ) {
+      this.setState({ credit_units_is_valid: 'empty' });
+    } else if ( e.target.value < 0 ) {
+      this.setState({ credit_units_is_valid: 'negative' });
     } else {
       this.setState({ credit_units_is_valid: true });
     }
   }
 
+  isInputValid() {
+    // alert('toothpaste');
+    if( 
+      this.state.position_is_valid === true && 
+      this.state.nature_of_work_is_valid === true && 
+      this.state.office_is_valid === true &&
+      this.state.credit_units_is_valid === true
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   startAdd(e) {
     this.setState({ edit_trial_count: 1 });
-    if(this.state.nature_of_work_is_valid && this.state.office_is_valid && this.state.credit_units_is_valid) {
+    if(this.isInputValid()) {
       e.preventDefault();
       Api.addPosition({
         work_position: this.state.position,
@@ -115,15 +137,29 @@ export default class AddAdministrativeWork extends Component {
               ( this.state.position === '' ?
                 (
                   <div className="ui left pointing red basic label">
-                  Required
+                    Required
                   </div>
                 ) : (
-                  this.state.credit_units < 0 ?
+                  this.state.position_is_valid === 'empty' ? 
                   (
                     <div className="ui left pointing red basic label">
-                    Credits must not be negative!
+                      Required
                     </div>
-                  ) : (<div></div>)
+                  ) : (
+                    this.state.position_is_valid === 'number' ?
+                    (
+                      <div className="ui left pointing red basic label">
+                        Must contain letters
+                      </div>
+                    ) : (
+                      this.state.position_is_valid === true ?
+                      (
+                        <div className="ui left pointing green basic label">
+                        valid
+                        </div>
+                      ) : (<div></div>)
+                    )
+                  )
                 )
               ) : (<div></div>)
             }
@@ -137,18 +173,32 @@ export default class AddAdministrativeWork extends Component {
               Nature of Adminstrative Work{' '}
             </a>
             { this.state.edit_trial_count > 0 ?
-              ( this.state.nature_of_work === '' ?
+              ( this.state.credit_units === '' ?
                 (
                   <div className="ui left pointing red basic label">
-                  Required
+                    Required
                   </div>
                 ) : (
-                  this.state.credit_units < 0 ?
+                  this.state.nature_of_work_is_valid === 'empty' ? 
                   (
                     <div className="ui left pointing red basic label">
-                    Credits must not be negative!
+                      Required
                     </div>
-                  ) : (<div></div>)
+                  ) : (
+                    this.state.nature_of_work_is_valid === 'number' ?
+                    (
+                      <div className="ui left pointing red basic label">
+                        Must contain letters
+                      </div>
+                    ) : (
+                      this.state.nature_of_work_is_valid === true ?
+                      (
+                        <div className="ui left pointing green basic label">
+                        valid
+                        </div>
+                      ) : (<div></div>)
+                    )
+                  )
                 )
               ) : (<div></div>)
             }
@@ -164,9 +214,30 @@ export default class AddAdministrativeWork extends Component {
               ( this.state.office === '' ?
                 (
                   <div className="ui left pointing red basic label">
-                  Required
+                    Required
                   </div>
-                ) : (<div></div>)
+                ) : (
+                  this.state.office_is_valid === 'empty' ? 
+                  (
+                    <div className="ui left pointing red basic label">
+                      Required
+                    </div>
+                  ) : (
+                    this.state.office_is_valid === 'number' ?
+                    (
+                      <div className="ui left pointing red basic label">
+                        Must contain letters
+                      </div>
+                    ) : (
+                      this.state.office_is_valid === true ?
+                      (
+                        <div className="ui left pointing green basic label">
+                        valid
+                        </div>
+                      ) : (<div></div>)
+                    )
+                  )
+                )
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
@@ -181,15 +252,29 @@ export default class AddAdministrativeWork extends Component {
               ( this.state.credit_units === '' ?
                 (
                   <div className="ui left pointing red basic label">
-                  Required
+                    Required
                   </div>
                 ) : (
-                  this.state.credit_units < 0 ?
+                  this.state.credit_units_is_valid === 'empty' ? 
                   (
                     <div className="ui left pointing red basic label">
-                    Credits must not be negative!
+                      Required
                     </div>
-                  ) : (<div></div>)
+                  ) : (
+                    this.state.credit_units_is_valid === 'negative' ?
+                    (
+                      <div className="ui left pointing red basic label">
+                        Must not be negative
+                      </div>
+                    ) : (
+                      this.state.credit_units_is_valid === true ?
+                      (
+                        <div className="ui left pointing green basic label">
+                        valid
+                        </div>
+                      ) : (<div></div>)
+                    )
+                  )
                 )
               ) : (<div></div>)
             }
