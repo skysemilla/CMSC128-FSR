@@ -5,7 +5,7 @@ import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
 const numRegex = /^[A-Z]{1,}\s[0-9]{1,3}$/;
-const schoolRegex = /^[A-Za-z0-9][A-Za-z0-9.-\s]+$/;
+const schoolRegex = /^[A-Za-z0-9][A-Za-z0-9\.-\s]+$/;
 export default class EditStudyLoad extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,7 @@ export default class EditStudyLoad extends Component {
       start_time: '',
       end_time: '',
       school: '',
-      days: []
+      days:[]
     };
 
     this.handleChangeCourseno = this.handleChangeCourseno.bind(this);
@@ -38,23 +38,26 @@ export default class EditStudyLoad extends Component {
     this.setState({ credits: e.target.value });
   }
 
+
+
   handleChangeTime(e) {
     this.setState({ start_time: e.target.value });
   }
-
-  handleChangeDays(e) {
-    if (this.state.days.includes(e.target.value)) {
-      for (var index = 0; index < this.state.days.length; index++) {
-        if (this.state.days[index] === e.target.value)
-          this.state.days.splice(index, 1);
+  
+  handleChangeDays(e){
+    if(this.state.days.includes(e.target.value)){
+      for(var index = 0; index < this.state.days.length; index++){
+        if(this.state.days[index] === e.target.value) 
+          this.state.days.splice(index,1);
       }
-      this.setState({ days: this.state.days });
-      console.log('Deleted ' + e.target.value);
-    } else {
+      this.setState({days : this.state.days});
+      console.log("Deleted " + e.target.value);
+    }
+    else{
       var newArray = this.state.days;
       newArray.push(e.target.value);
-      this.setState({ days: newArray });
-      console.log('Added ' + e.target.value);
+      this.setState({days : newArray});
+      console.log("Added " + e.target.value);
     }
     console.log(this.state.days);
   }
@@ -65,38 +68,49 @@ export default class EditStudyLoad extends Component {
 
   handleChangeSchool(e) {
     this.setState({ school: e.target.value });
-    if (e.target.value === '' || !e.target.value.match(schoolRegex)) {
-      this.setState({ validschool: false });
+    if(e.target.value === '' || !e.target.value.match(schoolRegex)){
+      this.setState({ validschool: false});
     } else this.setState({ validschool: true });
   }
+
+
 
   uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
   }
 
   componentDidMount() {
-    if (this.props.history.location.state === undefined) {
-      this.props.history.push('/studyload/view');
-    } else {
-      Api.viewByStudyloadId({ id: this.props.history.location.state.id }).then(
-        response => {
-          console.log(response.data.data);
-          this.setState({
-            courseno: response.data.data[0].course_no,
-            credits: response.data.data[0].credits,
-            start_time: response.data.data[0].start_time,
-            end_time: response.data.data[0].end_time,
-            school: response.data.data[0].school
-          });
-        }
-      );
+    var temparr=[];
+    if (typeof this.props.history !== 'undefined') {
+      console.log(this.props.history.location.state.id);
     }
+    Api.viewByStudyloadId(this.props.history.location.state.id)
+      .then(response => {
+        this.setState(
+          { courseno: response.data.data[0].course_no ,
+           credits: response.data.data[0].credits ,
+           start_time: response.data.data[0].start_time ,
+           end_time: response.data.data[0].end_time ,
+           school: response.data.data[0].school
+          }
+        ,
+        console.log(response.data.data));
+      }
+    )
+    // Api.getDays(this.props.history.location.state.id).then((results)=>{
+    //   results.data.data.forEach(json=>{
+    //     temparr.push(json.day);
+    //   })
+    // }).then(()=>{
+    //   this.setState({days: temparr});
+    // }
+    // )
   }
 
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('/');
+    this.props.history.push('../..');
   }
 
   startEdit(e) {
@@ -107,9 +121,9 @@ export default class EditStudyLoad extends Component {
       courseno: this.state.courseno,
       credits: this.state.credits,
       start_time: this.state.start_time,
-      end_time: this.state.end_time,
+      end_time:this.state.end_time,
       school: this.state.school,
-      days: this.state.days
+      days:this.state.days
     })
       .then(result => {
         this.props.history.push('./view'); //change to profile later!!
@@ -132,88 +146,72 @@ export default class EditStudyLoad extends Component {
               <h2 className="ui blue header">EDIT STUDY LOAD</h2>
             </div>
             <Divider hidden="true" />
-            <div className="field">
-              <label>
-                {' '}
-                <h3>
-                  Course Number
-                  {this.state.courseno === '' ? (
-                    <div className="ui left pointing red basic label">
-                      Required
-                    </div>
-                  ) : (
-                    [
-                      this.state.courseno.match(numRegex) ? (
-                        <div className="ui left pointing green basic label">
-                          is valid!
-                        </div>
-                      ) : (
-                        <div className="ui left pointing red basic label">
-                          Invalid Input
-                        </div>
-                      )
-                    ]
-                  )}
-                </h3>
+            <div className = "field">
+            <label> <h3>Course Number
+              {
+              this.state.courseno === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                [
+                  this.state.courseno.match(numRegex) ?
+                  <div className = "ui left pointing green basic label">
+                    is valid!
+                  </div>
+                  :
+                  <div className = "ui left pointing red basic label">
+                  Invalid Input
+                  </div>
+                ]
+              }
+              </h3>
               </label>
               <div className="ui input fluid mini focus">
-                <input
-                  type="text"
-                  value={this.state.courseno}
-                  onChange={this.handleChangeCourseno}
-                />
+                <input type="text" value={this.state.courseno} onChange={this.handleChangeCourseno} />
+              </div>
+          </div>
+          
+          <div className = "field">
+            <label> <h3>Course Credit
+              {
+              this.state.credits === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                [
+                  this.state.credits >= 0 && this.state.credits <= 10 ?
+                  <div className = "ui left pointing green basic label">
+                    is valid!
+                  </div>
+                  :
+                  <div className = "ui left pointing red basic label">
+                  Invalid Input
+                  </div>
+                ]
+              }
+              </h3>
+              </label>
+              <div className="ui input fluid mini focus">
+                <input type="number" value={this.state.credits} onChange={this.handleChangeCcred} />
               </div>
             </div>
 
-            <div className="field">
-              <label>
-                {' '}
-                <h3>
-                  Course Credit
-                  {this.state.credits === '' ? (
-                    <div className="ui left pointing red basic label">
-                      Required
-                    </div>
-                  ) : (
-                    [
-                      this.state.credits >= 0 && this.state.credits <= 10 ? (
-                        <div className="ui left pointing green basic label">
-                          is valid!
-                        </div>
-                      ) : (
-                        <div className="ui left pointing red basic label">
-                          Invalid Input
-                        </div>
-                      )
-                    ]
-                  )}
-                </h3>
-              </label>
-              <div className="ui input fluid mini focus">
-                <input
-                  type="number"
-                  value={this.state.credits}
-                  onChange={this.handleChangeCcred}
-                />
-              </div>
-            </div>
 
-            <div className="field">
-              <label>
-                {' '}
-                <h3>
-                  {' '}
-                  Days
-                  {this.state.days.length === 0 ? (
-                    <div className="ui left pointing red basic label">
-                      Required
-                    </div>
-                  ) : (
-                    <div className="ui left pointing green basic label">
-                      is valid!
-                    </div>
-                  )}
-                </h3>
+            <div className = "field">
+              <label> <h3> Days
+                {
+                this.state.days.length === 0 ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                  <div className = "ui left pointing green basic label">
+                    is valid!
+                  </div>
+                }
+              </h3>
               </label>
               <p>
                 <div className="ui checkbox">
@@ -265,7 +263,7 @@ export default class EditStudyLoad extends Component {
                   <label> Friday </label>
                 </div>
               </p>
-            </div>
+            </div> 
 
             <p>
               <a className="ui small header">Start Time </a>
@@ -290,43 +288,35 @@ export default class EditStudyLoad extends Component {
               </div>
             </p>
 
-            <div className="field">
-              <label>
-                {' '}
-                <h3>
-                  School
-                  {this.state.school === '' ? (
-                    <div className="ui left pointing red basic label">
-                      Required
-                    </div>
-                  ) : (
-                    [
-                      this.state.school.match(schoolRegex) ? (
-                        <div className="ui left pointing green basic label">
-                          is valid!
-                        </div>
-                      ) : (
-                        <div className="ui left pointing red basic label">
-                          Invalid Input
-                        </div>
-                      )
-                    ]
-                  )}
-                </h3>
+
+            <div className = "field">
+            <label> <h3>School
+              {
+              this.state.school === '' ?
+                <div className = "ui left pointing red basic label">
+                  Required
+                </div>
+                :
+                [
+                  this.state.school.match(schoolRegex) ?
+                  <div className = "ui left pointing green basic label">
+                    is valid!
+                  </div>
+                  :
+                  <div className = "ui left pointing red basic label">
+                  Invalid Input
+                  </div>
+                ]
+              }
+              </h3>
               </label>
               <div className="ui input fluid mini focus">
-                <input
-                  type="text"
-                  value={this.state.school}
-                  onChange={this.handleChangeSchool}
-                />
+                <input type="text" value={this.state.school} onChange={this.handleChangeSchool} />
               </div>
             </div>
 
             <div className="ui center aligned container">
-              <button
-                className="ui blue button"
-                onClick={this.uploadAttachment}>
+              <button className="ui blue button" onClick={this.uploadAttachment}>
                 Upload Attachments
               </button>
               <button
