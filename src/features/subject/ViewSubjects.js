@@ -5,18 +5,6 @@ import ViewSubjectsRow from './SubjectsViewRow';
 import NavBar from './../ui/NavBar';
 import * as Api from '../../api';
 
-const dummySample = {
-  subjid: '1',
-  subjcode: 'CMSC 128',
-  seccode: 'A',
-  type: 'Lecture',
-  gradcourse: 'No',
-  units: '3',
-  room: 'ICSMH',
-  starttime: '7:00AM',
-  endtime: '8:00AM'
-};
-
 export default class ViewSubjects extends Component {
   constructor(props) {
     super(props);
@@ -67,53 +55,53 @@ export default class ViewSubjects extends Component {
               {`.ui.celled.table {max-width: 85vw;border-width: 0.5vh;border-color: rgb(0,10,200); padding: 10px 10px 10px 10px;}`}{' '}
             </style>
             <div className="scrollTable">
-            <table className="ui celled table">
-              <thead>
-                <tr>
-                  <th className="center aligned"> Subject Code </th>
-                  <th className="center aligned"> Section Code </th>
-                  <th className="center aligned"> isLecture </th>
-                  <th className="center aligned"> Graduate Course? </th>
-                  <th className="center aligned"> Units </th>
-                  <th className="center aligned"> Room </th>
-                  <th className="center aligned"> Start Time </th>
-                  <th className="center aligned"> End Time </th>
-                  <th className="center aligned"> Edit/Delete </th>
-                </tr>
-              </thead>
+              <table className="ui celled table">
+                <thead>
+                  <tr>
+                    <th className="center aligned"> Subject Code </th>
+                    <th className="center aligned"> Section Code </th>
+                    <th className="center aligned"> isLecture </th>
+                    <th className="center aligned"> Graduate Course? </th>
+                    <th className="center aligned"> Units </th>
+                    <th className="center aligned"> Room </th>
+                    <th className="center aligned"> Start Time </th>
+                    <th className="center aligned"> End Time </th>
+                    <th className="center aligned"> Edit/Delete </th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                {this.state.data.map(item => {
-                  var typeView="Lecture";
-                  var grad="Yes";
-                  if(item.isLecture==0){
-                    typeView="Lab";
-                  }
+                <tbody>
+                  {this.state.data.map(item => {
+                    var typeView = 'Lecture';
+                    var grad = 'Yes';
+                    if (item.isLecture === 0) {
+                      typeView = 'Lab';
+                    }
 
-                  if(item.isGraduate==0){
-                    grad="No";
-                  }
-                  return (
-                    <ViewSubjectsRow
-                      {...this.props}
-                      id={item.subject_id}
-                      subjcode={item.subject_code}
-                      seccode={item.section_code}
-                      type={typeView}
-                      gradcourse={grad}
-                      units={item.units}
-                      room={item.room}
-                      starttime={item.start_time}
-                      endtime={item.end_time}
-                      editURL="../subjects/edit"
-                      deleteURL="../subjects/view"
-                      label="Subject"
-                      subLabel="subject"
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
+                    if (item.isGraduate === 0) {
+                      grad = 'No';
+                    }
+                    return (
+                      <ViewSubjectsRow
+                        {...this.props}
+                        id={item.subject_id}
+                        subjcode={item.subject_code}
+                        seccode={item.section_code}
+                        type={typeView}
+                        gradcourse={grad}
+                        units={item.units}
+                        room={item.room}
+                        starttime={item.start_time}
+                        endtime={item.end_time}
+                        editURL="../subjects/edit"
+                        deleteURL="../subjects/view"
+                        label="Subject"
+                        subLabel="subject"
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
             <button
               className="ui blue right floated button"
