@@ -18,11 +18,11 @@ export default class EditProfessorialChair extends Component {
       startdate: '',
       enddate: '',
 
-      validProfChair: false,
-      validGrant: false,
-      validGrantTitle: false,
-      validStartDate: false,
-      validEndDate: false,
+      validProfChair: true,
+      validGrant: true,
+      validGrantTitle: true,
+      validStartDate: true,
+      validEndDate: true,
 
       edit_trial_count: 0
     };
@@ -40,6 +40,17 @@ export default class EditProfessorialChair extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
+
+        // this... 
+        Api.viewFacultyGrant({emp_id: result.data.data.emp_id }).then(result => {
+          if (result.data.data !== null) {
+            this.setState({professional_chair:result.data.data[0].professional_chair})
+            this.setState({grants:result.data.data[0].grants})
+            this.setState({grant_title:result.data.data[0].grant_title})
+            this.setState({start_date:result.data.data[0].start_date})
+            this.setState({end_date:result.data.data[0].end_date})
+          }
+        }); // ... is to populate the initial state variables, "sana"
       }
     });
   }
