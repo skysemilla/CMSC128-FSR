@@ -79,23 +79,23 @@ export default class AddSubject extends Component {
 
   startAdd(e) {
     e.preventDefault();
-    var isLec='0';
-    var isGrad='0';
-    if(this.state.type == "Lecture") isLec='1'; //fix radio button
-    if(this.state.gradcourse == "Yes") isGrad='1'; //fix radio button
+    var isLec = '0';
+    var isGrad = '0';
+    if (this.state.type === 'Lecture') isLec = '1'; //fix radio button
+    if (this.state.gradcourse === 'Yes') isGrad = '1'; //fix radio button
 
     Api.addSubjects({
-        subject_code: this.state.subjcode,
-        section_code: this.state.seccode,
-        isLecture: isLec,
-        isGraduate: isGrad,
-        units: this.state.units,
-        room: this.state.room,
-        start_time: this.state.starttime,
-        end_time: this.state.endtime
+      subject_code: this.state.subjcode,
+      section_code: this.state.seccode,
+      isLecture: isLec,
+      isGraduate: isGrad,
+      units: this.state.units,
+      room: this.state.room,
+      start_time: this.state.starttime,
+      end_time: this.state.endtime
     })
-      .then(result =>{
-        this.props.history.push('./view');
+      .then(result => {
+        this.props.history.push('../view');
         alert('Subject successfully added!');
       })
       // .catch(e => alert(e));

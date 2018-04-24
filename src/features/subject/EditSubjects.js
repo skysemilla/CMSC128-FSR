@@ -52,10 +52,10 @@ export default class EditSubject extends Component {
       Api.getSubjectByID({
         subject_id: this.props.history.location.state.id
       }).then(response => {
-        var typeView="Lecture";
-        var gradView="Yes";
-        if(response.data.data.isLecture==0) typeView="Lab";
-        if(response.data.data.isGraduate==0) gradView="No";
+        var typeView = 'Lecture';
+        var gradView = 'Yes';
+        if (response.data.data.isLecture === 0) typeView = 'Lab';
+        if (response.data.data.isGraduate === 0) gradView = 'No';
 
         this.setState({
           subjcode: response.data.data.subject_code,
@@ -117,23 +117,23 @@ export default class EditSubject extends Component {
 
   startEdit(e) {
     e.preventDefault();
-    var isLec='0';
-    var isGrad='0';
-    if(this.state.type == "Lecture") isLec='1';
-    if(this.state.gradcourse == "No") isGrad='1'; //pansamantala sth wrong with value sa radio button
+    var isLec = '0';
+    var isGrad = '0';
+    if (this.state.type === 'Lecture') isLec = '1';
+    if (this.state.gradcourse === 'No') isGrad = '1'; //pansamantala sth wrong with value sa radio button
 
     Api.editSubjects({
-        subject_id: this.props.history.location.state.id,
-        subject_code: this.state.subjcode,
-        section_code: this.state.seccode,
-        isLecture: isLec,
-        isGraduate: isGrad,
-        units: this.state.units,
-        room: this.state.room,
-        start_time: this.state.starttime,
-        end_time: this.state.endtime
+      subject_id: this.props.history.location.state.id,
+      subject_code: this.state.subjcode,
+      section_code: this.state.seccode,
+      isLecture: isLec,
+      isGraduate: isGrad,
+      units: this.state.units,
+      room: this.state.room,
+      start_time: this.state.starttime,
+      end_time: this.state.endtime
     })
-      .then(result =>{
+      .then(result => {
         this.props.history.push('./view');
         alert('Subject successfully edited!');
       })

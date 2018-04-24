@@ -18,18 +18,19 @@ export default class ViewProfession extends Component {
   }
 
   componentDidMount = () => {
-        Api.getSession().then(res => {
-          if (res.data.data !== null) {
-            Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(result => {
-              if (result.data.data !== null) {
-                this.setState({ permission: result.data.data[0].haveApplied});
-                this.setState({ date: result.data.data[0].date_submitted});
-                this.setState({emp_id: res.data.data.emp_id})
-
-              }
-            });
+    Api.getSession().then(res => {
+      if (res.data.data !== null) {
+        Api.viewLimitedPractice({ emp_id: res.data.data.emp_id }).then(
+          result => {
+            if (result.data.data !== null) {
+              this.setState({ permission: result.data.data[0].haveApplied });
+              this.setState({ date: result.data.data[0].date_submitted });
+              this.setState({ emp_id: res.data.data.emp_id });
+            }
           }
-        });
+        );
+      }
+    });
   };
 
   startEdit() {
@@ -42,14 +43,14 @@ export default class ViewProfession extends Component {
         <div>
           <NavBar {...this.props} Label="FSR" subLabel="profession" />
         </div>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
-        <Divider hidden="true"/>
+        <Divider hidden="true" />
+        <Divider hidden="true" />
+        <Divider hidden="true" />
+        <Divider hidden="true" />
+        <Divider hidden="true" />
+        <Divider hidden="true" />
+        <Divider hidden="true" />
+        <Divider hidden="true" />
         <div className="bodyDiv">
           <div
             className="ui compact piled very padded text left aligned container segment"
@@ -60,23 +61,16 @@ export default class ViewProfession extends Component {
             <div className="ui list">
               <div className="item">
                 <b>
-                  <i className="right triangle icon" />Have you applied for official permission for limited practice of profession?{' '}
+                  <i className="right triangle icon" />Have you applied for
+                  official permission for limited practice of profession?{' '}
                 </b>
-                {this.state.permission == '1'?
-                    "Yes"
-                :
-                    "No"
-                }
+                {this.state.permission === '1' ? 'Yes' : 'No'}
               </div>
               <div className="item">
                 <b>
                   <i className="right triangle icon" />Date submitted:{' '}
                 </b>
-                {this.state.date === null?
-                    "N/A"
-                :
-                    this.state.date  
-                }
+                {this.state.date === null ? 'N/A' : this.state.date}
               </div>
             </div>
             <Divider hidden="true" />
