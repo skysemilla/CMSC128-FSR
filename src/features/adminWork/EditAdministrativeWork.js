@@ -33,16 +33,16 @@ export default class EditAdministrativeWork extends Component {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
         if (typeof this.props.history !== 'undefined') {
-          Api.viewPosition({
+          Api.viewHisPosition({
             id : result.data.data.emp_id
           })
             .then(result => {
               console.log(result);
               this.setState({
-                prev_nature_of_work: result.data.data[0].nature_of_work,
-                prev_office: result.data.data[0].office,
-                prev_credit_units: result.data.data[0].credit_units,
-                prev_position: result.data.data[0].work_position
+                nature_of_work: result.data.data[0].nature_of_work,
+                office: result.data.data[0].office,
+                credit_units: result.data.data[0].credit_units,
+                position: result.data.data[0].work_position
               });
 
             /*  console.log(result.data.data.emp_id );
@@ -122,7 +122,7 @@ export default class EditAdministrativeWork extends Component {
       e.preventDefault();
       console.log(this.state.emp_id);
       Api.editPosition({
-        //position_id: this.props.history.location.state.id,
+        position_id: this.props.history.location.state.id,
         work_position: this.state.position,
         emp_id: this.state.emp_id,
         nature_of_work: this.state.nature_of_work,
@@ -130,12 +130,9 @@ export default class EditAdministrativeWork extends Component {
         credit_units: this.state.credit_units,
       })
         .then(result => {
-          this.props.history.push('./positions/view'); //change to profile later!!
-          alert('Position successfully added!');
+          this.props.history.push('./view');
         })
-        .catch(e => alert('Edited Position!'));
-    } else {
-      alert('Invalid inputs!');
+        .catch(e);
     }
   }
 
@@ -188,7 +185,7 @@ export default class EditAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_position} onChange={this.handleChangePosition} />
+              <input type="text" value={this.state.position} onChange={this.handleChangePosition} />
             </div>
           </p>
           <p>
@@ -227,7 +224,7 @@ export default class EditAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_nature_of_work} onChange={this.handleChangeNature_of_work} />
+              <input type="text" value={this.state.nature_of_work} onChange={this.handleChangeNature_of_work} />
             </div>
           </p>
 
@@ -265,7 +262,7 @@ export default class EditAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_office} onChange={this.handleChangeOffice} />
+              <input type="text" value={this.state.office} onChange={this.handleChangeOffice} />
             </div>
           </p>
 
@@ -303,7 +300,7 @@ export default class EditAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
+              <input type="number" value={this.state.credit_units} onChange={this.handleChangeCreditUnits} />
             </div>
           </p>
 
