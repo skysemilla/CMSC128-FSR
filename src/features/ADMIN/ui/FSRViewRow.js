@@ -14,10 +14,15 @@ export default class ViewTeachingLoadRow extends Component {
         </td>
         <td className="center aligned"> {this.props.college} </td>
         <td className="center aligned"> {this.props.dept} </td>
-        <td className="center aligned"> {this.props.semester} </td>
         <td className="center aligned">
           {' '}
-          {this.props.year + '-' + (parseInt(this.props.year) + 1)}{' '}
+          {this.props.semester ? this.props.semester : 'New'}{' '}
+        </td>
+        <td className="center aligned">
+          {' '}
+          {this.props.year
+            ? this.props.year + '-' + (parseInt(this.props.year) + 1)
+            : 'New'}{' '}
         </td>
         <td className="center aligned">
           {this.props.approved === 'YES' ? (
