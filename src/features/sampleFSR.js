@@ -23,7 +23,8 @@ export default class myApp extends Component {
       uni: 'NaN',
       studyleave: 'No',
       fellowship: 'No',
-      studyload: []
+      studyload: [],
+      hasData: false
     };
   }
 
@@ -85,23 +86,40 @@ export default class myApp extends Component {
                         console.log(response.data.data);
                         if (response.data.data[0] !== undefined) {
                           this.setState({ studyload: response.data.data });
+                          this.state.studyload.map(item => {
+                          var stringday = "";
+                          Api.getDays({studyload_id:item.studyload_id}).then((results)=>{
+                            results.data.data.forEach(json=>{
+                              stringday+=json.day+" "
+                            })
+                          }).then(()=>{
+                            item.days=stringday;
+                            console.log(item.days);
+                          })
+                        });
+                        Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
+                        if (result.data.data !== null) {
+                          this.setState({ teachingload: result.data.data});
                         }
-                        // Api.viewPublications({ empid: this.state.id }).then(result => {
-                        //   if (result.data.data !== null) {
-                        //     this.setState({ pubs: result.data.data[0] });
-                        //     this.state.pubs.map(item => {
-                        //       Api.getCoworkers({
-                        //         id: item.publication_id
-                        //       }).then(result => {
-                        //         console.log(result.data.data);
-                        //         item.Coworkers = result.data.data;
-                        //         console.log(item.Coworkers);
-                        //       });
-                        //     });
-                        //   }
-                        //   // window.print();
-                        //   // window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
-                        // });
+                          Api.viewPublications({ empid: this.state.id }).then(result => {
+                          if (result.data.data !== null) {
+                            this.setState({ pubs: result.data.data[0] });
+                            this.state.pubs.map(item => {
+                              Api.getCoworkers({
+                                id: item.publication_id
+                              }).then(result => {
+                                console.log(result.data.data);
+                                item.Coworkers = result.data.data;
+                                this.setState({hasData: true});
+                                console.log(item.Coworkers);
+                              });
+                            });
+                          }
+                          window.print();
+                          window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
+                        });
+                        });
+                        }
                       });
                     });
                   });
@@ -109,13 +127,6 @@ export default class myApp extends Component {
               });
           });
       });
-      // Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
-      // if (result.data.data !== null) {
-      //   this.setState({ teachingload: result.data.data});
-      //   console.log(this.state.teachingload);
-      //   console.log("waoooo");
-      // }
-      // });
     });
 
 
@@ -129,6 +140,7 @@ export default class myApp extends Component {
 
 
   render() {
+    if(this.state.hasData){
     return (
       <div>
       <div class="generate">
@@ -205,9 +217,9 @@ export default class myApp extends Component {
                       <td class="tdtable">{item.start_time}-{item.end_time}</td>
                       <td class="tdtable"></td>
                       <td class="tdtable">{item.no_of_students}</td>
-                      <td class="tdtable">a</td>
-                      <td class="tdtable">a</td>
-                      <td class="tdtable">a</td>
+                      <td class="tdtable"></td>
+                      <td class="tdtable"></td>
+                      <td class="tdtable"></td>
                     </tr>
                   )
                 })
@@ -317,13 +329,13 @@ export default class myApp extends Component {
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
-                            return (
-                              <div className="item2" key={item.emp_id}>
-                                {item2.f_name} {item2.l_name}
-                              </div>
-                            );
-                        })};
+                          {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};
                         </td>
                         <td class="tdtable">{item.funding}</td>
                         <td class="tdtable">{item.credit_units}</td>
@@ -364,7 +376,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                          {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.start_date}</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.funding}</td>
@@ -410,7 +429,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -449,7 +475,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -488,7 +521,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -527,7 +567,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -565,7 +612,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -601,7 +655,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -640,7 +701,14 @@ export default class myApp extends Component {
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                              return (
+                                <div className="item2" key={item.emp_id}>
+                                  {item2.f_name} {item2.l_name}
+                                </div>
+                              );
+                          })};</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -981,7 +1049,7 @@ export default class myApp extends Component {
                     <tr>
                       <td class="tdtable">{item.course_no}</td>
                       <td class="tdtable">{item.credits}</td>
-                      <td class="tdtable">{item.day1}, {item.day2}</td>
+                      <td class="tdtable">{item.days}</td>
                       <td class="tdtable">{item.start_time} to {item.end_time}</td>
                       <td class="tdtable">{item.school}</td>
                     </tr>
@@ -1166,6 +1234,6 @@ export default class myApp extends Component {
         </p>
       </div>
       </div>
-    );
+    );} else return (<div></div>);
   }
 }
