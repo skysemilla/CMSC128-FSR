@@ -339,9 +339,9 @@ export default class AddExtension extends Component {
             <div className="ui center aligned container">
               <button
                 className="ui center aligned blue button"
-                Edit
-                Extension
-              />
+                onClick={this.startEdit}>
+                Edit Extension
+                </button>
             </div>
           </div>
         </div>
