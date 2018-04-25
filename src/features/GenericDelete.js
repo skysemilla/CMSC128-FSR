@@ -57,7 +57,12 @@ export default class GenericDelete extends Component {
       this.close();
     } else if (this.props.label === 'Administrative Work') {
       console.log(this.props);
-      Api.deletePosition({ id: this.props.id });
+      Api.deletePosition({ id: this.props.id })
+        .then(result => {
+          alert('Administrative work successfully deleted');
+          window.location.reload();
+        })
+        .catch(e => alert('Error deleting row!'));
       this.close();
     } else if (this.props.label === 'Consultation Hours') {
       console.log(this.props);

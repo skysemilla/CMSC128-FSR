@@ -29,6 +29,7 @@ export default class Profile extends Component {
           } else {
             this.setState({ data: { ...this.state.data, is_full_time: 'NO' } });
           }
+          console.log(res.data.data);
         });
       }
     });

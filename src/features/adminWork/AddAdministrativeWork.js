@@ -120,7 +120,8 @@ export default class AddAdministrativeWork extends Component {
   render() {
     return (
       <div className="App-header">
-        <NavBar {...this.props} Label="FSR" subLabel="adminwork" />
+        <div><NavBar {...this.props} Label="FSR" subLabel="adminwork" /></div>
+        <div className="bodyDiv">
         <div
           className="ui piled very padded text left aligned container segment"
           color="teal">
@@ -279,7 +280,7 @@ export default class AddAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} />
+              <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} min="0"/>
             </div>
           </p>
 
@@ -289,6 +290,7 @@ export default class AddAdministrativeWork extends Component {
               Add Administrative Work
             </button>
           </div>
+        </div>
         </div>
         <Divider hidden="true" />
       </div>

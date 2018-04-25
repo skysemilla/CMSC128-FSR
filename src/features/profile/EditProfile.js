@@ -68,11 +68,15 @@ const optionsMain3 = [
     id: 0,
     text: 'CAFS',
     Subtype: [
-      'Department A',
-      'Department B',
-      'Department C',
-      'Department D',
-      'Department E'
+      'Agricultural Systems Institute',
+      'Institute of Animal Science',
+      'Institute of Crop Science',
+      'Institute of Food Science and Technology',
+      'Institute of Weed Science, Entomology and Plant Pathology',
+      'Institute of Plant Breeding',
+      'Postharvest Horticulture Training and Research Center',
+      'Dairy Training and Research Institute',
+      'National Crop Protection Center'
     ]
   },
   {
@@ -83,73 +87,70 @@ const optionsMain3 = [
       'Institute of Chemistry',
       'Institute of Computer Science',
       'Institute of Mathematical Sciences and Physics',
-      'Institute of Statistics'
+      'Institute of Statistics',
+      'Department of Humanities',
+      'Department of Social Sciences',
+      'Department of Human Kinetics'
     ]
   },
   {
     id: 2,
     text: 'CDC',
     Subtype: [
-      'Department F',
-      'Department G',
-      'Department H',
-      'Department I',
-      'Department J'
+      'Department of Dev\'t Broadcasting & Telecommunication',
+      'Department of Development Journalism',
+      'Department of Educational Communication',
+      'Department of Science Communication'
     ]
   },
   {
     id: 3,
     text: 'CEAT',
     Subtype: [
-      'Department K',
-      'Department L',
-      'Department M',
-      'Department N',
-      'Department O'
+      'Institute of Agricultural Engineering',
+      'Department of Chemical Engineering',
+      'Department of Civil Engineering',
+      'Department of Electrical Engineering',
+      'Department of Engineering Science',
+      'Department of Industrial Engineering'
     ]
   },
   {
     id: 4,
     text: 'CEM',
     Subtype: [
-      'Department P',
-      'Department Q',
-      'Department R',
-      'Department S',
-      'Department T'
+      'Department of Agribusiness Management & Entrepreneurship',
+      'Department of Agricultural and Applied Economics',
+      'Department of Economics',
+      'ICOPED',
+      'Rural Economic Development and Renewable Energy Center'
     ]
   },
   {
     id: 5,
     text: 'CFNR',
     Subtype: [
-      'Department U',
-      'Department V',
-      'Department W',
-      'Department X',
-      'Department Y'
+      'Forest Biological Sciences',
+      'Forest Products and Paper Science',
+      'Social Forestry and Forest Governance',
+      'Institute of Renewable Natural Resources'
     ]
   },
   {
     id: 6,
     text: 'CHE',
     Subtype: [
-      'Department Z',
-      'Department 1',
-      'Department 2',
-      'Department 3',
-      'Department 4'
+      'Dept. of Community & Environmental Resource Planning',
+      'Department of Human and Family Development Studies'
     ]
   },
   {
     id: 7,
     text: 'CVM',
     Subtype: [
-      'Department 5',
-      'Department 6',
-      'Department 7',
-      'Department 8',
-      'Department 9'
+      'Department of Basic Veterinary Sciences',
+      'Department of Veterinary Clinical Sciences',
+      'Department of Veterinary Paraclinical Sciences'
     ]
   }
 ];
@@ -232,6 +233,7 @@ export default class EditProfile extends Component {
 
   handleChangeCollege(e) {
     this.setState({ college: e.target.value });
+    this.setState({ dept: '' });
   }
 
   handleChangeDept(e) {
@@ -494,57 +496,53 @@ export default class EditProfile extends Component {
                 </div>
               </p>
               <p>
-                <div>
-                  <div className="flex-container dropDown">
-                    <label>
-                      <span>
-                        <b>College</b>
-                        {!this.state.college ? (
-                          <div className="ui left pointing red basic label">
-                            {errorTexts[0]}
-                          </div>
-                        ) : (
-                          <div className="ui left pointing green basic label">
-                            {'is valid!'}
-                          </div>
-                        )}
-                      </span>
+                <div className="flex-container">
+                  <label><b>College</b>
+                    {!this.state.college ? (
+                      <div className="ui left pointing red basic label">
+                        {'required!'}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                     </label>
-                    <GenericDropdown
-                      labelProper="Select College"
-                      value={this.state.college}
-                      handler={this.handleChangeCollege}
-                      options={optionsMain3}
-                    />
-                  </div>
-                  <label>
-                    <span>
-                      <b>Department</b>
-                      {!this.state.dept ? (
-                        <div className="ui left pointing red basic label">
-                          {errorTexts[0]}
-                        </div>
-                      ) : (
-                        <div className="ui left pointing green basic label">
-                          {'is valid!'}
-                        </div>
-                      )}
-                    </span>
+                  <GenericDropdown
+                    labelProper="College"
+                    value={this.state.college}
+                    handler={this.handleChangeCollege}
+                    options={optionsMain3}
+                  />
+                </div>
+                  <div>
+                  <label><b>Department</b>
+                    {!this.state.dept ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )}
                   </label>
+                  <div>
                   <DeptDropdown
                     value={this.state.dept}
                     handler={this.handleChangeDept}
                     options={optionsMain3}
                     college={this.state.college}
                   />
-                </div>
+                  </div>
+                  </div>
               </p>
               <label>
                 <h3>Employee</h3>
                 <Divider />
               </label>
               <p>
-                <div className="flex-container dropDown">
+                <div className="dropDown">
                   <label>
                     <b>Type</b>
                     {!this.state.emptype ? (

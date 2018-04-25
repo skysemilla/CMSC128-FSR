@@ -16,7 +16,6 @@ componentDidMount(){
         console.log(result);
         this.setState({ data: result.data.data });
       })
-      .catch(err => alert(err));
     }
   });
 }
@@ -27,6 +26,7 @@ componentDidMount(){
     super(props);
 
     this.state = {
+      emp_id: '',
       data: []
     };
 
@@ -72,7 +72,7 @@ componentDidMount(){
                   <ViewAdminWorkRow
                     {...this.props}
                     id={item.position_id}
-                    position={item.position}
+                    position={item.work_position}
                     nature_of_work={item.nature_of_work}
                     office={item.office}
                     credit_units={item.credit_units}

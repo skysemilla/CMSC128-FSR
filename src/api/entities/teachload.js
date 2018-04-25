@@ -33,7 +33,7 @@ export const editRemoveTeachLoadUnits = teachLoadInfo => {
 };
 
 export const getTeachLoad = teachLoadInfo => {
-	return axios.post('/api/teachload/viewByTeachloadId/', teachLoadInfo)
+	return axios.post('/api/teachingload/viewByTeachloadId', teachLoadInfo)
 };
 
 export const getSubjectByTeachId = teachLoadInfo => {

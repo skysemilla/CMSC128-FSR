@@ -84,7 +84,7 @@ export default class EditStudyLoad extends Component {
     if (typeof this.props.history !== 'undefined') {
       console.log(this.props.history.location.state.id);
     }
-    Api.viewByStudyloadId(this.props.history.location.state.id)
+    Api.viewByStudyloadId({studyload_id:this.props.history.location.state.id})
       .then(response => {
         this.setState(
           { courseno: response.data.data[0].course_no ,

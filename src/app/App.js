@@ -82,6 +82,7 @@ import AddSubjects from './../features/subject/AddSubjects';
 import EditSubjects from './../features/subject/EditSubjects';
 
 import BeingApproved from './../features/ui/beingApproved';
+import unableToEdit from './../features/ADMIN/ui/unableToEdit';
 
 import sampleFSR from './../features/sampleFSR';
 
@@ -382,6 +383,7 @@ class App extends Component {
             />
 
             <Route exact={true} path="/AAA" component={sampleFSR} />
+            <Route exact={true} path="/unableToEdit" component={unableToEdit} />
           </div>
         </Router>
       </div>
