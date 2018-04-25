@@ -42,8 +42,8 @@ export default class NavBar extends Component {
 
   handleLogout(e) {
     e.preventDefault();
-    Api.logout();
-    window.location.replace('/');
+    Api.logout()
+      .then(window.location.replace('/'));
   }
 
   handleChange(e) {
