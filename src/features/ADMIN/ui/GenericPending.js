@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import * as Api from '../../../api';
 
 export default class GenericPending extends Component {
   constructor(props) {
@@ -11,84 +12,70 @@ export default class GenericPending extends Component {
       activeButton: ''
     };
 
+    this.rejectFSR = this.rejectFSR.bind(this);
     this.startEdit = this.startEdit.bind(this);
     this.startGenerate = this.startGenerate.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.close = this.close.bind(this);
   }
 
-  handleShow(e){
-    // e.preventDefault();
-    this.setState({size: 'mini'}); 
-    this.setState({activeButton: e.currentTarget.value}); 
-    this.setState({ open: true});
-    console.log(e.currentTarget.value);
+  handleShow(e) {
+    this.setState({ size: 'mini' });
+    this.setState({ activeButton: e.currentTarget.value });
+    this.setState({ open: true });
   }
-  close(){ 
-    this.setState({ open: false});
-    //this.setState({activeButton: this.state.activeButton});
+  close() {
+    this.setState({ open: false });
   }
 
   startEdit(e) {
-    // e.preventDefault();
     this.props.history.push('./../unableToEdit');
-    //this.props.history.push('../../admin/editFSR/teachingload/view');
   }
 
-  startGenerate(){
+  startGenerate() {
     this.close();
     this.props.history.push('../../AAA', { id: this.props.id });
-    // console.log(this.props.id);
-    // var printWindow = window.open( "/AAA", 'print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
-    // printWindow.addEventListener('load', function(){
-    //     printWindow.print();
-    //     printWindow.close();
-    // }, true);
+  }
+
+  rejectFSR() {
+    Api.rejectFSR({ empid: this.props.id });
+    this.close();
+    window.location.reload();
   }
 
   render() {
     return (
       <div className="ui horizontal list">
         <div className="item">
-        <button className="ui large compact icon button" onClick={this.startEdit}>
-          <i className="pencil icon"> </i>
-        </button>
-        </div>
-        <div className="item">
-          <button className = "ui large compact icon button" value="del" onClick={this.handleShow}>
-          <i className="trash alternate icon" value="del"/>
+          <button
+            className="ui large compact icon button"
+            onClick={this.startEdit}>
+            <i className="pencil icon"> </i>
           </button>
         </div>
         <div className="item">
-          <button className = "ui large compact icon button" value="approve" onClick={this.handleShow}>
-          <i className="check icon" value="approve"/>
+          <button
+            className="ui large compact icon button"
+            value="approve"
+            onClick={this.handleShow}>
+            <i className="check icon" value="approve" />
           </button>
         </div>
         <div className="item">
-          <button className = "ui large compact icon button" value="reject" onClick={this.handleShow}>
-          <i className="times icon" value="reject"/>
+          <button
+            className="ui large compact icon button"
+            value="reject"
+            onClick={this.handleShow}>
+            <i className="times icon" value="reject" />
           </button>
         </div>
-        {this.state.activeButton === 'del' ?
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
-            <Modal.Header>
-              DELETE FSR
-            </Modal.Header>
-            <Modal.Content>
-              <p>Are you sure you want to delete this FSR?</p>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button negative onClick={this.close}>
-                No
-              </Button>
-              <Button positive icon='checkmark' labelPosition='right' content='Yes' />
-            </Modal.Actions>
-          </Modal>
-        :this.state.activeButton === 'approve' ?
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
-            <Modal.Header>
-              APPROVE FSR
-            </Modal.Header>
+        {this.state.activeButton === 'approve' ? (
+          <Modal
+            size={this.state.size}
+            open={this.state.open}
+            onClose={this.close}
+            style={{ marginTop: '18%', marginLeft: '40%' }}>
+            <Modal.Header>APPROVE FSR</Modal.Header>
             <Modal.Content>
               <p>Are you sure you want to approve this FSR?</p>
             </Modal.Content>
@@ -97,14 +84,22 @@ export default class GenericPending extends Component {
                 No
               </Button>
 
-              <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.startGenerate}/>
+              <Button
+                positive
+                icon="checkmark"
+                labelPosition="right"
+                content="Yes"
+                onClick={this.startGenerate}
+              />
             </Modal.Actions>
-          </Modal> 
-          :
-          <Modal size={this.state.size} open={this.state.open} onClose={this.close} style={{marginTop: "18%", marginLeft: "40%"}}>
-            <Modal.Header>
-              REJECT FSR
-            </Modal.Header>
+          </Modal>
+        ) : (
+          <Modal
+            size={this.state.size}
+            open={this.state.open}
+            onClose={this.close}
+            style={{ marginTop: '18%', marginLeft: '40%' }}>
+            <Modal.Header>REJECT FSR</Modal.Header>
             <Modal.Content>
               <p>Are you sure you want to reject this FSR?</p>
             </Modal.Content>
@@ -112,11 +107,18 @@ export default class GenericPending extends Component {
               <Button negative onClick={this.close}>
                 No
               </Button>
-              <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+              <Button
+                positive
+                icon="checkmark"
+                labelPosition="right"
+                content="Yes"
+                onClick={this.rejectFSR}
+              />
             </Modal.Actions>
-          </Modal>}
+          </Modal>
+        )}
         }
       </div>
-    )
+    );
   }
 }

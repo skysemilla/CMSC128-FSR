@@ -27,3 +27,7 @@ export const ViewPendingFSRByName = name => {
 export const sendToAdmin = empid => {
   return axios.post('/api/fsr/send', empid);
 };
+
+export const rejectFSR = empid => {
+  return axios.post('/api/fsr/reject', empid);
+};
