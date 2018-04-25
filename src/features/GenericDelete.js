@@ -22,10 +22,7 @@ export default class GenericDelete extends Component {
   }
 
   startDelete(e) {
-    // e.preventDefault();
-    console.log({ Object: this.props });
-    console.log(this.props.id);
-    console.log(this.props);
+    e.preventDefault();
     if (this.props.label === 'Publication') {
       Api.removePublication({
         id: this.props.id
@@ -60,14 +57,19 @@ export default class GenericDelete extends Component {
       this.close();
     } else if (this.props.label === 'Administrative Work') {
       console.log(this.props);
-      Api.deletePosition({ id: this.props.id });
+      Api.deletePosition({ id: this.props.id })
+        .then(result => {
+          alert('Administrative work successfully deleted');
+          window.location.reload();
+        })
+        .catch(e => alert('Error deleting row!'));
       this.close();
     } else if (this.props.label === 'Consultation Hours') {
-      Api.deleteConsultation({ id: this.props.id }).then(result => {
-        })
+      console.log(this.props);
+      Api.deleteConsultation({ id: this.props.id })
         .then(result => {
-          window.location.reload();
           alert('Consultation Hours successfully deleted');
+          window.location.reload();
         })
         .catch(e => alert('Error deleting row!'));
       this.close();

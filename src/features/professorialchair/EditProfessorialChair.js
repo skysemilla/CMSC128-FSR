@@ -4,8 +4,6 @@ import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 
-
-
 export default class EditProfessorialChair extends Component {
   constructor(props) {
     super(props);
@@ -20,10 +18,13 @@ export default class EditProfessorialChair extends Component {
       startdate: '',
       enddate: '',
 
-      validStartDate: false,
-      validEndDate: false,
+      validProfChair: true,
+      validGrant: true,
+      validGrantTitle: true,
+      validStartDate: true,
+      validEndDate: true,
 
-      edit_trial_count: 0,
+      edit_trial_count: 0
     };
 
     this.handleChangeNominee = this.handleChangeNominee.bind(this);
@@ -38,9 +39,19 @@ export default class EditProfessorialChair extends Component {
   componentDidMount() {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
-        
-        this.setState({emp_id: result.data.data.emp_id})
-        
+        this.setState({ emp_id: result.data.data.emp_id });
+
+        // this...
+        Api.viewFacultyGrant({ emp_id: result.data.data.emp_id }).then(res => {
+          if (res.data.data !== null) {
+            this.setState({
+              ...this.state,
+              profchair: res.data.data[0].professional_chair,
+              grant: res.data.data[0].grants,
+              granttitle: res.data.data[0].grant_title
+            });
+          }
+        }); // ... is to populate the initial state variables, "sana"
       }
     });
   }
@@ -54,82 +65,121 @@ export default class EditProfessorialChair extends Component {
 
   handleChangeProfChair(e) {
     this.setState({ profchair: e.target.value });
+    if (
+      parseFloat(this.state.profchair) == this.state.profchair || // == not ===
+      this.state.profchair === ''
+    ) {
+      // if input is plain numbers or blank
+      this.setState({ validProfChair: false }); // input is invalid
+    } else {
+      // else valid
+      this.setState({ validProfChair: true });
+    }
   }
 
   handleChangeGrant(e) {
     this.setState({ grant: e.target.value });
+    if (
+      parseFloat(this.state.grant) == this.state.grant || // == not ===
+      this.state.grant === ''
+    ) {
+      // if input is plain numbers or blank
+      this.setState({ validGrant: false }); // input is invalid
+    } else {
+      // else valid
+      this.setState({ validGrant: true });
+    }
   }
 
   handleChangeGrantTitle(e) {
     this.setState({ granttitle: e.target.value });
+    if (
+      parseFloat(this.state.granttitle) == this.state.granttitle || // == not ===
+      this.state.granttitle === ''
+    ) {
+      // if input is plain numbers or bank
+      this.setState({ validGrantTitle: false }); // input is invalid
+    } else {
+      // else valid
+      this.setState({ validGrantTitle: true });
+    }
   }
 
   handleChangeStartdate(e) {
-
     // input date validation
-    if (e.target.value === '' || ( this.state.enddate !== '' && e.target.value > this.state.enddate) ) {
+    if (
+      e.target.value === '' ||
+      (this.state.enddate !== '' && e.target.value > this.state.enddate)
+    ) {
       this.setState({ validStartDate: false });
-      //this.setState({ validEndDate: false }); // and vice-versa
     } else {
       this.setState({ validStartDate: true });
-      //this.setState({ validEndDate: true }); // and so both are valid
     }
     this.setState({ startdate: e.target.value }); // still, apply changes
   }
 
   handleChangeEndDate(e) {
-
     // input date validation
-    if (e.target.value === '' || ( this.state.startdate !== '' && e.target.value < this.state.startdate) ) {
-     
+    if (
+      e.target.value === '' ||
+      (this.state.startdate !== '' && e.target.value < this.state.startdate)
+    ) {
       this.setState({ validEndDate: false });
-      //this.setState({ validStartDate: false }); // and vice-versa
     } else {
-      
       this.setState({ validEndDate: true });
       if (this.state.startdate !== '') {
-        this.setState({ validStartDate: true }); // and so both are valid?
+        this.setState({ validStartDate: true }); // and so both are validz
       }
     }
 
-   
     this.setState({ enddate: e.target.value }); // still, apply changes
   }
 
   startAdd(e) {
     this.setState({ edit_trial_count: 1 });
-    
-    // if date field is enabled
-    if ( ( this.state.nominee === "No" ) ||
-    ( this.state.validGrantTitle !== false && this.state.validStartDate !== false && 
-      this.state.nominated !== '' && this.state.profchair !== '' && 
-      this.state.grant !== '' && this.state.granttitle !== '' &&
-      this.state.startdate < this.state.enddate &&
-      parseFloat(this.state.profchair) != this.state.profchair  &&
-      parseFloat(this.state.grant) != this.state.grant &&
-      parseFloat(this.state.granttitle) != this.state.granttitle
-     )
-    ) {
-    // other fields must have a valid input
 
-        e.preventDefault();
-        Api.editProfessorialChair({
-          emp_id: this.state.emp_id,
-          type: this.state.nominee,
-          is_approved: this.state.nominated,
-          professional_chair: this.state.profchair,
-          grants: this.state.grant,
-          grant_title: this.state.granttitle,
-          start_date: this.state.startdate,
-          end_date: this.state.enddate
+    // if date field is enabled
+    if (
+      this.state.nominee === 'No' ||
+      (this.state.validGrantTitle !== false &&
+        this.state.validStartDate !== false &&
+        this.state.nominated !== '' &&
+        // this.state.profchair !== '' &&
+        // parseFloat(this.state.profchair) != this.state.profchair && // if input is not purely numbers
+        // this.state.grant !== '' &&
+        // parseFloat(this.state.grant) != this.state.grant && // if input is not purely numbers
+        // this.state.granttitle !== '' &&
+        // parseFloat(this.state.granttitle) != this.state.granttitle && // if input is not purely numbers
+        this.state.validProfChair !== false &&
+        this.state.validGrant !== false &&
+        this.state.validGrantTitle !== false &&
+        this.state.startdate < this.state.enddate)
+      //&&
+      // parseFloat(this.state.profchair) !== this.state.profchair &&
+      // parseFloat(this.state.grant) !== this.state.grant &&
+      // parseFloat(this.state.granttitle) !== this.state.granttitle
+    ) {
+      // other fields must have a valid input
+
+      e.preventDefault();
+      Api.editProfessorialChair({
+        emp_id: this.state.emp_id,
+        type: this.state.nominee,
+        is_approved: this.state.nominated,
+        professional_chair: this.state.profchair,
+        grants: this.state.grant,
+        grant_title: this.state.granttitle,
+        start_date: this.state.startdate,
+        end_date: this.state.enddate
+      })
+        .then(result => {
+          this.props.history.push('./view');
+          alert('Professorial Chair successfully edited!');
         })
-          .then(result => {
-            this.props.history.push('./view');
-            alert('Professorial Chair successfully edited!');
-          })
-          .catch(e => alert('Error editing Professorial Chair!'));
-    } // if valid date 
-    else { // else invalid date
+        .catch(e => alert('Error editing Professorial Chair!'));
+    } // if valid date
+    else {
+      // else invalid date
       alert('Invalid input!');
     }
   }
@@ -173,15 +223,14 @@ export default class EditProfessorialChair extends Component {
                       />
                       <label>No</label>
                     </div>
-                    { this.state.edit_trial_count > 0 ?(  
-                      this.state.nominee === '' ?
-                        (
-                          <div className="ui left pointing red basic label">
-                            Required
-                          </div>
-                        ) : (<div></div>)
-                      ) : (<div></div>)  }
                   </div>
+                  {!this.state.nominee ? (
+                    <div className="ui left pointing red basic label">
+                      Required
+                    </div>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               </div>
             </p>
@@ -216,105 +265,117 @@ export default class EditProfessorialChair extends Component {
                           <label>No</label>
                         </div>
                       </div>
-                      {this.state.edit_trial_count > 0 ?(   
-                        this.state.nominated === '' ?
-                        (
-                          <div className="ui left pointing red basic label">
-                            Required
-                          </div>
-                        ) : (<div></div>)
-                       ) : (<div></div>)
-                      }
+                      {this.state.nominated === '' ? (
+                        <div className="ui left pointing red basic label">
+                          Required
+                        </div>
+                      ) : (
+                        <div className="ui left pointing green basic label">
+                          Valid
+                        </div>
+                      )}
                     </div>
                   </div>
                 </p>
                 <p>
-                  <a className="ui small header">Professorial Chair </a>
+                  <a className="ui small header">
+                    Professorial Chair{' '}
+                    {!this.state.profchair ? (
+                      <div className="ui left pointing red basic label">
+                        Invalid input
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        Valid
+                      </div>
+                    )}
+                  </a>
+
                   <div className="ui input fluid mini focus">
                     <input
                       type="text"
                       onChange={this.handleChangeProfChair}
-                      placeholder={this.state.profchair}
+                      value={this.state.profchair}
                     />
-                    {this.state.edit_trial_count > 0 ?(    
-                      this.state.profchair === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
-                          Required
-                        </div>
-                      ) : (<div></div>)
-                    ) : (<div></div>)
-                    }
                   </div>
                 </p>
                 <p>
-                  <a className="ui small header">Grant </a>
+                  <a className="ui small header">
+                    Grant{' '}
+                    {!this.state.grant ? (
+                      <div className="ui left pointing red basic label">
+                        Invalid input
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        Valid
+                      </div>
+                    )}
+                  </a>
                   <div className="ui input fluid mini focus">
                     <input
                       type="text"
                       onChange={this.handleChangeGrant}
-                      placeholder={this.state.grant}
+                      value={this.state.grant}
                     />
-                    {this.state.edit_trial_count > 0 ?(   
-                      this.state.grant === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
-                          Required
-                        </div>
-                      ) : (<div></div>)
-                     ) : (<div></div>)
-                    }
                   </div>
                 </p>
                 <p>
-                  <a className="ui small header">Grant Title </a>
+                  <a className="ui small header">
+                    Grant Title{' '}
+                    {!this.state.granttitle ? (
+                      <div className="ui left pointing red basic label">
+                        Invalid input
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        Valid
+                      </div>
+                    )}
+                  </a>
                   <div className="ui input fluid mini focus">
                     <input
                       type="text"
                       onChange={this.handleChangeGrantTitle}
-                      placeholder={this.state.granttitle}
+                      value={this.state.granttitle}
                     />
-                    {this.state.edit_trial_count > 0 ?(    
-                      this.state.granttitle === '' ?
-                      (
-                        <div className="ui left pointing red basic label">
-                          Required
-                        </div>
-                      ) : (<div></div>)
-                    ) : (<div></div>)
-                    }
                   </div>
                 </p>
                 <p>
-                  <a className="ui small header">Start Date </a>
-                  <div className="ui input fluid mini focus">
-                    <input type="date" onChange={this.handleChangeStartdate} />
-                  </div>
-                  {this.state.edit_trial_count > 0 ?(    
-                    this.state.validStartDate === false ?
-                    (
+                  <a className="ui small header">
+                    Start Date{' '}
+                    {!this.state.startdate ? (
                       <div className="ui pointing red basic label">
                         Invalid start date!
                       </div>
-                    ) : (<div></div>)
-                  ) : (<div></div>)
-                  }
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        Valid
+                      </div>
+                    )}
+                  </a>
+                  <div className="ui input fluid mini focus">
+                    <input type="date" onChange={this.handleChangeStartdate} />
+                  </div>
                 </p>
                 <p>
-                  <a className="ui small header">End Date </a>
+                  <a className="ui small header">
+                    End Date{' '}
+                    {!this.state.enddate ? (
+                      <div className="ui pointing red basic label">
+                        Invalid end date!
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        Valid
+                      </div>
+                    )}
+                  </a>
                   <div className="ui input fluid mini focus">
                     <input type="date" onChange={this.handleChangeEndDate} />
                   </div>
                 </p>
-                {this.state.edit_trial_count > 0 ?(  
-                  this.state.validEndDate === false ?
-                    (
-                      <div className="ui pointing red basic label">
-                        Invalid end date!
-                      </div>
-                    ) : (<div></div>)
-                  ) : (<div></div>)
-                }
+
                 <Divider hidden="true" />
               </div>
             ) : (

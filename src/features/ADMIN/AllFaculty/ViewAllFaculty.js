@@ -24,7 +24,7 @@ export default class ViewApprovedFSR extends Component {
   componentDidMount() {
     Api.ViewAllFaculty().then(result => {
       if (result.data.data !== null) {
-        this.setState({ data: result.data.data[0] });
+        this.setState({ data: result.data.data });
       }
     });
   }
@@ -36,9 +36,7 @@ export default class ViewApprovedFSR extends Component {
         this.setState({ data: result.data.data[0] });
       });
     } else if (this.state.search.match(empIdRegex)) {
-      console.log('USES ID');
       Api.SearchFacultyById({ empid: this.state.search }).then(result => {
-        console.log(result.data.data);
         if (result.data.data === null) {
           alert('Search matches no results');
         } else {
@@ -46,7 +44,6 @@ export default class ViewApprovedFSR extends Component {
         }
       });
     } else if (this.state.search.match(nameRegex)) {
-      console.log('USES NAME');
       Api.SearchFacultyByName({ name: this.state.search }).then(result => {
         if (result.data.data === null) {
           alert('Search matches no results');

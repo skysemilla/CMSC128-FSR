@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'semantic-ui-react'
-import ReactDOM from 'react-dom';
+import { Button, Modal } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 export default class ViewAttachments extends Component {
@@ -9,18 +8,16 @@ export default class ViewAttachments extends Component {
     this.state = {
       id: ''
     };
-    
   }
 
-  state = { open: false }
+  state = { open: false };
 
-  show = size => () => this.setState({ size, open: true })
-  close = () => this.setState({ open: false })
+  show = size => () => this.setState({ size, open: true });
+  close = () => this.setState({ open: false });
 
-  componentDidMount(){
-    if(typeof this.props.history!=='undefined'){
-        this.setState({id: this.props.id});
-        console.log(this.props.id);
+  componentDidMount() {
+    if (typeof this.props.history !== 'undefined') {
+      this.setState({ id: this.props.id });
     }
   }
 
@@ -29,24 +26,29 @@ export default class ViewAttachments extends Component {
 
     return (
       <div>
-        <button class = "ui button" onClick={this.show('large')}>
-          <i class="eye icon" />
+        <button className="ui button" onClick={this.show('large')}>
+          <i className="eye icon" />
         </button>
-        <Modal size={size} open={open} onClose={this.close} style={{marginTop: "15%", marginLeft: "10%"}}>
-          <Modal.Header>
-            {this.props.label}
-          </Modal.Header>
+        <Modal
+          size={size}
+          open={open}
+          onClose={this.close}
+          style={{ marginTop: '15%', marginLeft: '10%' }}>
+          <Modal.Header>{this.props.label}</Modal.Header>
           <Modal.Content>
             <p>Attachments for {this.props.subLabel}</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button class="right blue botton" icon='checkmark' labelPosition='right' content='Proceed' onClick={this.close}/>
+            <Button
+              className="right blue botton"
+              icon="checkmark"
+              labelPosition="right"
+              content="Proceed"
+              onClick={this.close}
+            />
           </Modal.Actions>
         </Modal>
       </div>
-    )
+    );
   }
 }
-
-//=========================
-ReactDOM.render(<ViewAttachments />, document.getElementById('root'));

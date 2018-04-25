@@ -41,7 +41,7 @@ export default class EditInfo extends Component {
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('/');
+    this.props.history.push('../..');
   }
   componentDidMount(e) {
     Api.viewStudyCredentials().then(response => {
@@ -56,6 +56,9 @@ export default class EditInfo extends Component {
         this.setState({ fellowship: 'Yes' });
       }
     });
+    Api.getStudyLoadCredentialsFSR({emp_id:"000000001"}).then(response=>{
+      console.log(response)
+    })
   }
   startEdit(e) {
     e.preventDefault();
@@ -114,13 +117,13 @@ export default class EditInfo extends Component {
                   <label>On Full Study Leave w/ Pay?</label>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="studyleave" value="Yes" />
+                      <input type="radio" name="studyleave" value="Yes"/>
                       <label>Yes</label>
                     </div>
                   </div>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="studyleave" value="No" />
+                      <input type="radio" name="studyleave" value="No"/>
                       <label>No</label>
                     </div>
                   </div>
@@ -133,13 +136,13 @@ export default class EditInfo extends Component {
                   <label>Recepient of Faculty Fellowship?</label>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="fellowship" value="Yes" />
+                      <input type="radio" name="fellowship" value="Yes"/>
                       <label>Yes</label>
                     </div>
                   </div>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="fellowship" value="No" />
+                      <input type="radio" name="fellowship" value="No"/>
                       <label>No</label>
                     </div>
                   </div>

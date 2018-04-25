@@ -46,7 +46,7 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div classname="App-header">
+      <div className="App-header">
         <TermYearModal
           {...this.props}
           empid={this.state.data.emp_id}
@@ -58,7 +58,7 @@ export default class Profile extends Component {
           subLabel=""
           is_being_approved={this.state.data.is_being_approved}
         />
-        <div className="bodyDiv"/>
+        <div className="bodyDiv" />
         <div
           className="ui piled very padded text left aligned container segment"
           color="teal">
@@ -125,10 +125,12 @@ export default class Profile extends Component {
               </div>
             </div>
           </div>
-          <Divider hidden="true" />
-          <Divider hidden="true" />
+          <Divider hidden={true} />
+          <Divider hidden={true} />
           <div>
-            <h2 className="ui blue header">Past FSRs</h2>
+            <h2 className="ui blue header">
+              Past FSRs <h4>(not yet implemented)</h4>
+            </h2>
             <table className="ui blue table">
               <thead>
                 <tr>
@@ -152,7 +154,7 @@ export default class Profile extends Component {
               </tbody>
             </table>
           </div>
-          <Divider hidden="true" />
+          <Divider hidden={true} />
         </div>
       </div>
     );

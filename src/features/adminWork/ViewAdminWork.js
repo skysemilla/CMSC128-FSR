@@ -6,18 +6,27 @@ import ViewAdminWorkRow from './AdminWorkViewRow'
 import NavBar from './../ui/NavBar';
 
 export default class ViewAdminWork extends Component {
-  componentDidMount() {
-    Api.viewAllPositions()
+
+componentDidMount(){
+  Api.getSession().then(result => {
+    if (result.data.data !== null) {
+      this.setState({ emp_id: result.data.data.emp_id });
+      Api.viewHisPosition({ id: result.data.data.emp_id })
       .then(result => {
+        console.log(result);
         this.setState({ data: result.data.data });
       })
-      .catch(err => alert(err));
-  }
+    }
+  });
+}
+
+
 
   constructor(props) {
     super(props);
 
     this.state = {
+      emp_id: '',
       data: []
     };
 
@@ -48,7 +57,8 @@ export default class ViewAdminWork extends Component {
           <div className="scrollTable">
           <table className="ui celled table">
             <thead>
-              <tr>
+              <tr> 
+                <th className="center aligned">Position</th>
                 <th className="center aligned">Nature Of Work</th>
                 <th className="center aligned">Office</th>
                 <th className="center aligned">Credit Units</th>
@@ -62,6 +72,7 @@ export default class ViewAdminWork extends Component {
                   <ViewAdminWorkRow
                     {...this.props}
                     id={item.position_id}
+                    position={item.work_position}
                     nature_of_work={item.nature_of_work}
                     office={item.office}
                     credit_units={item.credit_units}

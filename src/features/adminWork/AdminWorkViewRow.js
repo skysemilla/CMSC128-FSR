@@ -7,6 +7,7 @@ export default class ViewTeachingLoadRow extends Component {
   render() {
     return (
       <tr>
+        <td className="center aligned"> {this.props.position} </td>
         <td className="center aligned"> {this.props.nature_of_work} </td>
         <td className="center aligned"> {this.props.office} </td>
         <td className="center aligned"> {this.props.credit_units} </td>

@@ -1,50 +1,59 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 
 export default class GenerateFSR extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {};
   }
 
-  state = { open: false }
+  state = { open: false };
 
-  show = size => () => this.setState({ size, open: true })
-  close = () => this.setState({ open: false })
+  show = size => () => this.setState({ size, open: true });
+  close = () => this.setState({ open: false });
 
   render() {
-    const { open, size } = this.state
+    const { open, size } = this.state;
 
     return (
       <div>
-        <button class="ui right floated blue button" onClick={this.show('mini')}>Generate FSR</button>
-        <Modal size={size} open={open} onClose={this.close} style={{marginTop: 300, marginLeft: 650}} >
-          <Modal.Header>
-            Generate FSR
-          </Modal.Header>
+        <button
+          className="ui right floated blue button"
+          onClick={this.show('mini')}>
+          Generate FSR
+        </button>
+        <Modal
+          size={size}
+          open={open}
+          onClose={this.close}
+          style={{ marginTop: 300, marginLeft: 650 }}>
+          <Modal.Header>Generate FSR</Modal.Header>
           <Modal.Content>
             <center>
-            <p>Enter school year and semester:
-                  <div class="ui input mini focus">
-                    <input
-                      type="text"
-                      style={{ width: '200px' }}
-                    />
+              <p>
+                Enter school year and semester:
+                <div className="ui input mini focus">
+                  <input type="text" style={{ width: '200px' }} />
                 </div>
-            </p>
+              </p>
             </center>
           </Modal.Content>
           <Modal.Actions>
             <Button negative onClick={this.close}>
               Cancel
             </Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Generate' />
+            <Button
+              positive
+              icon="checkmark"
+              labelPosition="right"
+              content="Generate"
+            />
           </Modal.Actions>
         </Modal>
       </div>
-    )
+    );
   }
 }
 

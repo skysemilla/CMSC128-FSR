@@ -72,14 +72,11 @@ export default class AddStudyLoad extends Component {
           this.state.days.splice(index, 1);
       }
       this.setState({ days: this.state.days });
-      console.log('Deleted ' + e.target.value);
     } else {
       var newArray = this.state.days;
       newArray.push(e.target.value);
       this.setState({ days: newArray });
-      console.log('Added ' + e.target.value);
     }
-    console.log(this.state.days);
   }
 
   uploadAttachment(e) {
@@ -89,7 +86,7 @@ export default class AddStudyLoad extends Component {
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('../..');
+    this.props.history.push('/');
   }
 
   startAdd(e) {

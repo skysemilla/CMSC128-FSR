@@ -49,14 +49,11 @@ export default class EditStudyLoad extends Component {
           this.state.days.splice(index, 1);
       }
       this.setState({ days: this.state.days });
-      console.log('Deleted ' + e.target.value);
     } else {
       var newArray = this.state.days;
       newArray.push(e.target.value);
       this.setState({ days: newArray });
-      console.log('Added ' + e.target.value);
     }
-    console.log(this.state.days);
   }
 
   handleChangeTime2(e) {
@@ -75,46 +72,42 @@ export default class EditStudyLoad extends Component {
   }
 
   componentDidMount() {
-    if (this.props.history.location.state === undefined) {
+    if (this.props.history.location.state === undefined)
       this.props.history.push('/studyload/view');
-    } else {
-      // var temparr = [];
-      if (typeof this.props.history !== 'undefined') {
-        console.log(this.props.history.location.state.id);
-      }
-      Api.viewByStudyloadId(this.props.history.location.state.id).then(
-        response => {
-          this.setState(
-            {
-              courseno: response.data.data[0].course_no,
-              credits: response.data.data[0].credits,
-              start_time: response.data.data[0].start_time,
-              end_time: response.data.data[0].end_time,
-              school: response.data.data[0].school
-            },
-            console.log(response.data.data)
-          );
-        }
-      );
-      // Api.getDays(this.props.history.location.state.id).then((results)=>{
-      //   results.data.data.forEach(json=>{
-      //     temparr.push(json.day);
-      //   })
-      // }).then(()=>{
-      //   this.setState({days: temparr});
+    else {
+      //var temparr = [];
+      // if (typeof this.props.history !== 'undefined') {
+      //   console.log(this.props.history.location.state.id);
       // }
-      // )
+      Api.viewByStudyloadId({
+        studyload_id: this.props.history.location.state.id
+      }).then(response => {
+        this.setState({
+          courseno: response.data.data[0].course_no,
+          credits: response.data.data[0].credits,
+          start_time: response.data.data[0].start_time,
+          end_time: response.data.data[0].end_time,
+          school: response.data.data[0].school
+        });
+      });
     }
+    // Api.getDays(this.props.history.location.state.id).then((results)=>{
+    //   results.data.data.forEach(json=>{
+    //     temparr.push(json.day);
+    //   })
+    // }).then(()=>{
+    //   this.setState({days: temparr});
+    // }
+    // )
   }
 
   handleLogout(e) {
     e.preventDefault();
     Api.logout();
-    this.props.history.push('../..');
+    this.props.history.push('/');
   }
 
   startEdit(e) {
-    console.log(this.props.location.state);
     e.preventDefault();
     Api.editStudyLoad({
       studyload_id: this.props.history.location.state.id,

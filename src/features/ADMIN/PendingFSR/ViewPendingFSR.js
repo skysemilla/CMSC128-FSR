@@ -38,7 +38,6 @@ export default class ViewPendingFSR extends Component {
         }
       });
     } else if (this.state.search.match(empIdRegex)) {
-      console.log(this.state.search);
       Api.ViewPendingFSRByID({ empid: this.state.search }).then(result => {
         if (result.data.data === null) {
           alert('Search matches no result');
@@ -62,7 +61,6 @@ export default class ViewPendingFSR extends Component {
 
   handleSearch(e) {
     this.setState({ search: e.target.value });
-    console.log(this.state.search);
   }
 
   render() {
