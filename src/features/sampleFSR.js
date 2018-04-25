@@ -4,6 +4,8 @@ import 'semantic-ui-css/semantic.min.css';
 import './../style.css';
 import * as Api from '../api';
 
+var dataNum = 0;
+
 export default class myApp extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +43,6 @@ export default class myApp extends Component {
       }
       //extension
       Api.viewExtension({ id: this.state.id }).then(result => {
-        console.log(result.data.data);
         if (result.data.data !== null) {
           this.setState({ extension: result.data.data });
         }
@@ -64,8 +65,6 @@ export default class myApp extends Component {
                       this.setState({ consul: result.data.data });
                     }
                     Api.getStudyLoadCredentialsFSR({emp_id: this.state.id }).then(response => {
-                      console.log("Hi");          
-                      console.log(response.data.data);
                       if (response.data.data !== undefined) {
                         this.setState({
                           degree: response.data.data.degree,
@@ -83,7 +82,6 @@ export default class myApp extends Component {
                         this.setState({ studyleave: 'No' });
                       }
                       Api.getStudyLoadFSR({emp_id: this.state.id }).then(response => {
-                        console.log(response.data.data);
                         if (response.data.data[0] !== undefined) {
                           this.setState({ studyload: response.data.data });
                           this.state.studyload.map(item => {
@@ -94,30 +92,30 @@ export default class myApp extends Component {
                             })
                           }).then(()=>{
                             item.days=stringday;
-                            console.log(item.days);
                           })
                         });
                         Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
                         if (result.data.data !== null) {
                           this.setState({ teachingload: result.data.data});
-                        }
                           Api.viewPublications({ empid: this.state.id }).then(result => {
-                          if (result.data.data !== null) {
-                            this.setState({ pubs: result.data.data[0] });
-                            this.state.pubs.map(item => {
-                              Api.getCoworkers({
-                                id: item.publication_id
-                              }).then(result => {
-                                console.log(result.data.data);
-                                item.Coworkers = result.data.data;
-                                this.setState({hasData: true});
-                                console.log(item.Coworkers);
+                            if (result.data.data !== null) {
+                              this.setState({ pubs: result.data.data[0]});
+                              this.state.pubs.map(item => {
+                                Api.getCoworkers({
+                                  id: item.publication_id
+                                }).then(result => {
+                                  dataNum++;
+                                  item.Coworkers = result.data.data;
+                                  if(dataNum == this.state.pubs.length){
+                                    this.setState({hasData: true});
+                                    window.print();
+                                    window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
+                                  }
+                                })
                               });
-                            });
-                          }
-                          window.print();
-                          window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
-                        });
+                            }
+                          });
+                        }
                         });
                         }
                       });
@@ -128,13 +126,6 @@ export default class myApp extends Component {
           });
       });
     });
-
-
-    //teaching load
-
-    //study load
-
-    //window.print();
   }
 
 
@@ -335,7 +326,7 @@ export default class myApp extends Component {
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};
+                          })}
                         </td>
                         <td class="tdtable">{item.funding}</td>
                         <td class="tdtable">{item.credit_units}</td>
@@ -365,13 +356,6 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Research Implementation'){
                       return (
                         <tr>
@@ -383,7 +367,8 @@ export default class myApp extends Component {
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.start_date}</td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.funding}</td>
@@ -418,25 +403,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Oral/Poster Papers'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -464,25 +443,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Papers for Conferences'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -510,25 +483,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Monographs'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -556,25 +523,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Articles in referred journals'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -601,25 +562,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Chapters in a book'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -644,25 +599,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Books'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -690,25 +639,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Others'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
                         <td class="tdtable">
-                        {item.Coworkers.map(item2 => {
+                          {item.Coworkers.map(item2 => {
                               return (
                                 <div className="item2" key={item.emp_id}>
                                   {item2.f_name} {item2.l_name}
                                 </div>
                               );
-                          })};</td>
+                          })}
+                        </td>
                         <td class="tdtable">{item.end_date}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
