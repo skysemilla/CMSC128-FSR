@@ -38,3 +38,6 @@ export const getStudyLoadCredentialsFSR = info => {
 export const getStudyLoadFSR = info => {
   return axios.post('/api/studyload/getStudyLoadFSR', info);
 };
+export const getDaysFSR = json => {
+  return axios.post('/api/studyload/getDaysFSR', json);
+};
