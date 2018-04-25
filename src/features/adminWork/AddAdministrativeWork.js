@@ -40,7 +40,7 @@ export default class AddAdministrativeWork extends Component {
 
     if (e.target.value === '') {
       this.setState({ position_is_valid: 'empty' });
-    } else if (parseFloat(e.target.value) == e.target.value) {
+    } else if (parseFloat(e.target.value) === e.target.value) {
       this.setState({ position_is_valid: 'number' });
     } else {
       this.setState({ position_is_valid: true });
@@ -51,7 +51,7 @@ export default class AddAdministrativeWork extends Component {
 
     if (e.target.value === '') {
       this.setState({ nature_of_work_is_valid: 'empty' });
-    } else if (parseFloat(e.target.value) == e.target.value) {
+    } else if (parseFloat(e.target.value) === e.target.value) {
       this.setState({ nature_of_work_is_valid: 'number' });
     } else {
       this.setState({ nature_of_work_is_valid: true });
@@ -62,7 +62,7 @@ export default class AddAdministrativeWork extends Component {
 
     if (e.target.value === '') {
       this.setState({ office_is_valid: 'empty' });
-    } else if (parseFloat(e.target.value) == e.target.value) {
+    } else if (parseFloat(e.target.value) === e.target.value) {
       this.setState({ office_is_valid: 'number' });
     } else {
       this.setState({ office_is_valid: true });

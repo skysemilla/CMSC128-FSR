@@ -78,7 +78,8 @@ export default class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      type: ''
+      type: '',
+      hasTriedLogginIn: false
     };
 
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
@@ -151,6 +152,7 @@ export default class Login extends Component {
   }
 
   checkLogin(e) {
+    this.setState({ hasTriedLogginIn: true });
     e.preventDefault();
     errorCredMessage = <div />;
     // username validate
@@ -207,18 +209,22 @@ export default class Login extends Component {
                   <Header as="h3">
                     {' '}
                     <span>Username</span>{' '}
-                    {!this.state.username ? (
-                      <div className="ui left pointing red basic label">
-                        {errorTexts[0]}
-                      </div>
-                    ) : !this.state.username.match(alphanumRegex) ? (
-                      <div className="ui left pointing red basic label">
-                        {errorTexts[3]}
-                      </div>
+                    {this.state.hasTriedLogginIn ? (
+                      !this.state.username ? (
+                        <div className="ui left pointing red basic label">
+                          {errorTexts[0]}
+                        </div>
+                      ) : !this.state.username.match(alphanumRegex) ? (
+                        <div className="ui left pointing red basic label">
+                          {errorTexts[3]}
+                        </div>
+                      ) : (
+                        <div className="ui left pointing green basic label">
+                          {'is valid!'}
+                        </div>
+                      )
                     ) : (
-                      <div className="ui left pointing green basic label">
-                        {'is valid!'}
-                      </div>
+                      <div />
                     )}
                   </Header>
 
@@ -234,26 +240,30 @@ export default class Login extends Component {
                 <Header as="h3">
                   {' '}
                   <span>Password</span>{' '}
-                  {!this.state.password ? (
-                    <div className="ui left pointing red basic label">
-                      {errorTexts[0]}
-                    </div>
-                  ) : this.state.password.length < 6 ? (
-                    <div className="ui left pointing red basic label">
-                      {errorTexts[1]}
-                    </div>
-                  ) : this.state.password.length > 16 ? (
-                    <div className="ui left pointing red basic label">
-                      {errorTexts[2]}
-                    </div>
-                  ) : !this.state.password.match(passRegex) ? (
-                    <div className="ui left pointing red basic label">
-                      {errorTexts[4]}
-                    </div>
+                  {this.state.hasTriedLogginIn ? (
+                    !this.state.password ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[0]}
+                      </div>
+                    ) : this.state.password.length < 6 ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[1]}
+                      </div>
+                    ) : this.state.password.length > 16 ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[2]}
+                      </div>
+                    ) : !this.state.password.match(passRegex) ? (
+                      <div className="ui left pointing red basic label">
+                        {errorTexts[4]}
+                      </div>
+                    ) : (
+                      <div className="ui left pointing green basic label">
+                        {'is valid!'}
+                      </div>
+                    )
                   ) : (
-                    <div className="ui left pointing green basic label">
-                      {'is valid!'}
-                    </div>
+                    <div />
                   )}
                 </Header>
                 <Form.Input
