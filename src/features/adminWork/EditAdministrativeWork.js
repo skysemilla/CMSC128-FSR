@@ -31,23 +31,27 @@ export default class EditAdministrativeWork extends Component {
   }
 
   componentDidMount() {
-    Api.getSession().then(result => {
-      if (result.data.data !== null) {
-        this.setState({ emp_id: result.data.data.emp_id });
-        if (typeof this.props.history !== 'undefined') {
-          Api.viewHisPosition({
-            id: result.data.data.emp_id
-          }).then(result => {
-            this.setState({
-              nature_of_work: result.data.data[0].nature_of_work,
-              office: result.data.data[0].office,
-              credit_units: result.data.data[0].credit_units,
-              position: result.data.data[0].work_position
+    if (this.props.history.location.state === undefined)
+      this.props.history.push('/adminwork/view');
+    else {
+      Api.getSession().then(result => {
+        if (result.data.data !== null) {
+          this.setState({ emp_id: result.data.data.emp_id });
+          if (typeof this.props.history !== 'undefined') {
+            Api.viewPosition({
+              id: this.props.history.location.state.id
+            }).then(result => {
+              this.setState({
+                nature_of_work: result.data.data[0].nature_of_work,
+                office: result.data.data[0].office,
+                credit_units: result.data.data[0].credit_units,
+                position: result.data.data[0].work_position
+              });
             });
-          });
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   handleChangePosition(e) {
