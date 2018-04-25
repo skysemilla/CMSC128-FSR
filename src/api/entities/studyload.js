@@ -30,9 +30,6 @@ export const editStudyCredentials = studyLoadInfo => {
 export const getDays = studyload_id => {
   return axios.post('/api/studyload/getDays', studyload_id);
 };
-export const getStudyCredentials = info => {
-  return axios.post('/api/studyload/getStudyLoadFSR', info);
-};
 
 export const getStudyLoadCredentialsFSR = info => {
   return axios.post('/api/studyload/getStudyLoadCredentialsFSR', info);
