@@ -17,7 +17,13 @@ export default class myApp extends Component {
       extension: [],
       profchair: [],
       profession: [],
-      teachingload: []
+      teachingload: [],
+      consul: [],
+      degree: 'NaN',
+      uni: 'NaN',
+      studyleave: 'No',
+      fellowship: 'No',
+      studyload: []
     };
   }
 
@@ -48,43 +54,74 @@ export default class myApp extends Component {
                 if (result.data.data !== null) {
                   this.setState({ profession: result.data.data[0]});
                 }
-                  Api.viewPublications({ empid: this.state.id }).then(result => {
+                Api.viewHisPosition({ id: this.state.id }).then(result => {
                   if (result.data.data !== null) {
-                    this.setState({ pubs: result.data.data[0] });
-                    this.state.pubs.map(item => {
-                      Api.getCoworkers({
-                        id: item.publication_id
-                      }).then(result => {
-                        item.Coworkers = result.data.data;
+                    this.setState({ adminwork: result.data.data });
+                  }
+                  Api.viewConsultation({ id: this.state.id }).then(result => {
+                    if (result.data.data !== null) {
+                      this.setState({ consul: result.data.data });
+                    }
+                    Api.getStudyLoadCredentialsFSR({emp_id: this.state.id }).then(response => {
+                      console.log("Hi");          
+                      console.log(response.data.data);
+                      if (response.data.data !== undefined) {
+                        this.setState({
+                          degree: response.data.data.degree,
+                          uni: response.data.data.university
+                        });
+                      }
+                      if (response.data.data.full_studyleave === 1) {
+                        this.setState({ studyleave: 'Yes' });
+                      }else{
+                        this.setState({ studyleave: 'No' });
+                      }
+                      if (response.data.data.faculty_fellowship === 1) {
+                        this.setState({ fellowship: 'Yes' });
+                      }else{
+                        this.setState({ studyleave: 'No' });
+                      }
+                      Api.getStudyLoadFSR({emp_id: this.state.id }).then(response => {
+                        console.log(response.data.data);
+                        if (response.data.data[0] !== undefined) {
+                          this.setState({ studyload: response.data.data });
+                        }
+                        // Api.viewPublications({ empid: this.state.id }).then(result => {
+                        //   if (result.data.data !== null) {
+                        //     this.setState({ pubs: result.data.data[0] });
+                        //     this.state.pubs.map(item => {
+                        //       Api.getCoworkers({
+                        //         id: item.publication_id
+                        //       }).then(result => {
+                        //         console.log(result.data.data);
+                        //         item.Coworkers = result.data.data;
+                        //         console.log(item.Coworkers);
+                        //       });
+                        //     });
+                        //   }
+                        //   // window.print();
+                        //   // window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
+                        // });
                       });
                     });
-                  }
-                  window.print();
-                  window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
-                });
+                  });
+                })
               });
           });
       });
-
-      Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
-      if (result.data.data !== null) {
-        this.setState({ teachingload: result.data.data});
-        console.log(this.state.teachingload);
-        console.log("waoooo");
-      }
-      });
+      // Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
+      // if (result.data.data !== null) {
+      //   this.setState({ teachingload: result.data.data});
+      //   console.log(this.state.teachingload);
+      //   console.log("waoooo");
+      // }
+      // });
     });
-
-    //publications
-
-    //adminWork
 
 
     //teaching load
 
     //study load
-
-    //consultation hours
 
     //window.print();
   }
@@ -275,18 +312,19 @@ export default class myApp extends Component {
                 <th class="thtable">APPROVED CREDIT UNITS</th>
               </tr>
                   {this.state.pubs.map(item => {
-                    Api.getCoworkers({
-                      id: item.publication_id
-                    })
-                      .then(result => {
-                        item.Coworkers = result.data.data;
-                      })
-                      .catch(err => alert('Error loading coworkers!!'));
                     if(item.subcategory==='Research Proposal'){
                       return (
                         <tr>
                         <td class="tdtable">{item.title}</td>
-                        <td class="tdtable">{item.Coworkers}</td>
+                        <td class="tdtable">
+                        {item.Coworkers.map(item2 => {
+                            return (
+                              <div className="item2" key={item.emp_id}>
+                                {item2.f_name} {item2.l_name}
+                              </div>
+                            );
+                        })};
+                        </td>
                         <td class="tdtable">{item.funding}</td>
                         <td class="tdtable">{item.credit_units}</td>
                         </tr>
@@ -635,7 +673,7 @@ export default class myApp extends Component {
               {this.state.adminwork.map(item => {
                 return (
                   <tr>
-                    <td class="tdtable">{item.position}/{item.nature_of_work}</td>
+                    <td class="tdtable">{item.work_position}/{item.nature_of_work}</td>
                     <td class="tdtable">{item.office}</td>
                     <td class="tdtable">{item.credit_units}</td>
                   </tr>
@@ -895,19 +933,27 @@ export default class myApp extends Component {
             <table class="inv">
               <tr>
                 <td class="inv2">Degree Enrolled In:</td>
-                <td class="inv2">________________________</td>
+                <td class="inv2"><center><u>{this.state.degree}</u></center></td>
                 <td class="inv2">University Enrolled In:</td>
-                <td class="inv2">________________________</td>
+                <td class="inv2"><center><u>{this.state.uni}</u></center></td>
               </tr>
               <tr>
                 <td class="inv2">
                   <sub>On Full Study Leave w/ Pay?</sub>
                 </td>
-                <td class="inv2">Yes _________ No _________</td>
+                {this.state.studyleave==='Yes'?
+                  <td class="inv2">Yes ____X____ No _________</td>
+                  :
+                  <td class="inv2">Yes _________ No ____X____</td>
+                }
                 <td class="inv2">
                   <sub>Recipient of faculty fellowship?</sub>
                 </td>
-                <td class="inv2">Yes _________ No _________</td>
+                {this.state.fellowship==='Yes'?
+                  <td class="inv2">Yes ____X____ No _________</td>
+                  :
+                  <td class="inv2">Yes _________ No ____X____</td>
+                }
               </tr>
             </table>
             <br />
@@ -930,13 +976,17 @@ export default class myApp extends Component {
                 <th class="thtable">Time</th>
                 <th class="thtable">School</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.studyload.map(item => {
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.course_no}</td>
+                      <td class="tdtable">{item.credits}</td>
+                      <td class="tdtable">{item.day1}, {item.day2}</td>
+                      <td class="tdtable">{item.start_time} to {item.end_time}</td>
+                      <td class="tdtable">{item.school}</td>
+                    </tr>
+                  );
+              })}
             </table>
             <div align="right">
               Total Study Load Credits (SLC) _______________
@@ -1058,11 +1108,15 @@ export default class myApp extends Component {
                 <th class="thtable">TIME</th>
                 <th class="thtable">PLACE</th>
               </tr>
-              <tr>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-                <td class="tdtable">a</td>
-              </tr>
+              {this.state.consul.map(item => {
+                  return (
+                    <tr>
+                      <td class="tdtable">{item.day}</td>
+                      <td class="tdtable">{item.consultation_start_time} to {item.consultation_end_time}</td>
+                      <td class="tdtable">{item.consultation_place}</td>
+                    </tr>
+                  );
+              })}
             </table>
             <div align="right">Total hours per week _______________</div>
           </div>
