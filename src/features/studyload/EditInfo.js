@@ -56,6 +56,9 @@ export default class EditInfo extends Component {
         this.setState({ fellowship: 'Yes' });
       }
     });
+    Api.getStudyLoadCredentialsFSR({emp_id:"000000001"}).then(response=>{
+      console.log(response)
+    })
   }
   startEdit(e) {
     e.preventDefault();
