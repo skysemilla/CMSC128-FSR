@@ -36,7 +36,7 @@ export default class SendtoAdmin extends Component {
 
     return (
       <div>
-        <a class="item" onClick={this.show('mini')}>
+        <a className="item" onClick={this.show('mini')}>
           Send to Admin
         </a>
         <Modal
