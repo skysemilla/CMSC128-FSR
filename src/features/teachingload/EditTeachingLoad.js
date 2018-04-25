@@ -30,6 +30,8 @@ export default class EditTeachingLoad extends Component {
     if (this.props.history.location.state === undefined) {
       this.props.history.push('/teachingload/view');
     } else {
+      console.log("aah");
+      console.log(this.props.history.location.state.id);
       Api.getTeachLoad({
         teachingload_id: this.props.history.location.state.id
       }).then(response => {
@@ -38,6 +40,9 @@ export default class EditTeachingLoad extends Component {
           seccode: response.data.data.section_code,
           studnum: response.data.data.no_of_students
         });
+        console.log(response.data);
+        console.log(response.data.data);
+        
       });
     }
   }
