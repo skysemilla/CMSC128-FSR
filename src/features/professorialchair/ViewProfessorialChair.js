@@ -10,12 +10,12 @@ export default class ViewProfessorialChair extends Component {
     super(props);
 
     this.state = {
-      professional_chair: '',
-      grants: '',
-      grant_title: '',
-      start_date: '',
-      end_date: ''    ,
-      attachment: ''  
+      professional_chair: null,
+      grants: null,
+      grant_title: null,
+      start_date: null,
+      end_date: null    ,
+      attachment: null  
     };
 
     this.startEdit = this.startEdit.bind(this);
@@ -27,15 +27,19 @@ export default class ViewProfessorialChair extends Component {
   
 
   componentDidMount() {
+    
     Api.getSession().then(res => {
+
       if (res.data.data !== null) {
         Api.viewFacultyGrant({id: res.data.data.emp_id }).then(result => {
+          console.log(result.data)
           if (result.data.data !== null) {
             this.setState({professional_chair:result.data.data[0].professional_chair})
             this.setState({grants:result.data.data[0].grants})
             this.setState({grant_title:result.data.data[0].grant_title})
             this.setState({start_date:result.data.data[0].start_date})
             this.setState({end_date:result.data.data[0].end_date})
+          console.log(result.data)
           }
         });
       }
@@ -107,8 +111,8 @@ export default class ViewProfessorialChair extends Component {
                   <div className="content">
                     <p>
                       <b>Attachments: </b>
-                      {this.state.attachment === '' ? (
-                        'None'
+                      {this.state.attachment === null ? (
+                        'N/A'
                       ) : (
                         <ViewAttachments
                           {...this.props}
