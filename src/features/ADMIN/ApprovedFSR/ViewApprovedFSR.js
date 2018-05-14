@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider } from 'semantic-ui-react';
+import { Divider, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../../api';
 import NavBar from './../ui/NavBarAdmin';
@@ -7,6 +7,10 @@ import ViewFSRRow from './../ui/FSRViewRow';
 
 const nameRegex = /^[A-Za-z0-9\-'\s]+$/;
 const empIdRegex = /^[0-9]{9}$/;
+
+const buttonFloat = {
+  float: 'right'
+};
 
 export default class ViewApprovedFSR extends Component {
   constructor(props) {
@@ -19,9 +23,18 @@ export default class ViewApprovedFSR extends Component {
 
     this.searchApprovedFSR = this.searchApprovedFSR.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   componentDidMount() {
+    Api.ViewApprovedFSR().then(result => {
+      if (result.data.data !== null) {
+        this.setState({ data: result.data.data });
+      }
+    });
+  }
+
+  refresh() {
     Api.ViewApprovedFSR().then(result => {
       if (result.data.data !== null) {
         this.setState({ data: result.data.data });
@@ -91,6 +104,13 @@ export default class ViewApprovedFSR extends Component {
                     />
                     <i className="search icon" />
                   </div>
+                  <Button
+                    type="button"
+                    circular
+                    icon="refresh"
+                    onClick={this.refresh}
+                    style={buttonFloat}
+                  />
                 </form>
                 <div className="results" />
               </div>

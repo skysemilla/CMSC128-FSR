@@ -96,7 +96,7 @@ export default class AddExtension extends Component {
 
   handleChangeStartDate(e) {
     console.log("Magbabago");
-    if (e.currentTarget.value === '' || ( this.state.endDate !== '' && e.currentTarget.value < this.state.endDate) ) {
+    if (e.currentTarget.value === '' || ( this.state.endDate !== '' && e.currentTarget.value > this.state.endDate) ) {
       console.log("Mali")
       this.setState({ validStartDate: false });
     } else {
@@ -106,7 +106,7 @@ export default class AddExtension extends Component {
   }
 
   handleChangeEndDate(e) {
-    if (e.currentTarget.value === '' || ( this.state.startDate !== '' && e.currentTarget.value > this.state.startDate) ) {
+    if (e.currentTarget.value === '' || ( this.state.startDate !== '' && e.currentTarget.value < this.state.startDate) ) {
       console.log("Mali din")
       this.setState({ validEndDate: false });
     } else {

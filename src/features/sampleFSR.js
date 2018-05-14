@@ -33,6 +33,7 @@ export default class myApp extends Component {
   componentDidMount() {
         //Profile
     Api.getEmployeeData({ empid: this.state.id }).then(res => {
+      console.log('1');
       this.setState({ profile: res.data.data });
       if (res.data.data.is_studying === 0) {
         this.setState({
@@ -43,28 +44,34 @@ export default class myApp extends Component {
       }
       //extension
       Api.viewExtension({ id: this.state.id }).then(result => {
+        console.log('2');
         if (result.data.data !== null) {
           this.setState({ extension: result.data.data });
         }
           //professorial chair
-          Api.viewFacultyGrant({id: this.state.id }).then(result => {
+          Api.viewFacultyGrant({emp_id: this.state.id }).then(result => {
+            console.log('3');
             if (result.data.data !== null) {
               this.setState({ profchair: result.data.data[0] });
             }
               //practice of profession
               Api.viewLimitedPractice({ emp_id: this.state.id }).then(result => {
+                console.log('4');
                 if (result.data.data !== null) {
                   this.setState({ profession: result.data.data[0]});
                 }
                 Api.viewHisPosition({ id: this.state.id }).then(result => {
+                  console.log('5');
                   if (result.data.data !== null) {
                     this.setState({ adminwork: result.data.data });
                   }
                   Api.viewConsultation({ id: this.state.id }).then(result => {
+                    console.log('6');
                     if (result.data.data !== null) {
                       this.setState({ consul: result.data.data });
                     }
                     Api.getStudyLoadCredentialsFSR({emp_id: this.state.id }).then(response => {
+                      console.log('7');
                       if (response.data.data !== undefined) {
                         this.setState({
                           degree: response.data.data.degree,
@@ -82,6 +89,7 @@ export default class myApp extends Component {
                         this.setState({ studyleave: 'No' });
                       }
                       Api.getStudyLoadFSR({emp_id: this.state.id }).then(response => {
+                        console.log('8');
                         if (response.data.data[0] !== undefined) {
                           this.setState({ studyload: response.data.data });
                           this.state.studyload.map(item => {
@@ -95,12 +103,17 @@ export default class myApp extends Component {
                           })
                         });
                         Api.viewTeachLoadEmpAdmin({emp_id: this.state.id }).then(result => {
+                          console.log('9');
                         if (result.data.data !== null) {
                           this.setState({ teachingload: result.data.data});
                           Api.viewPublications({ empid: this.state.id }).then(result => {
+                            console.log('10');
                             if (result.data.data !== null) {
                               this.setState({ pubs: result.data.data[0]});
-                              this.state.pubs.map(item => {
+                              if(result.data.data[0].length==0){
+                                this.setState({hasData: true});
+                              }else{
+                                this.state.pubs.map(item => {
                                 Api.getCoworkers({
                                   id: item.publication_id
                                 }).then(result => {
@@ -113,6 +126,7 @@ export default class myApp extends Component {
                                   }
                                 })
                               });
+                              }
                             }
                           });
                         }
