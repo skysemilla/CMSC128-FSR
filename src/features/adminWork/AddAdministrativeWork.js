@@ -165,7 +165,7 @@ export default class AddAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_position} onChange={this.handleChangePosition} />
+              <input type="text" placeholder="e.g. Administrative Assistant" onChange={this.handleChangePosition} />
             </div>
           </p>
           <p>
@@ -204,7 +204,7 @@ export default class AddAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_nature_of_work} onChange={this.handleChangeNature_of_work} />
+              <input type="text" placeholder="e.g. provide office support to executives, managers, and other professionals. " onChange={this.handleChangeNature_of_work} />
             </div>
           </p>
 
@@ -242,7 +242,7 @@ export default class AddAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="text" placeholder={this.state.prev_office} onChange={this.handleChangeOffice} />
+              <input type="text" placeholder="e.g. Department of Humanities" onChange={this.handleChangeOffice} />
             </div>
           </p>
 
@@ -280,7 +280,7 @@ export default class AddAdministrativeWork extends Component {
               ) : (<div></div>)
             }
             <div className="ui input fluid mini focus">
-              <input type="number" placeholder={this.state.prev_credit_units} onChange={this.handleChangeCreditUnits} min="0"/>
+              <input type="number" placeholder="e.g. 0" onChange={this.handleChangeCreditUnits} min="0"/>
             </div>
           </p>
 
