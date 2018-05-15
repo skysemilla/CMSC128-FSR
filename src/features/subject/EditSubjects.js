@@ -9,7 +9,6 @@ export default class EditSubject extends Component {
     super(props);
 
     this.state = {
-      subjid: '',
       subjcode: '',
       seccode: '',
       type: '',
@@ -123,7 +122,6 @@ export default class EditSubject extends Component {
     if (this.state.gradcourse === 'No') isGrad = '1'; //pansamantala sth wrong with value sa radio button
 
     Api.editSubjects({
-      subject_id: this.props.history.location.state.id,
       subject_code: this.state.subjcode,
       section_code: this.state.seccode,
       isLecture: isLec,

@@ -117,7 +117,7 @@ export default class AddConsultationHours extends Component {
     return (
       <div className="App-header">
         <div>
-          <NavBar {...this.props} />
+          <NavBar {...this.props} Label="FSR" subLabel="consultationhours" />
         </div>
         <div className="bodyDiv">
           <div

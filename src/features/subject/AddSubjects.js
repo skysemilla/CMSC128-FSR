@@ -3,13 +3,21 @@ import { Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
+import GenericDropdown from './../GenericDropdown';
+
+const optionsDays = [
+  { text: 'Monday' },
+  { text: 'Tuesday' },
+  { text: 'Wednesday' },
+  { text: 'Thursday' },
+  { text: 'Friday' }
+];
 
 export default class AddSubject extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      subjid: '',
       subjcode: '',
       seccode: '',
       type: '',
@@ -17,7 +25,8 @@ export default class AddSubject extends Component {
       units: '',
       room: '',
       starttime: '',
-      endtime: ''
+      endtime: '',
+      days: ''
     };
 
     // this.handleChangeSubjid = this.handleChangeSubjid.bind(this);
@@ -29,6 +38,7 @@ export default class AddSubject extends Component {
     this.handleChangeRoom = this.handleChangeRoom.bind(this);
     this.handleChangeStarttime = this.handleChangeStarttime.bind(this);
     this.handleChangeEndtime = this.handleChangeEndtime.bind(this);
+    this.handleChangeDays = this.handleChangeDays.bind(this);
     this.startAdd = this.startAdd.bind(this);
   }
 
@@ -77,6 +87,10 @@ export default class AddSubject extends Component {
     this.setState({ endtime: e.target.value });
   }
 
+  handleChangeDays(e){
+    this.setState({ days: e.target.value});
+  }
+
   startAdd(e) {
     e.preventDefault();
     var isLec = '0';
@@ -92,7 +106,8 @@ export default class AddSubject extends Component {
       units: this.state.units,
       room: this.state.room,
       start_time: this.state.starttime,
-      end_time: this.state.endtime
+      end_time: this.state.endtime,
+      days: this.state.days
     })
       .then(result => {
         this.props.history.push('../view');
@@ -116,12 +131,6 @@ export default class AddSubject extends Component {
               <h2 className="ui blue header">ADD SUBJECT</h2>
             </div>
             <Divider hidden="true" />
-            <p>
-              <a className="ui small header"> Subject ID</a>
-              <div className="ui input fluid mini focus">
-                <input type="number" onChange={this.handleChangeSubjid} />
-              </div>
-            </p>
             <p>
               <a className="ui small header"> Subject Code</a>
               <div className="ui input fluid mini focus">
@@ -184,6 +193,17 @@ export default class AddSubject extends Component {
                 <input type="text" onChange={this.handleChangeRoom} />
               </div>
             </p>
+
+            <p>
+              <a className="ui small header">Days</a>
+              <GenericDropdown
+                labelProper="Choose Day of Subject"
+                value={this.state.days}
+                handler={this.handleChangeDays}
+                options={optionsDays}
+              />
+            </p>
+
             <p>
               <a className="ui small header">Start Time</a>
               <div className="ui input fluid mini focus">
