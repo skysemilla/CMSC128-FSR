@@ -18,7 +18,7 @@ export default class ViewSubjects extends Component {
   componentDidMount() {
     Api.viewAllSubjects().then(response => {
       if (response.data.data[0] !== undefined) {
-        this.setState({ data: response.data.data });
+        this.setState({ data: response.data.data[0]});
       }
       console.log(response.data.data);
     });
@@ -92,7 +92,7 @@ export default class ViewSubjects extends Component {
                         gradcourse={grad}
                         units={item.units}
                         room={item.room}
-                        days={item.days}
+                        days={item.DAY}
                         starttime={item.start_time}
                         endtime={item.end_time}
                         editURL="../subjects/edit"
