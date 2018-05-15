@@ -47,15 +47,24 @@ export default class NavBar extends Component {
   }
 
   handleChange(e) {
-    this.setState({ activeMenu: e.currentTarget.id });
+    console.log(e.currentTarget.id);
+    console.log(this.state.is_being_approved);
+    console.log(this.state.activeMenu);
     if (e.currentTarget.id === 'profile') {
+      this.setState({ activeMenu: e.currentTarget.id });
       this.props.history.push('/profile');
     } else if (
       e.currentTarget.id === 'FSR' &&
       this.state.is_being_approved === 1
     ) {
       this.props.history.push('/beingApproved');
+    } else if (
+      e.currentTarget.id === 'FSR' &&
+      this.state.activeMenu==='beingapproved'
+    ) {
+      this.props.history.push('/beingApproved');
     } else {
+      if(this.state.activeMenu!=='beingapproved') this.setState({ activeMenu: e.currentTarget.id });
       this.props.history.push('/teachingload/view');
     }
   }
