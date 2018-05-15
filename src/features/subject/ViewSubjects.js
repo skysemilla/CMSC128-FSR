@@ -85,6 +85,7 @@ export default class ViewSubjects extends Component {
                     return (
                       <ViewSubjectsRow
                         {...this.props}
+                        id={item.subject_id}
                         subjcode={item.subject_code}
                         seccode={item.section_code}
                         type={typeView}
