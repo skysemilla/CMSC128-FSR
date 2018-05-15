@@ -95,7 +95,7 @@ export default class AddSubject extends Component {
       end_time: this.state.endtime
     })
       .then(result => {
-        this.props.history.push('../view');
+        this.props.history.push('./view');
         alert('Subject successfully added!');
       })
       // .catch(e => alert(e));
