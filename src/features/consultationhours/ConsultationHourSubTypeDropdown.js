@@ -18,7 +18,7 @@ export default class ConsultationHoursSubTypeDropdown extends Component {
               </option>
               {this.props.options.map(item => {
                 if (item.value >= this.props.timeFromValue) {
-                  return <option value={item.text}> {item.text} </option>;
+                  return <option value={item.text}> {item.label} </option>;
                 }
               })}
             </select>
