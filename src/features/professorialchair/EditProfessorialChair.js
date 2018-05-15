@@ -40,9 +40,7 @@ export default class EditProfessorialChair extends Component {
     Api.getSession().then(result => {
       if (result.data.data !== null) {
         this.setState({ emp_id: result.data.data.emp_id });
-
-        // this...
-        Api.viewFacultyGrant({ emp_id: result.data.data.emp_id }).then(res => {
+        Api.viewFacultyGrant({ id: result.data.data.emp_id }).then(res => {
           if (res.data.data !== null) {
             this.setState({
               ...this.state,
@@ -51,7 +49,7 @@ export default class EditProfessorialChair extends Component {
               granttitle: res.data.data[0].grant_title
             });
           }
-        }); // ... is to populate the initial state variables, "sana"
+        });
       }
     });
   }
@@ -201,7 +199,7 @@ export default class EditProfessorialChair extends Component {
             <p>
               <div className="ui form">
                 <div className="inline fields">
-                  <label>Are you a receipient or a nominee?</label>
+                  <label>Are you a recipient or a nominee?</label>
                   <div className="field">
                     <div className="ui radio checkbox">
                       <input
@@ -280,7 +278,7 @@ export default class EditProfessorialChair extends Component {
                 <p>
                   <a className="ui small header">
                     Professorial Chair{' '}
-                    {!this.state.profchair ? (
+                    {(!this.state.profchair && parseFloat(this.state.profchair) != this.state.profchair)? (
                       <div className="ui left pointing red basic label">
                         Invalid input
                       </div>
@@ -345,7 +343,7 @@ export default class EditProfessorialChair extends Component {
                   <a className="ui small header">
                     Start Date{' '}
                     {!this.state.startdate ? (
-                      <div className="ui pointing red basic label">
+                      <div className="ui left pointing red basic label">
                         Invalid start date!
                       </div>
                     ) : (
@@ -361,8 +359,8 @@ export default class EditProfessorialChair extends Component {
                 <p>
                   <a className="ui small header">
                     End Date{' '}
-                    {!this.state.enddate ? (
-                      <div className="ui pointing red basic label">
+                    {!this.state.enddate  ? (
+                      <div className="ui left pointing red basic label">
                         Invalid end date!
                       </div>
                     ) : (

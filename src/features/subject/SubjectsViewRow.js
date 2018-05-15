@@ -15,6 +15,7 @@ export default class ViewSubjectsRow extends Component {
         <td className="center aligned"> {this.props.gradcourse} </td>
         <td className="center aligned"> {this.props.units} </td>
         <td className="center aligned"> {this.props.room} </td>
+        <td className="center aligned"> {this.props.days} </td>
         <td className="center aligned"> {this.props.starttime} </td>
         <td className="center aligned"> {this.props.endtime} </td>
         <td className="center aligned">

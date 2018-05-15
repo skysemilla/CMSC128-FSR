@@ -64,6 +64,7 @@ export default class ViewSubjects extends Component {
                     <th className="center aligned"> Graduate Course? </th>
                     <th className="center aligned"> Units </th>
                     <th className="center aligned"> Room </th>
+                    <th className="center aligned"> Days </th>
                     <th className="center aligned"> Start Time </th>
                     <th className="center aligned"> End Time </th>
                     <th className="center aligned"> Edit/Delete </th>
@@ -84,13 +85,13 @@ export default class ViewSubjects extends Component {
                     return (
                       <ViewSubjectsRow
                         {...this.props}
-                        id={item.subject_id}
                         subjcode={item.subject_code}
                         seccode={item.section_code}
                         type={typeView}
                         gradcourse={grad}
                         units={item.units}
                         room={item.room}
+                        days={item.days}
                         starttime={item.start_time}
                         endtime={item.end_time}
                         editURL="../subjects/edit"
