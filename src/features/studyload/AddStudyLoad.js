@@ -32,7 +32,7 @@ export default class AddStudyLoad extends Component {
     this.handleChangeTime2 = this.handleChangeTime2.bind(this);
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
-
+    this.compareTime = this.compareTime.bind(this);
     this.startAdd = this.startAdd.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -78,7 +78,14 @@ export default class AddStudyLoad extends Component {
       this.setState({ days: newArray });
     }
   }
-
+  compareTime(){
+    if(((this.state.time1)<(this.state.time2))){
+      if(this.state.time1 < "25:00" && this.state.time2 < "25:00"){
+        return true;
+      }
+    }
+    return false;
+  }
   uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
   }
@@ -96,7 +103,8 @@ export default class AddStudyLoad extends Component {
       this.state.ccred !== '' &&
       this.state.days !== '' &&
       this.state.validcourseno === true &&
-      this.state.validccred === true
+      this.state.validccred === true &&
+      this.compareTime()
     ) {
       Api.addStudyLoad({
         credits: this.state.ccred,
