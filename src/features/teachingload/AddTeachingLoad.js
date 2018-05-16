@@ -319,15 +319,17 @@ export default class AddTeachingLoad extends Component {
                 if(this.state.seccode === item.section_code){
                   return(
                     <div>
+                    <div>
                       <div className="ui yellow horizontal large label">
                         Time
                       </div>
                       {item.start_time} - {item.end_time}
-                      <div className="ui yellow horizontal large label">
-                        Day
-                      </div>
-                      {item.day}
-                      
+                    </div>
+                    <br/>
+                    <div className="ui yellow horizontal large label">
+                      Day
+                    </div>
+                    {item.day}
                     </div>
                   )
                 }
