@@ -26,6 +26,8 @@ const optionsMain = [
   }
 ];
 
+var max_date = new Date("December 31, 9999 11:59:59");
+
 // form validation
 const error = {
   color: 'red'
@@ -46,6 +48,7 @@ const errorTexts = [
 const alphanumRegex = /^[a-zA-Z0-9 ]*[a-zA-Z ][a-zA-Z0-9 ]*$/;
 const numRegex = /^[0-9\s\-']+$/;
 const creditRegex = /^[0-9]$/;
+const dateRegex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
 
 var formError = {
   bool: {
@@ -117,6 +120,8 @@ export default class AddPublication extends Component {
   }
 
   handleChangeStartDate(e) {
+    console.log(max_date);
+    console.log(e.target.value);
     this.setState({ StartDate: e.target.value });
   }
 
@@ -483,6 +488,10 @@ export default class AddPublication extends Component {
                   <div className="ui left pointing red basic label">
                     {errorTexts[0]}
                   </div>
+                ) : !this.state.StartDate.match(dateRegex) ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[7]}
+                  </div>
                 ) : (
                   <div className="ui left pointing green basic label">
                     {'is valid!'}
@@ -512,6 +521,10 @@ export default class AddPublication extends Component {
                     {errorTexts[0]}
                   </div>
                 ) : this.state.EndDate <= this.state.StartDate ? (
+                  <div className="ui left pointing red basic label">
+                    {errorTexts[7]}
+                  </div>
+                ) : !this.state.EndDate.match(dateRegex) ? (
                   <div className="ui left pointing red basic label">
                     {errorTexts[7]}
                   </div>

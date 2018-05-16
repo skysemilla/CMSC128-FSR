@@ -5,25 +5,13 @@ import * as Api from '../../api';
 import ViewExtensionRow from './ExtensionViewRow';
 import NavBar from './../ui/NavBar';
 
-//Dummy data
-const dummySample = {
-  type: 'SampleType',
-  title: 'SampleTitle',
-  noOfHours: '10',
-  noOfParticipants: '24',
-  startDate: '01/01/17',
-  endDate: '01/01/18',
-  role: 'SampleRole',
-  fundingAgency: 'ABC Agency',
-  approvedCreditUnits: '3'
-};
 
 export default class ViewExtension extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [dummySample] //dummmy data
+      data: []
     };
     this.startAdd = this.startAdd.bind(this);
   }
