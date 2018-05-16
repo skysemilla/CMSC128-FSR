@@ -110,7 +110,7 @@ export default class AddSubject extends Component {
       days: this.state.days
     })
       .then(result => {
-        this.props.history.push('../view');
+        this.props.history.push('./view');
         alert('Subject successfully added!');
       })
       // .catch(e => alert(e));

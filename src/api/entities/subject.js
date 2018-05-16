@@ -24,6 +24,6 @@ export const getSubjectDay = () => {
 	return axios.post('/api/subject/getsubjectday');
 }
 
-export const getSubjectByID = () => {
-	return axios.post('/api/subject/getsubjectid');
+export const getSubjectByID = subjectInfo => {
+	return axios.post('/api/subject/getsubjectid', subjectInfo);
 }

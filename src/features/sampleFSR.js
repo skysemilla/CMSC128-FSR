@@ -49,7 +49,7 @@ export default class myApp extends Component {
           this.setState({ extension: result.data.data });
         }
           //professorial chair
-          Api.viewFacultyGrant({emp_id: this.state.id }).then(result => {
+          Api.viewFacultyGrant({id: this.state.id }).then(result => {
             console.log('3');
             if (result.data.data !== null) {
               this.setState({ profchair: result.data.data[0] });
@@ -112,6 +112,8 @@ export default class myApp extends Component {
                               this.setState({ pubs: result.data.data[0]});
                               if(result.data.data[0].length==0){
                                 this.setState({hasData: true});
+                                window.print();
+                                window.onafterprint=this.props.history.push('../admin/viewPendingFSR');
                               }else{
                                 this.state.pubs.map(item => {
                                 Api.getCoworkers({

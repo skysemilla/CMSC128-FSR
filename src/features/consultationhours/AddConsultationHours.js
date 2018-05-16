@@ -4,9 +4,10 @@ import * as Api from '../../api';
 import NavBar from './../ui/NavBar';
 import { Divider } from 'semantic-ui-react';
 import GenericDropdown from './../GenericDropdown';
+import ConsultationDropdown from './ConsultationDropdown';
 import ConsultationHourSubTypeDropdown from './ConsultationHourSubTypeDropdown';
 
-const timeIndex = 8;
+const timeIndex = 9;
 const optionsDays = [
   { text: 'Monday' },
   { text: 'Tuesday' },
@@ -16,27 +17,27 @@ const optionsDays = [
 ];
 
 const optionsTimeFrom = [
-  { value: 0, text: '8:00:00' },
-  { value: 1, text: '9:00:00' },
-  { value: 2, text: '10:00:00' },
-  { value: 3, text: '11:00:00' },
-  { value: 4, text: '12:00:00' },
-  { value: 5, text: '1:00:00' },
-  { value: 6, text: '2:00:00' },
-  { value: 7, text: '3:00:00' },
-  { value: 8, text: '4:00:00' }
+  { value: 0, text: '8:00:00', label: '8:00 A.M' },
+  { value: 1, text: '9:00:00', label: '9:00 A.M'},
+  { value: 2, text: '10:00:00', label: '10:00 A.M' },
+  { value: 3, text: '11:00:00', label: '11:00 A.M' },
+  { value: 4, text: '12:00:00', label: '12:00 NN' },
+  { value: 5, text: '1:00:00', label: '1:00 P.M' },
+  { value: 6, text: '2:00:00', label: '2:00 P.M' },
+  { value: 7, text: '3:00:00', label: '3:00 P.M' },
+  { value: 8, text: '4:00:00', label: '4:00 P.M' }
 ];
 
 const optionsTimeTo = [
-  { value: 0, text: '9:00:00' },
-  { value: 1, text: '10:00:00' },
-  { value: 2, text: '11:00:00' },
-  { value: 3, text: '12:00:00' },
-  { value: 4, text: '1:00:00' },
-  { value: 5, text: '2:00:00' },
-  { value: 6, text: '3:00:00' },
-  { value: 7, text: '4:00:00' },
-  { value: 8, text: '5:00:00' }
+  { value: 0, text: '9:00:00', label: '9:00 A.M' },
+  { value: 1, text: '10:00:00', label: '10:00 A.M' },
+  { value: 2, text: '11:00:00', label: '11:00 A.M' },
+  { value: 3, text: '12:00:00', label: '12:00 NN' },
+  { value: 4, text: '1:00:00', label: '1:00 P.M' },
+  { value: 5, text: '2:00:00', label: '2:00 P.M' },
+  { value: 6, text: '3:00:00', label: '3:00 P.M' },
+  { value: 7, text: '4:00:00', label: '4:00 P.M' },
+  { value: 8, text: '5:00:00', label: '5:00 P.M' }
 ];
 
 const placeRegex = /^[A-Za-z][A-Za-z0-9.-\s]+$/;
@@ -76,6 +77,7 @@ export default class AddConsultationHours extends Component {
 
   handleChangeTimeFrom(e) {
     this.setState({ consultation_start_time: e.target.value });
+    this.setState({ consultation_end_time: ''});
 
     var index;
     for (index = 0; index < timeIndex; index++) {
@@ -166,7 +168,7 @@ export default class AddConsultationHours extends Component {
                       is valid!
                     </div>
                   )}
-                  <GenericDropdown
+                  <ConsultationDropdown
                     labelProper="Choose Start Time of Consultation"
                     value={this.state.consultation_start_time}
                     handler={this.handleChangeTimeFrom}
