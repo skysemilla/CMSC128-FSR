@@ -38,10 +38,12 @@ export default class EditTeachingLoad extends Component {
         this.setState({
           subj: response.data.data.subject_code,
           seccode: response.data.data.section_code,
-          studnum: response.data.data.no_of_students
+          studnum: response.data.data.no_of_students,
+          validstudnum: true
         });
-        console.log(response.data);
-        console.log(response.data.data);
+        // console.log(this.state.studnum);
+        // console.log("Bepis");
+        // console.log(response.data.data);
         
       });
     }
@@ -58,7 +60,7 @@ export default class EditTeachingLoad extends Component {
   handleChangeStudnum(e) {
     this.setState({ studnum: e.target.value });
     if (e.target.value === '' || e.target.value >= 200 || e.target.value <= 0) {
-      this.setState({ validstudnum: false });
+      // this.setState({ validstudnum: false });
     } else this.setState({ validstudnum: true });
   }
 
@@ -69,12 +71,16 @@ export default class EditTeachingLoad extends Component {
   }
 
   startEdit(e) {
+    // console.log(this.state);
+    // console.log("EDIT");
+    // console.log(this.state.validstudnum);
     e.preventDefault();
     if (
       this.state.subj !== '' &&
       this.state.seccode !== '' &&
       this.state.validstudnum === true
     ) {
+      console.log(this.state);
       Api.editTeachLoad({
         teachingload_id: this.props.history.location.state.id,
         no_of_students: this.state.studnum
