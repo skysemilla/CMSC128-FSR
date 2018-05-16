@@ -26,8 +26,10 @@ export default class EditStudyLoad extends Component {
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.handleChangeDays = this.handleChangeDays.bind(this);
+    this.compareTime = this.compareTime.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
+    this.ifInDays = this.ifInDays.bind(this);
   }
 
   handleChangeCourseno(e) {
@@ -55,7 +57,14 @@ export default class EditStudyLoad extends Component {
       this.setState({ days: newArray });
     }
   }
-
+  compareTime(){
+    if(((this.state.start_time)<(this.state.end_time))){
+      if(this.state.start_time < "25:00" && this.state.end_time < "25:00"){
+        return true;
+      }
+    }
+    return false;
+  }
   handleChangeTime2(e) {
     this.setState({ end_time: e.target.value });
   }
@@ -70,15 +79,19 @@ export default class EditStudyLoad extends Component {
   uploadAttachment(e) {
     //this.setState({ attachmentLink: ???});
   }
+  ifInDays(e){
+    if(this.state.days.includes(e)){
+      return true;
+    }
+    return false;
+  }
 
   componentDidMount() {
+    
     if (this.props.history.location.state === undefined)
       this.props.history.push('/studyload/view');
     else {
-      //var temparr = [];
-      // if (typeof this.props.history !== 'undefined') {
-      //   console.log(this.props.history.location.state.id);
-      // }
+      var temparr = [];
       Api.viewByStudyloadId({
         studyload_id: this.props.history.location.state.id
       }).then(response => {
@@ -89,16 +102,19 @@ export default class EditStudyLoad extends Component {
           end_time: response.data.data[0].end_time,
           school: response.data.data[0].school
         });
+      }).then(()=>{
+        Api.getDays({studyload_id: this.props.location.state.id}).then(response =>{
+          response.data.data.forEach(json=>{
+            temparr.push(json.day);
+          })
+        }).then(()=>{
+          this.setState({days: temparr})
+        }).then( ()=>{
+          console.log(this.state.days); 
+        }
+        )
       });
     }
-    // Api.getDays(this.props.history.location.state.id).then((results)=>{
-    //   results.data.data.forEach(json=>{
-    //     temparr.push(json.day);
-    //   })
-    // }).then(()=>{
-    //   this.setState({days: temparr});
-    // }
-    // )
   }
 
   handleLogout(e) {
@@ -109,6 +125,13 @@ export default class EditStudyLoad extends Component {
 
   startEdit(e) {
     e.preventDefault();
+    if (
+      this.state.courseno !== '' &&
+      this.state.credits >= 0 &&
+      this.state.days.length >0 &&
+      this.state.school !== '' &&
+      this.compareTime()
+    ) {
     Api.editStudyLoad({
       studyload_id: this.props.history.location.state.id,
       courseno: this.state.courseno,
@@ -123,7 +146,8 @@ export default class EditStudyLoad extends Component {
         alert('Study load successfully edited!');
       })
       .catch(e => alert('Error editting new Study Load!'));
-  }
+    }else alert('Invalid input');
+    }
 
   render() {
     return (
@@ -225,6 +249,7 @@ export default class EditStudyLoad extends Component {
               <p>
                 <div className="ui checkbox">
                   <input
+                    checked={this.ifInDays("MON")}
                     type="checkbox"
                     value="MON"
                     onClick={this.handleChangeDays.bind(this.state.days)}
@@ -235,6 +260,7 @@ export default class EditStudyLoad extends Component {
 
                 <div className="ui checkbox">
                   <input
+                    checked={this.ifInDays("TUE")}
                     type="checkbox"
                     value="TUE"
                     onClick={this.handleChangeDays.bind(this.state.days)}
@@ -245,6 +271,7 @@ export default class EditStudyLoad extends Component {
 
                 <div className="ui checkbox">
                   <input
+                    checked={this.ifInDays("WED")}
                     type="checkbox"
                     value="WED"
                     onClick={this.handleChangeDays.bind(this.state.days)}
@@ -255,6 +282,7 @@ export default class EditStudyLoad extends Component {
                 <br />
                 <div className="ui checkbox">
                   <input
+                    checked={this.ifInDays("THU")}
                     type="checkbox"
                     value="THU"
                     onClick={this.handleChangeDays.bind(this.state.days)}
@@ -265,6 +293,7 @@ export default class EditStudyLoad extends Component {
                 <br />
                 <div className="ui checkbox">
                   <input
+                    checked={this.ifInDays("FRI")}
                     type="checkbox"
                     value="FRI"
                     onClick={this.handleChangeDays.bind(this.state.days)}
