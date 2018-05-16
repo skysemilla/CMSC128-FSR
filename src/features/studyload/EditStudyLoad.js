@@ -26,6 +26,7 @@ export default class EditStudyLoad extends Component {
     this.handleChangeSchool = this.handleChangeSchool.bind(this);
     this.uploadAttachment = this.uploadAttachment.bind(this);
     this.handleChangeDays = this.handleChangeDays.bind(this);
+    this.compareTime = this.compareTime.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.startEdit = this.startEdit.bind(this);
   }
@@ -55,7 +56,14 @@ export default class EditStudyLoad extends Component {
       this.setState({ days: newArray });
     }
   }
-
+  compareTime(){
+    if(((this.state.start_time)<(this.state.end_time))){
+      if(this.state.start_time < "25:00" && this.state.end_time < "25:00"){
+        return true;
+      }
+    }
+    return false;
+  }
   handleChangeTime2(e) {
     this.setState({ end_time: e.target.value });
   }
@@ -72,10 +80,11 @@ export default class EditStudyLoad extends Component {
   }
 
   componentDidMount() {
+    
     if (this.props.history.location.state === undefined)
       this.props.history.push('/studyload/view');
     else {
-      //var temparr = [];
+      var temparr = [];
       // if (typeof this.props.history !== 'undefined') {
       //   console.log(this.props.history.location.state.id);
       // }
@@ -89,16 +98,11 @@ export default class EditStudyLoad extends Component {
           end_time: response.data.data[0].end_time,
           school: response.data.data[0].school
         });
+      }).then(()=>{
+        console.log("HERE");   
+        console.log(this.state.days); 
       });
     }
-    // Api.getDays(this.props.history.location.state.id).then((results)=>{
-    //   results.data.data.forEach(json=>{
-    //     temparr.push(json.day);
-    //   })
-    // }).then(()=>{
-    //   this.setState({days: temparr});
-    // }
-    // )
   }
 
   handleLogout(e) {
@@ -106,9 +110,21 @@ export default class EditStudyLoad extends Component {
     Api.logout();
     this.props.history.push('/');
   }
-
+  // courseno: '',
+  // credits: 0,
+  // start_time: '',
+  // end_time: '',
+  // school: '',
+  // days: []
   startEdit(e) {
     e.preventDefault();
+    if (
+      this.state.courseno !== '' &&
+      this.state.credits >= 0 &&
+      this.state.days.length >0 &&
+      this.state.school !== '' &&
+      this.compareTime()
+    ) {
     Api.editStudyLoad({
       studyload_id: this.props.history.location.state.id,
       courseno: this.state.courseno,
@@ -123,7 +139,8 @@ export default class EditStudyLoad extends Component {
         alert('Study load successfully edited!');
       })
       .catch(e => alert('Error editting new Study Load!'));
-  }
+    }else alert('Invalid input');
+    }
 
   render() {
     return (
