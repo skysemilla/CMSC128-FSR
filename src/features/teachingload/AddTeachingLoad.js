@@ -66,6 +66,9 @@ export default class AddTeachingLoad extends Component {
     Api.viewAllSubjects().then(response => {
       if (response.data.data[0] !== undefined) {
         this.setState({ data: response.data.data });
+       
+        console.log(response.data.data);
+        // console.log("THIS IS THE RESPONSE");
       }
     });
   }
@@ -264,6 +267,7 @@ export default class AddTeachingLoad extends Component {
                     )
                   }
                 )}
+
               </select>
           </div>
 
@@ -307,6 +311,30 @@ export default class AddTeachingLoad extends Component {
               )}
               </select>
           </div>
+
+          <p>
+           {
+            this.state.data.map(
+              (item)=>{
+                if(this.state.seccode === item.section_code){
+                  return(
+                    <div>
+                      <div className="ui yellow horizontal large label">
+                        Time
+                      </div>
+                      {item.start_time} - {item.end_time}
+                      <div className="ui yellow horizontal large label">
+                        Day
+                      </div>
+                      {item.day}
+                      
+                    </div>
+                  )
+                }
+                else if(this.state.seccode === ""){}
+              }
+            )}
+          </p>
 
           <p>
             <a className="ui small header">No. of Students</a>
